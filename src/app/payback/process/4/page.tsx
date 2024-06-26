@@ -50,6 +50,7 @@ export default Page;
 
 const Container = styled.div`
   padding: 20px;
+  padding-bottom: 100px;
 `;
 
 const CheckboxButtonWrapper = styled.div`

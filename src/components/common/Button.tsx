@@ -40,5 +40,7 @@ const Container = styled.button<{ bgc: string; border: boolean | undefined; bord
   font-size: ${(props) => (props.small ? "16px" : "18px")};
   font-weight: ${(props) => (props.small ? "normal" : 700)};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
+  max-width: 780px;
+  margin: 25px auto;
   cursor: pointer;
 `;
