@@ -1,8 +1,17 @@
 html,
 body {
+}
+
+html {
+  background-color: rgb(237, 237, 237);
+}
+body {
+  background-color: #fff;
   position: relative;
   overflow-x: hidden;
   height: 100%;
+  max-width: 800px;
+  margin: 0 auto !important;
 }
 
 .swiper-wrapper {

@@ -16,7 +16,7 @@ const AverageRefund = () => {
       <Title>1인 평균 환급액</Title>
       <HorizontalList>
         <Swiper
-          slidesPerView={4.5}
+          slidesPerView={2.5}
           spaceBetween={5}
           pagination={{
             clickable: true,
@@ -58,7 +58,7 @@ const Title = styled.h2`
 `;
 
 const HorizontalList = styled.div`
-  padding: 25px 0;
+  padding: 25px 10px;
   /* overflow: scroll; */
 `;
 
@@ -70,6 +70,7 @@ const ListItem = styled.div`
   gap: 5px;
   justify-content: center;
   margin-left: 5px;
+  flex-wrap: nowrap;
 `;
 
 const ListItemName = styled.p`

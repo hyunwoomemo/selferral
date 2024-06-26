@@ -14,13 +14,15 @@ const Header = () => {
 
   return (
     <Container>
-      <Logo href={"/"}>
-        <SiLoop />
-        tetherMin
-      </Logo>
-      <Hambuger onClick={() => setSidebar("0px")}>
-        <GoSidebarExpand size={24} />
-      </Hambuger>
+      <div style={{ maxWidth: "800px", display: "flex", justifyContent: "space-between", flex: "1 1 auto", margin: "0 auto", alignItems: "center" }}>
+        <Logo href={"/"}>
+          <SiLoop />
+          tetherMin
+        </Logo>
+        <Hambuger onClick={() => setSidebar("0px")}>
+          <GoSidebarExpand size={24} />
+        </Hambuger>
+      </div>
     </Container>
   );
 };
@@ -38,6 +40,7 @@ const Container = styled.div`
   right: 0;
   background-color: #fff;
   z-index: 9997;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const Logo = styled(Link)`
