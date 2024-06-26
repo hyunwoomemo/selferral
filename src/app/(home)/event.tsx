@@ -17,8 +17,8 @@ const Event = () => {
       </TextWrapper>
       <HorizontalList>
         <Swiper
-          slidesPerView={4}
-          spaceBetween={10}
+          slidesPerView={3}
+          spaceBetween={30}
           pagination={{
             clickable: true,
           }}

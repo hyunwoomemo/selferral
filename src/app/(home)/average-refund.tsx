@@ -16,7 +16,7 @@ const AverageRefund = () => {
       <Title>1인 평균 환급액</Title>
       <HorizontalList>
         <Swiper
-          slidesPerView={2.5}
+          slidesPerView={1.5}
           spaceBetween={5}
           pagination={{
             clickable: true,

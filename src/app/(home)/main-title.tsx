@@ -26,8 +26,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 28px 24px 16px;
-  margin-top: 40px;
+  padding: 58px 24px 16px;
+  margin-top: 50px;
 `;
 
 const Text = styled.h1`

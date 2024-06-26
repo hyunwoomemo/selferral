@@ -12,12 +12,13 @@ body {
   height: 100%;
   max-width: 800px;
   margin: 0 auto !important;
+  min-height: 100vh;
 }
 
 .swiper-wrapper {
   transition-timing-function: linear;
 }
 
-.swiper-slide {
+/* .swiper-slide {
   width: auto;
-}
+} */
