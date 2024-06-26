@@ -1,16 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { GoSidebarExpand } from "react-icons/go";
 import { SiLoop } from "react-icons/si";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { sidebarAtom } from "@/store/sidebar/atom";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [sidebar, setSidebar] = useAtom(sidebarAtom);
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/payback");
+  }, [router]);
 
   return (
     <Container>
@@ -19,7 +25,13 @@ const Header = () => {
           <SiLoop />
           tetherMin
         </Logo>
-        <Hambuger onClick={() => setSidebar("0px")}>
+        <Hambuger
+          onClick={() => {
+            setSidebar("0px");
+            document.body.style.overflow = "hidden";
+            document.body.style.touchAction = "none";
+          }}
+        >
           <GoSidebarExpand size={24} />
         </Hambuger>
       </div>

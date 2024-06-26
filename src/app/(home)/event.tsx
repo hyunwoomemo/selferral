@@ -17,7 +17,7 @@ const Event = () => {
       </TextWrapper>
       <HorizontalList>
         <Swiper
-          slidesPerView={3}
+          slidesPerView={"auto"}
           spaceBetween={30}
           pagination={{
             clickable: true,
@@ -25,7 +25,7 @@ const Event = () => {
           className="mySwiper"
         >
           {dummyEvent.map((dummy, index) => (
-            <SwiperSlide about="" key={index}>
+            <SwiperSlide id="event-slide" about="" key={index}>
               <ListItem key={index}>
                 <Image style={{ borderRadius: 20 }} src={dummy.image} width={155} height={155} alt="eventImage" />
                 <ListItemTitle>{dummy.title}</ListItemTitle>
@@ -74,16 +74,22 @@ const ListItem = styled.div`
   flex-direction: column;
   border-radius: 10px;
   gap: 10px;
+  width: 100%;
 `;
 
 const ListItemTitle = styled.p`
   color: ${styles.gray1};
   font-weight: 600;
+  max-width: 155px;
 `;
 
 const ListItemContents = styled.p`
   font-size: 20px;
   font-weight: 800;
+  max-width: 155px;
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
 `;
 
 const DateWrapper = styled.div`

@@ -7,11 +7,12 @@ import { styles } from "@/styles";
 import Image from "next/image";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useAtom(sidebarAtom);
+  const router = useRouter();
 
   const pathname = usePathname();
 
@@ -33,8 +34,8 @@ const Sidebar = () => {
   return (
     <Container sidebar={sidebar}>
       <Wrapper>
-        <Button label="로그인" bgc={"#fff"} onClick={() => null} small borderRadius={10} border borderColor={styles.blue} color={styles.blue} />
-        <Button label="회원가입" bgc={styles.blue} onClick={() => null} small borderRadius={10} />
+        <Button label="로그인" bgc={"#fff"} onClick={() => router.push("/login")} small borderRadius={10} border borderColor={styles.blue} color={styles.blue} />
+        <Button label="회원가입" bgc={styles.blue} onClick={() => router.push("/signup")} small borderRadius={10} />
       </Wrapper>
       <SidebarItemWrapper>
         <SidebarItem href={"/"}>

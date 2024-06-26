@@ -19,6 +19,7 @@ body {
   transition-timing-function: linear;
 }
 
-/* .swiper-slide {
-  width: auto;
-} */
+#refund-slide,
+#event-slide {
+  width: auto !important;
+}

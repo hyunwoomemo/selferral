@@ -16,7 +16,7 @@ const AverageRefund = () => {
       <Title>1인 평균 환급액</Title>
       <HorizontalList>
         <Swiper
-          slidesPerView={1.5}
+          slidesPerView={"auto"}
           spaceBetween={5}
           pagination={{
             clickable: true,
@@ -24,7 +24,7 @@ const AverageRefund = () => {
           className="mySwiper"
         >
           {dummyTrade.map((dummy, index) => (
-            <SwiperSlide about="" key={index}>
+            <SwiperSlide id="refund-slide" about="" key={index}>
               <ListItem onClick={() => setUidSearch(dummy.name)}>
                 <ListItemName>{dummy.name}</ListItemName>
                 <ListItemAmount>{dummy.averageRefund / 10000}만원</ListItemAmount>
