@@ -16,6 +16,7 @@ const Header = () => {
 
   useEffect(() => {
     router.prefetch("/payback");
+    router.prefetch("/uid");
   }, [router]);
 
   useEffect(() => {

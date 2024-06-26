@@ -16,6 +16,10 @@ const Container = styled.div<{ height: string; background?: boolean }>`
   background-color: ${(props) => (props.background ? "#ededed" : "transparent")};
   height: ${(props) => props.height};
   border-radius: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 const Progress = styled.div<{ width: string; tooltip?: string }>`
