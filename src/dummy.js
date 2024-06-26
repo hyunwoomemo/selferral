@@ -11,7 +11,7 @@ export const dummyTrade = [
   {
     name: "DeepCoin",
     averageRefund: 720000,
-    image: require("./assets/DeepCoin.webp"),
+    image: require("./assets/deepCoin.webp"),
     tag: "신규 제휴 ⭐️",
     payback: "70%",
     discount: "50%",
