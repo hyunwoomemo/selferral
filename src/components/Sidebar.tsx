@@ -19,6 +19,17 @@ const Sidebar = () => {
     setSidebar("-300px");
   }, [pathname, setSidebar]);
 
+  useEffect(() => {
+    if (sidebar === "0px") {
+      // document.documentElement.style.overflowY = "hidden";
+    } else {
+      // document.documentElement.style.overflowY = "";
+    }
+    return () => {
+      // document.documentElement.style.overflowY = "";
+    };
+  }, [sidebar]);
+
   return (
     <Container sidebar={sidebar}>
       <Wrapper>
@@ -54,7 +65,7 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Container = styled.div<{ sidebar: string }>`
-  position: absolute;
+  position: fixed;
   right: ${(props) => props.sidebar};
   top: 0;
   bottom: 0;
