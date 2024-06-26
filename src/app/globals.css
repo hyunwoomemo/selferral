@@ -1,7 +1,8 @@
 body {
   max-width: 800px;
+  position: relative;
   margin: 0 auto !important;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 .swiper-wrapper {
