@@ -18,6 +18,16 @@ const Header = () => {
     router.prefetch("/payback");
   }, [router]);
 
+  useEffect(() => {
+    if (sidebar === "0px") {
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = "auto";
+      document.body.style.touchAction = "auto";
+    }
+  }, [sidebar]);
+
   return (
     <Container>
       <div style={{ maxWidth: "800px", display: "flex", justifyContent: "space-between", flex: "1 1 auto", margin: "0 auto", alignItems: "center" }}>
@@ -28,8 +38,6 @@ const Header = () => {
         <Hambuger
           onClick={() => {
             setSidebar("0px");
-            document.body.style.overflow = "hidden";
-            document.body.style.touchAction = "none";
           }}
         >
           <GoSidebarExpand size={24} />
