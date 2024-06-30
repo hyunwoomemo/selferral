@@ -12,7 +12,7 @@ const page = ({ params }: { params: any }) => {
   return (
     <div>
       <Header />
-      <div style={{ marginTop: 70 }}></div>
+      {/* <div style={{ marginTop: 70 }}></div> */}
       <div style={{ display: "flex", justifyContent: "center", backgroundColor: "rgb(21, 25, 42)" }}>
         <Image src={require(`@/assets/banner/${params.trade}.webp`)} width={200} height={200} alt="trade-image" />
       </div>

@@ -29,7 +29,7 @@ const Page = () => {
 
   return (
     <Container>
-      <TextWrapper texts={["!하루에 몇 번 정도", "!거래하시나요?", "거래 성향을 알려주세요"]} />
+      <TextWrapper texts={["!하루에 몇 번 정도", "!거래하시나요?", "거래 성향을 알려주세요"]} sizes={[20, 20, 16]} gaps={[5, 26]} />
       <CheckboxButtonWrapper>
         {datas.map((data, index) => {
           return (

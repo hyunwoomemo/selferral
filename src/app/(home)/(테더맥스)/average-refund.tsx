@@ -3,8 +3,8 @@
 import "swiper/css";
 import React from "react";
 import styled from "styled-components";
-import { styles } from "../../styles";
-import { dummyTrade } from "../../dummy";
+import { styles } from "../../../styles";
+import { dummyTrade } from "../../../dummy";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSetAtom } from "jotai";
 import { uidSearchAtom } from "@/store/uid/atom";

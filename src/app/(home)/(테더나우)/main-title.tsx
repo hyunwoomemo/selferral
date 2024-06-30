@@ -14,7 +14,7 @@ const MainTitle = () => {
       </Wrapper>
       <Wrapper>
         <SmallText>선물거래 수수료 페이백 플랫폼, </SmallText>
-        <SmallColorText>테더민</SmallColorText>
+        <SmallColorText>셀퍼럴</SmallColorText>
       </Wrapper>
     </Container>
   );
@@ -27,7 +27,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 58px 24px 16px;
-  margin-top: 50px;
+  /* margin-bottom: 30px; */
 `;
 
 const Text = styled.h1`

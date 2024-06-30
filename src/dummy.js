@@ -32,7 +32,7 @@ export const dummyTrade = [
     image: require("./assets/okx.webp"),
     tag: "준비금 증명 🧳",
     payback: "54%",
-    // discount: "20%",
+    discount: "20%",
     closing: "98%",
   },
   {
@@ -41,6 +41,7 @@ export const dummyTrade = [
     image: require("./assets/bingx.webp"),
     tag: "추천거래소 👏🏻",
     payback: "60%",
+    discount: "20%",
     closing: "72%",
   },
   {

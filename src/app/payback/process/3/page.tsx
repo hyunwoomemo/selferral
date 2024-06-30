@@ -13,7 +13,7 @@ const Page = () => {
 
   return (
     <Container>
-      <TextWrapper texts={["!시드가", "!얼마나 되시나요?", "selectedIndex 값에 보유한 총 시드를 알려주세요"]} />
+      <TextWrapper texts={["!시드가", "!얼마나 되시나요?", "보유한 총 시드를 알려주세요"]} sizes={[20, 20, 16]} gaps={[5, 26]} />
       <InputWrapper>
         <Input placeholder="시드를 입력해주세요" onChange={(e: any) => setSeed(e.target.value)} />
       </InputWrapper>

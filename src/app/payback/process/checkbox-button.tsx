@@ -24,7 +24,7 @@ const Container = styled.div<{ isSelected: boolean }>`
   align-items: center;
   flex: 1 1 auto;
   min-width: 46%;
-  background-color: ${(props) => (props.isSelected ? styles.sky : undefined)};
+  /* background-color: ${(props) => (props.isSelected ? styles.sky : undefined)}; */
   cursor: pointer;
 `;
 

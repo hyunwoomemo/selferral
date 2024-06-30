@@ -26,7 +26,7 @@ const Contents = ({ data }: IContents) => {
         <PayBackColorText>{data.payback}</PayBackColorText>
       </Payback>
       <ProgressbarWrapper>
-        <ProgressBar height="7px" width={progress} background={true} tooltip={progress} />
+        <ProgressBar height="7px" width={progress} background={true} tooltip={progress} fixed={false} />
       </ProgressbarWrapper>
     </Container>
   );

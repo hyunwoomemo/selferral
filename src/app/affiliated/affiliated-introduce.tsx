@@ -12,18 +12,18 @@ const AffiliatedIntroduce = () => {
     <>
       <Container>
         <TextWrapper>
-          <Text>테더맥스의</Text>
+          <Text>셀퍼럴의</Text>
           <div style={{ display: "flex", gap: 10 }}>
             <ColorText>제휴 거래소를</ColorText>
             <Text>소개합니다!</Text>
           </div>
           <div style={{ display: "flex", gap: 10 }}>
             <SmallText>세계 최고의 가상자산 거래소들과 함께하는</SmallText>
-            <SmallColorText>테더맥스</SmallColorText>
+            <SmallColorText>셀퍼럴</SmallColorText>
           </div>
         </TextWrapper>
       </Container>
-      <Swiper
+      {/* <Swiper
         style={{ padding: "0px 20px" }}
         slidesPerView={7}
         // centeredSlides={true}
@@ -52,12 +52,12 @@ const AffiliatedIntroduce = () => {
             </SwiperSlide>
           );
         })}
-      </Swiper>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 30 }}>
+      </Swiper> */}
+      {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 30 }}>
         <BottomText>※ 주요 파트너사들과</BottomText>
         <BottomColorText>공식 계약을 체결</BottomColorText>
         <BottomText>은 테더맥스 뿐입니다.</BottomText>
-      </div>
+      </div> */}
     </>
   );
 };

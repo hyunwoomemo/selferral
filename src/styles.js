@@ -4,7 +4,7 @@ export const styles = {
   gray3: "#5c5d5f",
   red: "#de4743",
   sky: "#e9f3ff",
-  blue: "#0067ff",
+  blue: "rgb(241,127,34)",
   borderRadius: "20px",
-  grayText: "#a0a9b9",
+  grayText: "#82879b",
 };

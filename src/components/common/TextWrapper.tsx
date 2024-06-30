@@ -2,41 +2,72 @@
 import { styles } from "@/styles";
 import styled from "styled-components";
 
-const TextWrapper = ({ texts }: { texts: string[] }) => {
+const TextWrapper = ({
+  texts,
+  sizes = [20, 36],
+  gaps,
+  emphasisSize,
+  smallEmphasisSize,
+  left,
+  smallTextColor,
+}: {
+  texts: string[];
+  sizes: number[];
+  gaps?: number[];
+  emphasisSize?: number;
+  smallEmphasisSize?: number;
+  left?: boolean;
+  smallTextColor?: string;
+}) => {
   return (
-    <Container>
+    <Container left={left}>
       {texts.map((text, index) => {
-        if (text[0] === "!") {
-          const t = text.slice(1);
+        const parts = text.split(/(\*[^*]+\*)/g); // split text by emphasis
+        const gap = (gaps && gaps.length > 0 && gaps[index] && gaps[index]) || 0;
+        const size = sizes[index];
 
-          const firstStar = t.indexOf("*");
-          const lastStar = t.indexOf("*", firstStar + 1);
-          if (firstStar > -1 && lastStar > -1) {
-            return (
-              <div key={index} style={{ display: "flex" }}>
-                <Text>{t.slice(0, firstStar)}</Text>
-                <ColorText>{t.slice(firstStar + 1, lastStar)}</ColorText>
-                <Text>{t.slice(lastStar + 1)}</Text>
-              </div>
-            );
-          }
-
-          return <Text key={index}>{t}</Text>;
+        if (text.startsWith("!")) {
+          return (
+            <div key={index} style={{ display: "flex", alignItems: "flex-end", paddingBottom: gap, flexWrap: "wrap" }}>
+              {parts.map((part, partIndex) => {
+                if (part.startsWith("*") && part.endsWith("*")) {
+                  const content = part.slice(1, -1);
+                  return (
+                    <ColorText key={partIndex} size={emphasisSize || size}>
+                      {content}
+                    </ColorText>
+                  );
+                } else {
+                  return (
+                    <Text key={partIndex} size={size}>
+                      {part.slice(1)}
+                    </Text>
+                  );
+                }
+              })}
+            </div>
+          );
         } else {
-          const firstStar = text.indexOf("*");
-          const lastStar = text.indexOf("*", firstStar + 1);
-          if (firstStar > -1 && lastStar > -1) {
-            return (
-              <div key={index} style={{ display: "flex" }}>
-                <SmallText>{text.slice(0, firstStar)}</SmallText>
-
-                <SmallColorText>{text.slice(firstStar + 1, lastStar)}</SmallColorText>
-                <SmallText>{text.slice(lastStar + 1)}</SmallText>
-              </div>
-            );
-          }
-
-          return <SmallText key={index}>{text}</SmallText>;
+          return (
+            <div key={index} style={{ display: "flex", paddingBottom: gap, flexWrap: "wrap" }}>
+              {parts.map((part, partIndex) => {
+                if (part.startsWith("*") && part.endsWith("*")) {
+                  const content = part.slice(1, -1);
+                  return (
+                    <SmallColorText key={partIndex} size={smallEmphasisSize || size}>
+                      {content}
+                    </SmallColorText>
+                  );
+                } else {
+                  return (
+                    <SmallText key={partIndex} size={size} smallTextColor={smallTextColor}>
+                      {part}
+                    </SmallText>
+                  );
+                }
+              })}
+            </div>
+          );
         }
       })}
     </Container>
@@ -45,28 +76,30 @@ const TextWrapper = ({ texts }: { texts: string[] }) => {
 
 export default TextWrapper;
 
-const Container = styled.div``;
+const Container = styled.div<{ left?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: ${(props) => (props.left ? undefined : "center")};
+  justify-content: center;
+`;
 
-const Text = styled.p`
-  font-size: 22px;
+const Text = styled.p<{ size: number }>`
+  font-size: ${(props) => `${props.size}px`};
   font-weight: 700;
-  line-height: 150%;
-  white-space: pre-wrap; /* Ensures whitespace is preserved */
+  white-space: pre-wrap;
 `;
 
-const SmallText = styled.p`
-  font-size: 14px;
+const SmallText = styled.p<{ size: number; smallTextColor?: string }>`
+  font-size: ${(props) => `${props.size}px`};
   font-weight: 600;
-  color: ${styles.grayText};
-  line-height: 120%;
-  margin-top: 10px;
-  white-space: pre-wrap; /* Ensures whitespace is preserved */
+  color: ${(props) => (props.smallTextColor ? props.smallTextColor : styles.grayText)};
+  white-space: pre-wrap;
 `;
 
-const ColorText = styled(Text)`
+const ColorText = styled(Text)<{ size: number }>`
   color: ${styles.blue};
 `;
 
-const SmallColorText = styled(SmallText)`
+const SmallColorText = styled(SmallText)<{ size: number }>`
   color: ${styles.blue};
 `;

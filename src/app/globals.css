@@ -4,15 +4,17 @@ body {
 
 html {
   background-color: rgb(237, 237, 237);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 body {
   background-color: #fff;
   position: relative;
-  overflow-x: hidden;
   height: 100%;
   max-width: 800px;
   margin: 0 auto !important;
   min-height: 100vh;
+  /* overflow: hidden; */
 }
 
 .swiper-wrapper {

@@ -15,7 +15,7 @@ const Page = () => {
 
   return (
     <Container>
-      <TextWrapper texts={["!가장 자주 쓰는", "!거래소 하나만 선택해주세요", "어떤 거래소를 이용하고 계신가요?"]} />
+      <TextWrapper texts={["!가장 자주 쓰는", "!거래소 하나만 선택해주세요", "어떤 거래소를 이용하고 계신가요?"]} sizes={[20, 20, 16]} gaps={[5, 26]} />
       <CheckboxWrapper>
         {dummyTrade.map((dummy, index) => {
           return (
@@ -59,9 +59,9 @@ const CheckboxWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  padding: 20px 20px 0;
+  right: 0; */
+  /* padding: 20px 20px 0; */
 `;

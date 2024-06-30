@@ -13,7 +13,7 @@ const Page = () => {
 
   return (
     <Container>
-      <TextWrapper texts={["!레버리지 얼마나", "!사용하시나요?", "평균적인 레버리지 배율을 알려주세요"]} />
+      <TextWrapper texts={["!레버리지 얼마나", "!사용하시나요?", "평균적인 레버리지 배율을 알려주세요"]} sizes={[20, 20, 16]} gaps={[5, 26]} />
       <InputWrapper>
         <Input placeholder="1 ~ 125 (숫자를 입력해주세요)" onChange={(e: any) => setInputValue(e.target.value)} />
       </InputWrapper>

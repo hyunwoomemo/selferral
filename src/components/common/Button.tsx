@@ -33,8 +33,8 @@ const Container = styled.button<{ bgc: string; border: boolean | undefined; bord
   flex: 1 1 auto;
   width: 100%;
   border-radius: ${(props) => props.borderRadius}px;
-  margin: ${(props) => (props.small ? "8px 0" : "15px 0")};
-  padding: ${(props) => (props.small ? "8px 0" : "20px 0")};
+  margin: ${(props) => (props.small ? "12px 0" : "15px 20px")};
+  padding: ${(props) => (props.small ? "12px 0" : "20px 30px")};
   justify-content: center;
   align-items: center;
   font-size: ${(props) => (props.small ? "16px" : "18px")};
