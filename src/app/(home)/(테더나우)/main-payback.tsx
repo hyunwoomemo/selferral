@@ -11,7 +11,7 @@ const MainPayback = () => {
   const router = useRouter();
 
   const { ref, inView } = useInView({
-    threshold: 0.5, // 요소가 10% 보일 때 트리거
+    threshold: 0.2, // 요소가 20% 보일 때 트리거
     triggerOnce: true,
   });
 
