@@ -88,6 +88,7 @@ const InputWrapper = styled.div`
     border: none;
     flex: 1 1 auto;
     outline: none;
+    font-size: 16px;
   }
 `;
 
