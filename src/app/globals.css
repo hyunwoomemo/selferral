@@ -1,11 +1,13 @@
 html,
 body {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 html {
   background-color: rgb(237, 237, 237);
   position: relative;
-  overflow-x: hidden;
   overflow-y: auto;
 }
 body {
