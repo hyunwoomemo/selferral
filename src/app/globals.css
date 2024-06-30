@@ -4,6 +4,7 @@ body {
 
 html {
   background-color: rgb(237, 237, 237);
+  position: relative;
   overflow-x: hidden;
   overflow-y: auto;
 }
