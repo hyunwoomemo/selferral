@@ -19,9 +19,9 @@ const Page = () => {
         <Header />
         <div style={{ paddingTop: "80px" }}></div>
         <TextWrapper
-          texts={["!로그인", "주요 거래소와 *공식 계약을 체결*한 곳은 오직 테더맥스 뿐이에요.", "회원이라면 누구나 다양한 미션을 수행하고 USDT를 받아보세요."]}
-          sizes={[20, 20, 16]}
-          gaps={[0, 26]}
+          texts={["!로그인", "주요 거래소와 *공식 계약을 체결*한 곳은 ", "오직 테더맥스 뿐이에요.", "회원이라면 누구나 다양한 미션을 수행하고 ", "USDT를 받아보세요."]}
+          sizes={[20, 20, 20, 16, 16]}
+          gaps={[40, 10, 26, 10, 30]}
         />
         <div style={{ paddingTop: 50 }}></div>
         <LabelInput placeholder="이메일을 입력해주세요" label="이메일" onChange={(e: ChangeEvent<HTMLInputElement>) => setValues((prev) => ({ ...prev, email: e.target.value }))} />
