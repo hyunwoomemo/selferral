@@ -15,8 +15,8 @@ const Page = () => {
 
   return (
     <>
+      <Header />
       <Container>
-        <Header />
         <div style={{ paddingTop: "80px" }}></div>
         <TextWrapper
           texts={["!로그인", "주요 거래소와 *공식 계약을 체결*한 곳은 ", "오직 테더맥스 뿐이에요.", "회원이라면 누구나 다양한 미션을 수행하고 ", "USDT를 받아보세요."]}

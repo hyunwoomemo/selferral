@@ -20,10 +20,14 @@ const Page = () => {
 
   return (
     <>
+      <Header />
       <Container>
-        <Header />
         <Image src={require("../../assets/Bmeal.webp")} width={80} height={80} alt="bmeal" style={{ margin: "80px 0 20px" }} />
-        <TextWrapper texts={["!선물 거래 *수수료 페이백 테더맥스*에", "!오신 것을 환영합니다", "테더맥스는 거래소에서 발생한 수수료를", "트레이더님들께 *직접 환급*해주는 페이백 서비스에요"]} />
+        <TextWrapper
+          texts={["!선물 거래 *수수료 페이백 테더맥스*에", "!오신 것을 환영합니다", "테더맥스는 거래소에서 발생한 수수료를", "트레이더님들께 *직접 환급*해주는 페이백 서비스에요"]}
+          sizes={[18, 18, 16, 16]}
+          gaps={[10, 30, 10, 30]}
+        />
         <div style={{ paddingBottom: 50 }}></div>
         <LabelInput placeholder={"이메일을 입력해주세요"} label="이메일" onChange={(e: ChangeEvent<HTMLInputElement>) => setValues((prev) => ({ ...prev, email: e.target.value }))} />
         <div style={{ padding: "15px" }}></div>
