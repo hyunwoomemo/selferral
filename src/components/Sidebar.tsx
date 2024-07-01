@@ -43,6 +43,11 @@ const Sidebar = () => {
           <SidebarItemName>홈</SidebarItemName>
           <IoIosArrowForward color={styles.grayText} />
         </SidebarItem>
+        <SidebarItem href={"/"}>
+          <SidebarItemIcon src={require("@/assets/Bmeal.webp")} alt="icon" />
+          <SidebarItemName>공지사항</SidebarItemName>
+          <IoIosArrowForward color={styles.grayText} />
+        </SidebarItem>
         <SidebarItem href={"/affiliated"}>
           <SidebarItemIcon src={require("@/assets/exchange.webp")} alt="icon" />
           <SidebarItemName>제휴 거래소</SidebarItemName>
@@ -51,6 +56,11 @@ const Sidebar = () => {
         <SidebarItem href="/">
           <SidebarItemIcon src={require("@/assets/introduce.webp")} alt="icon" />
           <SidebarItemName>서비스 소개</SidebarItemName>
+          <IoIosArrowForward color={styles.grayText} />
+        </SidebarItem>
+        <SidebarItem href="/content/vip">
+          <SidebarItemIcon src={require("@/assets/introduce.webp")} alt="icon" />
+          <SidebarItemName>VIP</SidebarItemName>
           <IoIosArrowForward color={styles.grayText} />
         </SidebarItem>
         <SidebarItem href="/payback">
