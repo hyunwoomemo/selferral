@@ -7,13 +7,8 @@ import { styles } from "@/styles";
 import { useInView } from "react-intersection-observer";
 
 const ListItem = () => {
-  const { ref, inView } = useInView({
-    threshold: 0.7, // 요소가 10% 보일 때 트리거
-    triggerOnce: true,
-  });
-
   return (
-    <Container ref={ref} inView={inView}>
+    <Container>
       <div>
         <Image src={require("@/assets/event.png")} alt="event" fill />
         <Contents>
@@ -29,17 +24,10 @@ const ListItem = () => {
 
 export default ListItem;
 
-const Container = styled.div<{ inView: any }>`
+const Container = styled.div`
   border-radius: 10px;
   /* background-color: red; */
   width: 97%;
-  /* height: 450px; */
-
-  transition: all 0.6s ease-out, transform 0.6s ease-out;
-
-  /* opacity: ${(props) => (props.inView ? 1 : 0.5)}; */
-  /* transform: ${(props) => (props.inView ? "translateY(0);" : "translateY(20px)")}; */
-  filter: ${(props) => (props.inView ? "grayscale(0)" : "grayscale(1)")};
 
   > div:first-child {
     width: 100%;
