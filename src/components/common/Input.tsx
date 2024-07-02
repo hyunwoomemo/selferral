@@ -62,7 +62,7 @@ const StyledInput = styled.input`
   border: none;
   flex: 1 1 auto;
   padding: 10px;
-  font-size: 20px;
+  font-size: 16px;
   color: ${styles.grayText};
   font-weight: 600;
   outline: none;
@@ -79,7 +79,7 @@ const Label = styled.p<{ isFocus: boolean }>`
 `;
 
 const Button = styled.div<{ disabled: boolean }>`
-  padding: 15px 40px;
+  padding: 15px 30px;
   margin: 10px 0;
   color: #fff;
   border-radius: 10px;

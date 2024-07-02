@@ -19,7 +19,7 @@ const MainPayback = () => {
     <Container ref={ref} inView={inView}>
       <TextWrapper texts={["*손쉽게 확인해 보세요!*", "!예상 페이백 평균", "!*685,842*원 입니다."]} emphasisSize={36} sizes={[16, 28, 28]} gaps={[30, 30]} />
       <div>
-        <Button label="내 예상 페이백 확인하기" bgc="#fff" onClick={() => router.push("/")} color={styles.blue} border borderColor={styles.blue} />
+        <Button label="내 예상 페이백 확인하기" bgc="#fff" onClick={() => router.push("/payback")} color={styles.blue} border borderColor={styles.blue} />
       </div>
       {/* <Image src={require("@/assets/img_sec2_mainimg.png")} width={270} alt="payback" /> */}
     </Container>
@@ -36,7 +36,7 @@ const Container = styled.div<{ inView: any }>`
   align-items: center;
   /* justify-content: space-between; */
   justify-content: center;
-  background-color: rgb(249, 249, 249);
+  /* background-color: rgb(249, 249, 249); */
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 
   opacity: ${(props) => (props.inView ? 1 : 0)};

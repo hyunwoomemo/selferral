@@ -6,6 +6,7 @@ import { styles } from "@/styles";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import VipItem from "./vip-item";
+import { useRouter } from "next/navigation";
 
 const vipData = [
   {
@@ -37,6 +38,7 @@ const vipData = [
 
 const Page = () => {
   const [toggle, setToggle] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -81,7 +83,7 @@ const Page = () => {
           sizes={[18, 16, 16]}
           gaps={[20, 10, 10, 40]}
         />
-        <Button small label="추천 거래소 둘러보기 >" bgc={styles.blue} onClick={null} borderRadius={5} />
+        <Button small label="추천 거래소 둘러보기 >" bgc={styles.blue} onClick={() => router.push("/affiliated")} borderRadius={5} />
       </div>
     </>
   );

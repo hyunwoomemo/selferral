@@ -71,7 +71,7 @@ export default MainSearch;
 const Container = styled.div`
   display: flex;
   gap: 5px;
-  padding: 20px;
+  padding: 10px;
 `;
 
 const InputWrapper = styled.div`

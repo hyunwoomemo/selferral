@@ -56,6 +56,7 @@ const ResetPassword = styled(Link)`
   text-decoration: none;
   color: ${styles.blue};
   font-weight: bold;
+  font-size: 12px;
 `;
 
 const JoinWrapper = styled.div`

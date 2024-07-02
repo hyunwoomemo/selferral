@@ -47,7 +47,7 @@ const Page = () => {
         <CheckboxWrapper>
           <FaSquareCheck color={styles.blue} size={24} />
           <CheckboxTextWrapper>
-            <CheckboxText>저는 테더맥스의 </CheckboxText>
+            <CheckboxText>저는 셀퍼럴의 </CheckboxText>
             <CheckboxLinkText href={""}>이용약관 </CheckboxLinkText>
             <CheckboxText>및 </CheckboxText>
             <CheckboxLinkText href={""}>개인정보 보호 정책</CheckboxLinkText>
@@ -94,6 +94,8 @@ const CheckboxTextWrapper = styled.div`
   display: flex;
   white-space: pre-wrap; /* Ensures whitespace is preserved */
   align-items: center;
+  flex-wrap: wrap;
+  line-height: 120%;
 `;
 
 const CheckboxText = styled.p``;
