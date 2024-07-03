@@ -81,7 +81,7 @@ const InviteText = styled.p`
 `;
 
 const CheckboxWrapper = styled.div`
-  margin: 50px 0;
+margin: 50px 0;
   padding: 15px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);

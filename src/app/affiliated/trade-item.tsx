@@ -17,13 +17,14 @@ interface ITradeItemDataProps {
 
 interface ITradeItemProps {
   data: ITradeItemDataProps;
+  onClick: () => void;
 }
 
-const TradeItem = ({ data }: ITradeItemProps) => {
+const TradeItem = ({ data, onClick }: ITradeItemProps) => {
   const router = useRouter();
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Logo>{data.name}</Logo>
       <Contents>
         <TextWrapper
