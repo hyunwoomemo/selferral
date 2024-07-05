@@ -13,7 +13,7 @@ const PaybackSection = () => {
     const options = {
       root: null, // viewport
       rootMargin: "0px",
-      threshold: 1, // 50% of the element is visible
+      threshold: 0.1, // 50% of the element is visible
     };
 
     const handleIntersect = (entries, observer) => {
@@ -42,7 +42,7 @@ const PaybackSection = () => {
     start: 1,
     end: 685842,
     delay: 0,
-    duration: 3,
+    duration: 2,
     onReset: () => console.log("Resetted!"),
     onUpdate: () => console.log("Updated!"),
     onPauseResume: () => console.log("Paused or resumed!"),
@@ -61,9 +61,9 @@ const PaybackSection = () => {
   }, [countStart, update]);
 
   return (
-    <div className="py-48 flex flex-col md:flex-row gap-28 justify-center items-center ">
+    <div className="py-20 md:py-48 flex flex-col md:flex-row gap-28 justify-center items-center ">
       <div className="flex-1  flex flex-col gap-5 items-center">
-        <p className="font-bold text-orange-400">손쉽게 확인해 보세요!</p>
+        <p className="font-bold text-orange-400">손쉽게 확인해 보세요! {countStart ? "true" : "false"}</p>
         <h1 className="font-bold text-3xl">예상 페이맥 평균</h1>
         <div className="flex justify-center items-end">
           {/* <h1 className="font-bold text-5xl text-orange-400">685,842</h1> */}
