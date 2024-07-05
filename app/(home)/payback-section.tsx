@@ -2,12 +2,15 @@
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
 
 const PaybackSection = () => {
   const countUpRef = useRef(null);
   const [countStart, setCountStart] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     const options = {
@@ -63,7 +66,7 @@ const PaybackSection = () => {
   return (
     <div className="py-20 md:py-48 flex flex-col md:flex-row gap-28 justify-center items-center ">
       <div className="flex-1  flex flex-col gap-5 items-center">
-        <p className="font-bold text-orange-400">손쉽게 확인해 보세요! {countStart ? "true" : "false"}</p>
+        <p className="font-bold text-orange-400">손쉽게 확인해 보세요! </p>
         <h1 className="font-bold text-3xl">예상 페이맥 평균</h1>
         <div className="flex justify-center items-end">
           {/* <h1 className="font-bold text-5xl text-orange-400">685,842</h1> */}
@@ -71,7 +74,10 @@ const PaybackSection = () => {
           {/* <CountUp className="font-bold text-5xl text-orange-400 min-w-64" end={685842} duration={2}></CountUp> */}
           <h1 className="font-bold text-3xl whitespace-nowrap">원 입니다.</h1>
         </div>
-        <Button className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}>
+        <Button
+          onClick={() => router.push("/payback")}
+          className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
+        >
           <p className="font-bold">내 예상 페이백 확인하기</p>
         </Button>
       </div>
