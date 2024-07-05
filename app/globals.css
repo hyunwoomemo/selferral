@@ -78,3 +78,7 @@
 #event-slide {
   width: auto !important;
 }
+
+html {
+  overflow-x: hidden;
+}

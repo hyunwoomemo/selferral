@@ -9,7 +9,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import Page2 from "./page2";
 import Page3 from "./page3";
 import Page4 from "./page4";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface IPageObj {
   pageNum: number;
@@ -19,6 +19,11 @@ export interface IPageObj {
 const Process = () => {
   const [selectTrade, setSelectTrade] = useState("");
   const router = useRouter();
+  const params = useSearchParams();
+
+  useEffect(() => {
+    const section = params.get("section");
+  }, [params]);
 
   return (
     <>
@@ -31,6 +36,7 @@ const Process = () => {
           render={({ state, fullpageApi }) => {
             console.log(state, fullpageApi);
             fullpageApi?.setAllowScrolling(false);
+            fullpageApi?.moveTo(params.get("section") || 1);
 
             // if (selectTrade) {
             //   fullpageApi?.setAllowScrolling(true);
@@ -39,17 +45,17 @@ const Process = () => {
             return (
               <ReactFullpage.Wrapper>
                 <div className="section">
-                  <Page1 setSelectTrade={setSelectTrade} onClick={() => fullpageApi.moveSectionDown()} prev={() => router.back()} />
+                  <Page1 setSelectTrade={setSelectTrade} onClick={() => router.push("/payback/process?section=2")} prev={() => router.back()} />
                   {/* <button>Click me to move down</button> */}
                 </div>
                 <div className="section">
-                  <Page2 onClick={() => fullpageApi.moveSectionDown()} prev={() => fullpageApi.moveSectionUp()} />
+                  <Page2 onClick={() => router.push("/payback/process?section=3")} />
                 </div>
                 <div className="section">
-                  <Page3 selectTrade={selectTrade} onClick={() => fullpageApi.moveSectionDown()} prev={() => fullpageApi.moveSectionUp()} />
+                  <Page3 selectTrade={selectTrade} onClick={() => router.push("/payback/process?section=4")} />
                 </div>
                 <div className="section">
-                  <Page4 onClick={() => fullpageApi.moveSectionDown()} prev={() => fullpageApi.moveSectionUp()} />
+                  <Page4 onClick={() => router.push(`/payback/result?name=${selectTrade}`)} />
                 </div>
               </ReactFullpage.Wrapper>
             );

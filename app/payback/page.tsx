@@ -9,10 +9,10 @@ const Page = () => {
 
   return (
     <div className="p-2">
-      <div className="py-3 text-2xl">
+      <div className="py-3 text-2xl font-bold">
         <p className="">지금 다른 사람들이</p>
         <p>돌려받는 수수료는 얼마?</p>
-        <p className="text-gray-800 dark:text-gray-400 text-[16px] py-3 ">간단하게 조회하세요. 40초면 끝나요!</p>
+        <p className="text-gray-400  text-[16px] py-3 ">간단하게 조회하세요. 40초면 끝나요!</p>
       </div>
       <div className="w-full px-2">
         <Button

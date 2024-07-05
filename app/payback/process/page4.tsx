@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 
-const Page4 = ({ onClick, selectTrade }: { onClick: () => void; selectTrade: string }) => {
+const Page4 = ({ onClick }: { onClick: () => void }) => {
   const [value, setValue] = useState(0);
 
   return (
@@ -14,22 +14,37 @@ const Page4 = ({ onClick, selectTrade }: { onClick: () => void; selectTrade: str
       <div className="font-normal text-[16px] text-gray-800 dark:text-gray-400 py-2">거래 성향을 알려주세요</div>
 
       <div className="flex flex-col gap-5 mx-5 mt-10">
-        <div className="border border-orange-400 dark:border-orange-200 p-5 rounded-md flex justify-center items-center">하루에 1번 할까 말까해요</div>
-        <div className="border border-orange-400 dark:border-orange-200 p-5 rounded-md flex justify-center items-center">하루에 1회 - 2회 거래해요</div>
-        <div className="border border-orange-400 dark:border-orange-200 p-5 rounded-md flex justify-center items-center">하루에 2회 - 5회 거래해요</div>
-        <div className="border border-orange-400 dark:border-orange-200 p-5 rounded-md flex justify-center items-center">하루에 5회 - 10회 거래해요</div>
-        <div className="border border-orange-400 dark:border-orange-200 p-5 rounded-md flex justify-center items-center">하루에 10회 이상 거래해요</div>
+        <div
+          onClick={onClick}
+          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+        >
+          하루에 1번 할까 말까해요
+        </div>
+        <div
+          onClick={onClick}
+          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+        >
+          하루에 1회 - 2회 거래해요
+        </div>
+        <div
+          onClick={onClick}
+          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+        >
+          하루에 2회 - 5회 거래해요
+        </div>
+        <div
+          onClick={onClick}
+          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+        >
+          하루에 5회 - 10회 거래해요
+        </div>
+        <div
+          onClick={onClick}
+          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+        >
+          하루에 10회 이상 거래해요
+        </div>
       </div>
-
-      <Button
-        onClick={onClick}
-        className={cn(
-          buttonVariants({ size: "lg", variant: "outline" }),
-          `w-40 transition-opacity duration-300 ${value ? "opacity-100" : "opacity-0"} text-orange-400 dark:text-orange-200 border border-orange-400 dark:border-orange-200`
-        )}
-      >
-        <p>다음</p>
-      </Button>
     </div>
   );
 };

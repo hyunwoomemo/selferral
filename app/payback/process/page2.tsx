@@ -9,12 +9,12 @@ const Page2 = ({ onClick, prev }: { onClick: () => void }) => {
 
   return (
     <div className="px-2 text-xl font-bold">
-      <Button
+      {/* <Button
         onClick={prev}
         className={cn(buttonVariants({ size: "sm", variant: "outline" }), `absolute top-5 w-20 mb-5  text-orange-400 dark:text-orange-200 border border-orange-400 dark:border-orange-200`)}
       >
         <p>이전</p>
-      </Button>
+      </Button> */}
       <div>레버리지 얼마나</div>
       <div>레버리지 얼마나요?</div>
       <div className="font-normal text-[16px] text-gray-800 dark:text-gray-400 py-2">평균적인 레버리지 배율을 알려주세요</div>
