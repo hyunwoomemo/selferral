@@ -1,5 +1,6 @@
 import { BellRing } from "lucide-react";
 import TradeReport from "./trade-report";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -31,7 +32,9 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <TradeReport />
+      <Suspense>
+        <TradeReport />
+      </Suspense>
     </div>
   );
 }
