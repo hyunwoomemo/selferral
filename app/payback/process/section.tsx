@@ -15,7 +15,6 @@ const Section = (props: ISectionProps) => {
       }}
       className={`w-screen h-screen`}
     >
-      <span>Page {props.pageNum}</span>
       <div>{props.children}</div>
     </div>
   );

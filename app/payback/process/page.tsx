@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Section from "./section";
 import Buttons from "./button";
 import { useDisableScroll } from "@/app/hooks/useDisableScroll";
+import Page1 from "./page1";
 
 export interface IPageObj {
   pageNum: number;
@@ -108,23 +109,21 @@ const Process = () => {
     // modal 닫히면 다시 스크롤 가능하도록 함
     return () => enableScroll();
   }, [windowObj]);
+
   return (
     <>
-      <Head>
-        <title>Full Page App</title>
-      </Head>
       <main className="relative ">
         {pageObjArray.map((item, index) => {
           return (
             <Section key={index} pageNum={item.pageNum} window={windowObj!} pageRefs={pageRefs}>
-              123
+              {index === 0 && <Page1 />}
             </Section>
           );
         })}
         {/* <span className="fixed top-20 right-0 mx-auto text-4xl">현재 페이지는 {currentPageNum} 입니다.</span> */}
-        <div className="flex flex-col space-y-4 fixed top-96 right-10 z-10">
+        {/* <div className="flex flex-col space-y-4 fixed top-96 right-10 z-10">
           <Buttons pageObjArray={pageObjArray} currentPageNum={currentPageNum} handlePointClick={handlePointClick} />
-        </div>
+        </div> */}
       </main>
     </>
   );
