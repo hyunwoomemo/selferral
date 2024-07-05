@@ -18,11 +18,11 @@ const EventList = () => {
       >
         {dummyEvent.map((dummy, index) => (
           <SwiperSlide id="event-slide" about="" key={index}>
-            <div className="w-full max-w-[155px] md:max-w-[255px]" key={index}>
+            <div className="w-full max-w-[155px] md:max-w-[200px]" key={index}>
+              <Image style={{ borderRadius: 20 }} src={dummy.image} className="object-cover w-full max-h-[155px]" alt="eventImage" />
               {/* <div className="relative w-full"> */}
               {/* <Image className="rounded-lg object-cover" src={dummy.image} fill alt="eventImage" /> */}
               {/* <div className="relative"> */}
-              <Image style={{ borderRadius: 20 }} src={dummy.image} className="object-fill w-full max-h-[155px]" alt="eventImage" />
               {/* </div> */}
               {/* </div> */}
               <p className="w-full text-gray-600 dark:text-gray-400 text-sm pt-3">{dummy.title}</p>
