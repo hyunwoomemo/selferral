@@ -6,6 +6,10 @@ import Buttons from "./button";
 import { useDisableScroll } from "@/app/hooks/useDisableScroll";
 import Page1 from "./page1";
 import ReactFullpage from "@fullpage/react-fullpage";
+import Page2 from "./page2";
+import Page3 from "./page3";
+import Page4 from "./page4";
+import { useRouter } from "next/navigation";
 
 export interface IPageObj {
   pageNum: number;
@@ -13,7 +17,8 @@ export interface IPageObj {
 }
 
 const Process = () => {
-  const [selectTrade, setSelectTrade] = useState(true);
+  const [selectTrade, setSelectTrade] = useState("");
+  const router = useRouter();
 
   return (
     <>
@@ -34,11 +39,17 @@ const Process = () => {
             return (
               <ReactFullpage.Wrapper>
                 <div className="section">
-                  <Page1 onClick={() => fullpageApi.moveSectionDown()} />
+                  <Page1 setSelectTrade={setSelectTrade} onClick={() => fullpageApi.moveSectionDown()} prev={() => router.back()} />
                   {/* <button>Click me to move down</button> */}
                 </div>
                 <div className="section">
-                  <p>Section 2</p>
+                  <Page2 onClick={() => fullpageApi.moveSectionDown()} prev={() => fullpageApi.moveSectionUp()} />
+                </div>
+                <div className="section">
+                  <Page3 selectTrade={selectTrade} onClick={() => fullpageApi.moveSectionDown()} prev={() => fullpageApi.moveSectionUp()} />
+                </div>
+                <div className="section">
+                  <Page4 onClick={() => fullpageApi.moveSectionDown()} prev={() => fullpageApi.moveSectionUp()} />
                 </div>
               </ReactFullpage.Wrapper>
             );

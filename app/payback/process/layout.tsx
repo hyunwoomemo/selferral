@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative flex min-h-dvh flex-col bg-background">
-      <main className="flex-1">{children}</main>
+    <div className="">
+      <main className="">{children}</main>
     </div>
   );
 }
