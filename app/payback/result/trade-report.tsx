@@ -1,16 +1,22 @@
 "use client";
+import { selectedTradeAtom } from "@/app/store/trade";
+import { useAtomValue } from "jotai";
 import { ArrowUp } from "lucide-react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function TradeReport({}) {
-  const params = useSearchParams();
+  const selectedTrade = useAtomValue(selectedTradeAtom);
+  const router = useRouter();
 
-  const selectedTrade = params.get("name");
+  useEffect(() => {
+    if (!selectedTrade) router.push("/payback/process?section=1");
+  }, [selectedTrade, router]);
 
   return (
     <div className="flex font-bold gap-5 items-center">
-      <Image src={require(`@/assets/${selectedTrade?.toLocaleLowerCase()}.webp`)} alt="trade-logo" width={50} height={50} />
+      {selectedTrade && <Image src={require(`@/assets/${selectedTrade.toLowerCase()}.webp`)} alt="trade-logo" width={50} height={50} />}
       <div className="flex-1">
         <p className="text-gray-400">24,237명 분석</p>
         <p className="text-xl">{selectedTrade}</p>

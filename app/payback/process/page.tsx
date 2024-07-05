@@ -10,6 +10,8 @@ import Page2 from "./page2";
 import Page3 from "./page3";
 import Page4 from "./page4";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useAtom } from "jotai";
+import { selectedTradeAtom } from "@/app/store/trade";
 
 export interface IPageObj {
   pageNum: number;
@@ -17,7 +19,7 @@ export interface IPageObj {
 }
 
 const Process = () => {
-  const [selectTrade, setSelectTrade] = useState("");
+  const [selectTrade, setSelectTrade] = useAtom(selectedTradeAtom);
   const router = useRouter();
   const params = useSearchParams();
 
@@ -40,18 +42,18 @@ const Process = () => {
 
             return (
               <ReactFullpage.Wrapper>
-                <div className="section">
+                <div className="section justify-start">
                   <Page1 setSelectTrade={setSelectTrade} onClick={() => router.push("/payback/process?section=2")} prev={() => router.back()} />
                   {/* <button>Click me to move down</button> */}
                 </div>
-                <div className="section">
+                <div className="section justify-start">
                   <Page2 onClick={() => router.push("/payback/process?section=3")} />
                 </div>
-                <div className="section">
+                <div className="section justify-start">
                   <Page3 selectTrade={selectTrade} onClick={() => router.push("/payback/process?section=4")} />
                 </div>
-                <div className="section">
-                  <Page4 onClick={() => router.push(`/payback/result?name=${selectTrade}`)} />
+                <div className="section justify-start">
+                  <Page4 onClick={() => router.push(`/payback/result`)} />
                 </div>
               </ReactFullpage.Wrapper>
             );

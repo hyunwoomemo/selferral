@@ -32,9 +32,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <Suspense>
-        <TradeReport />
-      </Suspense>
+      <TradeReport />
     </div>
   );
 }

@@ -27,9 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className="">
-      <Suspense>
-        <main className="">{children}</main>
-      </Suspense>
+      <main className="">{children}</main>
     </div>
   );
 }
