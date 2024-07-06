@@ -1,24 +1,14 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationPrevious,
-  PaginationNext,
-} from "./ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from "./ui/pagination";
 
 interface QueryPaginationProps {
   totalPages: number;
   className?: string;
 }
 
-export function QueryPagination({
-  totalPages,
-  className,
-}: QueryPaginationProps) {
+export function QueryPagination({ totalPages, className }: QueryPaginationProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -45,14 +35,8 @@ export function QueryPagination({
         {Array(totalPages)
           .fill("")
           .map((_, index) => (
-            <PaginationItem
-              className="hidden sm:inline-block"
-              key={`page-button-${index}`}
-            >
-              <PaginationLink
-                isActive={currentPage === index + 1}
-                href={createPageURL(index + 1)}
-              >
+            <PaginationItem className="hidden sm:inline-block" key={`page-button-${index}`}>
+              <PaginationLink isActive={currentPage === index + 1} href={createPageURL(index + 1)}>
                 {index + 1}
               </PaginationLink>
             </PaginationItem>

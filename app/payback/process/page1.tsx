@@ -1,9 +1,15 @@
+import { selectedTradeAtom } from "@/app/store/trade";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
+import { useSetAtom } from "jotai";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-const Page1 = ({ onClick, setSelectTrade }: { onClick: () => void; setSelectTrade: (text: string) => void }) => {
+const Page1 = () => {
+  const router = useRouter();
+  const setSelectTrade = useSetAtom(selectedTradeAtom);
+
   return (
     <div className="px-2 py-10 text-xl font-bold">
       {/* <Button
@@ -20,7 +26,7 @@ const Page1 = ({ onClick, setSelectTrade }: { onClick: () => void; setSelectTrad
         {dummyTrade.map((v) => (
           <div
             onClick={() => {
-              onClick();
+              router.push("/payback/process/2");
               setSelectTrade(v.name);
             }}
             className="min-w-[47%] flex items-center py-2 gap-2"
