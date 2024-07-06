@@ -22,31 +22,31 @@ const Page4 = () => {
       <div className="flex flex-col gap-5 mx-5 mt-10">
         <div
           onClick={onClick}
-          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+          className="cursor-pointer border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
         >
           하루에 1번 할까 말까해요
         </div>
         <div
           onClick={onClick}
-          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+          className="cursor-pointer border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
         >
           하루에 1회 - 2회 거래해요
         </div>
         <div
           onClick={onClick}
-          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+          className="cursor-pointer border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
         >
           하루에 2회 - 5회 거래해요
         </div>
         <div
           onClick={onClick}
-          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+          className="cursor-pointer border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
         >
           하루에 5회 - 10회 거래해요
         </div>
         <div
           onClick={onClick}
-          className="border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
+          className="cursor-pointer border border-gray-400 dark:border-gray-800 hover:border-orange-400 hover:dark:border-orange-200 p-3 text-[16px] rounded-md flex justify-center items-center hover:text-orange-400 hover:dark:text-orange-200"
         >
           하루에 10회 이상 거래해요
         </div>

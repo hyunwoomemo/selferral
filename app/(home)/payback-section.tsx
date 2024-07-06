@@ -2,6 +2,8 @@
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { HandCoins } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
@@ -67,12 +69,14 @@ const PaybackSection = () => {
     <div className="py-20 md:py-48 flex flex-col md:flex-row gap-28 justify-center items-center ">
       <div className="flex-1  flex flex-col gap-5 items-center">
         <p className="font-bold text-orange-400">손쉽게 확인해 보세요! </p>
-        <h1 className="font-bold text-3xl">예상 페이맥 평균</h1>
+        <h1 className="font-bold text-3xl">셀퍼럴닷컴 이용자님들의</h1>
+        <h1 className="font-bold text-3xl ">예상 페이백은</h1>
         <div className="flex justify-center items-end">
           {/* <h1 className="font-bold text-5xl text-orange-400">685,842</h1> */}
+          <h1 className="font-bold text-3xl whitespace-nowrap">평균</h1>
           <div ref={countUpRef} className={`font-bold text-5xl text-orange-400 min-w-64 transition-opacity duration-3000 ${countStart ? "opacity-100" : "opacity-0"} text-center`}></div>
           {/* <CountUp className="font-bold text-5xl text-orange-400 min-w-64" end={685842} duration={2}></CountUp> */}
-          <h1 className="font-bold text-3xl whitespace-nowrap">원 입니다.</h1>
+          <h1 className="font-bold text-3xl whitespace-nowrap">원</h1>
         </div>
         <Button
           onClick={() => router.push("/payback")}
@@ -83,7 +87,8 @@ const PaybackSection = () => {
       </div>
       <div className="w-full min-h-60 flex-1 flex justify-center items-center bg-gray-100 dark:bg-stone-800 rounded-md">
         {/* <Image src={require("@/assets/img_sec2_mainimg.png")} width={280} height={303} alt="image" /> */}
-        거래소 이미지
+        {/* <Image src={require("@/assets/home-image.jpg")} alt="home" /> */}
+        이미지
       </div>
     </div>
   );

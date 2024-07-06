@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Selferral",
+  name: "seleferral.com",
   url: "https://example.com",
   description: "selferral 소개 문구",
   author: "selferral",

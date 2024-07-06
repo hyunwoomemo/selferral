@@ -29,7 +29,7 @@ const Page1 = () => {
               router.push("/payback/process/2");
               setSelectTrade(v.name);
             }}
-            className="min-w-[47%] flex items-center py-2 gap-2"
+            className="min-w-[47%] flex items-center py-2 gap-2 cursor-pointer"
             key={v.name}
           >
             <div className="w-10 h-10 relative">

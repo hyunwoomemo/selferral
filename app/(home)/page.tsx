@@ -7,15 +7,17 @@ export default function Home() {
   return (
     <>
       <section className="space-y-6 py-32  mx-auto">
-        <div className="container flex flex-col gap-4">
-          <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center">소멸되는 거래 수수료</h1>
-          <div className="flex justify-center whitespace-nowrap">
-            <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black  text-orange-400">셀퍼럴</h1>
-            <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black ">과 함께 페이백하세요!</h1>
+        <div className="flex flex-col gap-4 px-4">
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex justify-center whitespace-nowrap">
+              <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black  text-orange-400">셀퍼럴</h1>
+              <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black ">닷컴에서 </h1>
+            </div>
+            <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black ">안전하게 페이백 받으세요</h1>
           </div>
 
-          <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">거래수수료를 되돌려주는 셀퍼럴 셀퍼럴로</p>
-          <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">수수료 페이백 받으세요</p>
+          <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">1분 안에 잃어버린 거래수수료 환급받기!</p>
+          {/* <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">수수료 페이백 받으세요</p> */}
           <SearchUid />
           <PaybackSection />
           {/* <div className="flex flex-col gap-4 justify-center sm:flex-row">
