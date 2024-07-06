@@ -1,14 +1,18 @@
+"use client";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const data = [{}];
 // box-shadow: 0 0 45px rgba(0, 0, 0, 0.07);
 
 const TradeItem = ({ data }: { data: any }) => {
+  const router = useRouter();
+
   return (
-    <div className="flex-1  flex flex-col rounded-md shadow-[0_0_45px_rgba(0,0,0,0.07)] dark:border-gray-600 dark:border">
+    <div className="flex-1  flex flex-col rounded-md shadow-[0_0_45px_rgba(0,0,0,0.07)] dark:border-gray-600 dark:border font-bold">
       <div className="min-w-60 h-32  bg-gray-200 dark:bg-gray-800 rounded-t-md flex justify-center items-center text-black">
         <Image src={data.image} alt="exchange-image" />
       </div>
@@ -25,7 +29,10 @@ const TradeItem = ({ data }: { data: any }) => {
       </div>
 
       <div className="w-full px-2">
-        <Button className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full mb-5 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200 self-center")}>
+        <Button
+          onClick={() => router.push(`/exchange/${data.name}`)}
+          className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full mb-5 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200 self-center")}
+        >
           <p>페이백 시작하기</p>
         </Button>
       </div>
