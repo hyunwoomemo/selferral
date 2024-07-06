@@ -8,11 +8,6 @@ import { useEffect } from "react";
 
 export default function TradeReport({}) {
   const selectedTrade = useAtomValue(selectedTradeAtom);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!selectedTrade) router.push("/payback/process?section=1");
-  }, [selectedTrade, router]);
 
   return (
     <div className="flex font-bold gap-5 items-center">

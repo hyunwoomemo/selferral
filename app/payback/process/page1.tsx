@@ -3,9 +3,9 @@ import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-const Page1 = ({ onClick, setSelectTrade, prev }: { onClick: () => void; setSelectTrade: (text: string) => void; prev: () => void }) => {
+const Page1 = ({ onClick, setSelectTrade }: { onClick: () => void; setSelectTrade: (text: string) => void }) => {
   return (
-    <div className="px-2  text-xl font-bold">
+    <div className="px-2 py-10 text-xl font-bold">
       {/* <Button
         onClick={prev}
         className={cn(buttonVariants({ size: "sm", variant: "outline" }), `absolute top-5 w-20 mb-5  text-orange-400 dark:text-orange-200 border border-orange-400 dark:border-orange-200`)}

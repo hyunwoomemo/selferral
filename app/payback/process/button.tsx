@@ -1,4 +1,4 @@
-import { IPageObj } from "./page";
+import { IPageObj } from "./page(full)";
 import { cn } from "@/lib/utils";
 
 interface IButtonsProps {
