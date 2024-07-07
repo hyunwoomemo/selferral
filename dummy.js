@@ -1,3 +1,10 @@
+// 비트겟;
+// 바이비트;
+// 바이낸스;
+// OKX;
+// 엘뱅크;
+// 탭비트;
+
 export const dummyTrade = [
   {
     name: "Bybit",
@@ -9,9 +16,9 @@ export const dummyTrade = [
     closing: "93%",
   },
   {
-    name: "DeepCoin",
+    name: "Binance",
     averageRefund: 720000,
-    image: require("./assets/deepcoin.webp"),
+    image: require("./assets/binance.png"),
     tag: "신규 제휴 ⭐️",
     payback: "70%",
     discount: "50%",
@@ -36,54 +43,32 @@ export const dummyTrade = [
     closing: "98%",
   },
   {
-    name: "BingX",
+    name: "LBank",
     averageRefund: 720000,
-    image: require("./assets/bingx.webp"),
-    tag: "추천거래소 👏🏻",
-    payback: "60%",
-    discount: "20%",
-    closing: "72%",
+    image: require("./assets/lbank.webp"),
+    tag: "준비금 증명 🧳",
+    payback: "44%",
+    discount: "22%",
+    closing: "37%",
   },
   {
-    name: "Bybit",
+    name: "Tapbit",
     averageRefund: 720000,
-    image: require("./assets/bybit.webp"),
-    tag: "인기거래소 🔥",
-    payback: "30%",
-    discount: "20%",
+    image: require("./assets/tapbit.png"),
+    tag: "준비금 증명 🧳",
+    payback: "66%",
+    discount: "27%",
+    closing: "56%",
   },
-  {
-    name: "Bybit",
-    averageRefund: 720000,
-    image: require("./assets/bybit.webp"),
-    tag: "인기거래소 🔥",
-    payback: "30%",
-    discount: "20%",
-  },
-  {
-    name: "Bybit",
-    averageRefund: 720000,
-    image: require("./assets/bybit.webp"),
-    tag: "인기거래소 🔥",
-    payback: "30%",
-    discount: "20%",
-  },
-  {
-    name: "Bybit",
-    averageRefund: 720000,
-    image: require("./assets/bybit.webp"),
-    tag: "인기거래소 🔥",
-    payback: "30%",
-    discount: "20%",
-  },
-  {
-    name: "Bybit",
-    averageRefund: 720000,
-    image: require("./assets/bybit.webp"),
-    tag: "인기거래소 🔥",
-    payback: "30%",
-    discount: "20%",
-  },
+  // {
+  //   name: "BingX",
+  //   averageRefund: 720000,
+  //   image: require("./assets/bingx.webp"),
+  //   tag: "추천거래소 👏🏻",
+  //   payback: "60%",
+  //   discount: "20%",
+  //   closing: "72%",
+  // },
 ];
 
 export const dummyEvent = [

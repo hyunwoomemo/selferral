@@ -13,7 +13,7 @@ const TradeItem = ({ data }: { data: any }) => {
 
   return (
     <div className="flex-1  flex flex-col rounded-md shadow-[0_0_45px_rgba(0,0,0,0.07)] dark:border-gray-600 dark:border font-bold">
-      <div className="min-w-60 h-32  bg-gray-200 dark:bg-gray-800 rounded-t-md flex justify-center items-center text-black">
+      <div className="min-w-60 h-32  bg-gray-200 dark:bg-gray-800 rounded-t-md flex justify-center items-center text-black relative overflow-hidden">
         <Image src={data.image} alt="exchange-image" />
       </div>
       <div className="py-3 px-2">

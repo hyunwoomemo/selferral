@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
-import { Menu } from "lucide-react";
+import { Infinity, Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { Icons } from "./icons";
@@ -21,8 +21,9 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="right">
-        <MobileLink onOpenChange={setOpen} href="/" className="flex items-center">
-          <Icons.logo className="mr-2 h-4 w-4" />
+        <MobileLink onOpenChange={setOpen} href="/" className="flex items-center gap-2">
+          {/* <Icons.logo className="mr-2 h-4 w-4" /> */}
+          <Infinity />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">

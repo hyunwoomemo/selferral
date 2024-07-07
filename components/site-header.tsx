@@ -1,3 +1,4 @@
+"use client";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -6,8 +7,11 @@ import { Icons } from "./icons";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
+import { usePathname } from "next/navigation";
 
 export function SiteHeader() {
+  const pathname = usePathname();
+
   return (
     <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center px-2">
@@ -44,6 +48,9 @@ export function SiteHeader() {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link> */}
+            <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
+              로그인
+            </Link>
             <ModeToggle />
             <MobileNav />
           </nav>

@@ -22,7 +22,7 @@ const Page1 = () => {
       <div>거래소 하나만 선택해주세요</div>
       <div className="font-normal text-[16px] text-gray-800 dark:text-gray-400 py-2">어떤 거래소를 이용하고 계신가요?</div>
 
-      <div className="flex flex-wrap gap-5 py-10 justify-center">
+      <div className="flex flex-wrap gap-5 py-10 justify-center items-center">
         {dummyTrade.map((v) => (
           <div
             onClick={() => {

@@ -6,7 +6,7 @@ import EventList from "./event-list";
 export default function Home() {
   return (
     <>
-      <section className="space-y-6 py-32  mx-auto">
+      <section className="space-y-6 pt-32  mx-auto">
         <div className="flex flex-col gap-4 px-4">
           <div className="flex flex-col items-center gap-2">
             <div className="flex justify-center whitespace-nowrap">

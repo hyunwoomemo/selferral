@@ -14,7 +14,7 @@ export function QueryPagination({ totalPages, className }: QueryPaginationProps)
 
   const currentPage = Number(searchParams.get("page")) || 1;
 
-  const prevPage = currentPage - 1;
+  const prevPage = currentPage - 1;ㅗ
   const nextPage = currentPage + 1;
 
   const createPageURL = (pageNumber: number | string) => {

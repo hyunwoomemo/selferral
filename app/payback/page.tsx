@@ -84,7 +84,7 @@ const Page = () => {
           onClick={() => router.push("/payback/process/1")}
           className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mb-5 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200 self-center")}
         >
-          <p>나도 거래 수수료 환급받기</p>
+          <p className="font-bold">나도 거래 수수료 환급받기</p>
         </Button>
       </div>
     </div>
