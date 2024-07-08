@@ -11,8 +11,8 @@ export default function Page({ params }) {
       <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black py-10">{dummyTrade.find((v) => v.name === params.id).name}</h2>
       <div className="md:flex gap-10">
         <div style={{ flex: 1 }} className="h-full flex flex-col">
-          <div className="flex h-full justify-center items-center py-5 bg-gray-200 dark:bg-gray-800 rounded-md relative min-h-40">
-            <Image src={dummyTrade.find((v) => v.name.toLowerCase() === params.id.toLowerCase())?.image} />
+          <div className="flex h-full justify-center items-center py-5 rounded-md relative min-h-20">
+            <Image src={dummyTrade.find((v) => v.name.toLowerCase() === params.id.toLowerCase())?.image} height={100} width={100} />
           </div>
           <Button
             // onClick={() => router.push(`/exchange/${data.name}`)}
