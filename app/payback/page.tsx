@@ -1,7 +1,9 @@
 "use client";
 
 import { Button, buttonVariants } from "@/components/ui/button";
+import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
@@ -64,8 +66,8 @@ const Page = () => {
   }, [countStart, update]);
 
   return (
-    <div className="p-4 md:p-10">
-      <div className="py-3 text-2xl font-bold">
+    <div className="p-4 md:p-10 flex flex-col items-center justify-center">
+      <div className="py-3 text-3xl font-bold flex flex-col items-center gap-2">
         <p className="">지금 다른 사람들이</p>
         <p>돌려받는 수수료는 얼마?</p>
 
@@ -79,10 +81,23 @@ const Page = () => {
 
         <p className="text-gray-400  text-[16px] py-3 ">간단하게 조회하세요. 40초면 끝나요!</p>
       </div>
-      <div className="w-full px-2">
+      {/* <div className="flex flex-wrap items-center  gap-10">
+        {dummyTrade.map((item, index) => (
+          <div key={index} className="flex-auto min-w-[300px]">
+            <div className="w-[60px] h-[60px] relative flex justify-center items-center">
+              <Image src={item.image} alt="trade-logo" />
+            </div>
+            <p className="max-w-[200px]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore esse, sed corporis dolorum eum commodi corrupti! Vero, ut, libero, eligendi eius eum quis quaerat debitis ipsum a laborum
+              mollitia hic.
+            </p>
+          </div>
+        ))}
+      </div> */}
+      <div className="w-full px-2 flex justify-center pt-10">
         <Button
           onClick={() => router.push("/payback/process/1")}
-          className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mb-5 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200 self-center")}
+          className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-screen-sm mb-5 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
         >
           <p className="font-bold">나도 거래 수수료 환급받기</p>
         </Button>

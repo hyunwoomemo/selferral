@@ -9,7 +9,7 @@ export const dummyTrade = [
   {
     name: "Bybit",
     averageRefund: 720000,
-    image: require("./assets/bybit.webp"),
+    image: require("./assets/bybit-banner.png"),
     tag: "인기거래소 🔥",
     payback: "30%",
     discount: "20%",
@@ -18,7 +18,7 @@ export const dummyTrade = [
   {
     name: "Binance",
     averageRefund: 720000,
-    image: require("./assets/binance.png"),
+    image: require("./assets/binance-banner.png"),
     tag: "신규 제휴 ⭐️",
     payback: "70%",
     discount: "50%",
@@ -27,7 +27,7 @@ export const dummyTrade = [
   {
     name: "Bitget",
     averageRefund: 720000,
-    image: require("./assets/bitget.webp"),
+    image: require("./assets/bitget-banner.png"),
     tag: "인기거래소 🔥",
     payback: "54%",
     discount: "50%",
@@ -36,7 +36,7 @@ export const dummyTrade = [
   {
     name: "OKX",
     averageRefund: 720000,
-    image: require("./assets/okx.webp"),
+    image: require("./assets/okx-banner.png"),
     tag: "준비금 증명 🧳",
     payback: "54%",
     discount: "20%",
@@ -45,7 +45,7 @@ export const dummyTrade = [
   {
     name: "LBank",
     averageRefund: 720000,
-    image: require("./assets/lbank.webp"),
+    image: require("./assets/lbank-banner.png"),
     tag: "준비금 증명 🧳",
     payback: "44%",
     discount: "22%",
@@ -60,15 +60,15 @@ export const dummyTrade = [
     discount: "27%",
     closing: "56%",
   },
-  // {
-  //   name: "BingX",
-  //   averageRefund: 720000,
-  //   image: require("./assets/bingx.webp"),
-  //   tag: "추천거래소 👏🏻",
-  //   payback: "60%",
-  //   discount: "20%",
-  //   closing: "72%",
-  // },
+  {
+    name: "BingX",
+    averageRefund: 720000,
+    image: require("./assets/bingx-banner.webp"),
+    tag: "추천거래소 👏🏻",
+    payback: "60%",
+    discount: "20%",
+    closing: "72%",
+  },
 ];
 
 export const dummyEvent = [

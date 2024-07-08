@@ -7,7 +7,7 @@ import "swiper/css";
 
 const EventList = () => {
   return (
-    <div className="py-20 max-w-screen-xl mx-auto">
+    <div className="py-20 px-2 max-w-screen-xl mx-auto">
       <Swiper
         slidesPerView={"auto"}
         spaceBetween={30}

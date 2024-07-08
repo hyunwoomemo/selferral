@@ -1,5 +1,6 @@
 "use client";
 import { Button, buttonVariants } from "@/components/ui/button";
+import Dropdown from "@/components/ui/dropdown";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
@@ -8,22 +9,17 @@ import { useState } from "react";
 
 const SearchUid = () => {
   const [exchange, setExchange] = useState(dummyTrade[0]);
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <div className="flex justify-center py-10 w-full max-w-2xl mx-auto items-center gap-3">
-      <DropdownMenu>
+    <div className="flex gap-4 px-2 flex-wrap max-w-screen-md w-full mx-auto py-10">
+      {/* <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className={cn(buttonVariants({ variant: "outline", size: "custom" }), "w-full sm:w-fit")}>
             <h2 className="text-gray-800 dark:text-white">{exchange.name}</h2>
-            {/* <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" /> */}
-            {/* <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" /> */}
-            {/* <span className="sr-only">Toggle Theme</span> */}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {/* <DropdownMenuItem>Light</DropdownMenuItem>
-          <DropdownMenuItem>Dark</DropdownMenuItem>
-          <DropdownMenuItem>System</DropdownMenuItem> */}
           {dummyTrade.map((item, index) => {
             return (
               <DropdownMenuItem onClick={() => setExchange(item)} key={index}>
@@ -32,11 +28,12 @@ const SearchUid = () => {
             );
           })}
         </DropdownMenuContent>
-      </DropdownMenu>
-      <div className="flex items-center border md:p-2 border-gray-200 dark:border-white rounded-sm flex-auto max-w-80 justify-between hover:border-orange-400 focus-within:border-orange-400">
-        <input placeholder="UID를 입력하세요" className="py-2 px-2  bg-transparent outline-none flex-auto" />
-        <div className="p-1 bg-orange-400 m-1.5 rounded-md">
-          <Search className="text-white size-6 cursor-pointer" />
+      </DropdownMenu> */}
+      <Dropdown item={exchange} setItem={setExchange} data={dummyTrade} isVisible={isVisible} setIsVisible={setIsVisible} />
+      <div className="flex flex-auto items-center border border-gray-400 dark:border-white p-2 rounded-sm hover:border-orange-400 hover:dark:border-orange-200 focus-within:border-orange-400 focus-within:dark:border-orange-200">
+        <input placeholder="UID를 입력하세요" className="bg-transparent outline-none flex-auto" />
+        <div className="">
+          <Search className="text-black dark:text-white size-6 cursor-pointer" />
         </div>
       </div>
     </div>

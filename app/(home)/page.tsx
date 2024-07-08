@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <section className="space-y-6 pt-32  mx-auto">
-        <div className="flex flex-col gap-4 px-4">
+        <div className="flex flex-col gap-4 sm:px-4 md:px-0">
           <div className="flex flex-col items-center gap-2">
             <div className="flex justify-center whitespace-nowrap">
               <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black  text-orange-400">셀퍼럴</h1>

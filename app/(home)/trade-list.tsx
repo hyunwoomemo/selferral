@@ -12,8 +12,8 @@ const TradeItem = ({ data }: { data: any }) => {
   const router = useRouter();
 
   return (
-    <div className="flex-1  flex flex-col rounded-md shadow-[0_0_45px_rgba(0,0,0,0.07)] dark:border-gray-600 dark:border font-bold">
-      <div className="min-w-60 h-32  bg-gray-200 dark:bg-gray-800 rounded-t-md flex justify-center items-center text-black relative overflow-hidden">
+    <div className="flex-1  mx-2 flex flex-col rounded-md   font-bold border border-gray-200 dark:border-gray-600">
+      <div className="min-w-60 h-32  bg-background  rounded-t-md flex justify-center items-center text-black relative overflow-hidden border-b border-gray-200 dark:border-gray-600">
         <Image src={data.image} alt="exchange-image" />
       </div>
       <div className="py-3 px-2">
@@ -25,7 +25,7 @@ const TradeItem = ({ data }: { data: any }) => {
           <p className="text-orange-400 font-bold pt-3">{data.discount}</p>
           <p className="text-gray-900 dark:text-white font-bold pt-3"> 할인</p>
         </div>
-        <p className="p-1 bg-gray-200 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">Lorem ipsum dolor sit.</p>
+        <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">Lorem ipsum dolor sit.</p>
       </div>
 
       <div className="w-full px-2">

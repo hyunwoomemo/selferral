@@ -1,12 +1,14 @@
 "use client";
 
 import { Button, buttonVariants } from "@/components/ui/button";
+import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
 import { HandCoins } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const PaybackSection = () => {
   const countUpRef = useRef(null);
@@ -66,7 +68,7 @@ const PaybackSection = () => {
   }, [countStart, update]);
 
   return (
-    <div className="py-20 md:py-48 flex flex-col md:flex-row gap-28 justify-center items-center ">
+    <div className="py-20 md:py-36 my-12 flex flex-col md:flex-row gap-28 justify-center items-center bg-gray-50 dark:bg-gray-900">
       <div className="flex-1  flex flex-col gap-5 items-center">
         <p className="font-bold text-orange-400">손쉽게 확인해 보세요! </p>
         <h1 className="font-bold text-3xl">셀퍼럴닷컴 이용자님들의</h1>
@@ -85,10 +87,19 @@ const PaybackSection = () => {
           <p className="font-bold">내 예상 페이백 확인하기</p>
         </Button>
       </div>
-      <div className="w-full min-h-60 flex-1 flex justify-center items-center bg-gray-100 dark:bg-stone-800 rounded-md">
-        {/* <Image src={require("@/assets/img_sec2_mainimg.png")} width={280} height={303} alt="image" /> */}
-        {/* <Image src={require("@/assets/home-image.jpg")} alt="home" /> */}
-        이미지
+      <div className="w-full  min-h-60 flex-1 flex justify-center items-center rounded-md px-2 flex-wrap gap-10">
+        {dummyTrade.map((item, index) => (
+          <div key={index} className="w-16 h-16 md:w-20 md:h-20  relative flex justify-center items-center">
+            <Image src={item.image} objectFit="contain" className="text-center" alt="trade-logo" />
+          </div>
+        ))}
+        {/* <Swiper slidesPerView={5}>
+          {dummyTrade.map((item, index) => (
+            <SwiperSlide key={index}>
+              <Image src={item.image} />
+            </SwiperSlide>
+          ))}
+        </Swiper> */}
       </div>
     </div>
   );
