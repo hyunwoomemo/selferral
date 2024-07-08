@@ -19,12 +19,7 @@ export default function Dropdown({ item, setItem, data, isVisible, setIsVisible 
           {data
             .filter((v: any) => v.name !== item.name)
             .map((item: any, index: number) => (
-              <div
-                onClick={() => setItem(item)}
-                key={index}
-                className={`flex gap-2 md:gap-4 p-2 py-4 opacity-${isVisible ? 100 : 0} transition-opacity min-w-32`}
-                style={{ transitionDelay: `${index * 0.05}s` }}
-              >
+              <div onClick={() => setItem(item)} key={index} className={`flex gap-2 md:gap-4 p-2 py-4 opacity-${isVisible ? 100 : 0} transition-opacity min-w-32`}>
                 {item.image && (
                   <div className="w-[24px] h-[24px] md:w-[36px] md:h-[36px] relative flex justify-center items-center">
                     <Image src={item.image} alt="exchange-logo" objectFit="contain" />
