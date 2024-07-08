@@ -33,7 +33,7 @@ const SearchUid = () => {
           })}
         </DropdownMenuContent>
       </DropdownMenu>
-      <div className="flex items-center border border-gray-200 dark:border-white rounded-sm flex-auto max-w-80 justify-between hover:border-orange-400 focus-within:border-orange-400">
+      <div className="flex items-center border md:p-2 border-gray-200 dark:border-white rounded-sm flex-auto max-w-80 justify-between hover:border-orange-400 focus-within:border-orange-400">
         <input placeholder="UID를 입력하세요" className="py-2 px-2  bg-transparent outline-none flex-auto" />
         <div className="p-1 bg-orange-400 m-1.5 rounded-md">
           <Search className="text-white size-6 cursor-pointer" />
