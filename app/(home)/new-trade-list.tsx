@@ -12,7 +12,10 @@ const TradeItem = ({ data }: { data: any }) => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-wrap md:grid md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] font-bold items-center bg-gradient-to-r to-gray-50 from-gray-100 dark:to-gray-800 dark:from-gray-900 p-4 rounded-md gap-4">
+    <div
+      className="flex flex-wrap md:grid md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] font-bold items-center bg-gradient-to-r to-gray-50 from-gray-100 dark:to-gray-800 dark:from-gray-900 p-4 rounded-md gap-4 cursor-pointer"
+      onClick={() => router.push(`/exchange/${data.name}`)}
+    >
       <div className="flex items-center flex-1 min-w-full justify-between">
         <div className="flex items-center">
           <div className="min-w-[70px]">
