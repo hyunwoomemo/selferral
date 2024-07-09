@@ -7,7 +7,7 @@ export default function Page({ params }) {
   console.log("params", params);
 
   return (
-    <div className="p-5 md:px-10">
+    <div className="p-5 md:px-10 overflow-x-hidden">
       <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black py-10">{dummyTrade.find((v) => v.name === params.id).name}</h2>
       <div className="md:flex gap-10">
         <div style={{ flex: 1 }} className="h-full flex flex-col">

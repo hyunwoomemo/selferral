@@ -5,7 +5,7 @@ import { Icons } from "./icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Infinity } from "lucide-react";
+import { SiLoop } from "react-icons/si";
 
 export function MainNav() {
   const pathname = usePathname();
@@ -13,7 +13,7 @@ export function MainNav() {
     <nav className="flex items-center space-x-4 lg:space-x-6">
       <Link href="/" className="mr-6 flex items-center space-x-2">
         {/* <Icons.logo className="h-6 w-6" /> */}
-        <Infinity />
+        <SiLoop />
         <span className="font-bold">{siteConfig.name}</span>
       </Link>
       <Link href="/exchange" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/exchange" ? "text-foreground" : "text-foreground/60")}>

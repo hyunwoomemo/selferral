@@ -9,6 +9,7 @@ import { MobileNav } from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { SiLoop } from "react-icons/si";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -20,7 +21,7 @@ export function SiteHeader() {
         <div className="flex h-14 items-center px-2">
           <MainNav />
           <div className="flex flex-1 items-center justify-end space-x-2">
-            <nav className="flex items-center gap-4">
+            <nav className="flex items-center md:gap-4">
               {/* <Link
               href={siteConfig.links.github}
               target="_blank"

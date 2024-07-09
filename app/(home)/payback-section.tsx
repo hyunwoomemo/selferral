@@ -68,7 +68,7 @@ const PaybackSection = () => {
   }, [countStart, update]);
 
   return (
-    <div className="py-20 md:py-36 my-12 flex flex-col md:flex-row gap-28 justify-center items-center bg-gray-50 dark:bg-gray-900 bg-gradient-to-t from-gray-100 dark:from-gray-950">
+    <div className="py-20 md:py-36 my-12 flex flex-col md:flex-row gap-28 justify-center items-center bg-gray-50 dark:bg-gray-900 bg-gradient-to-t to-gray-50 from-gray-100 dark:from-gray-950">
       <div className="flex-1  flex flex-col gap-5 items-center">
         <p className="font-bold text-orange-400">손쉽게 확인해 보세요! </p>
         <h1 className="font-bold text-3xl">셀퍼럴닷컴 이용자님들의</h1>

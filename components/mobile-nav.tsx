@@ -8,6 +8,7 @@ import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
+import { SiLoop } from "react-icons/si";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export function MobileNav() {
       <SheetContent side="right">
         <MobileLink onOpenChange={setOpen} href="/" className="flex items-center gap-2">
           {/* <Icons.logo className="mr-2 h-4 w-4" /> */}
-          <Infinity />
+          <SiLoop />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
