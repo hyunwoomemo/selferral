@@ -1,9 +1,16 @@
+"use client";
 import SearchUid from "./search-uid";
 import PaybackSection from "./payback-section";
 import TradeList from "./trade-list";
 import EventList from "./event-list";
+import NewTradeList from "./new-trade-list";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export default function Home() {
+  const [asIs, setAsIs] = useState(false);
+
   return (
     <>
       <section className="space-y-6 pt-32  mx-auto">
@@ -35,7 +42,21 @@ export default function Home() {
           </div>
           <div className="md:pt-40">
             <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">셀퍼럴 제휴 거래소</h2>
-            <TradeList />
+            <div className="flex justify-center pt-10 gap-2">
+              <Button
+                onClick={() => setAsIs(true)}
+                className={cn(buttonVariants({ size: "lg", variant: "outline" }), `${asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
+              >
+                AS IS
+              </Button>
+              <Button
+                onClick={() => setAsIs(false)}
+                className={cn(buttonVariants({ size: "lg", variant: "outline" }), `${!asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
+              >
+                TO BE
+              </Button>
+            </div>
+            {asIs ? <TradeList /> : <NewTradeList />}
           </div>
         </div>
       </section>
