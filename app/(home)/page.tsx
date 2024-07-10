@@ -47,13 +47,13 @@ export default function Home() {
                 onClick={() => setAsIs(true)}
                 className={cn(buttonVariants({ size: "lg", variant: "outline" }), `${asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
               >
-                AS IS
+                PREV
               </Button>
               <Button
                 onClick={() => setAsIs(false)}
                 className={cn(buttonVariants({ size: "lg", variant: "outline" }), `${!asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
               >
-                TO BE
+                NEW
               </Button>
             </div>
             {asIs ? <TradeList /> : <NewTradeList />}
