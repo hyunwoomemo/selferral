@@ -18,7 +18,7 @@ const TradeItem = ({ data }: { data: any }) => {
     >
       <div className="flex items-center flex-1 min-w-full justify-between">
         <div className="flex items-center">
-          <div className="min-w-[70px">
+          <div className="min-w-[70px]">
             <div className="relative w-[50px]  h-[50px] flex items-center justify-center">
               <Image src={data.image} alt="exchange-logo" />
             </div>
