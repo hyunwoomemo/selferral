@@ -11,6 +11,7 @@ import multer from "multer";
 import fs from "fs";
 import { pipeline } from "stream";
 import { promisify } from "util";
+import path from "path";
 const SALT_ROUNDS = 10;
 
 async function tokenCheck() {
@@ -208,8 +209,15 @@ export async function addExchange(prevState: any, formData: FormData) {
   const roundImage = formData.get("roundImage");
 
   try {
-    const filePath = `public/uploads/${roundImage.name}`;
+    const uploadDir = path.join(__dirname, "public", "uploads");
+    const filePath = path.join(uploadDir, roundImage.name);
     console.log("filePath", filePath);
+
+    // Upload directory existence check
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
     const pump = promisify(pipeline);
 
     await pump(roundImage.stream(), fs.createWriteStream(filePath));
@@ -221,7 +229,7 @@ export async function addExchange(prevState: any, formData: FormData) {
       };
     }
 
-    const sql = "select * from selferral.exchanges where name = (?)";
+    const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
     const data = await executeQuery(sql, [name]);
     const getData = JSON.parse(JSON.stringify(data));
 
@@ -232,18 +240,18 @@ export async function addExchange(prevState: any, formData: FormData) {
         message: "이미 존재하는 거래소입니다.",
       };
     } else {
-      const sql = "insert into selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) values (?,?,?,?,?,?)";
-      const data = await executeQuery(sql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, filePath.replaceAll("public/", "")]);
-      const getData = JSON.parse(JSON.stringify(data));
-      if (getData.affectedRows > 0) {
-        redirectPath = `/admin/exchange/list`;
+      const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) VALUES (?,?,?,?,?,?)";
+      const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, path.relative("public", filePath)]);
+      const insertedData = JSON.parse(JSON.stringify(insertData));
+      if (insertedData.affectedRows > 0) {
+        redirectPath = "/admin/exchange/list";
         // 회원가입 완료
       }
     }
-  } catch (err) {
-    console.log("error", err);
+  } catch (error) {
+    console.log("error", error);
     redirectPath = "/";
-    err = err;
+    err = error;
   } finally {
     console.log(err);
     if (redirectPath) {
