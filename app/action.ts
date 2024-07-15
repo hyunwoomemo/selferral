@@ -244,7 +244,7 @@ export async function addExchange(prevState, formData) {
   } else {
     const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) VALUES (?,?,?,?,?,?)";
     const targetPath = path.relative("/tmp", filePath);
-    const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, targetPath.slice(targetPath.indexOf("uploads") + "uploads".length + 1)]);
+    const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, targetPath.slice(targetPath.indexOf("uploads") + 1)]);
     const insertedData = JSON.parse(JSON.stringify(insertData));
     console.log(1234, path.relative("/tmp", filePath), insertData, insertedData);
     if (insertedData.affectedRows > 0) {
