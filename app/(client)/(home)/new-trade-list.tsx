@@ -67,7 +67,7 @@ const TradeItem = ({ data }: { data: any }) => {
 const NewTradeList = () => {
   return (
     <div className="">
-      <div className="flex flex-col flex-wrap gap-4 py-20 max-w-screen-xl mx-auto px-2">
+      <div className="flex flex-col flex-wrap gap-4 py-10 max-w-screen-xl mx-auto px-2">
         <div className="grid-cols-[1.5fr_1fr_1fr_1fr_1fr] p-4 font-bold text-gray-400 border-b border-orange-100 hidden md:grid">
           <div className="  ">거래소명</div>
           <div className=" justify-self-center ">1인 평균 환급금</div>

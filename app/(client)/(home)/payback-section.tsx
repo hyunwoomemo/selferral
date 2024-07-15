@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { info } from "../../action";
 
 const PaybackSection = () => {
   const countUpRef = useRef(null);
@@ -53,8 +54,8 @@ const PaybackSection = () => {
     onReset: () => console.log("Resetted!"),
     onUpdate: () => console.log("Updated!"),
     onPauseResume: () => console.log("Paused or resumed!"),
-    onStart: ({ pauseResume }) => console.log(pauseResume),
-    onEnd: ({ pauseResume }) => console.log(pauseResume),
+    // onStart: ({ pauseResume }) => console.log(pauseResume),
+    // onEnd: ({ pauseResume }) => console.log(pauseResume),
   });
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const PaybackSection = () => {
   }, [countStart, update]);
 
   return (
-    <div className="py-20 md:py-36 my-12 flex flex-col md:flex-row gap-28 justify-center items-center bg-gray-50 dark:bg-gray-900 bg-gradient-to-t to-gray-50 from-gray-100 dark:from-gray-950">
+    <div className="py-20 md:py-36 my-12 flex flex-col-reverse md:flex-row gap-8 md:gap-28 justify-center items-center bg-gray-50 dark:bg-gray-900 bg-gradient-to-t to-gray-50 from-gray-100 dark:from-gray-950">
       <div className="flex-1  flex flex-col gap-5 items-center">
         <p className="font-bold text-orange-400">손쉽게 확인해 보세요! </p>
         <h1 className="font-bold text-3xl">셀퍼럴닷컴 이용자님들의</h1>
@@ -87,9 +88,9 @@ const PaybackSection = () => {
           <p className="font-bold">내 예상 페이백 확인하기</p>
         </Button>
       </div>
-      <div className="w-full max-w-[700px]  min-h-60 flex-1  rounded-md px-2 gap-10 grid grid-cols-4 items-center justify-center">
+      <div className="w-full max-w-[700px]  min-h-60 flex-1  rounded-md px-8 md:px-2 gap-4 md:gap-10 flex md:grid md:grid-cols-4 items-center justify-center">
         {dummyTrade.map((item, index) => (
-          <div key={index} className="w-16 h-16 md:w-20 md:h-20  relative flex justify-center items-center justify-self-center">
+          <div key={index} className="w-12 h-12 md:w-20 md:h-20  relative flex flex-auto md:justify-center items-center justify-self-center">
             <Image src={item.image} objectFit="contain" className="text-center" alt="trade-logo" />
           </div>
         ))}

@@ -10,7 +10,7 @@ import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
 import { SiLoop } from "react-icons/si";
 
-export function MobileNav() {
+export function MobileNav({ user }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ export function MobileNav() {
           <span className="sr-only">Toggle Theme</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right">
+      <SheetContent className="flex-auto flex flex-col" side="right">
         <MobileLink onOpenChange={setOpen} href="/" className="flex items-center gap-2">
           {/* <Icons.logo className="mr-2 h-4 w-4" /> */}
           <SiLoop />
@@ -38,6 +38,7 @@ export function MobileNav() {
             예상 페이백
           </MobileLink>
         </div>
+        <div className="mt-auto">{user?.name}님, 안녕하세요</div>
       </SheetContent>
     </Sheet>
   );

@@ -6,13 +6,30 @@ import EventList from "./event-list";
 import NewTradeList from "./new-trade-list";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AlignJustify, LayoutGrid } from "lucide-react";
+import executeQuery from "@/lib/db";
 
 export default function Home() {
   const [asIs, setAsIs] = useState(false);
 
+  // const [load, setLoad] = useState(true);
+
+  // useEffect(() => {
+  //   async function getLoader() {
+  //     await import("ldrs/cardio");
+  //     // cardio.default;
+  //   }
+
+  //   getLoader();
+  //   setTimeout(() => {
+  //     setLoad(false);
+  //   }, 1000);
+  // }, []);
+
   return (
     <>
+      {/* {load && <l-cardio size={72} color={"white"}></l-cardio>} */}
       <section className="space-y-6 pt-32  mx-auto">
         <div className="flex flex-col gap-4 sm:px-4 md:px-0">
           <div className="flex flex-col items-center gap-2">
@@ -42,18 +59,18 @@ export default function Home() {
           </div>
           <div className="md:pt-40">
             <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">셀퍼럴 제휴 거래소</h2>
-            <div className="flex justify-center pt-10 gap-2">
+            <div className="flex justify-end pt-20 gap-2 max-w-screen-xl mx-auto">
               <Button
                 onClick={() => setAsIs(true)}
                 className={cn(buttonVariants({ size: "lg", variant: "outline" }), `${asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
               >
-                PREV
+                <LayoutGrid />
               </Button>
               <Button
                 onClick={() => setAsIs(false)}
                 className={cn(buttonVariants({ size: "lg", variant: "outline" }), `${!asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
               >
-                NEW
+                <AlignJustify />
               </Button>
             </div>
             {asIs ? <TradeList /> : <NewTradeList />}

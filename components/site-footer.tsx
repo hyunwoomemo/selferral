@@ -1,8 +1,14 @@
+"use client";
 import { siteConfig } from "@/config/site";
 import { Mail } from "lucide-react";
 import { Icons } from "./icons";
+import { usePathname } from "next/navigation";
 
 export function SiteFooter() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) return;
+
   return (
     <footer>
       <div className="mb-6 mt-14 flex flex-col items-center">

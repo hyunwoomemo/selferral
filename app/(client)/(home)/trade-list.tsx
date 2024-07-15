@@ -42,7 +42,7 @@ const TradeItem = ({ data }: { data: any }) => {
 
 const TradeList = () => {
   return (
-    <div className="flex flex-wrap gap-10 py-20 max-w-screen-xl mx-auto">
+    <div className="flex flex-wrap gap-10 py-10 max-w-screen-xl mx-auto">
       {dummyTrade.map((item, index) => (
         <TradeItem key={item.name + index} data={item} />
       ))}

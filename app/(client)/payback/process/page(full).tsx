@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Suspense, useEffect, useRef, useState } from "react";
 import Section from "./section";
 import Buttons from "./button";
-import { useDisableScroll } from "@/app/hooks/useDisableScroll";
+import { useDisableScroll } from "@/app/(client)/hooks/useDisableScroll";
 import Page1 from "./page1";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Page2 from "./page2";
