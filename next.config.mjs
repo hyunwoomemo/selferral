@@ -5,7 +5,7 @@ const nextConfig = {
   },
   images: {
     /** 임시 추가  */
-    domains: ["selferraltest.vercel.app"],
+    // domains: ["selferraltest.vercel.app"],
     remotePatterns: [
       {
         protocol: "https",
@@ -16,13 +16,19 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "selferraltest.vercel.app",
-        port: "3000",
+        // port: "3000",
         pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "asset.spolive.com",
         port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3000",
         pathname: "/**",
       },
     ],

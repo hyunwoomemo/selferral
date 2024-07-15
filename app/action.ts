@@ -198,6 +198,7 @@ export async function getExchanges() {
 }
 
 export async function addExchange(prevState: any, formData: FormData) {
+  let redirectPath = null;
   const name = formData.get("name");
   const payback = formData.get("payback");
   const discount = formData.get("discount");
@@ -206,44 +207,40 @@ export async function addExchange(prevState: any, formData: FormData) {
   const roundImage = formData.get("roundImage");
 
   try {
-    // Validate roundImage
-    if (!roundImage || !roundImage.size) {
-      return { message: "파일을 업로드 해주세요." };
-    }
-
-    // Ensure the uploads directory exists
-    fs.mkdirSync("public/uploads", { recursive: true });
-
     const filePath = `public/uploads/${roundImage.name}`;
     const pump = promisify(pipeline);
 
-    // Stream the uploaded file to the filesystem
     await pump(roundImage.stream(), fs.createWriteStream(filePath));
 
-    // Validate required fields
-    if (!name) {
-      return { message: "필수 입력값입니다." };
+    if (name === "") {
+      return {
+        message: "필수 입력값입니다.",
+      };
     }
 
-    // Check if the exchange already exists
-    const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
+    const sql = "select * from selferral.exchanges where name = (?)";
     const data = await executeQuery(sql, [name]);
-    const existingExchanges = JSON.parse(JSON.stringify(data));
+    const getData = JSON.parse(JSON.stringify(data));
 
-    if (existingExchanges.length > 0) {
-      return { message: "이미 존재하는 거래소입니다." };
+    if (getData.length > 0) {
+      return {
+        message: "이미 존재하는 거래소입니다.",
+      };
     } else {
-      // Insert the new exchange
-      const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) VALUES (?, ?, ?, ?, ?, ?)";
-      const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, filePath.replace("public/", "")]);
-      const insertResult = JSON.parse(JSON.stringify(insertData));
-
-      if (insertResult.affectedRows > 0) {
-        redirect("/admin/exchange/list");
+      const sql = "insert into selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) values (?,?,?,?,?,?)";
+      const data = await executeQuery(sql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, filePath.replaceAll("public/", "")]);
+      const getData = JSON.parse(JSON.stringify(data));
+      if (getData.affectedRows > 0) {
+        redirectPath = `/admin/exchange/list`;
+        // 회원가입 완료
       }
     }
   } catch (err) {
-    console.error("Error during addExchange:", err);
-    return { message: "서버에서 오류가 발생했습니다." };
+    redirectPath = null;
+    console.log(err);
+  } finally {
+    if (redirectPath) {
+      redirect(redirectPath);
+    }
   }
 }
