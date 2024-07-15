@@ -206,7 +206,7 @@ export async function addExchange(prevState: any, formData: FormData) {
   const roundImage = formData.get("roundImage");
 
   try {
-    const filePath = `public/uploads/${roundImage.name}`;
+    const filePath = `/public/uploads/${roundImage.name}`;
     const pump = promisify(pipeline);
 
     await pump(roundImage.stream(), fs.createWriteStream(filePath));
@@ -227,7 +227,7 @@ export async function addExchange(prevState: any, formData: FormData) {
       };
     } else {
       const sql = "insert into selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) value (?,?,?,?,?,?)";
-      const data = await executeQuery(sql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, filePath.replaceAll("public/", "")]);
+      const data = await executeQuery(sql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, filePath.replaceAll("/public/", "")]);
       const getData = JSON.parse(JSON.stringify(data));
 
       if (getData.affectedRows > 0) {
