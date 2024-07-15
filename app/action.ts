@@ -199,7 +199,7 @@ export async function getExchanges() {
 }
 
 export async function addExchange(prevState, formData) {
-  const UPLOAD_DIR = process.env.ROOT_PATH;
+  const UPLOAD_DIR = path.resolve(process.env.ROOT_PATH ?? "", "public/uploads");
 
   const name = formData.get("name");
   const payback = formData.get("payback");
