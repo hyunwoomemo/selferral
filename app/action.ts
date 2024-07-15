@@ -201,6 +201,7 @@ export async function getExchanges() {
 export async function addExchange(prevState: any, formData: FormData) {
   let redirectPath = null;
   let err = null;
+
   const name = formData.get("name");
   const payback = formData.get("payback");
   const discount = formData.get("discount");
@@ -208,54 +209,56 @@ export async function addExchange(prevState: any, formData: FormData) {
   const limitOrder = formData.get("limitOrder");
   const roundImage = formData.get("roundImage");
 
-  try {
-    const uploadDir = path.join(__dirname, "public", "uploads");
-    const filePath = path.join(uploadDir, roundImage.name);
-    console.log("filePath", filePath);
+  // try {
+  const uploadDir = path.join(__dirname, "public", "uploads");
+  const filePath = path.join(uploadDir, roundImage.name);
+  console.log("filePath", filePath);
 
-    // Upload directory existence check
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
+  // Upload directory existence check
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
 
-    const pump = promisify(pipeline);
+  const pump = promisify(pipeline);
 
-    await pump(roundImage.stream(), fs.createWriteStream(filePath));
-    console.log("파일추가");
+  await pump(roundImage.stream(), fs.createWriteStream(filePath));
+  console.log("파일추가");
 
-    if (name === "") {
-      return {
-        message: "필수 입력값입니다.",
-      };
-    }
+  if (name === "") {
+    return {
+      message: "필수 입력값입니다.",
+    };
+  }
 
-    const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
-    const data = await executeQuery(sql, [name]);
-    const getData = JSON.parse(JSON.stringify(data));
+  const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
+  const data = await executeQuery(sql, [name]);
+  const getData = JSON.parse(JSON.stringify(data));
 
-    console.log("getData", getData);
+  console.log("getData", getData);
 
-    if (getData.length > 0) {
-      return {
-        message: "이미 존재하는 거래소입니다.",
-      };
-    } else {
-      const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) VALUES (?,?,?,?,?,?)";
-      const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, path.relative("public", filePath)]);
-      const insertedData = JSON.parse(JSON.stringify(insertData));
-      if (insertedData.affectedRows > 0) {
-        redirectPath = "/admin/exchange/list";
-        // 회원가입 완료
-      }
-    }
-  } catch (error) {
-    console.log("error", error);
-    redirectPath = "/";
-    err = error;
-  } finally {
-    console.log(err);
-    if (redirectPath) {
-      redirect(redirectPath);
+  if (getData.length > 0) {
+    return {
+      message: "이미 존재하는 거래소입니다.",
+    };
+  } else {
+    const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) VALUES (?,?,?,?,?,?)";
+    const targetPath = path.relative("public", filePath);
+    const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, targetPath.slice(targetPath.indexOf("public") + "public".length + 1)]);
+    const insertedData = JSON.parse(JSON.stringify(insertData));
+    console.log(1234, path.relative("public", filePath), insertData, insertedData);
+    if (insertedData.affectedRows > 0) {
+      redirectPath = "/admin/exchange/list";
+      redirect("/admin/exchange/list");
     }
   }
+  // } catch (error) {
+  // console.log("error", error);
+  // redirectPath = "/";
+  // err = error;
+  // } finally {
+  //   console.log(err);
+  //   if (redirectPath) {
+  //     redirect(redirectPath);
+  //   }
+  // }
 }
