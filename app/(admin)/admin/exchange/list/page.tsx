@@ -25,7 +25,7 @@ export default async function Page() {
             console.log(round_image);
             return (
               <div key={index} className=" md:grid md:grid-cols-7 p-2 py-6 hover:bg-[rgb(26,26,36)] hover:rounded-md place-items-center border-b-[1px] hover:border-none border-gray-900">
-                <Image src={`http://localhost:3000/${round_image}`} alt="exchange-logo" width={50} height={50} />
+                <Image src={`https://selferraltest.vercel.app/${round_image}`} alt="exchange-logo" width={50} height={50} />
                 {/* <div>{round_image}</div> */}
                 <div>{name}</div>
                 <div>{payback}</div>
