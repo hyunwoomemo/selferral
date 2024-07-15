@@ -20,6 +20,7 @@
     "@types/mysql": "^2.15.26",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
+    "cloudinary": "2.0.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.2.13",
     "github-slugger": "^2.0.0",

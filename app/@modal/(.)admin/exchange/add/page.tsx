@@ -2,6 +2,8 @@
 import { addExchange } from "@/app/action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 const initialState = {
@@ -11,24 +13,81 @@ const initialState = {
 export default function Page() {
   const { pending } = useFormStatus();
   const [state, formAction] = useFormState(addExchange, initialState);
+  const router = useRouter();
+
+  const [values, setValues] = useState({});
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = new FormData();
+
+    for (const key in values) {
+      form.append(key, values[key]);
+    }
+
+    // here /api/upload is the route of my handler
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: form,
+      headers: {
+        // add token
+        // content-type will be auto-handled and set to multipart/form-data
+      },
+    });
+
+    const data = await res.json();
+
+    // we will return the uploaded image URL from the API to the client
+    console.log(data);
+
+    if (data.CODE === "EA000") {
+      router.back();
+    }
+  };
 
   return (
     <div className="bg-[rgb(26,26,38)] w-full h-full flex flex-col justify-center items-center">
-      <form method="post" action={formAction} className="">
+      {/* <form method="post" action={formAction} className=""> */}
+      <form onSubmit={handleSubmit} className="">
         <div className="p-4">
-          <input name="name" placeholder="이름" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
+          <input
+            name="name"
+            onChange={(e) => setValues((prev) => ({ ...prev, ["name"]: e.target.value }))}
+            placeholder="이름"
+            className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+          />
         </div>
         <div className="p-4">
-          <input name="payback" placeholder="페이백" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
+          <input
+            name="payback"
+            onChange={(e) => setValues((prev) => ({ ...prev, ["payback"]: e.target.value }))}
+            placeholder="페이백"
+            className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+          />
         </div>
         <div className="p-4">
-          <input name="discount" placeholder="할인" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
+          <input
+            name="discount"
+            onChange={(e) => setValues((prev) => ({ ...prev, ["discount"]: e.target.value }))}
+            placeholder="할인"
+            className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+          />
         </div>
         <div className="p-4">
-          <input name="marketOrder" placeholder="시장가" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
+          <input
+            name="marketOrder"
+            onChange={(e) => setValues((prev) => ({ ...prev, ["marketOrder"]: e.target.value }))}
+            placeholder="시장가"
+            className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+          />
         </div>
         <div className="p-4">
-          <input name="limitOrder" placeholder="지정가" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
+          <input
+            name="limitOrder"
+            onChange={(e) => setValues((prev) => ({ ...prev, ["limitOrder"]: e.target.value }))}
+            placeholder="지정가"
+            className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+          />
         </div>
         <div className="p-4">
           <input
@@ -52,6 +111,7 @@ export default function Page() {
             //     }
             //   }
             // }}
+            onChange={(e) => setValues((prev) => ({ ...prev, file: e.target.files[0] }))}
             name="roundImage"
             type="file"
             placeholder="로고"

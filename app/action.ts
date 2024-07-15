@@ -12,8 +12,8 @@ import fs from "fs";
 import { pipeline } from "stream";
 import { promisify } from "util";
 import path from "path";
-import { tmpdir } from "os";
-import { join } from "path";
+import { NextRequest } from "next/server";
+import { cloudinary } from "../cloudinary";
 const SALT_ROUNDS = 10;
 
 async function tokenCheck() {
@@ -200,10 +200,9 @@ export async function getExchanges() {
   }
 }
 
-// Get the temporary directory
-const UPLOAD_DIR = join(tmpdir(), "uploads");
-
 export async function addExchange(prevState, formData) {
+  const UPLOAD_DIR = path.resolve(process.env.ROOT_PATH ?? "", "public/uploads");
+
   const name = formData.get("name");
   const payback = formData.get("payback");
   const discount = formData.get("discount");
@@ -223,10 +222,9 @@ export async function addExchange(prevState, formData) {
       fs.mkdirSync(UPLOAD_DIR, { recursive: true });
     }
 
-    // Store only the relative path from the temporary directory
+    // Store only the relative path from public directory
     const relativeFilePath = `/uploads/${roundImage.name}`;
-    const filePath = join(UPLOAD_DIR, roundImage.name);
-    fs.writeFileSync(filePath, buffer);
+    fs.writeFileSync(path.resolve(UPLOAD_DIR, roundImage.name), buffer);
 
     const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
     const data = await executeQuery(sql, [name]);
@@ -250,3 +248,24 @@ export async function addExchange(prevState, formData) {
     };
   }
 }
+
+type UploadResponse = { success: true; result?: UploadApiResponse } | { success: false; error: UploadApiErrorResponse };
+
+export const uploadToCloudinary = (fileUri: string, fileName: string): Promise<UploadResponse> => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload(fileUri, {
+        invalidate: true,
+        resource_type: "auto",
+        filename_override: fileName,
+        folder: "selferral", // any sub-folder name in your cloud
+        use_filename: true,
+      })
+      .then((result) => {
+        resolve({ success: true, result });
+      })
+      .catch((error) => {
+        reject({ success: false, error });
+      });
+  });
+};
