@@ -5,7 +5,7 @@ const nextConfig = {
   },
   images: {
     /** 임시 추가  */
-    // domains: ["selferraltest.vercel.app"],
+    domains: ["selferraltest.vercel.app"],
     remotePatterns: [
       {
         protocol: "https",
