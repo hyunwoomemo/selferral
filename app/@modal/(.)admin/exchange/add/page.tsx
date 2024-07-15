@@ -2,8 +2,6 @@
 import { addExchange } from "@/app/action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 const initialState = {
@@ -13,13 +11,6 @@ const initialState = {
 export default function Page() {
   const { pending } = useFormStatus();
   const [state, formAction] = useFormState(addExchange, initialState);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state.CODE === "EA000") {
-      router.back();
-    }
-  }, [state]);
 
   return (
     <div className="bg-[rgb(26,26,38)] w-full h-full flex flex-col justify-center items-center">

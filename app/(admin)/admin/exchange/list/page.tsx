@@ -19,10 +19,9 @@ export default async function Page() {
           <div>시장가</div>
           <div>지정가</div>
         </div>
-        <div className=" flex-[8]">
+        <div className=" flex-[8] pb-20">
           {exchanges.map((exchange, index) => {
             const { round_image, name, payback, discount, market_order, limit_order } = exchange;
-            console.log(round_image);
             return (
               <div key={index} className=" md:grid md:grid-cols-7 p-2 py-6 hover:bg-[rgb(26,26,36)] hover:rounded-md place-items-center border-b-[1px] hover:border-none border-gray-900">
                 <Image src={`https://selferraltest.vercel.app/${round_image}`} alt="exchange-logo" width={50} height={50} />
