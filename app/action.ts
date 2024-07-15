@@ -199,6 +199,7 @@ export async function getExchanges() {
 
 export async function addExchange(prevState: any, formData: FormData) {
   let redirectPath = null;
+  let err = null;
   const name = formData.get("name");
   const payback = formData.get("payback");
   const discount = formData.get("discount");
@@ -240,8 +241,11 @@ export async function addExchange(prevState: any, formData: FormData) {
       }
     }
   } catch (err) {
+    console.log("error", err);
     redirectPath = "/";
+    err = err;
   } finally {
+    console.log(err);
     if (redirectPath) {
       redirect(redirectPath);
     }
