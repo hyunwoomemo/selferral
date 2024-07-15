@@ -1,19 +1,29 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 import fs from "fs";
-import { pipeline } from "stream";
-import { promisify } from "util";
-const pump = promisify(pipeline);
 
-export async function POST(req, res) {
-  console.log("reqreqreqreqreq", req);
+const UPLOAD_DIR = path.resolve(process.env.ROOT_PATH ?? "", "public/uploads");
 
-  try {
-    const formData = await req.formData();
-    const file = formData.getAll("upload")[0];
-    const filePath = `./public/uploads/${file.name}`;
-    await pump(file.stream(), fs.createWriteStream(filePath));
-    return NextResponse.json({ status: "success", data: file.size });
-  } catch (e) {
-    return NextResponse.json({ status: "fail", data: e });
+export const POST = async (req: NextRequest) => {
+  const formData = await req.formData();
+  const body = Object.fromEntries(formData);
+  const file = (body.file as Blob) || null;
+
+  if (file) {
+    const buffer = Buffer.from(await file.arrayBuffer());
+    if (!fs.existsSync(UPLOAD_DIR)) {
+      fs.mkdirSync(UPLOAD_DIR);
+    }
+
+    fs.writeFileSync(path.resolve(UPLOAD_DIR, (body.file as File).name), buffer);
+  } else {
+    return NextResponse.json({
+      success: false,
+    });
   }
-}
+
+  return NextResponse.json({
+    success: true,
+    name: (body.file as File).name,
+  });
+};

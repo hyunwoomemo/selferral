@@ -31,7 +31,32 @@ export default function Page() {
           <input name="limitOrder" placeholder="지정가" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
         </div>
         <div className="p-4">
-          <input name="roundImage" type="file" placeholder="로고" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
+          <input
+            // onChange={async (e) => {
+            //   if (e.target.files) {
+            //     const formData = new FormData();
+            //     Object.values(e.target.files).forEach((file) => {
+            //       formData.append("file", file);
+            //     });
+
+            //     const response = await fetch("/api/upload", {
+            //       method: "POST",
+            //       body: formData,
+            //     });
+
+            //     const result = await response.json();
+            //     if (result.success) {
+            //       alert("Upload ok : " + result.name);
+            //     } else {
+            //       alert("Upload failed");
+            //     }
+            //   }
+            // }}
+            name="roundImage"
+            type="file"
+            placeholder="로고"
+            className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+          />
         </div>
         {state?.message ? <h3>{state.message}</h3> : null}
 
