@@ -198,7 +198,7 @@ export async function getExchanges() {
   }
 }
 
-export async function addExchange(prevState: any, formData: FormData) {
+export async function addExchange(prevState, formData) {
   let redirectPath = null;
   let err = null;
 
@@ -209,24 +209,25 @@ export async function addExchange(prevState: any, formData: FormData) {
   const limitOrder = formData.get("limitOrder");
   const roundImage = formData.get("roundImage");
 
-  // try {
-  const uploadDir = path.join(__dirname, "public", "uploads");
+  // Use /tmp for AWS Lambda or writable directory for other environments
+  const uploadDir = path.join("/tmp", "uploads");
   const filePath = path.join(uploadDir, roundImage.name);
   console.log("filePath", filePath);
 
-  // Upload directory existence check
+  // Ensure upload directory exists
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
   }
 
   const pump = promisify(pipeline);
 
+  // Stream the uploaded file to the designated path
   await pump(roundImage.stream(), fs.createWriteStream(filePath));
-  console.log("파일추가");
+  console.log("File added");
 
   if (name === "") {
     return {
-      message: "필수 입력값입니다.",
+      message: "Required field.",
     };
   }
 
@@ -238,14 +239,14 @@ export async function addExchange(prevState: any, formData: FormData) {
 
   if (getData.length > 0) {
     return {
-      message: "이미 존재하는 거래소입니다.",
+      message: "Exchange already exists.",
     };
   } else {
     const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) VALUES (?,?,?,?,?,?)";
-    const targetPath = path.relative("public", filePath);
-    const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, targetPath.slice(targetPath.indexOf("public") + "public".length + 1)]);
+    const targetPath = path.relative("/tmp", filePath);
+    const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, targetPath.slice(targetPath.indexOf("uploads") + "uploads".length + 1)]);
     const insertedData = JSON.parse(JSON.stringify(insertData));
-    console.log(1234, path.relative("public", filePath), insertData, insertedData);
+    console.log(1234, path.relative("/tmp", filePath), insertData, insertedData);
     if (insertedData.affectedRows > 0) {
       redirectPath = "/admin/exchange/list";
       redirect("/admin/exchange/list");
