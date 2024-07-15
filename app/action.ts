@@ -208,9 +208,11 @@ export async function addExchange(prevState: any, formData: FormData) {
 
   try {
     const filePath = `public/uploads/${roundImage.name}`;
+    console.log("filePath", filePath);
     const pump = promisify(pipeline);
 
     await pump(roundImage.stream(), fs.createWriteStream(filePath));
+    console.log("파일추가");
 
     if (name === "") {
       return {
@@ -221,6 +223,8 @@ export async function addExchange(prevState: any, formData: FormData) {
     const sql = "select * from selferral.exchanges where name = (?)";
     const data = await executeQuery(sql, [name]);
     const getData = JSON.parse(JSON.stringify(data));
+
+    console.log("getData", getData);
 
     if (getData.length > 0) {
       return {
