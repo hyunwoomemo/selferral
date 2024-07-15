@@ -12,6 +12,8 @@ import fs from "fs";
 import { pipeline } from "stream";
 import { promisify } from "util";
 import path from "path";
+import { tmpdir } from "os";
+import { join } from "path";
 const SALT_ROUNDS = 10;
 
 async function tokenCheck() {
@@ -198,9 +200,10 @@ export async function getExchanges() {
   }
 }
 
-export async function addExchange(prevState, formData) {
-  const UPLOAD_DIR = path.resolve(process.env.ROOT_PATH ?? "", "public/uploads");
+// Get the temporary directory
+const UPLOAD_DIR = join(tmpdir(), "uploads");
 
+export async function addExchange(prevState, formData) {
   const name = formData.get("name");
   const payback = formData.get("payback");
   const discount = formData.get("discount");
@@ -220,9 +223,10 @@ export async function addExchange(prevState, formData) {
       fs.mkdirSync(UPLOAD_DIR, { recursive: true });
     }
 
-    // Store only the relative path from public directory
+    // Store only the relative path from the temporary directory
     const relativeFilePath = `/uploads/${roundImage.name}`;
-    fs.writeFileSync(path.resolve(UPLOAD_DIR, roundImage.name), buffer);
+    const filePath = join(UPLOAD_DIR, roundImage.name);
+    fs.writeFileSync(filePath, buffer);
 
     const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
     const data = await executeQuery(sql, [name]);
