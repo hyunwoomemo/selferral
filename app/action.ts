@@ -240,8 +240,7 @@ export async function addExchange(prevState: any, formData: FormData) {
       }
     }
   } catch (err) {
-    redirectPath = null;
-    console.log(err);
+    redirectPath = "/";
   } finally {
     if (redirectPath) {
       redirect(redirectPath);

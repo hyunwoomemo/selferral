@@ -9,22 +9,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "data.spolive.com",
-        port: "",
-        pathname: "/data/**",
-      },
-      {
-        protocol: "https",
         hostname: "selferraltest.vercel.app",
-        // port: "3000",
+        port: "3000",
         pathname: "/**",
       },
-      {
-        protocol: "https",
-        hostname: "asset.spolive.com",
-        port: "",
-        pathname: "/**",
-      },
+
       {
         protocol: "http",
         hostname: "localhost",
