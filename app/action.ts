@@ -204,50 +204,38 @@ export async function addExchange(prevState: any, formData: FormData) {
   const marketOrder = formData.get("marketOrder");
   const limitOrder = formData.get("limitOrder");
   const roundImage = formData.get("roundImage");
-  console.log("img", roundImage, roundImage.name);
 
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "public/uploads/");
-    },
-    filename: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`);
-    },
-  });
+  try {
+    const filePath = `public/uploads/${roundImage.name}`;
+    const pump = promisify(pipeline);
 
-  const filePath = `public/uploads/${roundImage.name}`;
-  const pump = promisify(pipeline);
+    await pump(roundImage.stream(), fs.createWriteStream(filePath));
 
-  await pump(roundImage.stream(), fs.createWriteStream(filePath));
+    if (name === "") {
+      return {
+        message: "필수 입력값입니다.",
+      };
+    }
 
-  // const upload = multer({ storage });
-
-  // await upload.single("image");
-
-  // const imagePath = `/uploads/${roundImage.name}`;
-
-  if (name === "") {
-    return {
-      message: "필수 입력값입니다.",
-    };
-  }
-
-  const sql = "select * from selferral.exchanges where name = (?)";
-  const data = await executeQuery(sql, [name]);
-  const getData = JSON.parse(JSON.stringify(data));
-
-  if (getData.length > 0) {
-    return {
-      message: "이미 존재하는 거래소입니다.",
-    };
-  } else {
-    const sql = "insert into selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) value (?,?,?,?,?,?)";
-    const data = await executeQuery(sql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, filePath.replaceAll("public/", "")]);
+    const sql = "select * from selferral.exchanges where name = (?)";
+    const data = await executeQuery(sql, [name]);
     const getData = JSON.parse(JSON.stringify(data));
 
-    if (getData.affectedRows > 0) {
-      // 회원가입 완료
-      redirect("/admin/exchange/list");
+    if (getData.length > 0) {
+      return {
+        message: "이미 존재하는 거래소입니다.",
+      };
+    } else {
+      const sql = "insert into selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) value (?,?,?,?,?,?)";
+      const data = await executeQuery(sql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, filePath.replaceAll("public/", "")]);
+      const getData = JSON.parse(JSON.stringify(data));
+
+      if (getData.affectedRows > 0) {
+        // 회원가입 완료
+        redirect("/admin/exchange/list");
+      }
     }
+  } catch (err) {
+    console.log(err);
   }
 }
