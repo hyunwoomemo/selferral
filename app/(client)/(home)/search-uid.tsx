@@ -31,7 +31,18 @@ const SearchUid = () => {
       </DropdownMenu> */}
       <Dropdown item={exchange} setItem={setExchange} data={dummyTrade} isVisible={isVisible} setIsVisible={setIsVisible} />
       <div className="flex flex-auto items-center border border-gray-400 dark:border-white p-2 rounded-sm hover:border-orange-400 hover:dark:border-orange-200 focus-within:border-orange-400 focus-within:dark:border-orange-200">
-        <input placeholder="UID를 입력하세요" className="bg-transparent outline-none flex-auto" />
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            console.log(e);
+            const res = await fetch("/api/search");
+
+            console.log("res", res);
+          }}
+        >
+          <input placeholder="UID를 입력하세요" className="bg-transparent outline-none flex-auto" />
+          <button>sdf</button>
+        </form>
         <div className="">
           <Search className="text-black dark:text-white size-6 cursor-pointer" />
         </div>

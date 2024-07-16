@@ -76,7 +76,7 @@ export default function Sidebar() {
   );
 
   return (
-    <div className="flex-1 fixed w-60 bg-[rgb(26,26,36)] p-4 flex-col flex gap-20 h-screen">
+    <div className="md:flex-1 fixed translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:w-[15%] md:min-w-52 bg-[rgb(26,26,36)] p-4 flex-col flex gap-20 h-screen">
       <div className="flex gap-2 flex-col justify-center font-bold text-lg">
         <div className="items-center flex gap-2">
           <SiLoop />

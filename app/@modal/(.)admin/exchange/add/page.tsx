@@ -42,6 +42,9 @@ export default function Page() {
 
     if (data.CODE === "EA000") {
       router.back();
+      setTimeout(() => {
+        router.refresh();
+      }, 1000);
     }
   };
 
