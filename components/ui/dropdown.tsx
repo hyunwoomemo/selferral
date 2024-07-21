@@ -7,7 +7,7 @@ export default function Dropdown({ item, setItem, data, isVisible, setIsVisible 
     <>
       <div
         onClick={() => setIsVisible((prev) => !prev)}
-        className="flex items-center border md:p-2 border-gray-400 dark:border-white rounded-sm  gap-2 md:gap-4 hover:border-orange-400 hover:dark:border-orange-200 focus-within:dark:border-orange-200 focus-within:border-orange-400 h-[46px] p-2 font-bold md:h-[62px] flex-auto relative z-10"
+        className="flex items-center border md:p-2 border-gray-400 dark:border-white rounded-sm  gap-2 md:gap-4 hover:border-orange-400 hover:dark:border-orange-200 focus-within:dark:border-orange-200 focus-within:border-orange-400 h-[46px] p-2 font-bold md:h-[62px] flex-auto relative z-10 cursor-pointer"
       >
         {item.image && (
           <div className="w-[24px] h-[24px] md:w-[36px] md:h-[36px] relative flex justify-center items-center">

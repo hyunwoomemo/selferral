@@ -13,7 +13,6 @@ export const dummyTrade = [
     banner: require("./assets/bybit-banner.png"),
     tag: "인기거래소 🔥",
     payback: "30%",
-
     discount: "20%",
     closing: "93%",
     marketOrder: 0.01,

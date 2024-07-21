@@ -1,10 +1,9 @@
 import { getUsers } from "@/app/action";
 import moment from "moment";
+import UserType from "./user-type";
 
 export default async function Page() {
   const users = await getUsers();
-
-  console.log(users);
 
   const getUserTypeText = (type) => {
     switch (type) {
@@ -28,14 +27,18 @@ export default async function Page() {
         </div>
         <div className=" flex-[8]">
           {users.map((user, index) => {
+            console.log(user);
             const { email, name, hp, createdAt, type } = user;
             return (
-              <div key={index} className=" md:grid md:grid-cols-5 p-2 py-6 hover:bg-[rgb(26,26,36)] hover:rounded-md text-center border-b-[1px] hover:border-none border-gray-900">
+              <div
+                key={index}
+                className=" md:grid md:grid-cols-5 p-2 py-6 hover:bg-gray-100 hover:dark:bg-[rgb(26,26,36)] hover:rounded-md text-center border-b-[1px] hover:border-none border-gray-200 dark:border-gray-900"
+              >
                 <div>{email}</div>
                 <div>{name}</div>
                 <div>{hp}</div>
                 <div>{moment(createdAt).format("YYYY-MM-DD")}</div>
-                <div>{getUserTypeText(type)}</div>
+                <UserType id={user.id}>{getUserTypeText(type)}</UserType>
               </div>
             );
           })}

@@ -1,6 +1,7 @@
 "use client";
+import { ModeToggle } from "@/components/mode-toggle";
 import { siteConfig } from "@/config/site";
-import { User2, User2Icon, UserCheck, UserCircle } from "lucide-react";
+import { Home, User2, User2Icon, UserCheck, UserCircle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -58,6 +59,7 @@ const data = [
 export default function Sidebar() {
   const [expand, setExpand] = useState(null);
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleExpand = (type) => {
     setExpand((prev) => {
@@ -76,25 +78,29 @@ export default function Sidebar() {
   );
 
   return (
-    <div className="md:flex-1 fixed translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:w-[15%] md:min-w-52 bg-[rgb(26,26,36)] p-4 flex-col flex gap-20 h-screen">
+    <div className="md:sticky top-0 translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:w-[15%] md:min-w-40  bg-gray-100 dark:bg-[rgb(26,26,36)] p-4 flex-col flex gap-20 h-screen">
       <div className="flex gap-2 flex-col justify-center font-bold text-lg">
-        <div className="items-center flex gap-2">
+        <Link href={"/admin"} className="items-center flex gap-2">
           <SiLoop />
           <div>{siteConfig.name}</div>
-        </div>
+        </Link>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 flex-1">
         {data.map((item, index) => {
           return (
-            <div key={index} className={`${expand === item.label ? `h-60` : "h-10"} overflow-hidden transition-all text-lg font-bold`}>
-              <p onClick={() => handleExpand(item.label)} className="h-10 text-2xl">
+            <div key={index} className={`${expand === item.label ? `h-60` : "h-10"} overflow-hidden transition-all text-lg font-bold `}>
+              <p onClick={() => handleExpand(item.label)} className="h-10 text-2xl cursor-pointer hover:text-orange-400">
                 {item.label}
               </p>
               <div className="flex flex-col pt-5 gap-8">
                 {item.children.map((v, i) => {
                   return (
-                    <Link href={v.path || "/admin"} className={`pl-2 ${pathname === v.path ? "text-orange-400" : "text-gray-400"}`} key={i}>
+                    <Link
+                      href={v.path || "/admin"}
+                      className={`pl-2 ${pathname === v.path ? "text-orange-400" : "text-gray-600 hover:text-orange-400 dark:text-gray-400 dark:hover:text-orange-400"}`}
+                      key={i}
+                    >
                       {v.label}
                     </Link>
                   );
@@ -104,6 +110,10 @@ export default function Sidebar() {
           );
         })}
       </div>
+      <Link href={"/"}>
+        <Home />
+      </Link>
+      {/* <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} /> */}
     </div>
   );
 }

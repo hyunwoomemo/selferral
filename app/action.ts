@@ -54,8 +54,8 @@ export async function register(prevState: any, formData: FormData) {
   } else {
     const hashPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-    const sql = `insert into selferral.users (email,password, name, hp, createdAt) value (?,?,?,?,?)`;
-    const data = await executeQuery(sql, [email, hashPassword, name, hp, new Date()]);
+    const sql = `insert into selferral.users (email,password, name, hp, createdAt,type) value (?,?,?,?,?, ?)`;
+    const data = await executeQuery(sql, [email, hashPassword, name, hp, new Date(), "UT01"]);
     const getData = JSON.parse(JSON.stringify(data));
 
     if (getData.affectedRows > 0) {
@@ -176,11 +176,25 @@ export async function getUsers() {
   const token = await tokenCheck();
 
   if (token) {
-    const sql = "select email, name, hp, createdAt, type from selferral.users";
+    const sql = "select id,email, name, hp, createdAt, type from selferral.users";
     const data = await executeQuery(sql, "");
     const getData = JSON.parse(JSON.stringify(data));
 
     return getData;
+  } else {
+    redirect("/login");
+  }
+}
+
+export async function getUser(id) {
+  const token = await tokenCheck();
+
+  if (token) {
+    const sql = "select id, email, name, hp, createdAt, type from selferral.users where id = ?";
+    const data = await executeQuery(sql, [id]);
+    const getData = JSON.parse(JSON.stringify(data));
+
+    return getData[0];
   } else {
     redirect("/login");
   }
@@ -200,8 +214,24 @@ export async function getExchanges() {
   }
 }
 
+export async function getExchange(id) {
+  const token = await tokenCheck();
+
+  if (token) {
+    const sql = "select * from selferral.exchanges where id = ?";
+    const data = await executeQuery(sql, [id]);
+    const getData = JSON.parse(JSON.stringify(data));
+
+    return getData[0];
+  } else {
+    redirect("/login");
+  }
+}
+
 export async function addExchange(prevState, formData) {
   const UPLOAD_DIR = path.resolve(process.env.ROOT_PATH ?? "", "public/uploads");
+
+  console.log("formData", formData);
 
   const name = formData.get("name");
   const payback = formData.get("payback");
@@ -209,12 +239,17 @@ export async function addExchange(prevState, formData) {
   const marketOrder = formData.get("marketOrder");
   const limitOrder = formData.get("limitOrder");
   const roundImage = formData.get("roundImage");
+  const squareImage = formData.get("squareImage");
+  const tag = formData.get("tag");
 
   if (name === "") {
     return {
       message: "Required field.",
     };
   }
+
+  let roundeImagePath = "";
+  let squareImagePath = "";
 
   if (roundImage) {
     const buffer = Buffer.from(await roundImage.arrayBuffer());
@@ -225,27 +260,36 @@ export async function addExchange(prevState, formData) {
     // Store only the relative path from public directory
     const relativeFilePath = `/uploads/${roundImage.name}`;
     fs.writeFileSync(path.resolve(UPLOAD_DIR, roundImage.name), buffer);
+    roundeImagePath = relativeFilePath;
+  }
 
-    const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
-    const data = await executeQuery(sql, [name]);
-    const getData = JSON.parse(JSON.stringify(data));
-
-    if (getData.length > 0) {
-      return {
-        message: "Exchange already exists.",
-      };
-    } else {
-      const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image) VALUES (?,?,?,?,?,?)";
-      const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, relativeFilePath]);
-      const insertedData = JSON.parse(JSON.stringify(insertData));
-      if (insertedData.affectedRows > 0) {
-        redirect("/admin/exchange/list");
-      }
+  if (squareImage) {
+    const buffer = Buffer.from(await squareImage.arrayBuffer());
+    if (!fs.existsSync(UPLOAD_DIR)) {
+      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
     }
-  } else {
+
+    // Store only the relative path from public directory
+    const relativeFilePath = `/uploads/${squareImage.name}`;
+    fs.writeFileSync(path.resolve(UPLOAD_DIR, squareImage.name), buffer);
+    squareImagePath = relativeFilePath;
+  }
+
+  const sql = "SELECT * FROM selferral.exchanges WHERE name = ?";
+  const data = await executeQuery(sql, [name]);
+  const getData = JSON.parse(JSON.stringify(data));
+
+  if (getData.length > 0) {
     return {
-      message: "Image is required.",
+      message: "Exchange already exists.",
     };
+  } else {
+    const insertSql = "INSERT INTO selferral.exchanges (name, payback, discount, market_order, limit_order, round_image, square_image, tag) VALUES (?,?,?,?,?,?,?,?)";
+    const insertData = await executeQuery(insertSql, [name, `${payback}%`, `${discount}%`, marketOrder, limitOrder, roundeImagePath, squareImagePath, tag]);
+    const insertedData = JSON.parse(JSON.stringify(insertData));
+    if (insertedData.affectedRows > 0) {
+      redirect("/admin/exchange/list");
+    }
   }
 }
 
@@ -269,3 +313,9 @@ export const uploadToCloudinary = (fileUri: string, fileName: string): Promise<U
       });
   });
 };
+
+// export const deleteExchange = async (id) => {
+//   const sql = 'delete from selferral.exchanges where id = ?';
+//   const data = await executeQuery(sql, [id]);
+
+// }

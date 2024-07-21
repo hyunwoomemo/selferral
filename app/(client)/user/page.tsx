@@ -24,7 +24,7 @@ export default async function Page() {
           return (
             <div key={key} className="flex flex-col gap-2">
               <p className="text-lg">{key}</p>
-              <p className="py-2 px-4 bg-gray-200 dark: bg-gray-800 rounded-sm">{key === "createdAt" ? moment(value).format("YYYY-MM-DD") : value}</p>
+              <p className="py-2 px-4 bg-gray-200 dark:bg-gray-800 rounded-sm">{key === "createdAt" ? moment(value).format("YYYY-MM-DD") : value}</p>
             </div>
           );
         })}

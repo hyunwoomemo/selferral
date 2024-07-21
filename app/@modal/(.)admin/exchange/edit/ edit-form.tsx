@@ -3,15 +3,15 @@ import { addExchange } from "@/app/action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 const initialState = {
   message: "",
 };
 
-export default function Page() {
+export default function EditForm({ data }) {
   const { pending } = useFormStatus();
   const [state, formAction] = useFormState(addExchange, initialState);
   const router = useRouter();
@@ -19,6 +19,29 @@ export default function Page() {
   const [bannerSrc, setBannerSrc] = useState("");
 
   const [values, setValues] = useState({});
+
+  useEffect(() => {
+    try {
+      if (Object.keys(data).length > 0 && data) {
+        setLogoSrc(data.round_image);
+        setBannerSrc(data.square_image);
+        setValues({
+          name: data.name,
+          logo: data.round_image,
+          banner: data.square_image,
+          payback: data.payback,
+          discount: data.discount,
+          limitOrder: data.limit_order,
+          marketOrder: data.market_order,
+          tag: data.tag,
+          averageRefund: data.average_refund,
+          id: data.id,
+        });
+      }
+    } catch (error) {
+      console.error("Error parsing JSON data:", error);
+    }
+  }, [data]);
 
   const encodeFileToBase64 = (type, fileBlob) => {
     const reader = new FileReader();
@@ -42,12 +65,14 @@ export default function Page() {
     e.preventDefault();
     const form = new FormData();
 
+    console.log("123", values);
+
     for (const key in values) {
       form.append(key, values[key]);
     }
 
     // here /api/upload is the route of my handler
-    const res = await fetch("/api/upload", {
+    const res = await fetch("/api/exchange/edit", {
       method: "POST",
       body: form,
       headers: {
@@ -61,11 +86,14 @@ export default function Page() {
     // we will return the uploaded image URL from the API to the client
     console.log(data);
 
-    if (data.CODE === "EA000") {
+    if (data.CODE === "EM000") {
       router.back();
       setTimeout(() => {
         router.refresh();
       }, 1000);
+    } else {
+      router.back();
+      alert(data.message);
     }
   };
 
@@ -111,6 +139,7 @@ export default function Page() {
             name="name"
             onChange={(e) => setValues((prev) => ({ ...prev, ["name"]: e.target.value }))}
             placeholder="이름"
+            value={values.name}
             className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
           />
         </div>
@@ -119,12 +148,14 @@ export default function Page() {
             name="payback"
             onChange={(e) => setValues((prev) => ({ ...prev, ["payback"]: e.target.value }))}
             placeholder="페이백(%)"
+            value={values.payback}
             className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
           />
           <input
             name="discount"
             onChange={(e) => setValues((prev) => ({ ...prev, ["discount"]: e.target.value }))}
             placeholder="할인(%)"
+            value={values.discount}
             className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
           />
         </div>
@@ -133,12 +164,14 @@ export default function Page() {
             name="marketOrder"
             onChange={(e) => setValues((prev) => ({ ...prev, ["marketOrder"]: e.target.value }))}
             placeholder="시장가"
+            value={values.marketOrder}
             className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
           />
           <input
             name="limitOrder"
             onChange={(e) => setValues((prev) => ({ ...prev, ["limitOrder"]: e.target.value }))}
             placeholder="지정가"
+            value={values.limitOrder}
             className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
           />
         </div>
@@ -147,12 +180,14 @@ export default function Page() {
             name="averageRefund"
             onChange={(e) => setValues((prev) => ({ ...prev, ["averageRefund"]: e.target.value }))}
             placeholder="평균 환급 금액"
+            value={values.averageRefund}
             className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
           />
           <input
             name="tag"
             onChange={(e) => setValues((prev) => ({ ...prev, ["tag"]: e.target.value }))}
             placeholder="태그"
+            value={values.tag}
             className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
           />
         </div>
@@ -167,7 +202,7 @@ export default function Page() {
               "w-full  md:min-w-40  my-5 py-5 border border-orange-400 text-orange-400 text-lg dark:border-orange-200 dark:text-orange-200"
             )}
           >
-            {pending ? "추가 중..." : "추가"}
+            {pending ? "수정 중..." : "수정"}
           </Button>
         </div>
       </form>

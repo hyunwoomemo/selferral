@@ -1,47 +1,59 @@
-import { getExchanges, getUsers } from "@/app/action";
-import moment from "moment";
-import Link from "next/link";
-import AddBtn from "./add-btn";
+import { getExchanges } from "@/app/action";
 import Image from "next/image";
+import AddBtn from "./add-btn";
+import { Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
+import DeleteButton from "./delete-btn";
 
 export default async function Page() {
   const exchanges = await getExchanges();
 
+  console.log("ex ", exchanges);
+
   return (
-    <div className="font-bold flex-auto flex-col p-8 flex">
-      <h1 className="text-3xl">거래소 목록</h1>
-      <div className="flex flex-col flex-auto ">
-        <div className="pt-10 md:grid md:grid-cols-7 p-2 place-items-center border-b-[1px]">
-          <div>로고</div>
-          <div>이름</div>
-          <div>페이백</div>
-          <div>할인</div>
-          <div>시장가</div>
-          <div>지정가</div>
+    <div className="p-8 font-bold flex-auto pb-32">
+      {/* 테이블 */}
+      <h1 className="text-3xl pb-10">거래소</h1>
+      <div className="flex flex-col gap-0 md:max-w-[70dvw] overflow-x-auto">
+        <div className="">
+          <div className="flex gap-10 py-5 border-b-2">
+            <span className="flex justify-center min-w-[180px]">로고</span>
+            <span className="flex justify-center min-w-[180px]">이름</span>
+            <span className="flex justify-center min-w-[180px]">페이백</span>
+            <span className="flex justify-center min-w-[180px]">할인</span>
+            <span className="flex justify-center min-w-[180px]">지정가</span>
+            <span className="flex justify-center min-w-[180px]">시장가</span>
+            <span className="flex justify-center min-w-[180px]">1인 평균 환급금</span>
+            <span className="flex justify-center min-w-[180px]">태그</span>
+            <span className="flex justify-center min-w-[180px]">배너</span>
+          </div>
         </div>
-        <div className=" flex-[8] pb-20">
-          {exchanges.map((exchange, index) => {
-            const { round_image, name, payback, discount, market_order, limit_order } = exchange;
-
-            console.log("round_image", round_image);
-
-            return (
-              <div key={index} className=" md:grid md:grid-cols-7 p-2 py-6 hover:bg-[rgb(26,26,36)] hover:rounded-md place-items-center border-b-[1px] hover:border-none border-gray-900">
-                <Image src={round_image} alt="exchange-logo" width={50} height={50} />
-                {/* <div>{round_image}</div> */}
-                <div>{name}</div>
-                <div>{payback}</div>
-                <div>{discount}</div>
-                <div>{market_order}</div>
-                <div>{limit_order}</div>
-                <div>수정</div>
-                {/* <div>{hp}</div> */}
-                {/* <div>{moment(createdAt).format("YYYY-MM-DD")}</div> */}
+        <div className="flex flex-col">
+          {exchanges.map((exchange, index) => (
+            <div className="flex py-5 items-center" key={exchange.name}>
+              <div className="flex items-center  gap-10">
+                <span className="min-w-[180px] flex justify-center">
+                  <Image src={exchange.round_image} width={50} height={50} />
+                </span>
+                <span className="flex justify-center items-center min-w-[180px]">{exchange.name}</span>
+                <span className="flex justify-center items-center min-w-[180px]">{exchange.payback}</span>
+                <span className="flex justify-center items-center min-w-[180px]">{exchange.discount}</span>
+                <span className="flex justify-center items-center min-w-[180px]">{exchange.limit_order}</span>
+                <span className="flex justify-center items-center min-w-[180px]">{exchange.market_order}</span>
+                <span className="flex justify-center items-center min-w-[180px]">{exchange.average_refund}</span>
+                <span className="flex justify-center items-center min-w-[180px]">{exchange.tag}</span>
+                <span className="min-w-[180px] flex justify-center">{exchange.square_image && <Image src={exchange.square_image} width={100} height={50} />}</span>
               </div>
-            );
-          })}
+              <div className="absolute right-10 flex gap-8">
+                <Link href={`/admin/exchange/edit?id=${exchange.id}`}>
+                  <Pencil />
+                </Link>
+                <DeleteButton id={exchange.id} />
+              </div>
+            </div>
+          ))}
         </div>
-        {/* <div className="">페이지네이션</div> */}
+        {/* 옵션 */}
       </div>
       <AddBtn />
     </div>
