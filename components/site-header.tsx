@@ -12,9 +12,9 @@ import { useEffect, useState } from "react";
 import { SiLoop } from "react-icons/si";
 import { useAtom } from "jotai";
 import { userAtom } from "@/app/store/user";
-import { info } from "@/app/action";
+// import { info } from "@/app/action";
 
-export function SiteHeader({ role }) {
+export function SiteHeader() {
   // const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   // const [user, setUser] = useAtom(userAtom);
@@ -35,7 +35,7 @@ export function SiteHeader({ role }) {
     <>
       <header className="z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-14 items-center px-2">
-          <MainNav role={role} />
+          <MainNav />
           <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="flex items-center md:gap-4">
               {/* <Link

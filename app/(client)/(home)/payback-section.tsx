@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { info } from "../../action";
+// import { info } from "../../action";
 
 const PaybackSection = () => {
   const countUpRef = useRef(null);

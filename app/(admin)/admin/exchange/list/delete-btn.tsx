@@ -1,5 +1,5 @@
 "use client";
-import executeQuery from "@/lib/db";
+// import executeQuery from "@/lib/db";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 

@@ -2,12 +2,13 @@ import SearchUid from "./search-uid";
 import PaybackSection from "./payback-section";
 import EventList from "./event-list";
 import ExchangeWrapper from "./exchange-wrapper";
-import { getExchanges } from "@/app/action";
+// import { getExchanges } from "@/app/action";
+import { dummyTrade } from "@/dummy";
 
 export default async function Home() {
   // const exchangeData
 
-  const exchangeData = await getExchanges();
+  // const exchangeData = await getExchanges();
 
   return (
     <>
@@ -41,7 +42,7 @@ export default async function Home() {
           <div className="md:pt-40">
             <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">셀퍼럴 제휴 거래소</h2>
 
-            <ExchangeWrapper data={exchangeData.data} />
+            <ExchangeWrapper data={dummyTrade} />
           </div>
         </div>
       </section>

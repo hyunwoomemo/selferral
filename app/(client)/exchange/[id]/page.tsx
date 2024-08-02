@@ -1,4 +1,4 @@
-import { getExchange } from "@/app/action";
+// import { getExchange } from "@/app/action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ export default async function Page({ params }) {
       <div className="md:flex gap-10">
         <div style={{ flex: 1 }} className="h-full flex flex-col">
           <div className="flex h-full justify-center items-center py-5 rounded-md relative min-h-20">
-            <Image src={dummyTrade[0].round_image} height={100} width={100} />
+            <Image src={dummyTrade[0].round_image} height={100} width={100} alt="image" />
           </div>
           <Button
             // onClick={() => router.push(`/exchange/${dummyTrade[0].name}`)}

@@ -45,10 +45,10 @@ const TradeItem = ({ data }: { data: any }) => {
         <div>/</div>
         <div className="flex">
           <p>1인 평균 환급금 </p>
-          <p className="text-orange-900 dark:text-orange-200">{Number(data.averageRefund).toLocaleString("ko")}</p>
+          <p className="text-orange-900 dark:text-orange-200">{data.average_refund}</p>
         </div>
       </div>
-      <div className="flex-1 justify-self-center hidden md:block">{Number(data.average_refund).toLocaleString("ko")}</div>
+      <div className="flex-1 justify-self-center hidden md:block">{data.average_refund}</div>
       <div className="flex-1 justify-self-center  hidden md:block">{data.market_order}</div>
       <div className="flex-1 justify-self-center hidden md:block">{data.limit_order}</div>
       <div className="p-1 px-2  bg-orange-100 dark:bg-gray-900 rounded-md  whitespace-pre flex-1 justify-center hidden md:flex flex-wrap">

@@ -7,10 +7,10 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { SiLoop } from "react-icons/si";
 
-export function MainNav({ role }) {
+export function MainNav() {
   const pathname = usePathname();
 
-  console.log("role", role);
+  // console.log("role", role);
 
   return (
     <nav className="flex items-center space-x-4 lg:space-x-6">
@@ -28,11 +28,11 @@ export function MainNav({ role }) {
       <Link href="/payback" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/payback" ? "text-foreground" : "text-foreground/60")}>
         예상 페이백
       </Link>
-      {role === "admin" && (
+      {/* {role === "admin" && (
         <Link href="/admin" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/admin" ? "text-foreground" : "text-foreground/60")}>
           관리자
         </Link>
-      )}
+      )} */}
     </nav>
   );
 }

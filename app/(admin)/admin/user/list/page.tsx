@@ -5,14 +5,14 @@ import UserType from "./user-type";
 export default async function Page() {
   // const users = await getUsers();
 
-  const getUserTypeText = (type) => {
-    switch (type) {
-      case "UT02":
-        return "관리자";
-      default:
-        return "일반 회원";
-    }
-  };
+  // const getUserTypeText = (type) => {
+  //   switch (type) {
+  //     case "UT02":
+  //       return "관리자";
+  //     default:
+  //       return "일반 회원";
+  //   }
+  // };
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">
