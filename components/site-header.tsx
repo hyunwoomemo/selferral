@@ -15,21 +15,21 @@ import { userAtom } from "@/app/store/user";
 import { info } from "@/app/action";
 
 export function SiteHeader({ role }) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
-  const [user, setUser] = useAtom(userAtom);
+  // const [user, setUser] = useAtom(userAtom);
 
-  useEffect(() => {
-    info().then((res) => {
-      if (res.DATA) {
-        setUser(res.DATA);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   info().then((res) => {
+  //     if (res.DATA) {
+  //       setUser(res.DATA);
+  //     }
+  //   });
+  // }, []);
 
-  console.log("pathname", pathname);
+  // console.log("pathname", pathname);
 
-  if (pathname.startsWith("/admin")) return;
+  // if (pathname.startsWith("/admin")) return;
 
   return (
     <>
@@ -68,17 +68,18 @@ export function SiteHeader({ role }) {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link> */}
-              {user && Object.keys(user).length > 0 ? (
+              {/* {user && Object.keys(user).length > 0 ? (
                 <Link href="/user" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/user" ? "text-foreground" : "text-foreground/60")}>
                   {user.name}
                 </Link>
-              ) : (
-                <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
+              ) : ( */}
+              {/* <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
                   로그인
-                </Link>
-              )}
+                </Link> */}
+              {/* )} */}
               <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} />
-              <MobileNav user={user} />
+              {/* <MobileNav user={user} /> */}
+              <MobileNav />
             </nav>
           </div>
         </div>

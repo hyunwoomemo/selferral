@@ -88,7 +88,7 @@ const PaybackSection = () => {
           <p className="font-bold">내 예상 페이백 확인하기</p>
         </Button>
       </div>
-      <div className="w-full max-w-[700px]  min-h-60 flex-1  rounded-md px-8 md:px-2 gap-4 md:gap-10 flex md:grid md:grid-cols-4 items-center justify-center">
+      <div className="w-full max-w-[700px]   min-h-60 flex-1 rounded-md px-8 md:px-2 gap-4 md:gap-10 flex md:grid md:grid-cols-4 items-center justify-center m-4">
         {dummyTrade.map((item, index) => (
           <div key={index} className="w-12 h-12 md:w-20 md:h-20  relative flex flex-auto md:justify-center items-center justify-self-center">
             <Image src={item.image} objectFit="contain" className="text-center" alt="trade-logo" />

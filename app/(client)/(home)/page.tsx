@@ -9,8 +9,6 @@ export default async function Home() {
 
   const exchangeData = await getExchanges();
 
-  console.log("exchangeData", exchangeData);
-
   return (
     <>
       <section className="space-y-6 pt-32  mx-auto">
@@ -43,7 +41,7 @@ export default async function Home() {
           <div className="md:pt-40">
             <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">셀퍼럴 제휴 거래소</h2>
 
-            <ExchangeWrapper data={exchangeData} />
+            <ExchangeWrapper data={exchangeData.data} />
           </div>
         </div>
       </section>

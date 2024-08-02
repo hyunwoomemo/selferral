@@ -31,9 +31,9 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
-  const role = await checkUserRole();
+  // const role = await checkUserRole();
 
-  console.log("role", role);
+  // console.log("role", role);
 
   return (
     <html lang="en" className="scroll-pt-[3.5rem]">
@@ -42,7 +42,8 @@ export default async function RootLayout({
         <Providers>
           <div className="relative flex min-h-dvh flex-col bg-background">
             {/* {role} */}
-            <SiteHeader role={role} />
+            {/* <SiteHeader role={role} /> */}
+            <SiteHeader />
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>

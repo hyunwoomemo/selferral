@@ -38,7 +38,7 @@ export function MobileNav({ user }) {
             예상 페이백
           </MobileLink>
         </div>
-        <div className="mt-auto">{user?.name}님, 안녕하세요</div>
+        {/* <div className="mt-auto">{user?.name}님, 안녕하세요</div> */}
       </SheetContent>
     </Sheet>
   );
