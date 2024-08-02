@@ -98,42 +98,42 @@ export const dummyTrade = [
 
 export const dummyEvent = [
   {
-    round_image: require("@/assets/event1.webp"),
+    image: require("@/assets/event1.webp"),
     title: "Lorem ipsum dolor sit.",
     contents: "Lorem ipsum dolor sit amet consectetur.",
     sdate: "24.06.01",
     edate: "24.06.30",
   },
   {
-    round_image: require("@/assets/event2.webp"),
+    image: require("@/assets/event2.webp"),
     title: "Lorem ipsum dolor sit.",
     contents: "Lorem ipsum dolor sit amet consectetur.",
     sdate: "24.06.01",
     edate: "24.06.30",
   },
   {
-    round_image: require("@/assets/event3.webp"),
+    image: require("@/assets/event3.webp"),
     title: "Lorem ipsum dolor sit.",
     contents: "Lorem ipsum dolor sit amet consectetur.",
     sdate: "24.06.01",
     edate: "24.06.30",
   },
   {
-    round_image: require("@/assets/event4.webp"),
+    image: require("@/assets/event4.webp"),
     title: "Lorem ipsum dolor sit.",
     contents: "Lorem ipsum dolor sit amet consectetur.",
     sdate: "24.06.01",
     edate: "24.06.30",
   },
   {
-    round_image: require("@/assets/event5.webp"),
+    image: require("@/assets/event5.webp"),
     title: "Lorem ipsum dolor sit.",
     contents: "Lorem ipsum dolor sit amet consectetur.",
     sdate: "24.06.01",
     edate: "24.06.30",
   },
   {
-    round_image: require("@/assets/event6.webp"),
+    image: require("@/assets/event6.webp"),
     title: "Lorem ipsum dolor sit.",
     contents: "Lorem ipsum dolor sit amet consectetur.",
     sdate: "24.06.01",
