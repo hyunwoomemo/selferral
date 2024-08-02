@@ -1,9 +1,9 @@
-import { getUsers } from "@/app/action";
+// import { getUsers } from "@/app/action";
 import moment from "moment";
 import UserType from "./user-type";
 
 export default async function Page() {
-  const users = await getUsers();
+  // const users = await getUsers();
 
   const getUserTypeText = (type) => {
     switch (type) {
@@ -26,7 +26,7 @@ export default async function Page() {
           <div>유저 타입</div>
         </div>
         <div className=" flex-[8]">
-          {users.map((user, index) => {
+          {/* {users.map((user, index) => {
             console.log(user);
             const { email, name, hp, createdAt, type } = user;
             return (
@@ -41,7 +41,7 @@ export default async function Page() {
                 <UserType id={user.id}>{getUserTypeText(type)}</UserType>
               </div>
             );
-          })}
+          })} */}
         </div>
         {/* <div className="">페이지네이션</div> */}
       </div>

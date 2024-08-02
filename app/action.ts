@@ -1,20 +1,20 @@
-"use server";
+// "use server";
 
-import executeQuery from "@/lib/db";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
-import multer from "multer";
-import fs from "fs";
-import { pipeline } from "stream";
-import { promisify } from "util";
-import path from "path";
-import { NextRequest } from "next/server";
-import { cloudinary } from "../cloudinary";
-const SALT_ROUNDS = 10;
+// import executeQuery from "@/lib/db";
+// import { revalidatePath } from "next/cache";
+// import { redirect } from "next/navigation";
+// import bcrypt from "bcrypt";
+// import jwt from "jsonwebtoken";
+// import { cookies } from "next/headers";
+// import { NextResponse } from "next/server";
+// import multer from "multer";
+// import fs from "fs";
+// import { pipeline } from "stream";
+// import { promisify } from "util";
+// import path from "path";
+// import { NextRequest } from "next/server";
+// import { cloudinary } from "../cloudinary";
+// const SALT_ROUNDS = 10;
 
 // async function tokenCheck() {
 //   const token = cookies().get("token")?.value;
@@ -111,7 +111,7 @@ const SALT_ROUNDS = 10;
 //   }
 // }
 
-// export async function getUserInfo()
+// // export async function getUserInfo()
 
 // export async function info() {
 //   const token = cookies().get("token")?.value;

@@ -1,9 +1,10 @@
-import { getExchanges, getUsers } from "@/app/action";
+// import { getExchanges, getUsers } from "@/app/action";
+import { getExchanges } from "@/app/action";
 import DashboardItem from "./dashboard-item";
 import Sidebar from "./sidebar";
 
 export default async function Page() {
-  const users = await getUsers();
+  // const users = await getUsers();
   const exchanges = await getExchanges();
 
   return (
@@ -13,7 +14,7 @@ export default async function Page() {
         <DashboardItem>
           <div className="flex flex-col gap-4 min-w-[160px] py-4  justify-center items-center">
             <p className="text-gray-500 ">유저</p>
-            <p className="text-3xl">{users.length}</p>
+            {/* <p className="text-3xl">{users.length}</p> */}
           </div>
         </DashboardItem>
         <DashboardItem>
