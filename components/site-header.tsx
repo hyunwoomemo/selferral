@@ -109,18 +109,18 @@ export function SiteHeader() {
         </div>
       </header>
       <div onClick={() => setIsVisible(false)} className={`absolute top-0 left-0 right-0 bottom-0 bg-slate-50 opacity-0 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}></div>
-      <div className="sm:hidden p-4 border-b">
-        <div className="flex gap-3 flex-wrap">
-          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} href="/exchange">
+      <div className="sm:hidden p-4 border-b overflow-x-scroll overflow-y-hidden">
+        <div className="flex gap-3 ">
+          <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} href="/exchange">
             전체 거래소
           </MobileLink>
-          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/service" ? "text-foreground" : "text-foreground/60"}`} href="/service">
+          <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/service" ? "text-foreground" : "text-foreground/60"}`} href="/service">
             서비스 소개
           </MobileLink>
-          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/payback" ? "text-foreground" : "text-foreground/60"}`} href="/payback">
+          <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/payback" ? "text-foreground" : "text-foreground/60"}`} href="/payback">
             예상 페이백
           </MobileLink>
-          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} href="/notice">
+          <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} href="/notice">
             공지사항
           </MobileLink>
         </div>

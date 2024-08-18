@@ -33,7 +33,7 @@ const Page1 = () => {
             key={v.name}
           >
             <div className="w-10 h-10 relative flex justify-center items-center">
-              <Image src={v.image} alt="image" />
+              <Image src={v.round_image} alt="image" />
             </div>
             <p>{v.name}</p>
           </div>

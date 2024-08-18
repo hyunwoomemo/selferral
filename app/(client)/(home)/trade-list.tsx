@@ -31,7 +31,7 @@ const TradeItem = ({ data }: { data: any }) => {
           <p className="text-gray-900 dark:text-gray-400 font-bold pt-3"> 시장가 </p>
           <p className="text-gray-900 dark:text-gray-400 font-bold pt-3">{data.market_order}</p>
           <p className="text-gray-900 dark:text-gray-400 font-bold pt-3"> / 1인 평균 환급금 </p>
-          <p className="text-orange-400 font-bold pt-3">{Number(data.average_refund).toLocaleString("ko")}</p>
+          <p className="text-orange-400 font-bold pt-3">{data.average_refund}</p>
         </div>
         <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">{data.tag}</p>
       </div>

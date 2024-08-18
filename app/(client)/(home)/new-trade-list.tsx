@@ -72,7 +72,7 @@ const NewTradeList = ({ data }) => {
           <div className="  justify-self-center"></div>
           <div className="  justify-self-center"></div>
         </div>
-        <div className="grid-cols-[1.5fr_1fr_1fr_1fr_1fr] p-4 font-bold text-gray-400 border-b border-orange-100 hidden md:grid mb-4">
+        <div className="grid-cols-[1.5fr_1fr_1fr_1fr_1fr] p-4 font-bold text-gray-400 border-b border-orange-400 dark:border-orange-100  hidden md:grid mb-4">
           <div className="  ">거래소명</div>
           <div className=" justify-self-center ">1인 평균 환급금</div>
           <div className="  justify-self-center">지정가</div>
