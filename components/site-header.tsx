@@ -1,13 +1,13 @@
 "use client";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 import { buttonVariants } from "./ui/button";
 import { Icons } from "./icons";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SiLoop } from "react-icons/si";
 import { useAtom } from "jotai";
@@ -17,6 +17,7 @@ import { userAtom } from "@/app/store/user";
 export function SiteHeader() {
   // const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
   // const [user, setUser] = useAtom(userAtom);
 
   // useEffect(() => {
@@ -30,6 +31,29 @@ export function SiteHeader() {
   // console.log("pathname", pathname);
 
   // if (pathname.startsWith("/admin")) return;
+
+  interface MobileLinkProps extends LinkProps {
+    children: React.ReactNode;
+    onOpenChange?: (open: boolean) => void;
+    className?: string;
+  }
+
+  function MobileLink({ href, onOpenChange, children, className, ...props }: MobileLinkProps) {
+    const router = useRouter();
+    return (
+      <Link
+        href={href}
+        onClick={() => {
+          router.push(href.toString());
+          onOpenChange?.(false);
+        }}
+        className={className}
+        {...props}
+      >
+        {children}
+      </Link>
+    );
+  }
 
   return (
     <>
@@ -85,6 +109,22 @@ export function SiteHeader() {
         </div>
       </header>
       <div onClick={() => setIsVisible(false)} className={`absolute top-0 left-0 right-0 bottom-0 bg-slate-50 opacity-0 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}></div>
+      <div className="sm:hidden p-4 border-b">
+        <div className="flex gap-3 flex-wrap">
+          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} href="/exchange">
+            전체 거래소
+          </MobileLink>
+          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/service" ? "text-foreground" : "text-foreground/60"}`} href="/service">
+            서비스 소개
+          </MobileLink>
+          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/payback" ? "text-foreground" : "text-foreground/60"}`} href="/payback">
+            예상 페이백
+          </MobileLink>
+          <MobileLink className={` min-w-10 text-center px-2 py-1  rounded-sm ${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} href="/notice">
+            공지사항
+          </MobileLink>
+        </div>
+      </div>
     </>
   );
 }

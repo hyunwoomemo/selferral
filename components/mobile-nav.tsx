@@ -5,13 +5,14 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Infinity, Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
 import { SiLoop } from "react-icons/si";
 
-export function MobileNav({ user }) {
+export function MobileNav({ user }: { user?: any }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -28,14 +29,17 @@ export function MobileNav({ user }) {
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
-          <MobileLink onOpenChange={setOpen} href="/exchange">
+          <MobileLink className={`${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/exchange">
             전체 거래소
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/service">
+          <MobileLink className={`${pathname === "/service" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/service">
             서비스 소개
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/payback">
+          <MobileLink className={`${pathname === "/payback" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/payback">
             예상 페이백
+          </MobileLink>
+          <MobileLink className={`${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/notice">
+            공지사항
           </MobileLink>
         </div>
         {/* <div className="mt-auto">{user?.name}님, 안녕하세요</div> */}

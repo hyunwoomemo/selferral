@@ -13,7 +13,7 @@ const EventList = () => {
         spaceBetween={30}
         pagination={{
           clickable: true,
-        }}
+      }}
         className="mySwiper"
       >
         {dummyEvent.map((dummy, index) => (
