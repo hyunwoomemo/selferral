@@ -14,7 +14,7 @@ const TradeItem = ({ data }: { data: any }) => {
   return (
     <div className="flex-1  mx-2 flex flex-col rounded-md   font-bold border border-gray-200 dark:border-gray-600">
       <div className="min-w-60 h-32  bg-background  rounded-t-md flex justify-center items-center text-black relative overflow-hidden border-b border-gray-200 dark:border-gray-600">
-        {data.square_image && <Image src={data.square_image} fill className="object-cover md:object-contain" alt="exchange-image" />}
+        {data.image_big && <Image src={data.image_big} fill className="object-cover md:object-contain" alt="exchange-image" />}
       </div>
       <div className="py-3 px-2">
         <p className="text-gray-800 dark:text-white">{data.name}</p>
@@ -31,9 +31,9 @@ const TradeItem = ({ data }: { data: any }) => {
           <p className="text-gray-900 dark:text-gray-400 font-bold pt-3"> 시장가 </p>
           <p className="text-gray-900 dark:text-gray-400 font-bold pt-3">{data.market_order}</p>
           <p className="text-gray-900 dark:text-gray-400 font-bold pt-3"> / 1인 평균 환급금 </p>
-          <p className="text-orange-400 font-bold pt-3">{data.average_refund}</p>
+          <p className="text-orange-400 font-bold pt-3">{Number(data.average_refund).toLocaleString()}</p>
         </div>
-        <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">{data.tag}</p>
+        <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">{data.nameExt}</p>
       </div>
 
       <div className="w-full px-2">

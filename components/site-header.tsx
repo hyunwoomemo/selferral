@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { SiLoop } from "react-icons/si";
 import { useAtom } from "jotai";
 import { userAtom } from "@/app/store/user";
+import { ArrowRight } from 'lucide-react';
 // import { info } from "@/app/action";
 
 export function SiteHeader() {
@@ -38,6 +39,8 @@ export function SiteHeader() {
     className?: string;
   }
 
+  const user = null
+
   function MobileLink({ href, onOpenChange, children, className, ...props }: MobileLinkProps) {
     const router = useRouter();
     return (
@@ -57,8 +60,8 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="flex h-14 items-center px-2">
+      <header className="z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ">
+        <div className="flex h-14 items-center px-2 mx-auto max-w-screen-xl">
           <MainNav />
           <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="flex items-center md:gap-4">
@@ -92,15 +95,15 @@ export function SiteHeader() {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link> */}
-              {/* {user && Object.keys(user).length > 0 ? (
+              {user && Object.keys(user).length > 0 ? (
                 <Link href="/user" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/user" ? "text-foreground" : "text-foreground/60")}>
                   {user.name}
                 </Link>
-              ) : ( */}
-              {/* <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
+              ) : (
+              <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
                   로그인
-                </Link> */}
-              {/* )} */}
+                </Link>
+              )}
               <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} />
               {/* <MobileNav user={user} /> */}
               <MobileNav />
@@ -112,7 +115,7 @@ export function SiteHeader() {
       <div className="sm:hidden p-4 border-b overflow-x-scroll overflow-y-hidden">
         <div className="flex gap-3 ">
           <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} href="/exchange">
-            전체 거래소
+            제휴 거래소
           </MobileLink>
           <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/service" ? "text-foreground" : "text-foreground/60"}`} href="/service">
             서비스 소개
@@ -123,8 +126,18 @@ export function SiteHeader() {
           <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} href="/notice">
             공지사항
           </MobileLink>
+          <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/guide" ? "text-foreground" : "text-foreground/60"}`} href="/guide">셀퍼럴 가이드
+          </MobileLink>
         </div>
       </div>
+      {pathname !== '/payback' &&       <div className='w-full bg-orange-400  p-4 font-bold text-white text-sm md:text-[16px]'>
+        <div className='flex justify-between max-w-screen-xl mx-auto'>
+        <p>내가 쓴 수수료, 전부 내가 돌려받자!</p>
+        <Link className='flex gap-2 items-center' href={'/payback'}><p>내 페이백 예상 금액 확인하기</p>
+        <ArrowRight /></Link>
+        </div>
+      </div>}
+
     </>
   );
 }

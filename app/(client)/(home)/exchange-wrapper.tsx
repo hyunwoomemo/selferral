@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import { AlignJustify, LayoutGrid } from "lucide-react";
 
 const ExchangeWrapper = ({ data }: { data: any }) => {
+
+  console.log('data', data)
   const [asIs, setAsIs] = useState(false);
 
   return (

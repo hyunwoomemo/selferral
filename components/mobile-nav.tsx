@@ -30,7 +30,7 @@ export function MobileNav({ user }: { user?: any }) {
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
           <MobileLink className={`${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/exchange">
-            전체 거래소
+            제휴 거래소
           </MobileLink>
           <MobileLink className={`${pathname === "/service" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/service">
             서비스 소개
@@ -41,6 +41,7 @@ export function MobileNav({ user }: { user?: any }) {
           <MobileLink className={`${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/notice">
             공지사항
           </MobileLink>
+          <MobileLink className={`${pathname === "/guide" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/guide">셀퍼럴 가이드</MobileLink>
         </div>
         {/* <div className="mt-auto">{user?.name}님, 안녕하세요</div> */}
       </SheetContent>

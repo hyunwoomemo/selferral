@@ -13,7 +13,6 @@ const nextConfig = {
         port: "3000",
         pathname: "/**",
       },
-
       {
         protocol: "http",
         hostname: "localhost",
@@ -25,6 +24,11 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/**",
       },
+      {
+        protocol: "http",
+        hostname: 'api.xn--3l2b13oekp.com',
+        pathname: '/**'
+      }
     ],
   },
 };

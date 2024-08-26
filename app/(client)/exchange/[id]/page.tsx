@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export default async function Page({ params }) {
-  console.log("params", params);
   // const dummyTrade[0] = await getExchange(params.id);
 
   // console.log(dummyTrade[0]);

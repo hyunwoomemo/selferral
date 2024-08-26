@@ -17,14 +17,14 @@ export default function Dropdown({ item, setItem, data, isVisible, setIsVisible 
           </div>
         )}
         <p className="md:text-2xl">{item.name}</p>
-        <div className={`absolute w-[100%] top-[120%] left-0 bg-background rounded-sm opacity-${isVisible ? 100 : 0} transition-opacity duration-300`}>
+        <div className={`absolute w-[100%] top-[120%] left-0 bg-background rounded-sm opacity-${isVisible ? 100 : 0} ${isVisible ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity duration-300`}>
           {data
             .filter((v: any) => v.name !== item.name)
             .map((item: any, index: number, arr: []) => (
               <div
                 onClick={() => setItem(item)}
                 key={index}
-                className={`${index === arr.length - 1 ? "border-b-0" : "border-b"} flex gap-2 md:gap-4 p-2 py-4 opacity-${isVisible ? 100 : 0} transition-opacity min-w-32`}
+                className={`border flex gap-2 md:gap-4 p-2 py-4 opacity-${isVisible ? 100 : 0} transition-opacity min-w-32 border-1`}
               >
                 {item.round_image && (
                   <div className="w-[24px] h-[24px] md:w-[36px] md:h-[36px] relative flex justify-center items-center">

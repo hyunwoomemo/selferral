@@ -18,11 +18,11 @@ const TradeItem = ({ data }: { data: any }) => {
       <div className="flex items-center flex-1 min-w-full justify-between">
         <div className="flex items-center">
           <div className="min-w-[70px]">
-            <div className="relative w-[50px]  h-[50px] flex items-center justify-center">{data.round_image && <Image src={data.round_image} width={50} height={50} alt="exchange-logo" />}</div>
+            <div className="relative w-[50px]  h-[50px] flex items-center justify-center">{data.image_thumb && <Image src={data.image_thumb} width={50} height={50} alt="exchange-logo" />}</div>
           </div>
           <div>
             <p className="text-lg">{data.name}</p>
-            <p className="text-gray-400">{data.tag}</p>
+            <p className="text-gray-400">{data.nameExt}</p>
           </div>
         </div>
       </div>
@@ -45,10 +45,10 @@ const TradeItem = ({ data }: { data: any }) => {
         <div>/</div>
         <div className="flex">
           <p>1인 평균 환급금 </p>
-          <p className="text-orange-900 dark:text-orange-200">{data.average_refund}</p>
+          <p className="text-orange-900 dark:text-orange-200">{Number(data.average_refund).toLocaleString()}</p>
         </div>
       </div>
-      <div className="flex-1 justify-self-center hidden md:block">{data.average_refund}</div>
+      <div className="flex-1 justify-self-center hidden md:block">{Number(data.average_refund).toLocaleString()}</div>
       <div className="flex-1 justify-self-center  hidden md:block">{data.market_order}</div>
       <div className="flex-1 justify-self-center hidden md:block">{data.limit_order}</div>
       <div className="p-1 px-2  bg-orange-100 dark:bg-gray-900 rounded-md  whitespace-pre flex-1 justify-center hidden md:flex flex-wrap">
