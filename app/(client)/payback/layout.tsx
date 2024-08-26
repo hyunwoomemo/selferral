@@ -17,9 +17,9 @@ export default function PaybackLayout({
   console.log(process);
 
   return (
-    <>
+    <div>
       <ProgressBar width={`${(100 / TOTAL) * process}%`} height="5px" />
       {children}
-    </>
+    </div>
   );
 }
