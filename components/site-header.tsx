@@ -131,9 +131,9 @@ export function SiteHeader() {
         </div>
       </div>
       {!pathname.includes('/payback') &&       <div className='w-full bg-orange-400  p-4 font-bold text-white text-sm md:text-[16px]'>
-        <div className='flex justify-between max-w-screen-xl mx-auto'>
-        <p>내가 쓴 수수료, 전부 내가 돌려받자!</p>
-        <Link className='flex gap-2 items-center' href={'/payback'}><p>내 페이백 예상 금액 확인하기</p>
+        <div className='md:flex justify-between max-w-screen-xl mx-auto'>
+        <p className=''>내가 쓴 수수료, 전부 내가 돌려받자!</p>
+        <Link className='flex gap-2 items-center justify-end' href={'/payback'}><p>내 페이백 예상 금액 확인하기</p>
         <ArrowRight /></Link>
         </div>
       </div>}
