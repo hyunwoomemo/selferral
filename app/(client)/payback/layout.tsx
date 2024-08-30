@@ -17,7 +17,7 @@ export default function PaybackLayout({
   console.log(process);
 
   return (
-    <div>
+    <div className="mx-auto max-w-screen-xl">
       <ProgressBar width={`${(100 / TOTAL) * process}%`} height="5px" />
       {children}
     </div>
