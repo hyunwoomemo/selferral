@@ -16,14 +16,6 @@ const data = [
         value: "list",
         path: "/admin/user/list",
       },
-      {
-        label: "메뉴2",
-        value: "list",
-      },
-      {
-        label: "메뉴3",
-        value: "list",
-      },
     ],
   },
   {
@@ -33,14 +25,6 @@ const data = [
         label: "배너",
         value: "banner",
         path: "/admin/site/banner",
-      },
-      {
-        label: "메뉴2",
-        value: "list",
-      },
-      {
-        label: "메뉴3",
-        value: "list",
       },
     ],
   },
@@ -61,6 +45,11 @@ const data = [
         label: "출금 신청 리스트",
         value: "affiliate/Exchange/withdrawal",
         path: "/admin/affiliate/withdrawal",
+      },
+      {
+        label: "액셀 업로드",
+        value: "affiliate/Exchange/uid/excel",
+        path: "/admin/affiliate/excel",
       },
     ],
   },

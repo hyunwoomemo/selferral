@@ -40,11 +40,11 @@ export default async function RootLayout({
       <body className={cn("min-h-screen bg-background font-sans antialiased", inter.variable)}>
         <script type="module" defer src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/spiral.js"></script>
         <Providers>
-          <div className="relative flex min-h-dvh flex-col bg-background">
+          <div className="relative flex min-h-dvh flex-col bg-background ">
             {/* {role} */}
             {/* <SiteHeader role={role} /> */}
             <SiteHeader />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 ">{children}</main>
             <SiteFooter />
           </div>
         </Providers>

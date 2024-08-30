@@ -30,16 +30,14 @@ const SearchUid = ({ exchangeData }) => {
   const [uid, setUid] = useState<number | null>(null);
   const [tab, setTab] = useState(0);
 
-  console.log("tokentoken", token);
-
   return (
     <div className="py-10">
       <div className="flex gap-4 flex-wrap max-w-screen-md w-full mx-auto pb-5 px-2">
-        {tabData.map((v) => (
+        {/* {tabData.map((v) => (
           <div key={v.value} onClick={() => setTab(v.value)}>
             {v.label}
           </div>
-        ))}
+        ))} */}
       </div>
       <div className="flex gap-4 px-2 flex-wrap max-w-screen-md w-full mx-auto ">
         <Dropdown item={exchange} setItem={setExchange} data={exchangeData} isVisible={isVisible} setIsVisible={setIsVisible} />

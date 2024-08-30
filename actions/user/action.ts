@@ -17,26 +17,28 @@ export const getUser = async (id) => {
 };
 
 export async function register(prevState: any, formData: FormData) {
-  const email = formData.get("email");
+  const id = formData.get("id");
   const password = formData.get("password");
   const name = formData.get("name");
   const hp = formData.get("hp");
-  console.log("nnn", email, password, name, hp);
+  console.log("nnn", id, password, name, hp);
 
-  if (email === "" || password === "" || name === "" || hp === "") {
+  if (id === "" || password === "" || name === "" || hp === "") {
     return {
       message: "필수 입력값이 입력되지 않았습니다.",
     };
   }
 
+  const d = new FormData();
+
+  d.append("id", id);
+  d.append("password", password);
+  d.append("name", name);
+  d.append("hp", hp);
+
   const res = await fetch(`${API_URL}/auth/register`, {
     method: "POST",
-    body: JSON.stringify({
-      email,
-      password,
-      name,
-      hp,
-    }),
+    body: d,
   });
 
   const data = await res.json();

@@ -10,6 +10,8 @@ const Page = async ({ params }) => {
 
   const uid = await getUidList({ id: params.id, token: token.value });
 
+  console.log("uid", uid.data.list);
+
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">
       <h1 className="text-3xl">{data.name}</h1>

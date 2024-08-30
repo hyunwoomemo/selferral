@@ -20,7 +20,7 @@ export default function Page() {
       <form method="post" action={formAction} className="pt-20">
         {/* <form className="pt-20" onSubmit={handleRegister}> */}
         <div className="p-4">
-          <input name="email" id="email" placeholder="이메일" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
+          <input name="id" id="id" placeholder="이메일" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
         </div>
         <div className="p-4">
           <input name="password" id="password" type="password" placeholder="비밀번호" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />

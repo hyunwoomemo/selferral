@@ -32,7 +32,7 @@ export default async function Page() {
         </div>
         <div className="flex flex-col">
           {exchanges.data.map((exchange, index) => (
-            <Link href={`/admin/exchange/${exchange.id}`} className="flex py-5 items-center" key={exchange.name}>
+            <Link href={`/admin/exchange/${exchange.exchange_id}`} className="flex py-5 items-center" key={exchange.name}>
               <div className="flex items-center  gap-10">
                 <span className="min-w-[180px] flex justify-center">{exchange.image_thumb && <Image src={exchange.image_thumb} width={50} height={50} />}</span>
                 <span className="flex justify-center items-center min-w-[180px]">{exchange.name}</span>

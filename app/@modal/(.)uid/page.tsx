@@ -1,9 +1,11 @@
 "use client";
 import { API_URL } from "@/actions";
 import Modal from "@/components/ui/modal";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { getCookie } from "cookies-next";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const Page = () => {
   const token = getCookie("token");
@@ -13,6 +15,10 @@ const Page = () => {
   const [res, setRes] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  const router = useRouter();
+
+  console.log("res", res);
+
   console.log("uid", uid);
 
   // /exchange/affiliate/:mode/:exchange_id
@@ -21,19 +27,18 @@ const Page = () => {
     const fetchUid = async () => {
       try {
         setLoading(true);
+
         const formData = new FormData();
-
-        // formData.append("uid", uid);
-
-        const res = await fetch(`${API_URL}/exchange/affiliate/check/${exchange}`, {
+        formData.append("uid", uid);
+        const res = await fetch(`${API_URL}/exchange/affiliate/get/${exchange}`, {
           headers: { authorization: `Bearer ${token}` },
-          // body: formData,
-          // method: "POST",
+          method: "POST",
+          body: formData,
         });
         const data = await res.json();
 
         console.log("data", data);
-        if (data.CODE === "EAC000") {
+        if (data.CODE === "EAG000") {
           setRes(data.DATA);
         }
       } catch (err) {
@@ -48,7 +53,82 @@ const Page = () => {
     }
   }, [uid]);
 
-  return <Modal>{loading ? "로딩중..." : !res ? "요청에 실패했습니다." : `${res.length}개 조회`}</Modal>;
+  const setUid = async () => {
+    const formData = new FormData();
+
+    formData.append("uid", uid);
+
+    const res = await fetch(`${API_URL}/exchange/affiliate/set/${exchange}`, {
+      method: "POST",
+      body: formData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    const result = await res.json();
+
+    if (result.CODE === "EAS000") {
+      router.back();
+
+      setTimeout(() => {
+        router.push("/payback/process/1");
+      }, 100);
+    }
+  };
+
+  const renderItem = useCallback(() => {
+    console.log("rr", res);
+
+    if (!res) {
+      return <div>로딩..</div>;
+    }
+
+    // if (!res || !res.DATA) return;
+    if (res && Object.keys(res).length === 0) {
+      return (
+        <div>
+          <div className="py-4 text-lg font-bold">존재하지 않는 UID입니다.</div>
+          <div className="py-4">
+            혹시 오늘 셀퍼럴 페이백 계정을 등록 하셨나요? 시스템에 <span className="text-orange-400">등록 되기까지 24시간</span> 정도 소요됩니다!
+          </div>
+          <div className="font-bold py-4 pb-8">
+            <div>UID 조회가 안 되시더라도</div>
+            <div className="text-orange-400">모든 거래는 페이백이 적용 되요!</div>
+          </div>
+
+          <Button
+            onClick={() => setUid()}
+            className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
+          >
+            1분만에 확인하기
+          </Button>
+        </div>
+      );
+    }
+
+    if (res && res.hasOwnProperty("order")) {
+      return (
+        <div>
+          <div className="py-4 text-lg font-bold">처리 중입니다.</div>
+        </div>
+      );
+    }
+
+    if (res && res.hasOwnProperty("exchange")) {
+      return (
+        <div>
+          <div className="py-4 text-lg font-bold">존재하는 UID (exchange)</div>
+        </div>
+      );
+    }
+  }, [res]);
+
+  return (
+    <div className="bg-white dark:bg-[rgb(26,26,38)]">
+      <div className="p-4 flex gap-4 h-full">{renderItem()}</div>
+    </div>
+  );
 };
 
 export default Page;

@@ -21,7 +21,9 @@ export const getExchange = async (id) => {
 
   const data = await res.json();
 
-  return data.data.find((v) => v.id == id);
+  console.log("data", data);
+
+  return data.data.find((v) => v.exchange_id == id);
 };
 
 export const getAffiliateExchanges = async (token) => {
@@ -92,6 +94,7 @@ export const editLinksForm = async ({ id, linkId, token, body }) => {
 };
 
 export const getUidList = async ({ id, token }) => {
+  console.log("idid", id);
   const res = await fetch(`${API_URL}/affiliate/Exchange/uid/${id}/10/1`, {
     headers: { authorization: `Bearer ${token}` },
     // cache: "force-cache",
@@ -138,4 +141,21 @@ export const getWithdrawals = async ({ exchangeId, token, num = 10, page = 1 }) 
   const data = await res.json();
 
   return data;
+};
+
+export const setWithdrawal = async ({ token, data }) => {
+  const formData = new FormData();
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
+
+  const res = await fetch(`${API_URL}/exchange/withdrawal`, {
+    method: "POST",
+    headers: { authorization: `Bearer ${token}` },
+    body: formData,
+  });
+
+  const result = await res.json();
+
+  return result;
 };

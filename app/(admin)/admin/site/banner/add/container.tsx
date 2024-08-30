@@ -36,7 +36,7 @@ const Container = ({ token }) => {
 
     console.log("res", res);
 
-    router
+    router;
   };
 
   return (

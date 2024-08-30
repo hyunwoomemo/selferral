@@ -5,6 +5,7 @@ import moment from "moment";
 import { cookies } from "next/headers";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/app/store/user";
+import WithdrawalButton from "./withdrawal-button";
 
 export default async function Page() {
   const token = cookies().get("token");
@@ -36,7 +37,7 @@ export default async function Page() {
       <>
         {Object.entries(data.DATA).map(([key, value]) => {
           return (
-            <div key={key} className="flex flex-col gap-2">
+            <div key={key} className="flex flex-col gap-2 ">
               <p className="text-lg">{key}</p>
               <p className="py-2 px-4 bg-gray-200 dark:bg-gray-800 rounded-sm">{key === "createdAt" ? moment(value).format("YYYY-MM-DD") : value}</p>
             </div>
@@ -47,10 +48,11 @@ export default async function Page() {
   };
 
   return (
-    <div className="p-10 flex-1 flex-col flex gap-5 items-start">
+    <div className="p-10 flex-1 flex-col flex gap-5 items-start mx-auto max-w-screen-xl">
       <RednerItem />
       <div className="flex gap-4">
         {/* <LogoutButton /> */}
+        <WithdrawalButton />
         <LogoutButton />
       </div>
     </div>
