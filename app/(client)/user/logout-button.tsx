@@ -7,18 +7,16 @@ import { logout } from "../../action";
 import { useSetAtom } from "jotai";
 import { userAtom } from "../../store/user";
 import { redirect, useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 
 export default function LogoutButton() {
   const setUser = useSetAtom(userAtom);
   const router = useRouter();
 
   const handleLogout = async () => {
-    const res = await logout();
-
-    if (res?.CODE === "AL000") {
-      setUser({});
-      router.push("/");
-    }
+    deleteCookie("token");
+    setUser({});
+    router.push("/");
   };
 
   return (

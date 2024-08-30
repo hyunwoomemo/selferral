@@ -12,34 +12,45 @@ import { useEffect, useState } from "react";
 import { SiLoop } from "react-icons/si";
 import { useAtom } from "jotai";
 import { userAtom } from "@/app/store/user";
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from "lucide-react";
+import { getInfo } from "@/actions/user/action";
 // import { info } from "@/app/action";
+import { getCookie, setCookie } from "cookies-next";
 
 export function SiteHeader() {
-  // const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const pathname = usePathname();
-  // const [user, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
+  const token = getCookie("token");
+  const refresh = getCookie("refresh");
 
-  // useEffect(() => {
-  //   info().then((res) => {
-  //     if (res.DATA) {
-  //       setUser(res.DATA);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    getInfo(token, refresh).then((res) => {
+      if (res?.CODE === "AI000") {
+        setUser(res.DATA);
+      }
+
+      if (res?.accessToken) {
+        setCookie("token", res.accessToken);
+
+        getInfo(res.accessToken, refresh).then((res) => {
+          if (res.CODE === "AI000") {
+            setUser(res.DATA);
+          }
+        });
+      }
+    });
+  }, []);
 
   // console.log("pathname", pathname);
 
-  // if (pathname.startsWith("/admin")) return;
+  if (pathname.startsWith("/admin")) return;
 
   interface MobileLinkProps extends LinkProps {
     children: React.ReactNode;
     onOpenChange?: (open: boolean) => void;
     className?: string;
   }
-
-  const user = null
 
   function MobileLink({ href, onOpenChange, children, className, ...props }: MobileLinkProps) {
     const router = useRouter();
@@ -100,7 +111,7 @@ export function SiteHeader() {
                   {user.name}
                 </Link>
               ) : (
-              <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
+                <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
                   로그인
                 </Link>
               )}
@@ -126,18 +137,22 @@ export function SiteHeader() {
           <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} href="/notice">
             공지사항
           </MobileLink>
-          <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/guide" ? "text-foreground" : "text-foreground/60"}`} href="/guide">셀퍼럴 가이드
+          <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/guide" ? "text-foreground" : "text-foreground/60"}`} href="/guide">
+            셀퍼럴 가이드
           </MobileLink>
         </div>
       </div>
-      {!pathname.includes('/payback') &&       <div className='w-full bg-orange-400  p-4 font-bold text-white text-sm md:text-[16px]'>
-        <div className='md:flex justify-between max-w-screen-xl mx-auto'>
-        <p className=''>내가 쓴 수수료, 전부 내가 돌려받자!</p>
-        <Link className='flex gap-2 items-center justify-end' href={'/payback'}><p>내 페이백 예상 금액 확인하기</p>
-        <ArrowRight /></Link>
+      {!pathname.includes("/payback") && !pathname.includes("/admin") && (
+        <div className="w-full bg-orange-400  p-4 font-bold text-white text-sm md:text-[16px]">
+          <div className="md:flex justify-between max-w-screen-xl mx-auto">
+            <p className="">내가 쓴 수수료, 전부 내가 돌려받자!</p>
+            <Link className="flex gap-2 items-center justify-end" href={"/payback"}>
+              <p>내 페이백 예상 금액 확인하기</p>
+              <ArrowRight />
+            </Link>
+          </div>
         </div>
-      </div>}
-
+      )}
     </>
   );
 }

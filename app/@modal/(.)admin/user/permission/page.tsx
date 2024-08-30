@@ -1,11 +1,11 @@
-import { getUser } from "@/app/action";
 import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/modal";
 import TypeButton from "./button";
 import ButtonWrapper from "./button-wrapper";
+import { getAllUser, getUser } from "@/actions/user/action";
 
 export default async function Page({ searchParams }) {
-  console.log("props", searchParams);
+  // console.log("props", searchParams);
 
   const data = await getUser(searchParams.id);
 

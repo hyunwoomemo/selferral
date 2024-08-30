@@ -4,14 +4,14 @@ import EventList from "./event-list";
 import ExchangeWrapper from "./exchange-wrapper";
 // import { getExchanges } from "@/app/action";
 import { dummyTrade } from "@/dummy";
+import { API_URL } from "@/actions";
+import { getExchanges } from "@/actions/trade/action";
+import { cookies } from "next/headers";
 
 export default async function Home() {
-  // const exchangeData
-
-  // const exchangeData = await getExchanges();
-
-  const data = await fetch('https://api.xn--3l2b13oekp.com/exchange/getExchanges');
-  const exchangeData = await data.json();
+  const token = cookies().get("token");
+  const exchanges = await getExchanges();
+  console.log("exchangesexchanges", exchanges);
 
   return (
     <>
@@ -27,7 +27,7 @@ export default async function Home() {
 
           <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">1분 안에 잃어버린 거래수수료 환급받기!</p>
           {/* <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">수수료 페이백 받으세요</p> */}
-          <SearchUid />
+          <SearchUid exchangeData={exchanges.data} token={token?.value} />
           <PaybackSection />
           {/* <div className="flex flex-col gap-4 justify-center sm:flex-row">
             <Link href="/blog" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}>
@@ -45,7 +45,7 @@ export default async function Home() {
           <div className="md:pt-40">
             <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">셀퍼럴 제휴 거래소</h2>
 
-            <ExchangeWrapper data={exchangeData.data} />
+            <ExchangeWrapper data={exchanges.data} />
           </div>
         </div>
       </section>

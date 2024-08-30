@@ -26,9 +26,15 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: 'api.xn--3l2b13oekp.com',
-        pathname: '/**'
-      }
+        hostname: "api.xn--3l2b13oekp.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8080",
+        pathname: "/**",
+      },
     ],
   },
 };

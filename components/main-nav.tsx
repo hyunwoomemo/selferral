@@ -6,14 +6,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { SiLoop } from "react-icons/si";
+import { userAtom } from "@/app/store/user";
+import { useAtom } from "jotai";
 
 export function MainNav() {
   const pathname = usePathname();
+  const [user, setUser] = useAtom(userAtom);
+
+  console.log(user);
 
   // console.log("role", role);
 
   return (
-    
     <nav className="flex items-center space-x-4 lg:space-x-6">
       <Link href="/" className="mr-6 flex items-center space-x-2">
         {/* <Icons.logo className="h-6 w-6" /> */}
@@ -32,11 +36,11 @@ export function MainNav() {
       <Link href="/guide" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/guide" ? "text-foreground" : "text-foreground/60")}>
         셀퍼럴 가이드
       </Link>
-      {/* {role === "admin" && (
+      {user?.type === "UT02" && (
         <Link href="/admin" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/admin" ? "text-foreground" : "text-foreground/60")}>
           관리자
         </Link>
-      )} */}
+      )}
     </nav>
   );
 }

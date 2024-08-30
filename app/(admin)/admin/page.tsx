@@ -3,10 +3,13 @@
 import { dummyTrade } from "@/dummy";
 import DashboardItem from "./dashboard-item";
 import Sidebar from "./sidebar";
+import { getAllUser } from "@/actions/user/action";
+import { getExchanges } from "@/actions/trade/action";
 
 export default async function Page() {
-  // const users = await getUsers();
-  // const exchanges = await getExchanges();
+  const users = await getAllUser();
+
+  const exchanges = await getExchanges();
 
   return (
     <div className="font-bold flex-auto p-8">
@@ -15,13 +18,13 @@ export default async function Page() {
         <DashboardItem>
           <div className="flex flex-col gap-4 min-w-[160px] py-4  justify-center items-center">
             <p className="text-gray-500 ">유저</p>
-            {/* <p className="text-3xl">{users.length}</p> */}
+            <p className="text-3xl">{users.DATA.length}</p>
           </div>
         </DashboardItem>
         <DashboardItem>
           <div className="flex flex-col gap-4 min-w-[160px] py-4  justify-center items-center">
             <p className="text-gray-500 ">거래소</p>
-            <p className="text-3xl">{dummyTrade.length}</p>
+            <p className="text-3xl">{exchanges.data.length}</p>
           </div>
         </DashboardItem>
       </div>

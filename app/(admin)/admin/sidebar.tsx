@@ -54,6 +54,16 @@ const data = [
       },
     ],
   },
+  {
+    label: "affiliate",
+    children: [
+      {
+        label: "출금 신청 리스트",
+        value: "affiliate/Exchange/withdrawal",
+        path: "/admin/affiliate/withdrawal",
+      },
+    ],
+  },
 ];
 
 export default function Sidebar() {
@@ -78,7 +88,7 @@ export default function Sidebar() {
   );
 
   return (
-    <div className="md:sticky top-0 translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:w-[15%] md:min-w-40  bg-gray-100 dark:bg-[rgb(26,26,36)] p-4 flex-col flex gap-20 h-screen">
+    <div className="md:sticky top-0 translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:w-[15%] md:min-w-40  bg-gray-100 dark:bg-[rgb(26,26,36)] p-4 flex-col flex gap-10 h-screen">
       <div className="flex gap-2 flex-col justify-center font-bold text-lg">
         <Link href={"/admin"} className="items-center flex gap-2">
           <SiLoop />
@@ -89,7 +99,7 @@ export default function Sidebar() {
       <div className="flex flex-col gap-4 flex-1">
         {data.map((item, index) => {
           return (
-            <div key={index} className={`${expand === item.label ? `h-60` : "h-10"} overflow-hidden transition-all text-lg font-bold `}>
+            <div key={index} className={`${expand === item.label ? `h-auto` : "h-10"} overflow-hidden transition-all text-lg font-bold `}>
               <p onClick={() => handleExpand(item.label)} className="h-10 text-2xl cursor-pointer hover:text-orange-400">
                 {item.label}
               </p>
