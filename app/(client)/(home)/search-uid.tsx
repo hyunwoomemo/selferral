@@ -36,7 +36,9 @@ const SearchUid = ({ exchangeData }) => {
     <div className="py-10">
       <div className="flex gap-4 flex-wrap max-w-screen-md w-full mx-auto pb-5 px-2">
         {tabData.map((v) => (
-          <div onClick={() => setTab(v.value)}>{v.label}</div>
+          <div key={v.value} onClick={() => setTab(v.value)}>
+            {v.label}
+          </div>
         ))}
       </div>
       <div className="flex gap-4 px-2 flex-wrap max-w-screen-md w-full mx-auto ">
