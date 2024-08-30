@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { getCookie } from "cookies-next";
 import React, { useState } from "react";
 
-const page = () => {
+const Page = () => {
   const token = getCookie("token");
   const [file, setFile] = useState(null);
 
