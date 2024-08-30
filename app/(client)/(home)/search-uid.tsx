@@ -58,7 +58,7 @@ const SearchUid = ({ exchangeData }) => {
                 const data = new FormData();
 
                 data.append("uid", uid);
-                fetch(`http://localhost:8080/exchange/affiliate/set/${exchange.id}`, {
+                fetch(`https://api.xn--3l2b13oekp.com/exchange/affiliate/set/${exchange.id}`, {
                   method: "POST",
                   body: data,
                   headers: { authorization: `Bearer ${token}` },
