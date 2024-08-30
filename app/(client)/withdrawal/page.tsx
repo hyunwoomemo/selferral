@@ -12,7 +12,7 @@ const Page = async () => {
   const renderItem = () => {
     if (!data.total) return <div>데이터가 존재하지 않습니다.</div>;
 
-    return data.list.map((v, i) => <div>{i}</div>);
+    return data.list.map((v, i) => <div key={i}>{i}</div>);
   };
 
   return (

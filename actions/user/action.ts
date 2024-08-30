@@ -1,8 +1,5 @@
 import { redirect } from "next/navigation";
 import { API_URL } from "..";
-import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
-import { getCookie } from "cookies-next";
 export const getAllUser = async () => {
   const res = await fetch(`${API_URL}/auth/getuser`);
   const data = await res.json();

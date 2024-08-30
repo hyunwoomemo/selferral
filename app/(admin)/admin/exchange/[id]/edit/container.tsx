@@ -235,7 +235,11 @@ const Container = ({ data, token }) => {
     <div>
       <div className="flex gap-8 pb-10">
         {tabData.map((tab) => {
-          return <div onClick={() => setTab(tab)}>{tab.label}</div>;
+          return (
+            <div key={tab.value} onClick={() => setTab(tab)}>
+              {tab.label}
+            </div>
+          );
         })}
       </div>
       <form onSubmit={handleEdit} style={{ display: "flex", flexDirection: "column", gap: 10, flexWrap: "wrap" }}>
@@ -254,7 +258,7 @@ const Container = ({ data, token }) => {
 
               if (key.includes("image")) {
                 return (
-                  <div className="flex gap-2 items-center">
+                  <div key={key} className="flex gap-2 items-center">
                     <span>{key}</span>
                     <input
                       type={"file"}
@@ -271,7 +275,7 @@ const Container = ({ data, token }) => {
               }
 
               return (
-                <div className="flex gap-2 items-center">
+                <div key={key} className="flex gap-2 items-center">
                   <span>{key}</span>
                   <input
                     placeholder={key}

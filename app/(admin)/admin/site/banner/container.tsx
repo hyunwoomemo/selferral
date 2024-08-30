@@ -40,11 +40,13 @@ const Container = ({ banners, token }) => {
       }, {})
     ).map(([type, data]) => {
       return (
-        <div className="py-4">
+        <div key={type} className="py-4">
           <h1 className="px-4 py-4 text-2xl">{type}</h1>
           <div className="flex gap-4 py-5">
-            {data.map((v) => (
-              <div className="flex justify-center items-center min-w-60 h-40 bg-gray-100 dark:bg-gray-900 rounded-md">{v.title}</div>
+            {data.map((v, i) => (
+              <div key={v.title + i} className="flex justify-center items-center min-w-60 h-40 bg-gray-100 dark:bg-gray-900 rounded-md">
+                {v.title}
+              </div>
             ))}
           </div>
         </div>

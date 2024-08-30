@@ -74,7 +74,11 @@ const Container = ({ token, exchanges }) => {
     <div>
       <div className="flex gap-8 pb-10">
         {tabData.map((tab) => {
-          return <div onClick={() => setTab(tab)}>{tab.label}</div>;
+          return (
+            <div key={tab.value} onClick={() => setTab(tab)}>
+              {tab.label}
+            </div>
+          );
         })}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10, flexWrap: "wrap" }}>
@@ -93,7 +97,7 @@ const Container = ({ token, exchanges }) => {
 
               if (item.includes("image")) {
                 return (
-                  <div className="flex gap-2 items-center">
+                  <div key={item} className="flex gap-2 items-center">
                     <span>{item}</span>
                     <input
                       type={"file"}
@@ -110,7 +114,7 @@ const Container = ({ token, exchanges }) => {
               }
 
               return (
-                <div className="flex gap-2 items-center">
+                <div key={item} className="flex gap-2 items-center">
                   <span>{item}</span>
                   <input
                     placeholder={item}

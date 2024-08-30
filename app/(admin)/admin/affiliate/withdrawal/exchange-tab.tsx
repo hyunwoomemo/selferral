@@ -9,7 +9,7 @@ const ExchangeTab = ({ data, tab, setTab }) => {
         전체
       </div>
       {data.map((v) => (
-        <div onClick={() => setTab(v.id)} className={tab === v.id ? "text-orange-400 cursor-pointer" : "text-black dark:text-white  cursor-pointer"}>
+        <div key={v.id} onClick={() => setTab(v.id)} className={tab === v.id ? "text-orange-400 cursor-pointer" : "text-black dark:text-white  cursor-pointer"}>
           {v.name}
         </div>
       ))}

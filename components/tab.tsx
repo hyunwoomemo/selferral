@@ -9,7 +9,7 @@ const Tab = ({ data, tab, setTab, all = false }) => {
         </div>
       )}
       {data.map((v) => (
-        <div className={`px-8 py-2 bg-gray-100 dark:bg-gray-900 rounded-md ${tab === v.value ? "text-orange-400" : undefined}`} onClick={() => setTab(v.value)}>
+        <div key={v.value} className={`px-8 py-2 bg-gray-100 dark:bg-gray-900 rounded-md ${tab === v.value ? "text-orange-400" : undefined}`} onClick={() => setTab(v.value)}>
           {v?.label || v.value}
         </div>
       ))}
