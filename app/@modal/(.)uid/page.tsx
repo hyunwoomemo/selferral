@@ -14,6 +14,7 @@ const Page = () => {
   const exchange = params.get("exchange");
   const [res, setRes] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [time, setTime] = useState(null);
   let timeInterval;
 
   const router = useRouter();
@@ -78,14 +79,24 @@ const Page = () => {
     }
   };
 
-  const leftSecond = useMemo(() => {
+  useEffect(() => {
     if (res && res?.order?.left_second) {
-      let time = res.order.left_second;
+      setTime(res.order.left_second);
 
-      timeInterval = setInterval(() => {
-        time = time - 1;
-      }, 1000);
+      if (time) {
+        timeInterval = setInterval(() => {
+          setTime((prev) => prev - 1);
+        }, 1000);
+      }
 
+      return () => {
+        clearInterval(timeInterval);
+      };
+    }
+  }, [res]);
+
+  const leftTime = useMemo(() => {
+    if (time) {
       const hour = parseInt(time / 3600);
       const minute = parseInt((time - hour * 3600) / 60);
       const second = time - hour * 3600 - minute * 60;
@@ -100,13 +111,7 @@ const Page = () => {
         }
       }
     }
-  }, [res]);
-
-  useEffect(() => {
-    return () => {
-      clearInterval(timeInterval);
-    };
-  }, []);
+  }, [time]);
 
   const renderItem = useCallback(() => {
     console.log("rr", res);
@@ -144,7 +149,7 @@ const Page = () => {
           {res.order.status <= 1 && (
             <>
               <div className="py-4 text-lg font-bold">처리 중입니다.</div>
-              <div>{leftSecond}</div>
+              <div>{leftTime}</div>
             </>
           )}
         </div>
