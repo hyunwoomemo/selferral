@@ -105,6 +105,10 @@ const Page = () => {
       const minute = parseInt((time - hour * 3600) / 60);
       const second = time - hour * 3600 - minute * 60;
 
+      console.log("hour", hour);
+      console.log("minute", minute);
+      console.log("second", second);
+
       if (hour > 0) {
         return `${hour}시간 ${minute}분 ${second}초`;
       } else {
@@ -116,6 +120,8 @@ const Page = () => {
       }
     }
   }, [time]);
+
+  console.log("leftTime", leftTime);
 
   const renderItem = useCallback(() => {
     console.log("rr", res);
@@ -130,7 +136,7 @@ const Page = () => {
         <div>
           <div className="py-4 text-lg font-bold">존재하지 않는 UID입니다.</div>
           <div className="py-4">
-            혹시 오늘 셀퍼럴 페이백 계정을 등록 하셨나요? 시스템에 <span className="text-orange-400">등록 되기까지 24시간</span> 정도 소요됩니다!
+            혹시 오늘 셀퍼럴 페이백 계정을 등록 하셨나요? 시스템에 <span className="text-orange-400">등록 되기까지 5시간</span> 정도 소요됩니다!
           </div>
           <div className="font-bold py-4 pb-8">
             <div>UID 조회가 안 되시더라도</div>
@@ -167,7 +173,7 @@ const Page = () => {
         </div>
       );
     }
-  }, [res]);
+  }, [res, time]);
 
   return (
     <div className="bg-white dark:bg-[rgb(26,26,38)]">
