@@ -144,7 +144,7 @@ const Page = () => {
           {res.order.status <= 1 && (
             <>
               <div className="py-4 text-lg font-bold">처리 중입니다.</div>
-              <div>{res.order.left_second}</div>
+              <div>{leftSecond}</div>
             </>
           )}
         </div>
