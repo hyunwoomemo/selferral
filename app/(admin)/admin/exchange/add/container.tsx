@@ -34,8 +34,10 @@ const Container = ({ token, exchanges }) => {
     for (const key in values) {
       console.log("key", key);
       if (basicField.includes(key) && key !== "status") {
+        if (values[key] === "null") return;
         exchangeBody[key] = values[key];
       } else {
+        if (values[key] === "null") return;
         linksBody = { [key]: values[key] };
       }
     }

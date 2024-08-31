@@ -14,6 +14,7 @@ const Page = () => {
   const exchange = params.get("exchange");
   const [res, setRes] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  let timeInterval;
 
   const router = useRouter();
 
@@ -77,6 +78,36 @@ const Page = () => {
     }
   };
 
+  const leftSecond = useMemo(() => {
+    if (res && res?.order?.left_second) {
+      let time = res.order.left_second;
+
+      timeInterval = setInterval(() => {
+        time = time - 1;
+      }, 1000);
+
+      const hour = parseInt(time / 3600);
+      const minute = parseInt((time - hour * 3600) / 60);
+      const second = time - hour * 3600 - minute * 60;
+
+      if (hour > 0) {
+        return `${hour}시간 ${minute}분 ${second}초`;
+      } else {
+        if (minute > 0) {
+          return `${minute}분 ${second}초`;
+        } else {
+          return `${second}초`;
+        }
+      }
+    }
+  }, [res]);
+
+  useEffect(() => {
+    return () => {
+      clearInterval(timeInterval);
+    };
+  }, []);
+
   const renderItem = useCallback(() => {
     console.log("rr", res);
 
@@ -110,7 +141,12 @@ const Page = () => {
     if (res && res.hasOwnProperty("order")) {
       return (
         <div>
-          <div className="py-4 text-lg font-bold">처리 중입니다.</div>
+          {res.order.status <= 1 && (
+            <>
+              <div className="py-4 text-lg font-bold">처리 중입니다.</div>
+              <div>{res.order.left_second}</div>
+            </>
+          )}
         </div>
       );
     }
