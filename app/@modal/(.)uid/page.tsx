@@ -14,7 +14,7 @@ const Page = () => {
   const exchange = params.get("exchange");
   const [res, setRes] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [time, setTime] = useState(null);
+  const [time, setTime] = useState(-1);
   let timeInterval;
 
   const router = useRouter();
@@ -81,19 +81,23 @@ const Page = () => {
 
   useEffect(() => {
     if (res && res?.order?.left_second) {
-      setTime(res.order.left_second);
+      setTime(parseInt(res.order.left_second));
+    }
+  }, [res]);
 
-      if (time) {
-        timeInterval = setInterval(() => {
-          setTime((prev) => prev - 1);
-        }, 1000);
-      }
+  useEffect(() => {
+    if (time) {
+      timeInterval = setInterval(() => {
+        setTime((prev) => prev - 1);
+      }, 1000);
 
       return () => {
         clearInterval(timeInterval);
       };
     }
-  }, [res]);
+  }, [time]);
+
+  console.log("time", time);
 
   const leftTime = useMemo(() => {
     if (time) {
