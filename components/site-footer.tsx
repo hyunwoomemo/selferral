@@ -28,9 +28,9 @@ export function SiteFooter() {
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">{siteConfig.copyright}</div>
         <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">
-          <a href={siteConfig.links.personalSite} target="_blank">
+          {/* <a href={siteConfig.links.personalSite} target="_blank">
             {siteConfig.author}
-          </a>
+          </a> */}
         </div>
       </div>
     </footer>

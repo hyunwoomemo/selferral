@@ -1,17 +1,22 @@
 // import { getExchange } from "@/app/action";
+import { getExchanges } from "@/actions/trade/action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Page({ params }) {
   // const exchangeData = await getExchange(params.id);
 
-  const data = await fetch('https://api.xn--3l2b13oekp.com/exchange/getExchanges');
-  const json = await data.json();
-  const exchangeData = json.data.find((v) => v.id === Number(params.id))
+  // const data = await fetch("https://api.xn--3l2b13oekp.com/exchange/getExchanges");
+  // const json = await data.json();
 
-  console.log('exchangeData', json)
+  const data = await getExchanges();
+
+  const exchangeData = data.data.find((v) => v.id == Number(params.id));
+
+  console.log("exchangeData", exchangeData);
 
   // console.log(exchangeData);
 
@@ -21,7 +26,7 @@ export default async function Page({ params }) {
       <div className="md:flex gap-10">
         <div style={{ flex: 1 }} className="h-full flex flex-col">
           <div className="flex h-full justify-center items-center py-5 rounded-md relative min-h-20">
-            <Image src={exchangeData.image_thumb} height={100} width={100} alt="image" />
+            {exchangeData.image_thumb && <Image src={exchangeData.image_thumb} height={100} width={100} alt="image" />}
           </div>
           <Button
             // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
@@ -59,18 +64,22 @@ export default async function Page({ params }) {
             </div> */}
           </div>
           <div className="flex gap-5">
-            <Button
+            <Link
+              href={exchangeData.customer_url}
+              target="_blank"
               // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), " my-5 text-gray-400 border-gray-400 dark:text-gray-200 dark:border-gray-200")}
             >
               <p>고객센터</p>
-            </Button>
-            <Button
+            </Link>
+            <Link
+              href={exchangeData.blog_url}
+              target="_blank"
               // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), " my-5 text-gray-400 border-gray-400 dark:text-gray-200 dark:border-gray-200")}
             >
               <p>블로그</p>
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

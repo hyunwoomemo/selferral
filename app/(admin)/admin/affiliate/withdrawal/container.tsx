@@ -1,12 +1,33 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import ExchangeTab from "./exchange-tab";
-import { getWithdrawals } from "@/actions/trade/action";
+import { getWithdrawals, updateStep } from "@/actions/trade/action";
 import Tab from "@/components/tab";
+import Dropdown from "@/components/ui/dropdown";
+
+const stepData = [
+  {
+    value: 0,
+    label: "신청",
+  },
+  {
+    value: 1,
+    label: "처리중",
+  },
+  {
+    value: 2,
+    label: "거절",
+  },
+  {
+    value: 4,
+    label: "완료",
+  },
+];
 
 const Container = ({ exchanges, token }) => {
   const [tab, setTab] = useState("all");
   const [data, setData] = useState({ total: 0, list: [] });
+  const [isVisible, setIsVisible] = useState(-1);
 
   useEffect(() => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, token }).then((res) => setData(res.data));
@@ -15,6 +36,16 @@ const Container = ({ exchanges, token }) => {
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
 
   console.log("exchanges", exchanges, data);
+
+  const handleUpdateStep = async ({ id, step }) => {
+    const res = await updateStep({ withdrawlId: id, step, token });
+
+    if (res.data === "OK") {
+      getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, token })
+        .then((res) => setData(res.data))
+        .finally(() => setIsVisible(-1));
+    }
+  };
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">
@@ -25,8 +56,8 @@ const Container = ({ exchanges, token }) => {
       {!data.total ? (
         <div>출금 신청 내역이 존재하지 않습니다.</div>
       ) : (
-        <div>
-          <div className="flex flex-col gap-0 md:max-w-[80dvw] overflow-x-auto">
+        <div className="h-full">
+          <div className="flex flex-col gap-0 md:max-w-[80dvw] overflow-x-auto h-full">
             <div className="">
               <div className="flex gap-10 py-5 border-b-2">
                 <span className="flex justify-center min-w-[180px]">거래소</span>
@@ -36,7 +67,7 @@ const Container = ({ exchanges, token }) => {
                 <span className="flex justify-center min-w-[180px]">상태</span>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-auto">
               {data.list.map((item, index) => (
                 <div className="flex py-5 items-center" key={item.id}>
                   <div className="flex items-center  gap-10">
@@ -44,7 +75,16 @@ const Container = ({ exchanges, token }) => {
                     <span className="flex justify-center items-center min-w-[180px]">{item.point}</span>
                     <span className="flex justify-center items-center min-w-[180px]">{item.usdt_address}</span>
                     <span className="flex justify-center items-center min-w-[180px]">{item.user_id}</span>
-                    <span className="flex justify-center items-center min-w-[180px]">{item.step}</span>
+                    <span className="flex justify-center items-center min-w-[180px] relative">
+                      <span onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step).label}</span>
+                      <div className={`absolute flex flex-col gap-4 top-10 items-center  ${isVisible === item.id ? "block" : "hidden"} bg-gray-700 z-10 p-3 rounded-md`}>
+                        {stepData
+                          .filter((v) => v.value !== item.step)
+                          .map((v) => (
+                            <span onClick={() => handleUpdateStep({ id: item.id, step: v.value })}>{v.label}</span>
+                          ))}
+                      </div>
+                    </span>
                   </div>
                   {/* <div className="absolute right-10 flex gap-8">
               <Link href={`/admin/exchange/edit?id=${exchange.id}`}>

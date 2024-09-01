@@ -16,7 +16,7 @@ export default async function Page() {
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}
       <h1 className="text-3xl pb-10">거래소</h1>
-      <div className="flex flex-col gap-0 md:max-w-[70dvw] overflow-x-auto">
+      <div className="flex flex-col gap-0 md:max-w-[70dvw] overflow-scroll">
         <div className="">
           <div className="flex gap-10 py-5 border-b-2">
             <span className="flex justify-center min-w-[180px]">로고</span>

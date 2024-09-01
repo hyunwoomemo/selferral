@@ -49,7 +49,16 @@ export default async function Page() {
 
   return (
     <div className="p-10 flex-1 flex-col flex gap-5 items-start mx-auto max-w-screen-xl">
-      <RednerItem />
+      {/* <RednerItem /> */}
+      {data.DATA &&
+        Object.entries(data.DATA).map(([key, value]) => {
+          return (
+            <div className="flex gap-2">
+              <div>{key}</div>
+              <div className="font-bold">{value}</div>
+            </div>
+          );
+        })}
       <div className="flex gap-4">
         {/* <LogoutButton /> */}
         <WithdrawalButton />

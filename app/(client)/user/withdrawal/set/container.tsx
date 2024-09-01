@@ -4,6 +4,8 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import Dropdown from "@/components/ui/dropdown";
 import { cn } from "@/lib/utils";
 import { getCookie } from "cookies-next";
+import { revalidateTag } from "next/cache";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Container = ({ data }) => {
@@ -11,11 +13,23 @@ const Container = ({ data }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [values, setValues] = useState({});
   const token = getCookie("token");
+  const router = useRouter();
 
   const handleSubmit = async () => {
     const res = await setWithdrawal({ token, data: { exchange_id: exchange.exchange_id, ...values } });
 
     console.log("result", res);
+
+    if (res.data === "aleady") {
+      return window.alert("이미 등록되어있습니다.");
+    }
+
+    if (res.data === "ok") {
+      router.back();
+      setTimeout(() => {
+        router.refresh();
+      }, 100);
+    }
   };
 
   return (

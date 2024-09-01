@@ -45,7 +45,7 @@ const Container = ({ banners, token }) => {
           <div className="flex gap-4 py-5">
             {data.map((v, i) => (
               <div key={v.title + i} className="flex justify-center items-center min-w-60 h-40 bg-gray-100 dark:bg-gray-900 rounded-md">
-                {v.title}
+                {v.banner_image}
               </div>
             ))}
           </div>

@@ -15,18 +15,12 @@ export const getAdminBanner = async ({ type, token, num = 10, page = 1 }) => {
   return data;
 };
 
-export const setBanner = async ({ data, token }) => {
-  console.log("data", data, token);
+export const setBanner = async ({ data, token, bannerType }) => {
+  console.log("setBanner", data, token);
 
-  const formData = new FormData();
-
-  for (const key in data) {
-    formData.append(key, data[key]);
-  }
-
-  const res = await fetch(`${API_URL}/affiliate/banner/${data["banner_type"]}/0`, {
+  const res = await fetch(`${API_URL}/affiliate/banner/${bannerType}/0`, {
     method: "POST",
-    body: formData,
+    body: data,
     headers: { authorization: `Bearer ${token}` },
   });
 
@@ -35,6 +29,6 @@ export const setBanner = async ({ data, token }) => {
 
   console.log("result", result);
 
-  redirect("/admin/site/banner/list");
+  redirect("/admin/site/banner");
   // return result;
 };

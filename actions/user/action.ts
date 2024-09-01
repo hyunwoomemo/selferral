@@ -1,7 +1,12 @@
+"use server";
 import { redirect } from "next/navigation";
+
 import { API_URL } from "..";
+import { revalidateTag } from "next/cache";
 export const getAllUser = async () => {
-  const res = await fetch(`${API_URL}/auth/getuser`);
+  const res = await fetch(`${API_URL}/auth/getuser`, {
+    next: { tags: ["users"], revalidate: 1800000 },
+  });
   const data = await res.json();
 
   console.log("zxczxc", data);
@@ -9,7 +14,9 @@ export const getAllUser = async () => {
 };
 
 export const getUser = async (id) => {
-  const res = await fetch(`${API_URL}/auth/user/${id}`);
+  const res = await fetch(`${API_URL}/auth/user/${id}`, {
+    next: { tags: ["user"] },
+  });
 
   const data = await res.json();
 
@@ -92,8 +99,6 @@ export async function login(prevState: any, formData: FormData) {
     };
   }
 
-  console.log("id", id, password);
-
   const res = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     body: JSON.stringify({
@@ -116,7 +121,7 @@ export async function login(prevState: any, formData: FormData) {
         };
       case "AL002":
         return {
-          message: "이미 등록되어있는 아이디입니다.",
+          message: "회원 정보가 없습니다.",
         };
     }
   }
@@ -152,9 +157,31 @@ export const getWithdrawal = async ({ token }) => {
   console.log("tokentoken", token);
   const res = await fetch(`${API_URL}/exchange/withdrawal/10/1`, {
     headers: { authorization: `Bearer ${token}` },
+    next: { tags: ["clientWithdrawal"] },
   });
 
   const data = await res.json();
 
+  return data;
+};
+
+export const setUserType = async ({ token, id, type }) => {
+  const formData = new FormData();
+
+  formData.append("type", type);
+
+  const res = await fetch(`${API_URL}/auth/type/${id}`, {
+    method: "POST",
+    body: formData,
+    headers: { authorization: `Bearer ${token}` },
+  });
+
+  const data = await res.json();
+  console.log("dddd", data);
+
+  if (data.data === "ok") {
+    revalidateTag("user");
+    revalidateTag("users");
+  }
   return data;
 };

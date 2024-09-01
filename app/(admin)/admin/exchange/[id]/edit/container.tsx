@@ -20,69 +20,13 @@ const tabData = [
 const basicField = ["name", "nameExt", "image_thumb", "image_big", "image_logo", "round_image", "square_image", "status", "order", "blog_url", "customer_url", "createtime"];
 const allField = [...basicField, "payback", "dioscount", "market_order", "limit_order", "tag", "average_refund", "custom_image", "affiliate_join_url"];
 
-const Container = ({ data, token }) => {
+const Container = ({ data, token, links, exchangeId }) => {
   const [prev, setPrev] = useState(data);
   const [values, setValues] = useState<any>({});
   const [tab, setTab] = useState({ value: 0, label: "기본" });
   const router = useRouter();
 
   console.log("values", values);
-
-  // const handleEdit = async (e) => {
-  //   e.preventDefault();
-  //   let exchangeBody: any = {};
-  //   let linksBody: any = {};
-  //   console.log("values", values);
-
-  //   const exchangePrev = {};
-  //   const linksPrev = {};
-  //   for (const key in prev) {
-  //     if (basicField.includes(key)) {
-  //       exchangePrev[key] = prev[key];
-  //     } else {
-  //       linksPrev[key] = prev[key];
-  //     }
-  //   }
-
-  //   for (const key in values) {
-  //     console.log("key", key);
-  //     if (basicField.includes(key)) {
-  //       exchangeBody = { ...exchangePrev, [key]: values[key] };
-  //     } else {
-  //       linksBody = { ...linksPrev, status: values.status || prev.status, [key]: values[key] };
-  //     }
-  //   }
-
-  //   const promises = [];
-
-  //   console.log("asd", exchangeBody, linksBody);
-
-  //   // editExchangeForm({ id: data.exchange_id, token: token, body: exchangeBody })
-  //   //   .then((res) => console.log("res", res))
-  //   //   .catch((error) => console.log(error));
-
-  //   if (exchangeBody && Object.keys(exchangeBody).length > 0) {
-  //     console.log("!!!! sdfsdf");
-  //     await editExchangeForm({ id: data.exchange_id, token: token, body: exchangeBody });
-  //   }
-
-  //   if (linksBody && Object.keys(linksBody).length > 0) {
-  //     await editLinksForm({ id: data.exchange_id, linkId: data.id, token: token, body: linksBody });
-  //   }
-
-  //   // console.log("promises", promises);
-
-  //   // try {
-  //   //   console.log("sdmfksmdfksmdkf");
-  //   //   const result = await Promise.all(promises);
-  //   //   router.push("/admin/exchange/list");
-  //   //   console.log("result", result);
-  //   // } catch (error) {
-  //   //   console.log("errror", values, exchangeBody);
-  //   //   window.alert("error");
-  //   //   console.log(error);
-  //   // }
-  // };
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -102,6 +46,8 @@ const Container = ({ data, token }) => {
         exchangeBody[key] = values[key];
         // }
       } else {
+        console.log("key", key, values[key]);
+
         linksBody[key] = values[key];
       }
     }
@@ -152,6 +98,7 @@ const Container = ({ data, token }) => {
 
       for (const key in linksBody) {
         if (!key.includes("image")) {
+          console.log("key", key, linksBody[key]);
           linksData.append(key, linksBody[key]);
         }
       }
@@ -236,7 +183,12 @@ const Container = ({ data, token }) => {
       <div className="flex gap-8 pb-10">
         {tabData.map((tab) => {
           return (
-            <div key={tab.value} onClick={() => setTab(tab)}>
+            <div
+              key={tab.value}
+              onClick={() => {
+                tab.value === 1 ? router.push(`/admin/exchange/${exchangeId}/edit/link`) : undefined;
+              }}
+            >
               {tab.label}
             </div>
           );

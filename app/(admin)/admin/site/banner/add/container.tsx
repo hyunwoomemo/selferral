@@ -1,5 +1,6 @@
 "use client";
 import { setBanner } from "@/actions/site/action";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 
 //title, memo, status [1 active, 2 close] , order, starttime [2024-09-15 00:00:00], endtime,  banner_image 배너 이미지, banner_id 0 신규, banner_type 은 자유임 사용자 화면에 구역별로 입력요망
@@ -8,6 +9,7 @@ const fields = ["title", "memo", "order", "starttime", "endtime", "banner_image"
 
 const Container = ({ token }) => {
   const [values, setValues] = useState({});
+  const router = useRouter();
 
   const FieldItem = useCallback(({ field, type, onChange }) => {
     return (
@@ -32,11 +34,22 @@ const Container = ({ token }) => {
 
   const handleBanner = async (e) => {
     e.preventDefault();
-    const res = await setBanner({ token, data: values });
+
+    const formData = new FormData();
+
+    for (const key in values) {
+      if (key.includes("image")) {
+        for (let i = 0; i < values[key]?.length; i++) {
+          formData.append(key, values[key]?.[i]);
+        }
+      } else {
+        formData.append(key, values[key]);
+      }
+    }
+
+    const res = await setBanner({ token, data: formData, bannerType: values["banner_type"] });
 
     console.log("res", res);
-
-    router;
   };
 
   return (

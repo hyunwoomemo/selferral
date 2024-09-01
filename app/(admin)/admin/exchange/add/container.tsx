@@ -16,7 +16,7 @@ const tabData = [
 ];
 
 const basicField = ["name", "nameExt", "image_thumb", "image_big", "image_logo", "round_image", "square_image", "status", "order", "blog_url", "customer_url", "createtime"];
-const allField = [...basicField, "payback", "dioscount", "market_order", "limit_order", "tag", "average_refund", "custom_image", "affiliate_join_url"];
+const allField = [...basicField, "payback", "discount", "market_order", "limit_order", "tag", "average_refund", "custom_image", "affiliate_join_url"];
 
 const Container = ({ token, exchanges }) => {
   const [values, setValues] = useState<any>({});
@@ -26,50 +26,83 @@ const Container = ({ token, exchanges }) => {
   console.log("values", values);
 
   const handleAdd = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    let exchangeBody = {};
-    let linksBody = {};
+    try {
+      e.preventDefault();
+      const formData = new FormData();
+      let exchangeBody = {};
+      let linksBody = {};
 
-    for (const key in values) {
-      console.log("key", key);
-      if (basicField.includes(key) && key !== "status") {
-        if (values[key] === "null") return;
-        exchangeBody[key] = values[key];
-      } else {
-        if (values[key] === "null") return;
-        linksBody = { [key]: values[key] };
+      for (const key in values) {
+        console.log("key", key, values[key]);
+        if (basicField.includes(key) && key !== "status") {
+          exchangeBody[key] = values[key];
+        } else {
+          // linksBody = { [key]: values[key] };
+          linksBody[key] = values[key];
+        }
       }
-    }
 
-    exchangeBody["status"] = values.status;
-    linksBody["status"] = values.status;
-    exchangeBody["order"] = values.order || exchanges.data.length + 1;
+      exchangeBody["status"] = values.status;
+      linksBody["status"] = values.status;
+      exchangeBody["order"] = values.order || exchanges.data.length + 1;
 
-    // const promises = [];
+      // const promises = [];
+      console.log("exchangeBody linksBody", exchangeBody, linksBody);
 
-    if (exchangeBody && Object.keys(exchangeBody).length > 0) {
-      const res = await editExchangeForm({ id: 0, token: token, body: exchangeBody });
-      console.log("res", res);
+      if (exchangeBody && Object.keys(exchangeBody).length > 0) {
+        for (const key in exchangeBody) {
+          if (key.includes("image")) {
+            if (typeof exchangeBody[key] === "string") continue;
+            for (let i = 0; i < exchangeBody[key]?.length; i++) {
+              formData.append(key, exchangeBody[key]?.[i]);
+            }
+          } else {
+            formData.append(key, exchangeBody[key]);
+          }
+        }
 
-      if (linksBody && Object.keys(linksBody).length > 0) {
-        const res1 = await editLinksForm({ id: res.exchange_id, linkId: 0, token: token, body: linksBody });
+        const res = await editExchangeForm({ id: 0, token: token, formData: formData });
+        console.log("res", res);
 
-        console.log("res1", res1);
+        if (linksBody && Object.keys(linksBody).length > 0) {
+          console.log("sdmksmfsdkfmskdf!!!! ", res.exchange_id, token, linksBody);
+          const linkData = new FormData();
+
+          for (const key in linksBody) {
+            if (key.includes("image")) {
+              if (typeof linksBody[key] === "string") continue;
+
+              for (let i = 0; i < linksBody[key]?.length; i++) {
+                linkData.append(key, linksBody[key]?.[i]);
+              }
+            } else {
+              console.log("key", key, linksBody[key]);
+              linkData.append(key, linksBody[key]);
+            }
+          }
+
+          const res1 = await editLinksForm({ id: res.exchange_id, linkId: 0, token: token, formData: linkData });
+
+          console.log("res1", res1);
+        }
       }
+
+      // if (linksBody && Object.keys(linksBody).length > 0) {
+      //   promises.push(editLinksForm({ id: 0, linkId: 0, token: token, body: linksBody }));
+      // }
+
+      // try {
+      //   const res = await Promise.all(promises);
+      //   console.log("add res", res);
+      //   router.push("/admin/exchange/list");
+      // } catch (err) {
+      //   console.log(err);
+      // }
+
+      router.push("/admin/exchange/list");
+    } catch (err) {
+      console.error(err);
     }
-
-    // if (linksBody && Object.keys(linksBody).length > 0) {
-    //   promises.push(editLinksForm({ id: 0, linkId: 0, token: token, body: linksBody }));
-    // }
-
-    // try {
-    //   const res = await Promise.all(promises);
-    //   console.log("add res", res);
-    //   router.push("/admin/exchange/list");
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   return (
@@ -104,8 +137,7 @@ const Container = ({ token, exchanges }) => {
                     <input
                       type={"file"}
                       onChange={(e) => {
-                        console.log(e.target.files[0]);
-                        setValues((prev) => ({ ...prev, files: prev.files ? [...prev.files, e.target.files[0]] : [e.target.files[0]] }));
+                        setValues((prev) => ({ ...prev, [item]: e.target.files }));
                       }}
                       placeholder={item}
                       name={item}

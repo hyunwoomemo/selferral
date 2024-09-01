@@ -37,22 +37,10 @@ export const getAffiliateExchanges = async (token) => {
   return data;
 };
 
-export const editExchangeForm = async ({ id, token, body }) => {
-  console.log("123123", id, token, body);
+export const editExchangeForm = async ({ id, token, formData }) => {
+  console.log("123123", id, token, formData);
   try {
-    const formData = new FormData();
-    console.log("body", body);
-
-    for (const key in body) {
-      if (key.includes("image")) {
-        if (typeof body[key] === "string") continue;
-        for (let i = 0; i < body[key]?.length; i++) {
-          formData.append(key, body[key]?.[i]);
-        }
-      } else {
-        formData.append(key, body[key]);
-      }
-    }
+    console.log("body", formData);
 
     const res = await fetch(`${API_URL}/affiliate/Exchange/${id}`, {
       //"Content-Type": "multipart/form-data"
@@ -70,16 +58,8 @@ export const editExchangeForm = async ({ id, token, body }) => {
   }
 };
 
-export const editLinksForm = async ({ id, linkId, token, body }) => {
-  const formData = new FormData();
-
-  for (const key in body) {
-    if (body[key] !== null) {
-      formData.append(key, body[key]);
-    }
-  }
-
-  console.log("body", body);
+export const editLinksForm = async ({ id, linkId, token, formData }) => {
+  console.log("idasdasd", id, linkId, token, formData);
 
   const res = await fetch(`${API_URL}/affiliate/Exchange/links/${id}/${linkId}`, {
     headers: { authorization: `Bearer ${token}` },
@@ -88,6 +68,7 @@ export const editLinksForm = async ({ id, linkId, token, body }) => {
   });
 
   const data = await res.json();
+  console.log("data", data);
   revalidateTag("exchanges");
 
   return data;
@@ -135,6 +116,7 @@ export const getWithdrawals = async ({ exchangeId, token, num = 10, page = 1 }) 
 `,
     {
       headers: { authorization: `Bearer ${token}` },
+      next: { tags: ["withdrawals"] },
     }
   );
 
@@ -157,5 +139,38 @@ export const setWithdrawal = async ({ token, data }) => {
 
   const result = await res.json();
 
+  revalidateTag("clientWithdrawal");
   return result;
+};
+
+export const updateStep = async ({ withdrawlId, step, token }) => {
+  const res = await fetch(
+    `${API_URL}/affiliate/Exchange/withdrawal/${withdrawlId}/${step}
+`,
+    {
+      method: "POST",
+      headers: { authorization: `Bearer ${token}` },
+    }
+  );
+
+  const result = await res.json();
+
+  console.log("result", result);
+
+  if (result.data === "OK") {
+    revalidateTag("withdrawals");
+    revalidateTag("clientWithdrawal");
+  }
+
+  return result;
+};
+
+export const getLinks = async ({ token, exchange_id }) => {
+  const res = await fetch(`${API_URL}/affiliate/Exchange/links/${exchange_id}`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+
+  const data = await res.json();
+
+  return data;
 };

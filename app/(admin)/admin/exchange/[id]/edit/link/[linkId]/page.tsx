@@ -5,7 +5,13 @@ import { cookies } from "next/headers";
 
 const Page = async ({ params }) => {
   const token = cookies().get("token");
-  const data = await getExchange(params.id);
+
+  const links = await getLinks({ token: token?.value, exchange_id: params.id });
+
+  console.log("params", params, links);
+  const data = await links.data.find((v) => v.id == params.linkId);
+
+  console.log("paramsparams", data);
 
   return (
     <div className="p-8 font-bold flex-auto pb-32">
