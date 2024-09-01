@@ -9,5 +9,7 @@ export default async function Page() {
   const users = await getAllUser();
   const token = cookies().get("token");
 
-  return <Container users={users} token={token?.value} />;
+  console.log("users", users);
+
+  return <Container users={users.DATA} token={token?.value} />;
 }

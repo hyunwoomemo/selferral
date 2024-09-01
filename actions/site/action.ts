@@ -15,10 +15,10 @@ export const getAdminBanner = async ({ type, token, num = 10, page = 1 }) => {
   return data;
 };
 
-export const setBanner = async ({ data, token, bannerType }) => {
+export const setBanner = async ({ data, token, bannerType, id = 0 }) => {
   console.log("setBanner", data, token);
 
-  const res = await fetch(`${API_URL}/affiliate/banner/${bannerType}/0`, {
+  const res = await fetch(`${API_URL}/affiliate/banner/${bannerType}/${id}`, {
     method: "POST",
     body: data,
     headers: { authorization: `Bearer ${token}` },

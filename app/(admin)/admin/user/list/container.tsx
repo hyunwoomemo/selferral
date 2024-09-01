@@ -2,11 +2,17 @@
 
 import moment from "moment";
 import React, { useState } from "react";
-import UserType from "./user-type";
 import { setUserType } from "@/actions/user/action";
+import { RefreshCw } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { revalidateTag } from "next/cache";
+import { revalidate } from "@/actions/common/action";
+import { useToast } from "@/hooks/useToast";
 
 const Container = ({ users, token }) => {
   const [isVisible, setIsVisible] = useState(-1);
+  const router = useRouter();
+  const { addToast } = useToast();
 
   const getUserTypeText = (type) => {
     switch (type) {
@@ -33,11 +39,20 @@ const Container = ({ users, token }) => {
   const handleUpdateType = async ({ id, type }) => {
     setIsVisible(-1);
     const res = await setUserType({ token, id, type });
+
+    if (res.data === "ok") {
+      addToast({ text: "유저 타입이 변경되었습니다." });
+    } else {
+      addToast({ text: "유저 타입 변경에 실패했습니다." });
+    }
   };
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">
-      <h1 className="text-3xl">유저</h1>
+      <div className="flex justify-between">
+        <h1 className="text-3xl">유저</h1>
+        <RefreshCw onClick={() => revalidate("users")} />
+      </div>
       <div className="flex flex-col flex-auto ">
         <div className="pt-10 md:grid md:grid-cols-5 p-2 text-center border-b-[1px]">
           <div>이메일</div>
@@ -47,7 +62,7 @@ const Container = ({ users, token }) => {
           <div>유저 타입</div>
         </div>
         <div className=" flex-[8]">
-          {users.DATA.map((user, index) => {
+          {users.map((user, index) => {
             console.log(user);
             const { email, name, hp, createdAt, type } = user;
             return (

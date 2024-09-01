@@ -4,6 +4,7 @@ import ExchangeTab from "./exchange-tab";
 import { getWithdrawals, updateStep } from "@/actions/trade/action";
 import Tab from "@/components/tab";
 import Dropdown from "@/components/ui/dropdown";
+import { useToast } from "@/hooks/useToast";
 
 const stepData = [
   {
@@ -28,6 +29,7 @@ const Container = ({ exchanges, token }) => {
   const [tab, setTab] = useState("all");
   const [data, setData] = useState({ total: 0, list: [] });
   const [isVisible, setIsVisible] = useState(-1);
+  const { addToast } = useToast();
 
   useEffect(() => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, token }).then((res) => setData(res.data));
@@ -43,7 +45,10 @@ const Container = ({ exchanges, token }) => {
     if (res.data === "OK") {
       getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, token })
         .then((res) => setData(res.data))
-        .finally(() => setIsVisible(-1));
+        .finally(() => {
+          setIsVisible(-1);
+          addToast({ text: "출금 신청 상태가 수정되었습니다." });
+        });
     }
   };
 

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 import axios from "axios";
 import { editLinksForm } from "@/actions/trade/action";
+import { useToast } from "@/hooks/useToast";
 
 const tabData = [
   {
@@ -24,6 +25,7 @@ const Container = ({ data, token, links, exchangeId }) => {
   const [values, setValues] = useState<any>({});
   const [tab, setTab] = useState({ value: 1, label: "기본" });
   const router = useRouter();
+  const { addToast } = useToast();
 
   console.log("dddddd", prev, data);
 
@@ -69,6 +71,8 @@ const Container = ({ data, token, links, exchangeId }) => {
 
       console.log("123123 links DAta!!!", res);
     }
+
+    addToast({ text: "거래소가 수정되었습니다." });
 
     router.push("/admin/exchange/list");
   };

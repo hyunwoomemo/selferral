@@ -1,6 +1,7 @@
 "use client";
 import { editExchangeForm, editLinksForm } from "@/actions/trade/action";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 
@@ -22,6 +23,7 @@ const Container = ({ token, exchanges }) => {
   const [values, setValues] = useState<any>({});
   const [tab, setTab] = useState({ value: 0, label: "기본" });
   const router = useRouter();
+  const { addToast } = useToast();
 
   console.log("values", values);
 
@@ -99,7 +101,10 @@ const Container = ({ token, exchanges }) => {
       //   console.log(err);
       // }
 
-      router.push("/admin/exchange/list");
+      addToast({ text: "거래소가 추가되었습니다." });
+      setTimeout(() => {
+        router.push("/admin/exchange/list");
+      }, 300);
     } catch (err) {
       console.error(err);
     }

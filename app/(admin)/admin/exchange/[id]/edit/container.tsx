@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 import axios from "axios";
+import { useToast } from "@/hooks/useToast";
 
 const tabData = [
   {
@@ -25,6 +26,7 @@ const Container = ({ data, token, links, exchangeId }) => {
   const [values, setValues] = useState<any>({});
   const [tab, setTab] = useState({ value: 0, label: "기본" });
   const router = useRouter();
+  const { addToast } = useToast();
 
   console.log("values", values);
 
@@ -149,33 +151,8 @@ const Container = ({ data, token, links, exchangeId }) => {
     //   const res = await axios.post(`${API_URL}/affiliate/Exchange/links/${data.exchange_id}/${data.id}`, linksData, { headers: { Authorization: `Bearer ${token}` } });
     // }
 
+    addToast({ text: "거래소가 수정되었습니다." });
     router.push("/admin/exchange/list");
-  };
-
-  const handleUpload = async (e, type) => {
-    console.log(e.target.files);
-    const formData = new FormData();
-    let exchangePrev: any = {};
-
-    for (const key in prev) {
-      if (basicField.includes(key) && type !== key) {
-        exchangePrev[key] = prev[key];
-      }
-    }
-
-    for (const key in exchangePrev) {
-      formData.append(key, exchangePrev[key]);
-    }
-
-    for (let i = 0; i < e.target.files.length; i++) {
-      formData.append(type, e.target.files[i]);
-    }
-
-    const res = await fetch(`${API_URL}/affiliate/Exchange/${data.exchange_id}`, {
-      method: "POST",
-      body: formData,
-    });
-    console.log("res", res);
   };
 
   return (

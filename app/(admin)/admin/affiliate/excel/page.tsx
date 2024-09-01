@@ -1,13 +1,18 @@
 "use client";
 import { API_URL } from "@/actions";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useToast } from "@/hooks/useToast";
 import { cn } from "@/lib/utils";
 import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Page = () => {
   const token = getCookie("token");
   const [file, setFile] = useState(null);
+  const router = useRouter();
+
+  const { addToast } = useToast();
 
   const handleFileChange = (e) => {
     setFile(e.target.files);
@@ -36,7 +41,9 @@ const Page = () => {
       console.log("data!!!", data);
       if (data.flag === "ok") {
         setFile(null);
-        window.alert("액셀이 업로드 되었습니다.");
+        // window.alert("액셀이 업로드 되었습니다.");
+        addToast({ text: "액셀이 업로드 되었습니다." });
+        router.push("/admin/exchange/list");
       }
     } catch (err) {
       console.error(err);

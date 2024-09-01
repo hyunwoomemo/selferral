@@ -18,7 +18,7 @@ export default async function Page() {
         <DashboardItem>
           <div className="flex flex-col gap-4 min-w-[160px] py-4  justify-center items-center">
             <p className="text-gray-500 ">유저</p>
-            {/* <p className="text-3xl">{users.DATA.length}</p> */}
+            <p className="text-3xl">{users.DATA.length}</p>
           </div>
         </DashboardItem>
         <DashboardItem>

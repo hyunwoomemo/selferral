@@ -82,3 +82,18 @@
 body {
   overflow-x: hidden;
 }
+
+/* WebKit 기반 브라우저의 스크롤바 스타일링 */
+div::-webkit-scrollbar {
+  height: 10px; /* 스크롤바 높이 조정 */
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: rgb(54, 54, 54); /* 스크롤바 색상 */
+  border-radius: 10px;
+}
+
+div::-webkit-scrollbar-track {
+  background: #131313; /* 스크롤바 트랙 색상*/
+  border-radius: 10px;
+}

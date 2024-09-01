@@ -8,18 +8,21 @@ import React, { useCallback, useState } from "react";
 
 const fields = ["title", "memo", "order", "starttime", "endtime", "status", "banner_image", "banner_type"];
 
-const Container = ({ token }) => {
+const Container = ({ token, banner }) => {
   const [values, setValues] = useState({});
   const router = useRouter();
   const { addToast } = useToast();
 
-  const FieldItem = useCallback(({ field, type, onChange }) => {
+  console.log("banner", banner);
+
+  const FieldItem = useCallback(({ field, type, onChange, defaultValue }) => {
     return (
       <div className="flex gap-2 items-center">
         <span>{field}</span>
         <input
           type={type}
           onChange={onChange}
+          defaultValue={defaultValue}
           // onChange={(e) => {
           //   console.log(e.target.files[0]);
           //   setValues((prev) => ({ ...prev, files: prev.files ? [...prev.files, e.target.files[0]] : [e.target.files[0]] }));
@@ -35,6 +38,7 @@ const Container = ({ token }) => {
   console.log("values", values);
 
   const handleBanner = async (e) => {
+    console.log("sdmfkmsdkfmks");
     e.preventDefault();
 
     const formData = new FormData();
@@ -45,26 +49,35 @@ const Container = ({ token }) => {
           formData.append(key, values[key]?.[i]);
         }
       } else {
-        if (key === "status") {
-          console.log("123123", values[key]);
-          values[key] === "null" || !values[key] ? formData.append(key, 0) : formData.append(key, values[key]);
-        } else {
-          formData.append(key, values[key]);
-        }
+        formData.append(key, values[key]);
+      }
+    }
+    console.log("sdmfkmsdkfmks", banner);
+
+    for (const key in banner) {
+      console.log(formData.has(key));
+      if (formData.has(key)) continue;
+
+      if (key === "position") {
+        formData.append("banner_type", banner[key]);
+      } else {
+        formData.append(key, banner[key]);
       }
     }
 
-    const res = await setBanner({ token, data: formData, bannerType: values["banner_type"] });
-
-    addToast({ text: "배너가 추가되었습니다." });
+    console.log("123123123123, ", formData);
+    const res = await setBanner({ token, data: formData, bannerType: values["banner_type"] || banner["position"], id: banner.id });
 
     console.log("res", res);
+
+    addToast({ text: "배너가 변경되었습니다." });
   };
 
   return (
     <form onSubmit={handleBanner}>
       <div className="flex gap-3 flex-wrap">
         {fields.map((field) => {
+          console.log("field", field);
           // if (field.includes("image")) {
           //   return <FieldItem field={field} type={"file"} />;
           // }
@@ -84,7 +97,7 @@ const Container = ({ token }) => {
             }
           };
 
-          return <FieldItem key={field} field={field} type={type} onChange={onChange} />;
+          return <FieldItem key={field} field={field} type={type} onChange={onChange} defaultValue={field === "banner_type" ? banner["position"] : banner[field]} />;
         })}
       </div>
       <button className="pt-20">저장하기</button>

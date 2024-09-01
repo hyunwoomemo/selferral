@@ -1,9 +1,11 @@
 "use client";
 import { getAdminBanner } from "@/actions/site/action";
 import Tab from "@/components/tab";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 const Container = ({ banners, token }) => {
+  const router = useRouter();
   console.log("banners", banners);
 
   const tabData = useMemo(() => {
@@ -44,7 +46,7 @@ const Container = ({ banners, token }) => {
           <h1 className="px-4 py-4 text-2xl">{type}</h1>
           <div className="flex gap-4 py-5">
             {data.map((v, i) => (
-              <div key={v.title + i} className="flex justify-center items-center min-w-60 h-40 bg-gray-100 dark:bg-gray-900 rounded-md">
+              <div onClick={() => router.push(`/admin/site/banner/edit/${v.id}`)} key={v.title + i} className="flex justify-center items-center min-w-60 h-40 bg-gray-100 dark:bg-gray-900 rounded-md">
                 {v.banner_image}
               </div>
             ))}
