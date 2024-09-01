@@ -83,7 +83,9 @@ const Container = ({ users, token }) => {
                     {typeData
                       .filter((v) => v.value !== user.type)
                       .map((v) => (
-                        <span onClick={() => handleUpdateType({ id: user.id, type: v.value })}>{v.label}</span>
+                        <span key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
+                          {v.label}
+                        </span>
                       ))}
                   </div>
                 </div>

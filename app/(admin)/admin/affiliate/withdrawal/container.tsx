@@ -86,7 +86,9 @@ const Container = ({ exchanges, token }) => {
                         {stepData
                           .filter((v) => v.value !== item.step)
                           .map((v) => (
-                            <span onClick={() => handleUpdateStep({ id: item.id, step: v.value })}>{v.label}</span>
+                            <span key={v.value} onClick={() => handleUpdateStep({ id: item.id, step: v.value })}>
+                              {v.label}
+                            </span>
                           ))}
                       </div>
                     </span>

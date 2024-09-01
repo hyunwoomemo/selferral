@@ -53,7 +53,7 @@ export default async function Page() {
       {data.DATA &&
         Object.entries(data.DATA).map(([key, value]) => {
           return (
-            <div className="flex gap-2">
+            <div key={key} className="flex gap-2">
               <div>{key}</div>
               <div className="font-bold">{value}</div>
             </div>
