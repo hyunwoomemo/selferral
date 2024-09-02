@@ -70,7 +70,7 @@ const Container = ({ exchanges, token }) => {
         <div className="h-full">
           <div className="flex flex-col gap-0 md:max-w-[80dvw] overflow-x-auto h-full">
             <div className="">
-              <div className="flex gap-10 py-5 border-b-2">
+            <div className="flex gap-10 py-5 border-b-2">
                 <span className="flex justify-center min-w-[180px]">거래소</span>
                 <span className="flex justify-center min-w-[180px]">금액</span>
                 <span className="flex justify-center min-w-[180px]">USDT 주소</span>

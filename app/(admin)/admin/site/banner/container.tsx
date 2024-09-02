@@ -1,6 +1,7 @@
 "use client";
 import { getAdminBanner } from "@/actions/site/action";
 import Tab from "@/components/tab";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -31,7 +32,7 @@ const Container = ({ banners, token }) => {
 
   const renderItem = useCallback(() => {
     return Object.entries(
-      data.data.list.reduce((result, cur) => {
+      data?.data?.list?.reduce((result, cur) => {
         if (!result.hasOwnProperty(cur.position)) {
           result[cur.position] = [cur];
         } else {
@@ -48,6 +49,7 @@ const Container = ({ banners, token }) => {
             {data.map((v, i) => (
               <div onClick={() => router.push(`/admin/site/banner/edit/${v.id}`)} key={v.title + i} className="flex justify-center items-center min-w-60 h-40 bg-gray-100 dark:bg-gray-900 rounded-md">
                 {v.banner_image}
+                <Image src={`${v.path}`} alt="banner-image" width={300} height={100} />
               </div>
             ))}
           </div>

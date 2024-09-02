@@ -33,6 +33,8 @@ const SearchUid = ({ exchangeData }) => {
 
   const { addToast } = useToast();
 
+  console.log("exchangeData", exchangeData);
+
   return (
     <div className="py-10">
       <div className="flex gap-4 flex-wrap max-w-screen-md w-full mx-auto pb-5 px-2">
