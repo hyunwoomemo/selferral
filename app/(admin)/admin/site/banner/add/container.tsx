@@ -54,11 +54,11 @@ const Container = ({ token }) => {
           console.log("123123", values[key]);
           values[key] === "null" || !values[key] ? formData.append(key, 0) : formData.append(key, values[key]);
         } else {
-          if (key.includes("time")) {
-            formData.append(key, moment(values[key]).utc().format("YYYY-MM-DD HH:mm:ss"));
-          } else {
-            formData.append(key, values[key]);
-          }
+          // if (key.includes("time")) {
+          //   formData.append(key, values[key]);
+          // } else {
+          formData.append(key, values[key]);
+          // }
         }
       }
     }
