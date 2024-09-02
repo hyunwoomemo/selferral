@@ -1,16 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TradeList from "./trade-list";
 import NewTradeList from "./new-trade-list";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { AlignJustify, LayoutGrid } from "lucide-react";
+import { useAtom } from "jotai";
+import { exchangesAtom } from "@/store/trade/atom";
 
 const ExchangeWrapper = ({ data }: { data: any }) => {
-
-  console.log('data', data)
+  console.log("data", data);
   const [asIs, setAsIs] = useState(false);
+
+  const [exchanges, setExchanges] = useAtom(exchangesAtom);
+
+  useEffect(() => {
+    setExchanges(data);
+  }, [data]);
 
   return (
     <>

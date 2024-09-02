@@ -1,6 +1,7 @@
 "use client";
 import { setBanner } from "@/actions/site/action";
 import { useToast } from "@/hooks/useToast";
+import moment from "moment";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 
@@ -37,6 +38,10 @@ const Container = ({ token }) => {
   const handleBanner = async (e) => {
     e.preventDefault();
 
+    if (Object.keys(values).length !== 8) {
+      return addToast({ text: "필수값이 입력되지 않았습니다." });
+    }
+
     const formData = new FormData();
 
     for (const key in values) {
@@ -49,7 +54,11 @@ const Container = ({ token }) => {
           console.log("123123", values[key]);
           values[key] === "null" || !values[key] ? formData.append(key, 0) : formData.append(key, values[key]);
         } else {
-          formData.append(key, values[key]);
+          if (key.includes("time")) {
+            formData.append(key, moment(values[key]).utc().format("YYYY-MM-DD HH:mm:ss"));
+          } else {
+            formData.append(key, values[key]);
+          }
         }
       }
     }

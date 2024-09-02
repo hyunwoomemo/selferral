@@ -25,11 +25,17 @@ const Container = ({ token, exchanges }) => {
   const router = useRouter();
   const { addToast } = useToast();
 
-  console.log("values", values);
-
   const handleAdd = async (e) => {
     try {
       e.preventDefault();
+      if (!values.name) {
+        return addToast({ text: "거래소 이름값 입력은 필수입니다." });
+      }
+
+      if (!values.status) {
+        return addToast({ text: "status값 입력은 필수입니다." });
+      }
+
       const formData = new FormData();
       let exchangeBody = {};
       let linksBody = {};

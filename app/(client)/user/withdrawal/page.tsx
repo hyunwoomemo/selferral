@@ -2,7 +2,6 @@ import { getWithdrawal } from "@/actions/user/action";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";

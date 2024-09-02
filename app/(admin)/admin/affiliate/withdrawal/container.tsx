@@ -5,6 +5,8 @@ import { getWithdrawals, updateStep } from "@/actions/trade/action";
 import Tab from "@/components/tab";
 import Dropdown from "@/components/ui/dropdown";
 import { useToast } from "@/hooks/useToast";
+import { useAtomValue } from "jotai";
+import { exchangesAtom } from "@/store/trade/atom";
 
 const stepData = [
   {
@@ -28,8 +30,12 @@ const stepData = [
 const Container = ({ exchanges, token }) => {
   const [tab, setTab] = useState("all");
   const [data, setData] = useState({ total: 0, list: [] });
+  const [exchange, setExchange] = useState({});
   const [isVisible, setIsVisible] = useState(-1);
   const { addToast } = useToast();
+
+  const storedExchanges = useAtomValue(exchangesAtom);
+  console.log("storedExchanges", storedExchanges);
 
   useEffect(() => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, token }).then((res) => setData(res.data));
@@ -74,9 +80,9 @@ const Container = ({ exchanges, token }) => {
             </div>
             <div className="flex flex-col flex-auto">
               {data.list.map((item, index) => (
-                <div className="flex py-5 items-center" key={item.id}>
+                <div className="flex py-5 items-center" key={item.exchange_id}>
                   <div className="flex items-center  gap-10">
-                    <span className="min-w-[180px] flex justify-center">{item.exchange_id}</span>
+                    <span className="min-w-[180px] flex justify-center">{storedExchanges?.find((v) => v.exchange_id === item.exchange_id)?.name || item.exchange_id}</span>
                     <span className="flex justify-center items-center min-w-[180px]">{item.point}</span>
                     <span className="flex justify-center items-center min-w-[180px]">{item.usdt_address}</span>
                     <span className="flex justify-center items-center min-w-[180px]">{item.user_id}</span>

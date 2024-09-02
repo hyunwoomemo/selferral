@@ -2,16 +2,20 @@ import SearchUid from "./search-uid";
 import PaybackSection from "./payback-section";
 import EventList from "./event-list";
 import ExchangeWrapper from "./exchange-wrapper";
-// import { getExchanges } from "@/app/action";
-import { dummyTrade } from "@/dummy";
-import { API_URL } from "@/actions";
 import { getExchanges } from "@/actions/trade/action";
 import { cookies } from "next/headers";
+import { getBanners } from "@/actions/common/action";
+import "swiper/css";
+import Banner from "./banner";
 
 export default async function Home() {
   const token = cookies().get("token");
   const exchanges = await getExchanges();
   console.log("exchangesexchanges", exchanges);
+
+  const banners = await getBanners();
+
+  console.log("banners", banners);
 
   return (
     <>
@@ -47,6 +51,10 @@ export default async function Home() {
 
             <ExchangeWrapper data={exchanges.data} />
           </div>
+          {/* <div className="md:pt-40">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">배너</h2>
+            {banners && Object.keys(banners).length && <Banner banners={banners} />}
+          </div> */}
         </div>
       </section>
     </>

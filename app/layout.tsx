@@ -6,8 +6,6 @@ import { SiteHeader } from "@/components/site-header";
 import { Providers } from "@/components/providers";
 import { siteConfig } from "@/config/site";
 import { SiteFooter } from "@/components/site-footer";
-// import { checkUserRole } from "./action";
-import { headers } from "next/headers";
 import { Provider } from "jotai";
 import ToastContainer from "@/components/toast-container";
 

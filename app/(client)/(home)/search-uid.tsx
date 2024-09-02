@@ -10,6 +10,7 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getCookie } from "cookies-next";
+import { useToast } from "@/hooks/useToast";
 
 const tabData = [
   {
@@ -30,6 +31,8 @@ const SearchUid = ({ exchangeData }) => {
   const [uid, setUid] = useState<number | null>(null);
   const [tab, setTab] = useState(0);
 
+  const { addToast } = useToast();
+
   return (
     <div className="py-10">
       <div className="flex gap-4 flex-wrap max-w-screen-md w-full mx-auto pb-5 px-2">
@@ -46,7 +49,11 @@ const SearchUid = ({ exchangeData }) => {
             className="flex justify-between flex-1 px-4 items-center"
             onSubmit={async (e) => {
               e.preventDefault();
-              console.log(e);
+
+              if (!uid || uid.length < 4) {
+                return addToast({ text: "UID는 4글자 이상 입력 해주세요" });
+              }
+
               if (tab === 0) {
                 router.push(`/uid?exchange=${exchange.id}&uid=${uid}`);
               }

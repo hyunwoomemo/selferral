@@ -1,22 +1,14 @@
 // import { getExchange } from "@/app/action";
 import { getExchanges } from "@/actions/trade/action";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Page({ params }) {
-  // const exchangeData = await getExchange(params.id);
-
-  // const data = await fetch("https://api.xn--3l2b13oekp.com/exchange/getExchanges");
-  // const json = await data.json();
-
   const data = await getExchanges();
 
   const exchangeData = data.data.find((v) => v.id == Number(params.id));
-
-  console.log("exchangeData", exchangeData);
 
   // console.log(exchangeData);
 
@@ -65,7 +57,7 @@ export default async function Page({ params }) {
           </div>
           <div className="flex gap-5">
             <Link
-              href={exchangeData.customer_url}
+              href={exchangeData.customer_url ? exchangeData.customer_url : ""}
               target="_blank"
               // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), " my-5 text-gray-400 border-gray-400 dark:text-gray-200 dark:border-gray-200")}
@@ -73,7 +65,7 @@ export default async function Page({ params }) {
               <p>고객센터</p>
             </Link>
             <Link
-              href={exchangeData.blog_url}
+              href={exchangeData.blog_url ? exchangeData.blog_url : ""}
               target="_blank"
               // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), " my-5 text-gray-400 border-gray-400 dark:text-gray-200 dark:border-gray-200")}

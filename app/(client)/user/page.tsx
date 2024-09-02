@@ -3,8 +3,6 @@ import { getInfo, refresh } from "@/actions/user/action";
 import LogoutButton from "./logout-button";
 import moment from "moment";
 import { cookies } from "next/headers";
-import { useSetAtom } from "jotai";
-import { userAtom } from "@/app/store/user";
 import WithdrawalButton from "./withdrawal-button";
 
 export default async function Page() {
