@@ -16,11 +16,11 @@ const tabData = [
   },
 ];
 
-const basicField = ["name", "nameExt", "image_thumb", "image_big", "image_logo", "round_image", "square_image", "status", "order", "blog_url", "customer_url", "createtime"];
+const basicField = ["name", "nameExt", "image_thumb", "image_big", "image_logo", "round_image", "square_image", "order", "blog_url", "customer_url"];
 const allField = [...basicField, "payback", "discount", "market_order", "limit_order", "tag", "average_refund", "custom_image", "affiliate_join_url"];
 
 const Container = ({ token, exchanges }) => {
-  const [values, setValues] = useState<any>({});
+  const [values, setValues] = useState<any>({ status: 1 });
   const [tab, setTab] = useState({ value: 0, label: "기본" });
   const router = useRouter();
   const { addToast } = useToast();
