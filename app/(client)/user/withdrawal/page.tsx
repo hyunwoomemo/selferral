@@ -86,14 +86,14 @@ const Page = async ({ searchParams }) => {
           <span className="flex justify-center ">상태</span>
         </div>
         <div className="grid grid-cols-4 pt-10 place-items-center gap-4">
-          {listData.map((v) => {
+          {listData.map((v, i) => {
             return (
-              <>
+              <React.Fragment key={`${v.usdt_address} ${i}`}>
                 <span className="flex justify-center font-bold">{v.exchange_name}</span>
                 <span className="flex justify-center">{Number(v.point).toLocaleString()}</span>
                 <span className="flex justify-center">{v.usdt_address}</span>
                 <span className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold">{stepData.find((v1) => v1.value === v.step).label}</span>
-              </>
+              </React.Fragment>
             );
           })}
         </div>
@@ -121,6 +121,7 @@ const Page = async ({ searchParams }) => {
         buttons={[
           exchange_id ? (
             <Link
+              key={"allwithdrawal"}
               href={"/user/withdrawal"}
               className={cn(buttonVariants({ size: "sm", variant: "outline" }), " border border-orange-400 text-orange-400  dark:border-orange-200 dark:text-orange-200")}
             >
@@ -128,6 +129,7 @@ const Page = async ({ searchParams }) => {
             </Link>
           ) : undefined,
           <Link
+            key={"withdrawalset"}
             href={"/user/withdrawal/set"}
             // onClick={handleSetWithdrawal}
             className={cn(buttonVariants({ size: "sm", variant: "outline" }), " border border-orange-400 text-orange-400  dark:border-orange-200 dark:text-orange-200")}

@@ -32,12 +32,14 @@ const ExchangeWrapper = ({ data }: { data: any }) => {
             text="셀퍼럴 제휴 거래소"
             buttons={[
               <Button
+                key={"grid"}
                 onClick={() => setAsIs(true)}
                 className={cn(buttonVariants({ size: "sm", variant: "outline" }), `${asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
               >
                 <LayoutGrid />
               </Button>,
               <Button
+                key={"alignjustify"}
                 onClick={() => setAsIs(false)}
                 className={cn(buttonVariants({ size: "sm", variant: "outline" }), `${!asIs ? "text-orange-400 hover:text-orange-400" : "text-gray-800 dark:text-white"}`)}
               >

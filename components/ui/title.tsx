@@ -15,7 +15,9 @@ const Title = ({ text, buttons }: { text: string; buttons?: Array<any> }) => {
       <div className="flex-auto">{text}</div>
       <div className="flex gap-4">
         {/* <LogoutButton /> */}
-        {buttons?.map((v) => v)}
+        {buttons?.map((v, i) => {
+          return <React.Fragment key={i}>{v}</React.Fragment>;
+        })}
         {/* <WithdrawalButton />
       <LogoutButton /> */}
       </div>

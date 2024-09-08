@@ -8,6 +8,7 @@ import Tab from "@/components/ui/tab";
 import { getUidList } from "@/actions/trade/action";
 import Title from "@/components/ui/title";
 import Link from "next/link";
+import React from "react";
 
 const stepData = [
   {
@@ -87,9 +88,9 @@ export default async function Page() {
         <div className="grid grid-cols-4 pt-10 items-center gap-4">
           {uidData.data
             .filter((v) => v.uid)
-            .map((v) => {
+            .map((v, i) => {
               return (
-                <>
+                <React.Fragment key={`${v.uid} ${i}`}>
                   <span className="flex justify-center">{v.exchange_name}</span>
                   <span className="flex justify-center">{v.uid}</span>
                   <span className="flex justify-center">{Number(v.point).toLocaleString()}</span>
@@ -103,7 +104,7 @@ export default async function Page() {
                       출금 신청
                     </Link>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
         </div>
@@ -148,7 +149,7 @@ export default async function Page() {
     <div className="p-4 flex flex-col  flex-auto">
       {/* <RednerItem /> */}
       {/* <Title text={"마이 페이지"} buttons={[<WithdrawalButton />, <LogoutButton />]} /> */}
-      <Title text={"마이 페이지"} buttons={[<LogoutButton />]} />
+      <Title text={"마이 페이지"} buttons={[<LogoutButton key={"logout"} />]} />
       <div className="flex-auto  rounded-md p-5 bg-white dark:bg-gray-950 my-5">{renderItem()}</div>
     </div>
   );

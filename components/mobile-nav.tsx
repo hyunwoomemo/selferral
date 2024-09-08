@@ -9,10 +9,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
 import { SiLoop } from "react-icons/si";
+import { useAtomValue } from "jotai";
+import { userAtom } from "@/app/store/user";
 
 export function MobileNav({ user }: { user?: any }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  console.log("user123", user);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -29,14 +33,17 @@ export function MobileNav({ user }: { user?: any }) {
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
-          <MobileLink className={`${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/exchange">
+          <MobileLink className={`${pathname === "/exchange" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/exchange">
             제휴 거래소
           </MobileLink>
-          <MobileLink className={`${pathname === "/service" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/service">
+          <MobileLink className={`${pathname === "/service" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/service">
             서비스 소개
           </MobileLink>
-          <MobileLink className={`${pathname === "/payback" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/payback">
+          <MobileLink className={`${pathname === "/payback" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/payback">
             예상 페이백
+          </MobileLink>
+          <MobileLink className={`${pathname === "/user" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/user">
+            마이 페이지
           </MobileLink>
           {/* <MobileLink className={`${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/notice">
             공지사항
@@ -45,7 +52,15 @@ export function MobileNav({ user }: { user?: any }) {
             셀퍼럴 가이드
           </MobileLink> */}
         </div>
-        {/* <div className="mt-auto">{user?.name}님, 안녕하세요</div> */}
+        <div className="mt-auto">
+          {user && Object.keys(user).length > 0 ? (
+            <div>{user?.name}님, 안녕하세요</div>
+          ) : (
+            <MobileLink className={`${pathname === "/login" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/login">
+              로그인
+            </MobileLink>
+          )}
+        </div>
       </SheetContent>
     </Sheet>
   );

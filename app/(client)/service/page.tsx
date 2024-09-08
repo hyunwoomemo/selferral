@@ -19,14 +19,14 @@ export default async function Page() {
         <Head>거래 수수료를 이제는 페이백으로 돌려받으세요! </Head>
         <div className="flex gap-10 justify-between">
           <Contents className="flex-1 whitespace-pre-line">
-            {`'셀퍼럴닷컴'은 거래소에서 발생하는 수수료를 회원들에게 되돌려주는 혁신적인 플랫폼입니다. 
+            {`셀퍼럴닷컴은 거래소에서 발생하는 수수료를 회원들에게 되돌려주는 혁신적인 플랫폼입니다. 
             이제 거래하면서 수수료 부담을 줄이고, 페이백 혜택을 누리세요!`}
           </Contents>
           <div className="flex-1 max-w-[300px]">
             <Image alt="logo" src={require("../../logo.png")} className="object-cover" />
           </div>
         </div>
-        <Head>'셀퍼럴' 이 뭔가요??</Head>
+        <Head>셀퍼럴 이 뭔가요??</Head>
         <Contents>셀퍼럴이란 레퍼럴 과 셀프 의 약자로, 기존의 방식인 인플루언서를 통해 가입을 하게 되면, 내가 거래해서 발생된 수수료의 일부분이 인플루언서에게 커미션으로 제공되지만,</Contents>
         <Contents>셀퍼럴닷컴은 저희를 통해 가입하게되면 거래해서 발생된 수수료의 일부분을 전부 다 고객님들에게 페이백 해드리고 있습니다.</Contents>
 

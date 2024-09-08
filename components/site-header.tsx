@@ -97,7 +97,7 @@ export function SiteHeader() {
 
               <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} />
               {/* <MobileNav user={user} /> */}
-              <MobileNav />
+              <MobileNav user={user} />
             </nav>
           </div>
         </div>
