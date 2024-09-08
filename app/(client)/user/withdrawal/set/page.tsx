@@ -8,7 +8,7 @@ const Page = async () => {
   console.log("ex", exchanges);
 
   return (
-    <div p-4 max-w-screen-xl mx-auto>
+    <div className="p-4 bg-white dark:bg-gray-950">
       <Container data={exchanges.data} />
     </div>
   );

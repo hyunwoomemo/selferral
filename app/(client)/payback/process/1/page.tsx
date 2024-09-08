@@ -1,5 +1,4 @@
-"use client";
-
+import { getExchanges } from "@/actions/trade/action";
 import Page1 from "../page1";
 
 export interface IPageObj {
@@ -7,8 +6,10 @@ export interface IPageObj {
   bgColor: string;
 }
 
-const Process = () => {
-  return <Page1 />;
+const Process = async () => {
+  const exchanges = await getExchanges();
+
+  return <Page1 exchanges={exchanges.data} />;
 };
 
 export default Process;

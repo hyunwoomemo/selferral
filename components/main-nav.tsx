@@ -8,10 +8,14 @@ import { cn } from "@/lib/utils";
 import { SiLoop } from "react-icons/si";
 import { userAtom } from "@/app/store/user";
 import { useAtom } from "jotai";
+import Image from "next/image";
+import Switch from "./ui/switch";
+import { wideAtom } from "@/app/store/common";
 
 export function MainNav() {
   const pathname = usePathname();
   const [user, setUser] = useAtom(userAtom);
+  const [wide, setWide] = useAtom(wideAtom);
 
   console.log(user);
 
@@ -21,26 +25,41 @@ export function MainNav() {
     <nav className="flex items-center space-x-4 lg:space-x-6">
       <Link href="/" className="mr-6 flex items-center space-x-2">
         {/* <Icons.logo className="h-6 w-6" /> */}
-        <SiLoop />
-        <span className="font-bold">{siteConfig.name}</span>
+        <div className="w-24 h-auto">
+          <Image alt="logo" src={require("../app/logo.png")} className="object-cover" />
+        </div>
+        {/* <span className="font-bold text-lg">{siteConfig.name}</span> */}
       </Link>
-      <Link href="/exchange" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/exchange" ? "text-foreground" : "text-foreground/60")}>
+      <Link
+        href="/exchange"
+        className={cn("text-md font-bold transition-colors hover:text-orange-400  hidden sm:inline-block", pathname === "/exchange" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
+      >
         제휴 거래소
       </Link>
-      <Link href="/service" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/service" ? "text-foreground" : "text-foreground/60")}>
+      <Link
+        href="/service"
+        className={cn("text-md font-bold transition-colors hover:text-orange-400 hidden sm:inline-block", pathname === "/service" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
+      >
         서비스 소개
       </Link>
-      <Link href="/payback" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/payback" ? "text-foreground" : "text-foreground/60")}>
+      <Link
+        href="/payback"
+        className={cn("text-md font-bold transition-colors hover:text-orange-400 hidden sm:inline-block", pathname === "/payback" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
+      >
         예상 페이백
       </Link>
-      <Link href="/guide" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/guide" ? "text-foreground" : "text-foreground/60")}>
+      {/* <Link href="/guide" className={cn("text-md font-medium transition-colors hover:text-orange-400 hidden sm:inline-block", pathname === "/guide" ? "text-foreground" : "text-foreground/60")}>
         셀퍼럴 가이드
-      </Link>
+      </Link> */}
       {user?.type === "UT02" && (
-        <Link href="/admin" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/admin" ? "text-foreground" : "text-foreground/60")}>
+        <Link
+          href="/admin"
+          className={cn("text-md font-bold transition-colors hover:text-orange-400 hidden sm:inline-block", pathname === "/admin" ? "text-orange-400 " : "text-gray-500 dark:text-gray-200")}
+        >
           관리자
         </Link>
       )}
+      <Switch active={!wide} setActive={setWide} />
     </nav>
   );
 }

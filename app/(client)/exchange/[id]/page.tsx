@@ -14,10 +14,10 @@ export default async function Page({ params }) {
 
   return (
     <div className="p-5 md:px-10 overflow-x-hidden max-w-screen-xl mx-auto">
-      <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black py-10">{exchangeData.name}</h2>
+      <h2 className="text-3xl font-black py-10">{exchangeData.name}</h2>
       <div className="md:flex gap-10">
         <div style={{ flex: 1 }} className="h-full flex flex-col">
-          <div className="flex h-full justify-center items-center py-5 rounded-md relative min-h-20">
+          <div className="flex h-full justify-center items-center py-5 rounded-lg relative min-h-20">
             {exchangeData.image_thumb && <Image src={exchangeData.image_thumb} height={100} width={100} alt="image" />}
           </div>
           <Button
@@ -28,7 +28,7 @@ export default async function Page({ params }) {
           </Button>
         </div>
         <div style={{ flex: 5 }}>
-          <div className="flex flex-wrap gap-5 p-3 border border-gray-200 dark:border-gray-700 rounded-md">
+          <div className="flex flex-wrap gap-5 p-3 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div className="flex-1 min-w-[400px] ">
               <p>수수료 할인</p>
               <p>{exchangeData.discount}%</p>

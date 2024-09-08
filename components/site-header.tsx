@@ -16,6 +16,8 @@ import { ArrowRight } from "lucide-react";
 import { getInfo } from "@/actions/user/action";
 // import { info } from "@/app/action";
 import { getCookie, setCookie } from "cookies-next";
+import Switch from "./ui/switch";
+import { wideAtom } from "@/app/store/common";
 
 export function SiteHeader() {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,6 +25,7 @@ export function SiteHeader() {
   const [user, setUser] = useAtom(userAtom);
   const token = getCookie("token");
   const refresh = getCookie("refresh");
+  const [wide, setWide] = useAtom(wideAtom);
 
   useEffect(() => {
     getInfo(token, refresh).then((res) => {
@@ -71,59 +74,37 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ">
-        <div className="flex h-14 items-center px-2 mx-auto max-w-screen-xl">
+      <header className="z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur light:supports-[backdrop-filter]:bg-background/60">
+        <div className={`flex h-14 items-center px-2  ${wide ? "max-w-screen-xl" : "max-w-[840px]"} mx-auto`}>
           <MainNav />
           <div className="flex flex-1 items-center justify-end space-x-2">
-            <nav className="flex items-center md:gap-4">
-              {/* <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={cn(
-                  buttonVariants({ variant: "ghost" }),
-                  "w-10 px-0 hidden sm:inline-flex"
-                )}
-              >
-                <Icons.gitHub className="h-4 w-4" />
-                <span className="sr-only">GitHub</span>
-              </div>
-            </Link>
-            <Link
-              href={siteConfig.links.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={cn(
-                  buttonVariants({ variant: "ghost" }),
-                  "w-10 px-0 hidden sm:inline-flex"
-                )}
-              >
-                <Icons.twitter className="h-4 w-4" />
-                <span className="sr-only">Twitter</span>
-              </div>
-            </Link> */}
+            <nav className="flex items-center md:gap-4 ">
               {user && Object.keys(user).length > 0 ? (
-                <Link href="/user" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/user" ? "text-foreground" : "text-foreground/60")}>
+                <Link
+                  href={"/user"}
+                  className={cn("text-md font-bold transition-colors hover:text-primary hidden md:inline-block", pathname === "/user" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
+                >
                   {user.name}
                 </Link>
               ) : (
-                <Link href="/login" className={cn("text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-foreground" : "text-foreground/60")}>
+                <Link
+                  href="/login"
+                  className={cn("text-md font-bold transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
+                >
                   로그인
                 </Link>
               )}
+
               <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} />
               {/* <MobileNav user={user} /> */}
               <MobileNav />
             </nav>
           </div>
         </div>
+        <div className="absolute hidden lg:block top-5 right-5 "></div>
       </header>
       <div onClick={() => setIsVisible(false)} className={`absolute top-0 left-0 right-0 bottom-0 bg-slate-50 opacity-0 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}></div>
-      <div className="sm:hidden p-4 border-b overflow-x-scroll overflow-y-hidden">
+      {/* <div className="sm:hidden p-4 border-b overflow-x-scroll overflow-y-hidden">
         <div className="flex gap-3 ">
           <MobileLink className={`whitespace-nowrap flex-1 min-w-30 text-center px-2 py-1  rounded-sm ${pathname === "/exchange" ? "text-foreground" : "text-foreground/60"}`} href="/exchange">
             제휴 거래소
@@ -141,10 +122,10 @@ export function SiteHeader() {
             셀퍼럴 가이드
           </MobileLink>
         </div>
-      </div>
-      {!pathname.includes("/payback") && !pathname.includes("/admin") && (
-        <div className="w-full bg-orange-400  p-4 font-bold text-white text-sm md:text-[16px]">
-          <div className="md:flex justify-between max-w-screen-xl mx-auto">
+      </div> */}
+      {/* {!pathname.includes("/payback") && !pathname.includes("/admin") && (
+        <div className="w-full bg-orange-400 dark:bg-orange-700  p-4 font-bold text-white text-sm md:text-[16px]">
+          <div className="flex justify-between max-w-[840px] mx-auto">
             <p className="">내가 쓴 수수료, 전부 내가 돌려받자!</p>
             <Link className="flex gap-2 items-center justify-end" href={"/payback"}>
               <p>내 페이백 예상 금액 확인하기</p>
@@ -152,7 +133,7 @@ export function SiteHeader() {
             </Link>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

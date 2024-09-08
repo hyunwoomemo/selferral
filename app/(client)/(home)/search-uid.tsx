@@ -44,9 +44,9 @@ const SearchUid = ({ exchangeData }) => {
           </div>
         ))} */}
       </div>
-      <div className="flex gap-4 px-2 flex-wrap max-w-screen-md w-full mx-auto ">
+      <div className="flex gap-4 px-2 flex-wrap  w-full mx-auto ">
         <Dropdown item={exchange} setItem={setExchange} data={exchangeData} isVisible={isVisible} setIsVisible={setIsVisible} />
-        <div className="flex flex-auto items-center border border-gray-400 dark:border-white p-2 rounded-sm hover:border-orange-400 hover:dark:border-orange-200 focus-within:border-orange-400 focus-within:dark:border-orange-200">
+        <div className="flex flex-auto items-center border border-gray-600 dark:border-white p-2 rounded-sm hover:border-orange-400 hover:dark:border-orange-200 focus-within:border-orange-400 focus-within:dark:border-orange-200">
           <form
             className="flex justify-between flex-1 px-4 items-center"
             onSubmit={async (e) => {
@@ -57,7 +57,7 @@ const SearchUid = ({ exchangeData }) => {
               }
 
               if (tab === 0) {
-                router.push(`/uid?exchange=${exchange.id}&uid=${uid}`);
+                router.push(`/uid?exchange=${exchange.exchange_id}&uid=${uid}`);
               }
 
               if (tab === 1) {
@@ -66,8 +66,10 @@ const SearchUid = ({ exchangeData }) => {
                 // });
                 const data = new FormData();
 
+                console.log("asdasdasd", exchange, exchange.exchange_id);
+
                 data.append("uid", uid);
-                fetch(`https://api.xn--3l2b13oekp.com/exchange/affiliate/set/${exchange.id}`, {
+                fetch(`https://api.xn--3l2b13oekp.com/exchange/affiliate/set/${exchange.exchange_id}`, {
                   method: "POST",
                   body: data,
                   headers: { authorization: `Bearer ${token}` },
@@ -78,7 +80,7 @@ const SearchUid = ({ exchangeData }) => {
               // console.log("res", res);
             }}
           >
-            <input placeholder="UID를 입력하세요" type="number" onChange={(e) => setUid(e.target.value)} className="bg-transparent outline-none flex-auto" />
+            <input placeholder="UID를 입력하세요" onChange={(e) => setUid(e.target.value)} className="bg-transparent outline-none flex-auto" />
             {tab === 0 && (
               <button className="">
                 <Search className="text-black dark:text-white size-6 cursor-pointer" />

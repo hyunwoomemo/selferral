@@ -8,7 +8,7 @@ const Container = ({ uid }) => {
   return (
     <div className="pt-10">
       <h1 className="text-2xl">UID 리스트</h1>
-      {uid.data.list.length > 0 ? (
+      {uid?.data?.list.length > 0 ? (
         <div className="flex flex-col gap-0 md:max-w-[80dvw] overflow-x-auto">
           <div className="">
             <div className="flex gap-10 py-5 border-b-2">
@@ -19,7 +19,7 @@ const Container = ({ uid }) => {
             </div>
           </div>
           <div className="flex flex-col">
-            {uid.data.list.map((v, index) => (
+            {uid?.data?.list?.map((v, index) => (
               <div className="flex items-center  py-10 gap-10" key={v.id}>
                 <span className="min-w-[180px] flex justify-center">{v.uid}</span>
                 <span className="flex justify-center items-center min-w-[180px]">{v.point}</span>

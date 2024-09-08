@@ -8,23 +8,20 @@ import { useSetAtom } from "jotai";
 import { userAtom } from "../../store/user";
 import { redirect, useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import { useToast } from "@/hooks/useToast";
 
 export default function WithdrawalButton() {
   const router = useRouter();
+  const { addToast } = useToast();
 
   const handleWithdrawal = async () => {
-    router.push("/user/withdrawal");
+    // router.push("/user/withdrawal");
+    addToast({ text: "준비 중입니다.." });
   };
 
   return (
-    <Button
-      onClick={handleWithdrawal}
-      className={cn(
-        buttonVariants({ size: "lg", variant: "outline" }),
-        "max-w-52   md:min-w-40  my-5 py-5 border border-orange-400 text-orange-400 text-lg dark:border-orange-200 dark:text-orange-200"
-      )}
-    >
-      {"출금"}
+    <Button onClick={handleWithdrawal} className={cn(buttonVariants({ size: "sm", variant: "outline" }), "border border-orange-400 text-orange-400  dark:border-orange-200 dark:text-orange-200")}>
+      {"비밀번호 변경"}
     </Button>
   );
 }

@@ -6,6 +6,8 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { getCookie } from "cookies-next";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { getExchange } from "@/actions/trade/action";
+import { CircleDollarSign } from "lucide-react";
 
 const Page = () => {
   const token = getCookie("token");
@@ -13,6 +15,7 @@ const Page = () => {
   const uid = params.get("uid");
   const exchange = params.get("exchange");
   const [res, setRes] = useState<any>(null);
+  const [exchangeData, setExchangeData] = useState();
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(-1);
   let timeInterval;
@@ -133,14 +136,14 @@ const Page = () => {
     // if (!res || !res.DATA) return;
     if (res && Object.keys(res).length === 0) {
       return (
-        <div>
+        <div className="rounded-lg">
           <div className="py-4 text-lg font-bold">존재하지 않는 UID입니다.</div>
           <div className="py-4">
             혹시 오늘 셀퍼럴 페이백 계정을 등록 하셨나요? 시스템에 <span className="text-orange-400">등록 되기까지 5시간</span> 정도 소요됩니다!
           </div>
           <div className="font-bold py-4 pb-8">
             <div>UID 조회가 안 되시더라도</div>
-            <div className="text-orange-400">모든 거래는 페이백이 적용 되요!</div>
+            <div className="text-orange-400">모든 거래는 페이백이 적용 돼요!</div>
           </div>
 
           <Button
@@ -149,6 +152,21 @@ const Page = () => {
           >
             1분만에 확인하기
           </Button>
+        </div>
+      );
+    }
+
+    if (res && res.hasOwnProperty("exchange")) {
+      return (
+        <div>
+          <div className="py-4 text-lg font-bold">존재하는 UID</div>
+          <div className="flex gap-4 text-md py-4 font-bold">
+            <div className="flex gap-2 ">
+              <CircleDollarSign />
+              <div>커미션</div>
+            </div>
+            <div className="text-orange-400">{res.exchange.point} USDT</div>
+          </div>
         </div>
       );
     }
@@ -165,18 +183,10 @@ const Page = () => {
         </div>
       );
     }
-
-    if (res && res.hasOwnProperty("exchange")) {
-      return (
-        <div>
-          <div className="py-4 text-lg font-bold">존재하는 UID (exchange)</div>
-        </div>
-      );
-    }
   }, [res, time]);
 
   return (
-    <div className="bg-white dark:bg-[rgb(26,26,38)]">
+    <div className="bg-white dark:bg-[rgb(26,26,38)] rounded-lg">
       <div className="p-4 flex gap-4 h-full">{renderItem()}</div>
     </div>
   );

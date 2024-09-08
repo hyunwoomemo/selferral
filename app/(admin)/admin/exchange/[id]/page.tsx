@@ -1,4 +1,4 @@
-import { getExchange, getUidList } from "@/actions/trade/action";
+import { getExchange, getUidListById } from "@/actions/trade/action";
 import React from "react";
 import Container from "./container";
 import { cookies } from "next/headers";
@@ -8,9 +8,7 @@ const Page = async ({ params }) => {
   const token = cookies().get("token");
   const data = await getExchange(params.id);
 
-  const uid = await getUidList({ id: params.id, token: token.value });
-
-  console.log("uid", uid.data.list);
+  const uid = await getUidListById({ id: params.id, token: token.value });
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">

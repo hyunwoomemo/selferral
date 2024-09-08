@@ -68,7 +68,7 @@ const Container = ({ users, token }) => {
             return (
               <div
                 key={index}
-                className=" md:grid md:grid-cols-5 p-2 py-6 hover:bg-gray-100 hover:dark:bg-[rgb(26,26,36)] hover:rounded-md text-center border-b-[1px] hover:border-none border-gray-200 dark:border-gray-900"
+                className=" md:grid md:grid-cols-5 p-2 py-6 hover:bg-gray-100 hover:dark:bg-[rgb(26,26,36)] hover:rounded-lg text-center border-b-[1px] hover:border-none border-gray-200 dark:border-gray-900"
               >
                 <div>{email}</div>
                 <div>{name}</div>
@@ -79,7 +79,7 @@ const Container = ({ users, token }) => {
                 </UserType> */}
                 <div className="cursor-pointer relative">
                   <span onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>{getUserTypeText(user.type)}</span>
-                  <div className={`absolute flex flex-col gap-4 top-10 items-center  ${isVisible === user.id ? "block" : "hidden"} bg-gray-700 z-10 p-3 rounded-md left-[50%] translate-x-[-50%]`}>
+                  <div className={`absolute flex flex-col gap-4 top-10 items-center  ${isVisible === user.id ? "block" : "hidden"} bg-gray-700 z-10 p-3 rounded-lg left-[50%] translate-x-[-50%]`}>
                     {typeData
                       .filter((v) => v.value !== user.type)
                       .map((v) => (

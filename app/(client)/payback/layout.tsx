@@ -17,9 +17,9 @@ export default function PaybackLayout({
   console.log(process);
 
   return (
-    <div className="mx-auto max-w-screen-xl">
+    <div className="flex flex-col flex-auto bg-gray-50 dark:bg-gray-900">
       <ProgressBar width={`${(100 / TOTAL) * process}%`} height="5px" />
-      {children}
+      <div className="p-4">{children}</div>
     </div>
   );
 }

@@ -33,7 +33,7 @@ const Container = ({ data }) => {
   };
 
   return (
-    <div className="mx-auto max-w-screen-xl pt-10">
+    <div className="mx-auto max-w-screen-xl">
       <div className="py-4 flex gap-4 flex-col">
         <p>거래소 선택</p>
         <div className="flex w-60">
@@ -43,14 +43,14 @@ const Container = ({ data }) => {
       <div className="py-4 flex gap-4 flex-col">
         <p>출금 금액</p>
         <div className="flex w-60">
-          <input className="bg-transparent p-3 border border-gray-400 rounded-md" placeholder="금액을 입력해주세요." onChange={(e) => setValues((prev) => ({ ...prev, point: e.target.value }))} />
+          <input className="bg-transparent p-3 border border-gray-400 rounded-lg" placeholder="금액을 입력해주세요." onChange={(e) => setValues((prev) => ({ ...prev, point: e.target.value }))} />
         </div>
       </div>
       <div className="py-4 flex gap-4 flex-col">
         <p>USDT 주소</p>
         <div className="flex w-80">
           <input
-            className="bg-transparent p-3 border border-gray-400 rounded-md"
+            className="bg-transparent p-3 border border-gray-400 rounded-lg"
             placeholder="주소를 입력해주세요."
             onChange={(e) => setValues((prev) => ({ ...prev, usdt_address: e.target.value }))}
           />

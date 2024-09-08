@@ -38,10 +38,12 @@ export function MobileNav({ user }: { user?: any }) {
           <MobileLink className={`${pathname === "/payback" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/payback">
             예상 페이백
           </MobileLink>
-          <MobileLink className={`${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/notice">
+          {/* <MobileLink className={`${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/notice">
             공지사항
-          </MobileLink>
-          <MobileLink className={`${pathname === "/guide" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/guide">셀퍼럴 가이드</MobileLink>
+          </MobileLink> */}
+          {/* <MobileLink className={`${pathname === "/guide" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/guide">
+            셀퍼럴 가이드
+          </MobileLink> */}
         </div>
         {/* <div className="mt-auto">{user?.name}님, 안녕하세요</div> */}
       </SheetContent>

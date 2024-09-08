@@ -8,6 +8,8 @@ import { siteConfig } from "@/config/site";
 import { SiteFooter } from "@/components/site-footer";
 import { Provider } from "jotai";
 import ToastContainer from "@/components/toast-container";
+import { getServerPathname } from "@/utils/getServerPathname";
+import ClientLayout from "./client-layout";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,21 +33,17 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
-  // const role = await checkUserRole();
-
-  // console.log("role", role);
-
   return (
     <html lang="en" className="scroll-pt-[3.5rem]">
-      <body className={cn("min-h-screen bg-background font-sans antialiased", inter.variable)}>
+      <body className={cn("min-h-screen bg-background font-sans antialiased min-w-screen ", inter.variable)}>
         <script type="module" defer src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/spiral.js"></script>
         <Providers>
           <Provider>
-            <div className="relative flex min-h-dvh flex-col bg-background ">
+            <div className="relative flex min-h-dvh flex-col bg-gray-50 dark:bg-gray-900">
               {/* {role} */}
               {/* <SiteHeader role={role} /> */}
               <SiteHeader />
-              <main className="flex-1 ">{children}</main>
+              <ClientLayout>{children}</ClientLayout>
               <SiteFooter />
               <ToastContainer />
             </div>

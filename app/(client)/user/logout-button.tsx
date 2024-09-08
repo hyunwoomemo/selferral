@@ -20,13 +20,7 @@ export default function LogoutButton() {
   };
 
   return (
-    <Button
-      onClick={handleLogout}
-      className={cn(
-        buttonVariants({ size: "lg", variant: "outline" }),
-        "max-w-52   md:min-w-40  my-5 py-5 border border-orange-400 text-orange-400 text-lg dark:border-orange-200 dark:text-orange-200"
-      )}
-    >
+    <Button onClick={handleLogout} className={cn(buttonVariants({ size: "sm", variant: "outline" }), " border border-orange-400 text-orange-400  dark:border-orange-200 dark:text-orange-200")}>
       {"로그아웃"}
     </Button>
   );

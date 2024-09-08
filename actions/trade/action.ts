@@ -74,7 +74,7 @@ export const editLinksForm = async ({ id, linkId, token, formData }) => {
   return data;
 };
 
-export const getUidList = async ({ id, token }) => {
+export const getUidListById = async ({ id, token }) => {
   console.log("idid", id);
   const res = await fetch(`${API_URL}/affiliate/Exchange/uid/${id}/10/1`, {
     headers: { authorization: `Bearer ${token}` },
@@ -167,6 +167,16 @@ export const updateStep = async ({ withdrawlId, step, token }) => {
 
 export const getLinks = async ({ token, exchange_id }) => {
   const res = await fetch(`${API_URL}/affiliate/Exchange/links/${exchange_id}`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+
+export const getUidList = async ({ token }) => {
+  const res = await fetch(`${API_URL}/exchange/withdrawals`, {
     headers: { authorization: `Bearer ${token}` },
   });
 
