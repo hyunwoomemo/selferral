@@ -20,6 +20,7 @@ export default async function Page({ params }) {
         bold
         buttons={[
           <Link
+            key={"customer"}
             href={exchangeData.customer_url ? exchangeData.customer_url : ""}
             target="_blank"
             // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
@@ -28,6 +29,7 @@ export default async function Page({ params }) {
             <p>고객센터</p>
           </Link>,
           <Link
+            key={"blog"}
             href={exchangeData.blog_url ? exchangeData.blog_url : ""}
             target="_blank"
             // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
