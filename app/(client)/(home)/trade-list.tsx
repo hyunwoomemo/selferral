@@ -20,21 +20,21 @@ const TradeItem = ({ data }: { data: any }) => {
         <p className="text-gray-500 dark:text-white">{data.name}</p>
         <div className="flex whitespace-pre">
           <p className="text-gray-600 dark:text-white font-bold pt-3">수수료 </p>
-          <p className="text-orange-400 font-bold pt-3">{data.payback.replace("%", "")}%</p>
+          <p className="text-orange-400 font-bold pt-3">{data?.payback?.replace("%", "")}%</p>
           <p className="text-gray-600 dark:text-white font-bold pt-3"> 페이백</p>
-          {data.discount.replace("%", "") != 0 && (
+          {data?.discount?.replace("%", "") != 0 && (
             <>
               <p className="font-bold pt-3"> + </p>
-              <p className="text-orange-400 font-bold pt-3">{data.discount.replace("%", "")}%</p>
+              <p className="text-orange-400 font-bold pt-3">{data?.discount?.replace("%", "")}%</p>
               <p className="text-gray-600 dark:text-white font-bold pt-3"> 할인</p>
             </>
           )}
         </div>
         <div className="flex whitespace-pre">
           <p className="text-gray-400 text-sm  dark:text-gray-400 font-bold pt-3">지정가 </p>
-          <p className="text-gray-400 text-sm dark:text-gray-400 font-bold pt-3">{data.limit_order.replace("%", "")}%</p>
+          <p className="text-gray-400 text-sm dark:text-gray-400 font-bold pt-3">{data?.limit_order?.replace("%", "")}%</p>
           <p className="text-gray-400 text-sm dark:text-gray-400 font-bold pt-3"> 시장가 </p>
-          <p className="text-gray-400 text-sm dark:text-gray-400 font-bold pt-3">{data.market_order.replace("%", "")}%</p>
+          <p className="text-gray-400 text-sm dark:text-gray-400 font-bold pt-3">{data?.market_order?.replace("%", "")}%</p>
           {/* <p className="text-gray-900 dark:text-gray-400 font-bold pt-3"> / 1인 평균 환급금 </p>
           <p className="text-orange-400 font-bold pt-3">{Number(data.average_refund).toLocaleString()}</p> */}
         </div>

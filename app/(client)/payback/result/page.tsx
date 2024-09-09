@@ -21,13 +21,13 @@ export default function Page() {
     console.log("ACTUAL_TRANSACTION_AMOUNT", ACTUAL_TRANSACTION_AMOUNT);
 
     const COMMISSION_TRANSACTION =
-      ((Number(ACTUAL_TRANSACTION_AMOUNT) * Number(paybackTest.market_order.replace("%", ""))) / 100) * 0.5 +
-      ((Number(ACTUAL_TRANSACTION_AMOUNT) * Number(paybackTest.limit_order.replace("%", ""))) / 100) * 0.5;
+      ((Number(ACTUAL_TRANSACTION_AMOUNT) * Number(paybackTest?.market_order?.replace("%", ""))) / 100) * 0.5 +
+      ((Number(ACTUAL_TRANSACTION_AMOUNT) * Number(paybackTest?.limit_order?.replace("%", ""))) / 100) * 0.5;
 
     const DAILY_TOTAL_FEE = COMMISSION_TRANSACTION * paybackTest.number;
     console.log("DAILY_TOTAL_FEE", DAILY_TOTAL_FEE);
 
-    const DAILY_PAYBACK = (DAILY_TOTAL_FEE * Number(paybackTest.payback.replace("%", ""))) / 100;
+    const DAILY_PAYBACK = (DAILY_TOTAL_FEE * Number(paybackTest?.payback?.replace("%", ""))) / 100;
     console.log("DAILY_PAYBACK", DAILY_PAYBACK);
     console.log(" DAILY_PAYBACK * 30.42", DAILY_PAYBACK * 30.42);
     return (DAILY_PAYBACK * 30.42).toFixed(2);
