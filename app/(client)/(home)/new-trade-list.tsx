@@ -21,7 +21,7 @@ const TradeItem = ({ data }: { data: any }) => {
             <div className="relative w-[50px]  h-[50px] flex items-center justify-center">{data.image_thumb && <Image src={data.image_thumb} width={50} height={50} alt="exchange-logo" />}</div>
           </div>
           <div>
-            <p className="text-lg">{data.name}</p>
+            <p className="text-sm md:text-lg">{data.name}</p>
             <p className="text-gray-400">{data.nameExt}</p>
           </div>
         </div>

@@ -12,7 +12,7 @@ const TradeItem = ({ data }: { data: any }) => {
   const router = useRouter();
 
   return (
-    <div className="flex-1  mx-2 flex flex-col rounded-lg   font-bold border border-gray-200 dark:border-gray-600">
+    <div className="flex-1  mx-2 flex flex-col rounded-lg   font-bold border border-gray-200 dark:border-gray-600 shadow-2xl" style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 3px 20px" }}>
       <div className="min-w-60 h-32  bg-background  rounded-t-md flex justify-center items-center text-black relative overflow-hidden border-b border-gray-200 dark:border-gray-600">
         {data.image_big && <Image src={data.image_big} fill className="object-cover md:object-contain" alt="exchange-image" />}
       </div>
@@ -22,7 +22,7 @@ const TradeItem = ({ data }: { data: any }) => {
           <p className="text-gray-600 dark:text-white font-bold pt-3">수수료 </p>
           <p className="text-orange-400 font-bold pt-3">{data?.payback?.replace("%", "") && data?.payback?.replace("%", "") != "null" && `${data?.payback?.replace("%", "")}%`}</p>
           <p className="text-gray-600 dark:text-white font-bold pt-3"> 페이백</p>
-          {data?.discount?.replace("%", "") && data?.discount?.replace("%", "") != "null" && (
+          {data?.discount?.replace("%", "") && data?.discount?.replace("%", "") != "null" && data?.discount?.replace("%", "") != 0 && (
             <>
               <p className="font-bold pt-3"> + </p>
               <p className="text-orange-400 font-bold pt-3">{data?.discount?.replace("%", "") && data?.discount?.replace("%", "") != "null" && `${data?.discount?.replace("%", "")}%`}</p>

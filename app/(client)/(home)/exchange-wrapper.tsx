@@ -38,7 +38,7 @@ const ExchangeWrapper = ({ data }: { data: any }) => {
   return (
     <>
       <div className="">
-        {/* <h2 className="flex-1 justify-center  pb-10 text-3xl font-black text-center">셀퍼럴 제휴 거래소</h2> */}
+        {/* <h2 className="flex-1 justify-center  pb-10 text:lg md:text-3xl font-black text-center">셀퍼럴 제휴 거래소</h2> */}
 
         {pathname !== "/" && (
           <Title
@@ -64,7 +64,7 @@ const ExchangeWrapper = ({ data }: { data: any }) => {
         {pathname === "/" && (
           <div className="flex flex-col md:flex-row">
             <div className="flex-1"></div>
-            <h2 className="flex-3 justify-center  pb-10 text-3xl font-black text-center">셀퍼럴 제휴 거래소</h2>
+            <h2 className="flex-3 justify-center  pb-5 md:pb-10 text:lg md:text-3xl font-black text-center">셀퍼럴 제휴 거래소</h2>
             <div
               className="flex-1 justify-end pt-30 gap-2 px-2 max-w-screen-xl mx-auto 
             hidden md:flex"

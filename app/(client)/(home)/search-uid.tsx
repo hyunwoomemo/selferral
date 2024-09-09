@@ -80,7 +80,7 @@ const SearchUid = ({ exchangeData }) => {
               // console.log("res", res);
             }}
           >
-            <input placeholder="UID를 입력하세요" onChange={(e) => setUid(e.target.value)} className="bg-transparent outline-none flex-auto" />
+            <input placeholder="UID를 입력하세요" onChange={(e) => setUid(e.target.value)} className="bg-transparent outline-none flex-auto placeholder:text-sm" />
             {tab === 0 && (
               <button className="">
                 <Search className="text-gray-600 dark:text-gray-200 size-6 cursor-pointer" />

@@ -23,7 +23,7 @@ const ToastContainer = () => {
   // })
 
   return (
-    <div className={`fixed top-[10px] left-[50%] translate-x-[-50%] z-50 ${toast.length > 0 ? "pointer-events-auto" : "pointer-events-none"}`}>
+    <div className={`fixed top-[10px] left-[50%] translate-x-[-50%] z-50  ${toast.length > 0 ? "pointer-events-auto" : "pointer-events-none"}`}>
       {toast.map((item, index) => (
         <ToastItem key={item.id} data={item} />
       ))}
