@@ -6,6 +6,8 @@ import moment from "moment";
 import Link from "next/link";
 import React from "react";
 import { useMemo } from "react";
+import { RefreshCw } from "lucide-react";
+import { revalidate } from "@/actions/common/action";
 
 const MyReward = ({ uidData }) => {
   const user = useAtomValue(userAtom);
@@ -27,12 +29,15 @@ const MyReward = ({ uidData }) => {
       {user && Object.keys(user).length > 0 && (
         <div className="px-4 py-10 flex gap-6 font-bold flex-col sm:flex-row">
           <div className="rounded-3xl bg-gradient-to-l to-orange-400 dark:to-[#db6a00] from-orange-500 dark:from-[#c45f00]  border-0 border-orange-500 flex-1  text-white p-5">
-            <div>
-              <div>나의 리워드</div>
+            <div className="flex justify-between">
               <div>
-                <span className="text-3xl">{usdt?.toLocaleString() || 0} </span>
-                <span>USDT</span>
+                <div>나의 리워드</div>
+                <div>
+                  <span className="text-3xl">{usdt?.toLocaleString() || 0} </span>
+                  <span>USDT</span>
+                </div>
               </div>
+              <RefreshCw onClick={() => revalidate("uidlist")} />
             </div>
             <div className="border-t my-5 border-gray-50 opacity-30"></div>
             <Link href={"/user/withdrawal"} className="flex gap-2 justify-between cursor-pointer">

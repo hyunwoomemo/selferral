@@ -178,6 +178,7 @@ export const getLinks = async ({ token, exchange_id }) => {
 export const getUidList = async ({ token }) => {
   const res = await fetch(`${API_URL}/exchange/withdrawals`, {
     headers: { authorization: `Bearer ${token}` },
+    next: { tags: ["uidlist"] },
   });
 
   const data = await res.json();
