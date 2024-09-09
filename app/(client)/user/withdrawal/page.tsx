@@ -91,7 +91,7 @@ const Page = async ({ searchParams }) => {
               <React.Fragment key={`${v.usdt_address} ${i}`}>
                 <span className="flex justify-center font-bold">{v.exchange_name}</span>
                 <span className="flex justify-center">{Number(v.point).toLocaleString()}</span>
-                <span className="flex justify-center">{v.usdt_address}</span>
+                <span className="truncate max-w-[50px] sm:max-w-[200px]">{v.usdt_address}</span>
                 <span className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold">{stepData.find((v1) => v1.value === v.step).label}</span>
               </React.Fragment>
             );

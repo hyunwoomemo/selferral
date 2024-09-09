@@ -19,7 +19,7 @@ const MyReward = ({ usdt }) => {
             <div>
               <div>나의 리워드</div>
               <div>
-                <span className="text-3xl">{usdt?.toLocaleString()} </span>
+                <span className="text-3xl">{usdt?.toLocaleString() || 0} </span>
                 <span>USDT</span>
               </div>
             </div>

@@ -96,11 +96,14 @@ export default async function Page() {
                   <span className="flex justify-center">{Number(v.point).toLocaleString()}</span>
                   {/* <span className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold">{stepData.find((v1) => v1.value === v.step).label}</span> */}
                   {withdrawal.data.list.some((v) => uidData.data.find((v1) => v1.exchange_id == v.exchange_id)) ? (
-                    <Link href={`/user/withdrawal?exchange_id=${v.exchange_id}`} className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold">
+                    <Link
+                      href={`/user/withdrawal?exchange_id=${v.exchange_id}`}
+                      className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold whitespace-nowrap"
+                    >
                       출금 이력
                     </Link>
                   ) : (
-                    <Link href={`/user/withdrawal/set`} className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold">
+                    <Link href={`/user/withdrawal/set`} className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold whitespace-nowrap">
                       출금 신청
                     </Link>
                   )}
