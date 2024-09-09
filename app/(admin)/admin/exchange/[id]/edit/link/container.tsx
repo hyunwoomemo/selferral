@@ -5,7 +5,7 @@ const Container = ({ links, exchangeId }) => {
   const renderItem = useCallback(() => {
     return (
       <div className="flex flex-col">
-        {links.data.map((link) => {
+        {links?.data?.map((link) => {
           return (
             <Link href={`/admin/exchange/${exchangeId}/edit/link/${link.id}`} className="flex py-5 items-center" key={link.id}>
               <div className="flex items-center  gap-10">

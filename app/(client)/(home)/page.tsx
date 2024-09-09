@@ -15,7 +15,7 @@ export default async function Home() {
 
   // const banners = await getBanners();
   const uidData = await getUidList({ token: token?.value });
-  const USDT = uidData?.data?.reduce((result, cur) => {
+  const USDT = await uidData?.data?.reduce((result, cur) => {
     if (cur.point) {
       result = result + Number(cur.point);
     }
@@ -23,10 +23,10 @@ export default async function Home() {
     return result;
   }, 0);
 
-  console.log("uidData", uidData);
+  console.log("uidData", uidData.data);
 
   const Divider = () => {
-    return <div className="h-3 w-full bg-gray-50"></div>;
+    return <div className="h-3 w-full bg-gray-50 dark:bg-gray-900"></div>;
   };
 
   return (

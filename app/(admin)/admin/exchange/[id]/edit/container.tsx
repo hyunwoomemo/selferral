@@ -45,12 +45,12 @@ const Container = ({ data, token, links, exchangeId }) => {
         //     exchangeData.append(key, exchangeBody[key][i]);
         //   }
         // } else {
-        exchangeBody[key] = values[key];
+        exchangeBody[key] = values[key] == "null" ? "" : values[key];
         // }
       } else {
         console.log("key", key, values[key]);
 
-        linksBody[key] = values[key];
+        linksBody[key] = values[key] == "null" ? "" : values[key];
       }
     }
 
@@ -74,7 +74,7 @@ const Container = ({ data, token, links, exchangeId }) => {
       for (const key in prev) {
         if (basicField.includes(key)) {
           if (!exchangeBody.hasOwnProperty(key)) {
-            exchangeBody[key] = prev[key];
+            exchangeBody[key] = prev[key] == "null" ? "" : prev[key];
           }
         }
       }
@@ -93,7 +93,7 @@ const Container = ({ data, token, links, exchangeId }) => {
       for (const key in prev) {
         if (!basicField.includes(key)) {
           if (!linksBody.hasOwnProperty(key)) {
-            linksBody[key] = prev[key];
+            linksBody[key] = prev[key] == "null" ? "" : prev[key];
           }
         }
       }
@@ -207,6 +207,7 @@ const Container = ({ data, token, links, exchangeId }) => {
                 <div key={key} className="flex gap-2 items-center">
                   <span>{key}</span>
                   <input
+                    type={key.includes("average_refund") ? "number" : undefined}
                     placeholder={key}
                     onChange={(e) => setValues((prev) => ({ ...prev, [key]: e.target.value }))}
                     name={key}

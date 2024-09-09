@@ -123,6 +123,7 @@ const Container = ({ data, token, links, exchangeId }) => {
                 <div key={key} className="flex gap-2 items-center">
                   <span>{key}</span>
                   <input
+                    type={key.includes("refund") ? "number" : undefined}
                     placeholder={key}
                     onChange={(e) => setValues((prev) => ({ ...prev, [key]: e.target.value }))}
                     name={key}
