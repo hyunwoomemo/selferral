@@ -25,12 +25,12 @@ const TradeItem = ({ data }: { data: any }) => {
       </div>
       <div className=" flex whitespace-pre md:hidden">
         <p>페이백 </p>
-        <p className="text-orange-400">{data.payback.replaceAll("%", "")}% </p>
-        {data.discount.replaceAll("%", "") != 0 && (
+        <p className="text-orange-400">{data?.payback?.replaceAll("%", "")}% </p>
+        {data?.discount?.replaceAll("%", "") != 0 && (
           <>
             <p>+ </p>
             <p>할인 </p>
-            <p className="text-orange-400">{data.discount.replaceAll("%", "")}%</p>
+            <p className="text-orange-400">{data?.discount?.replaceAll("%", "")}%</p>
           </>
         )}
       </div>

@@ -104,7 +104,7 @@ const Page = () => {
 
   const leftTime = useMemo(() => {
     if (time) {
-      const hour = parseInt(time / 3600);
+      const hour = Math.abs(parseInt(time / 3600));
       const minute = parseInt((time - hour * 3600) / 60);
       const second = time - hour * 3600 - minute * 60;
 
