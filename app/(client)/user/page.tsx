@@ -146,7 +146,7 @@ export default async function Page() {
   // };
 
   return (
-    <div className="p-4 flex flex-col  flex-auto">
+    <div className="p-2 flex flex-col flex-auto">
       {/* <RednerItem /> */}
       {/* <Title text={"마이 페이지"} buttons={[<WithdrawalButton />, <LogoutButton />]} /> */}
       <Title text={"마이 페이지"} buttons={[<LogoutButton key={"logout"} />]} />

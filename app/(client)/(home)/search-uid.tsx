@@ -46,7 +46,7 @@ const SearchUid = ({ exchangeData }) => {
       </div>
       <div className="flex gap-4 px-2 flex-wrap  w-full mx-auto ">
         <Dropdown item={exchange} setItem={setExchange} data={exchangeData} isVisible={isVisible} setIsVisible={setIsVisible} />
-        <div className="flex flex-auto items-center border border-gray-600 dark:border-white p-2 rounded-sm hover:border-orange-400 hover:dark:border-orange-200 focus-within:border-orange-400 focus-within:dark:border-orange-200">
+        <div className="flex flex-auto items-center border border-gray-400 dark:border-white p-2 rounded-sm hover:border-orange-400 hover:dark:border-orange-200 focus-within:border-orange-400 focus-within:dark:border-orange-200">
           <form
             className="flex justify-between flex-1 px-4 items-center"
             onSubmit={async (e) => {

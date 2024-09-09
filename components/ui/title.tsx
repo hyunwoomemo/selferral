@@ -8,8 +8,8 @@ const Title = ({ text, buttons }: { text: string; buttons?: Array<any> }) => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-between items-center p-5 bg-white dark:bg-gray-950  rounded-md">
-      <div onClick={() => router.back()} className="px-2 cursor-pointer">
+    <div className="flex justify-between items-center  py-2 bg-white dark:bg-gray-950  rounded-md">
+      <div onClick={() => router.back()} className="md:px-2 cursor-pointer">
         <ChevronLeft />
       </div>
       <div className="flex-auto">{text}</div>
