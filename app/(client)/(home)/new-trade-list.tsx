@@ -25,8 +25,8 @@ const TradeItem = ({ data }: { data: any }) => {
       </div>
       <div className=" flex whitespace-pre md:hidden">
         <p>페이백 </p>
-        <p className="text-orange-400">{data?.payback?.replaceAll("%", "") && `${data?.payback?.replaceAll("%", "")}%`} </p>
-        {data?.discount?.replaceAll("%", "") && (
+        <p className="text-orange-400">{data?.payback?.replaceAll("%", "") && data?.payback?.replaceAll("%", "") != "null" && `${data?.payback?.replaceAll("%", "")}%`} </p>
+        {data?.discount?.replaceAll("%", "") && data?.discount?.replaceAll("%", "") != "null" && (
           <>
             <p>+ </p>
             <p>할인 </p>
@@ -40,9 +40,11 @@ const TradeItem = ({ data }: { data: any }) => {
       >
         <div className="flex ">
           <p>지정가 </p>
-          <p className="text-orange-400 dark:text-orange-200">{data?.limit_order?.replace("%", "") && `${data?.limit_order?.replace("%", "")}%`}</p>
+          <p className="text-orange-400 dark:text-orange-200">{data?.limit_order?.replace("%", "") && data?.limit_order?.replace("%", "") !== "null" && `${data?.limit_order?.replace("%", "")}%`}</p>
           <p> 시장가 </p>
-          <p className="text-orange-400 dark:text-orange-200">{data?.market_order?.replace("%", "") && `${data?.market_order?.replace("%", "")}%`}</p>
+          <p className="text-orange-400 dark:text-orange-200">
+            {data?.market_order?.replace("%", "") && data?.market_order?.replace("%", "") !== "null" && `${data?.market_order?.replace("%", "")}%`}
+          </p>
         </div>
         {/* <div>/</div> */}
         {/* <div className="flex">
@@ -50,10 +52,14 @@ const TradeItem = ({ data }: { data: any }) => {
           <p className="text-orange-900 dark:text-orange-200">{Number(data.average_refund).toLocaleString()}</p>
         </div> */}
       </div>
-      <div className="flex-1 justify-self-center  hidden md:block">{data?.market_order?.replace("%", "") && `${data?.market_order?.replace("%", "")}%`}</div>
-      <div className="flex-1 justify-self-center hidden md:block">{data?.limit_order?.replace("%", "") && `${data?.limit_order?.replace("%", "")}%`}</div>
-      <div className="flex-1 justify-self-center hidden md:block">{data?.payback?.replace("%", "") && `${data.payback?.replace("%", "")}%`}</div>
-      <div className="flex-1 justify-self-center hidden md:block">{data?.discount?.replace("%", "") && `${data?.discount?.replace("%", "")}%`}</div>
+      <div className="flex-1 justify-self-center  hidden md:block">
+        {data?.market_order?.replace("%", "") && data?.market_order?.replace("%", "") !== "null" && `${data?.market_order?.replace("%", "")}%`}
+      </div>
+      <div className="flex-1 justify-self-center hidden md:block">
+        {data?.limit_order?.replace("%", "") && data?.limit_order?.replace("%", "") !== "null" && `${data?.limit_order?.replace("%", "")}%`}
+      </div>
+      <div className="flex-1 justify-self-center hidden md:block">{data?.payback?.replace("%", "") && data?.payback?.replace("%", "") !== "null" && `${data.payback?.replace("%", "")}%`}</div>
+      <div className="flex-1 justify-self-center hidden md:block">{data?.discount?.replace("%", "") && data?.discount?.replace("%", "") !== "null" && `${data?.discount?.replace("%", "")}%`}</div>
     </div>
   );
 };
