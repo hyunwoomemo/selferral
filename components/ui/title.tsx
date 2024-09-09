@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const Title = ({ text, buttons }: { text: string; buttons?: Array<any> }) => {
+const Title = ({ text, buttons, size, bold }: { text: string; buttons?: Array<any>; size: string; bold: boolean }) => {
   const router = useRouter();
 
   return (
@@ -12,7 +12,7 @@ const Title = ({ text, buttons }: { text: string; buttons?: Array<any> }) => {
       <div onClick={() => router.back()} className="md:px-2 cursor-pointer">
         <ChevronLeft />
       </div>
-      <div className="flex-auto">{text}</div>
+      <div className={`flex-auto ${size === "lg" ? "text-2xl" : undefined} ${bold ? "font-bold" : undefined}`}>{text}</div>
       <div className="flex gap-4">
         {/* <LogoutButton /> */}
         {buttons?.map((v, i) => {

@@ -79,20 +79,22 @@ const Page = async ({ searchParams }) => {
       //   {/* 옵션 */}
       // </div>
       <>
-        <div className="grid grid-cols-4 border-b py-2">
-          <span className="flex justify-center ">거래소</span>
-          <span className="flex justify-center ">금액</span>
-          <span className="flex justify-center ">USDT 주소</span>
-          <span className="flex justify-center ">상태</span>
+        <div className="grid grid-cols-4 border-b border-gray-100 dark:border-gray-800 py-2">
+          <span className="flex justify-center text-gray-600">거래소</span>
+          <span className="flex justify-center text-gray-600">금액</span>
+          <span className="flex justify-center text-gray-600">USDT 주소</span>
+          <span className="flex justify-center text-gray-600">상태</span>
         </div>
-        <div className="grid grid-cols-4 pt-10 place-items-center gap-4">
+        <div className="grid grid-cols-4 place-items-center gap-4 border-b border-gray-100 dark:border-gray-800 py-2">
           {listData.map((v, i) => {
             return (
               <React.Fragment key={`${v.usdt_address} ${i}`}>
-                <span className="flex justify-center font-bold">{v.exchange_name}</span>
+                <span className="flex justify-center ">{v.exchange_name}</span>
                 <span className="flex justify-center">{Number(v.point).toLocaleString()}</span>
                 <span className="truncate max-w-[50px] sm:max-w-[200px]">{v.usdt_address}</span>
-                <span className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold">{stepData.find((v1) => v1.value === v.step).label}</span>
+                <span className="flex justify-center py-1 px-2 bg-orange-400 justify-self-center rounded-full text-white font-bold text-sm md:text-[16px]">
+                  {stepData.find((v1) => v1.value === v.step).label}
+                </span>
               </React.Fragment>
             );
           })}
@@ -102,7 +104,7 @@ const Page = async ({ searchParams }) => {
   };
 
   return (
-    <div className="p-4 flex-auto flex flex-col">
+    <div className="p-2 flex-auto flex flex-col">
       {/* <div className="flex justify-between items-center">
         <div className="text-2xl font-bold">출금</div>
         <Link
@@ -138,7 +140,7 @@ const Page = async ({ searchParams }) => {
           </Link>,
         ]}
       />
-      <div className="flex-auto  rounded-md p-5 bg-white dark:bg-gray-950 my-5">{renderItem()}</div>
+      <div className="flex-auto  rounded-md  bg-white dark:bg-gray-950 my-5">{renderItem()}</div>
     </div>
   );
 };

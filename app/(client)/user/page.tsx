@@ -78,14 +78,14 @@ export default async function Page() {
       //   {/* 옵션 */}
       // </div>
       <>
-        <div className="grid grid-cols-4 place-items-center">
-          <span className="flex justify-center">거래소</span>
-          <span className="flex justify-center">UID</span>
-          <span className="flex justify-center">금액</span>
-          <span className="flex justify-center"></span>
+        <div className="grid grid-cols-4 place-items-center p-2 border-b border-gray-100 dark:border-gray-800">
+          <span className="flex justify-center text-gray-600">거래소</span>
+          <span className="flex justify-center text-gray-600">UID</span>
+          <span className="flex justify-center text-gray-600">금액</span>
+          <span className="flex justify-center text-gray-600"></span>
         </div>
-        <div className="h-[2px] bg-gray-100 dark:bg-gray-800 mt-5"></div>
-        <div className="grid grid-cols-4 pt-10 items-center gap-4">
+        {/* <div className="h-[2px] bg-gray-100 dark:bg-gray-800 mt-5"></div> */}
+        <div className="grid grid-cols-4 pt-2 items-center gap-4 p-2 border-b border-gray-100 dark:border-gray-800">
           {uidData.data
             .filter((v) => v.uid)
             .map((v, i) => {
@@ -98,7 +98,7 @@ export default async function Page() {
                   {withdrawal.data.list.some((v) => uidData.data.find((v1) => v1.exchange_id == v.exchange_id)) ? (
                     <Link
                       href={`/user/withdrawal?exchange_id=${v.exchange_id}`}
-                      className="flex justify-center py-1 px-4 bg-orange-400 justify-self-center rounded-full text-white font-bold whitespace-nowrap"
+                      className="flex justify-center py-1 px-2 text-sm md:text-[16px] bg-orange-400 justify-self-center rounded-full text-white font-bold whitespace-nowrap"
                     >
                       출금 이력
                     </Link>
@@ -149,11 +149,11 @@ export default async function Page() {
   // };
 
   return (
-    <div className="p-2 flex flex-col flex-auto">
+    <div className="flex flex-col flex-auto p-2">
       {/* <RednerItem /> */}
       {/* <Title text={"마이 페이지"} buttons={[<WithdrawalButton />, <LogoutButton />]} /> */}
       <Title text={"마이 페이지"} buttons={[<LogoutButton key={"logout"} />]} />
-      <div className="flex-auto  rounded-md p-5 bg-white dark:bg-gray-950 my-5">{renderItem()}</div>
+      <div className="flex-auto  rounded-md  bg-white dark:bg-gray-950 my-5">{renderItem()}</div>
     </div>
   );
 }

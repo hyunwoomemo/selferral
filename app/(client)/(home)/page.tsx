@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import { getBanners } from "@/actions/common/action";
 import "swiper/css";
 import MyReward from "./my-reward";
+import RollingBanner from "./rolling-banner";
 
 export default async function Home() {
   const token = cookies().get("token");
@@ -15,15 +16,6 @@ export default async function Home() {
 
   // const banners = await getBanners();
   const uidData = await getUidList({ token: token?.value });
-  const USDT = await uidData?.data?.reduce((result, cur) => {
-    if (cur.point) {
-      result = result + Number(cur.point);
-    }
-
-    return result;
-  }, 0);
-
-  console.log("uidData", uidData.data);
 
   const Divider = () => {
     return <div className="h-3 w-full bg-gray-50 dark:bg-gray-900"></div>;
@@ -31,7 +23,8 @@ export default async function Home() {
 
   return (
     <div className="px-0">
-      <MyReward usdt={USDT} />
+      <MyReward uidData={uidData} />
+
       <Divider />
       <section className="space-y-6 pt-20  mx-auto">
         <div className="flex flex-col gap-4  md:px-0">
@@ -46,6 +39,9 @@ export default async function Home() {
 
           <p className="max-w-[42rem] mx-auto text-muted-foreground text-xl">1분 안에 잃어버린 거래수수료 환급받기!</p>
           {/* <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">수수료 페이백 받으세요</p> */}
+
+          <RollingBanner />
+
           {exchanges.data.length > 0 && <SearchUid exchangeData={exchanges.data} token={token?.value} />}
           <Divider />
 

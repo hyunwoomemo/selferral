@@ -5,11 +5,22 @@ import { ChevronsRight, CircleDollarSign, CircleUserRound, User } from "lucide-r
 import moment from "moment";
 import Link from "next/link";
 import React from "react";
+import { useMemo } from "react";
 
-const MyReward = ({ usdt }) => {
+const MyReward = ({ uidData }) => {
   const user = useAtomValue(userAtom);
 
   console.log("useruser", user);
+
+  const usdt = useMemo(() => {
+    return uidData?.data?.reduce((result, cur) => {
+      if (cur.point) {
+        result = result + Number(cur.point);
+      }
+
+      return result;
+    }, 0);
+  }, [uidData]);
 
   return (
     <>

@@ -11,12 +11,13 @@ import { siteConfig } from "@/config/site";
 import { SiLoop } from "react-icons/si";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/user";
+import { useUser } from "@/hooks/useUser";
 
 export function MobileNav({ user }: { user?: any }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  console.log("user123", user);
+  const { isLogin, info } = useUser();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -42,9 +43,11 @@ export function MobileNav({ user }: { user?: any }) {
           <MobileLink className={`${pathname === "/payback" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/payback">
             예상 페이백
           </MobileLink>
-          <MobileLink className={`${pathname === "/user" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/user">
-            마이 페이지
-          </MobileLink>
+          {isLogin && (
+            <MobileLink className={`${pathname === "/user" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/user">
+              마이 페이지
+            </MobileLink>
+          )}
           {/* <MobileLink className={`${pathname === "/notice" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/notice">
             공지사항
           </MobileLink> */}
@@ -53,8 +56,8 @@ export function MobileNav({ user }: { user?: any }) {
           </MobileLink> */}
         </div>
         <div className="mt-auto">
-          {user && Object.keys(user).length > 0 ? (
-            <div>{user?.name}님, 안녕하세요</div>
+          {isLogin ? (
+            <div>{info?.name}님, 안녕하세요</div>
           ) : (
             <MobileLink className={`${pathname === "/login" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/login">
               로그인

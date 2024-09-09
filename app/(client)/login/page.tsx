@@ -10,6 +10,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "../../store/user";
 import { getInfo, login } from "@/actions/user/action";
 import { deleteCookie, setCookie } from "cookies-next";
+import { useToast } from "@/hooks/useToast";
 const initialState = {
   message: "",
 };
@@ -19,6 +20,7 @@ export default function Page() {
   const [state, formAction] = useFormState(login, initialState);
   const [user, setUser] = useAtom(userAtom);
   const router = useRouter();
+  const { addToast, loadingToast } = useToast();
 
   useEffect(() => {
     if (state.CODE && state.CODE === "AL000") {
@@ -27,7 +29,14 @@ export default function Page() {
       getInfo(state.TOKEN.accessToken, state.TOKEN.refreshToken).then((res) => {
         console.log("res", res);
         if (res.CODE === "AI000") {
+          addToast({ text: "로그인에 성공했습니다." });
           setUser(res.DATA);
+        } else {
+          if (res.CODE === "AC001") {
+            addToast({ text: "로그인이 만료되었습니다." });
+            setCookie("token", "");
+            setUser({});
+          }
         }
       });
       router.push("/");
@@ -40,7 +49,7 @@ export default function Page() {
 
   return (
     <div className="pt-20 font-bold px-4 max-w-[800px] mx-auto">
-      <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center">LOGIN</h2>
+      <h2 className="text-3xl text-center">로그인</h2>
       {/* <form method="post"  className="pt-20"> */}
       <form method="post" action={formAction} className="pt-20">
         <div className="p-4">
@@ -49,7 +58,7 @@ export default function Page() {
         <div className="p-4">
           <input name="password" type="password" placeholder="비밀번호" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
         </div>
-        {state?.message ? <h3>{state.message}</h3> : null}
+        {/* {state?.message ? <h3>{state.message}</h3> : null} */}
 
         <div className="justify-center items-center flex">
           <Button

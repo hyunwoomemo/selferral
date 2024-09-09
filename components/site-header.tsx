@@ -18,6 +18,7 @@ import { getInfo } from "@/actions/user/action";
 import { getCookie, setCookie } from "cookies-next";
 import Switch from "./ui/switch";
 import { wideAtom } from "@/app/store/common";
+import { useToast } from "@/hooks/useToast";
 
 export function SiteHeader() {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,10 +28,17 @@ export function SiteHeader() {
   const refresh = getCookie("refresh");
   const [wide, setWide] = useAtom(wideAtom);
 
+  const { addToast } = useToast();
+
   useEffect(() => {
     getInfo(token, refresh).then((res) => {
       if (res?.CODE === "AI000") {
         setUser(res.DATA);
+      }
+      if (res?.CODE === "AC001") {
+        addToast({ text: "로그인이 만료되었습니다." });
+        setCookie("token", "");
+        setUser({});
       }
 
       if (res?.accessToken) {
