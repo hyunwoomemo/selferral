@@ -224,3 +224,16 @@ li {
     transform: translateX(-200%);
   }
 }
+
+@keyframes refresh {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.refresh {
+  animation: 0.6s both 2 refresh;
+}

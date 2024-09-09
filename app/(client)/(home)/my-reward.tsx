@@ -8,9 +8,13 @@ import React from "react";
 import { useMemo } from "react";
 import { RefreshCw } from "lucide-react";
 import { revalidate } from "@/actions/common/action";
+import { useState } from "react";
+import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 const MyReward = ({ uidData }) => {
   const user = useAtomValue(userAtom);
+  const [refresh, setRefresh] = useState(false);
 
   console.log("useruser", user);
 
@@ -23,6 +27,14 @@ const MyReward = ({ uidData }) => {
       return result;
     }, 0);
   }, [uidData]);
+
+  useEffect(() => {
+    if (refresh) {
+      setTimeout(() => {
+        setRefresh(false);
+      }, 1000);
+    }
+  }, [refresh]);
 
   return (
     <>
@@ -37,7 +49,13 @@ const MyReward = ({ uidData }) => {
                   <span>USDT</span>
                 </div>
               </div>
-              <RefreshCw onClick={() => revalidate("uidlist")} />
+              <RefreshCw
+                className={cn("cursor-pointer", refresh ? "refresh" : "")}
+                onClick={() => {
+                  setRefresh(true);
+                  revalidate("uidlist");
+                }}
+              />
             </div>
             <div className="border-t my-5 border-gray-50 opacity-30"></div>
             <Link href={"/user/withdrawal"} className="flex gap-2 justify-between cursor-pointer">
