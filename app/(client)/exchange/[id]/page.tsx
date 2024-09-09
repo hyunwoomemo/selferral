@@ -8,9 +8,7 @@ import Link from "next/link";
 export default async function Page({ params }) {
   const data = await getExchanges();
 
-  const exchangeData = data.data.find((v) => v.id == Number(params.id));
-
-  // console.log(exchangeData);
+  const exchangeData = await data.data.find((v) => v.id == Number(params.id));
 
   return (
     <div className="p-5 md:px-10 overflow-x-hidden max-w-screen-xl mx-auto">

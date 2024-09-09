@@ -14,7 +14,7 @@ const MyReward = ({ usdt }) => {
   return (
     <>
       {user && Object.keys(user).length > 0 && (
-        <div className="py-10 flex gap-6 font-bold flex-col sm:flex-row">
+        <div className="px-4 py-10 flex gap-6 font-bold flex-col sm:flex-row">
           <div className="rounded-3xl bg-gradient-to-l to-orange-400 dark:to-[#db6a00] from-orange-500 dark:from-[#c45f00]  border-0 border-orange-500 flex-1  text-white p-5">
             <div>
               <div>나의 리워드</div>

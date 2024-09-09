@@ -69,7 +69,7 @@ const PaybackSection = () => {
   }, [countStart, update]);
 
   return (
-    <div className="md:pt-24 flex flex-col-reverse md:flex-row gap-8 md:gap-28 justify-center items-center ">
+    <div className="py-10 md:py-10 flex flex-col-reverse md:flex-row gap-8 md:gap-28 justify-center items-center ">
       {/* bg-gray-50 dark:bg-gray-900 bg-gradient-to-t to-gray-50 from-gray-100 dark:from-gray-950 */}
       <div className="flex-1  flex flex-col gap-2 items-center">
         <p className="font-bold text-orange-400 dark:text-[#c45f00]">손쉽게 확인해 보세요! </p>
@@ -92,7 +92,7 @@ const PaybackSection = () => {
           <p className="font-bold">내 예상 페이백 확인하기</p>
         </Button>
       </div>
-      <div className="w-full max-w-[700px] min-h-48 flex-1 rounded-lg px-8 md:px-2 gap-4 md:gap-10 flex md:grid md:grid-cols-4 items-center justify-center m-4">
+      <div className="w-full max-w-[700px]  flex-1 rounded-lg px-8 md:px-2 gap-4 md:gap-10 flex md:grid md:grid-cols-4 items-center justify-center m-4">
         {dummyTrade.map((item, index) => (
           <div key={index} className="w-12 h-12 md:w-20 md:h-20  relative flex flex-auto md:justify-center items-center justify-self-center">
             <Image src={item.round_image} objectFit="contain" className="text-center" alt="trade-logo" />

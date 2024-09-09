@@ -25,9 +25,14 @@ export default async function Home() {
 
   console.log("uidData", uidData);
 
+  const Divider = () => {
+    return <div className="h-3 w-full bg-gray-50"></div>;
+  };
+
   return (
-    <div className="px-4">
+    <div className="px-0">
       <MyReward usdt={USDT} />
+      <Divider />
       <section className="space-y-6 pt-20  mx-auto">
         <div className="flex flex-col gap-4  md:px-0">
           {/* <div className="py-5"></div> */}
@@ -42,6 +47,8 @@ export default async function Home() {
           <p className="max-w-[42rem] mx-auto text-muted-foreground text-xl">1분 안에 잃어버린 거래수수료 환급받기!</p>
           {/* <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">수수료 페이백 받으세요</p> */}
           {exchanges.data.length > 0 && <SearchUid exchangeData={exchanges.data} token={token?.value} />}
+          <Divider />
+
           <PaybackSection />
           {/* <div className="flex flex-col gap-4 justify-center sm:flex-row">
             <Link href="/blog" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}>
@@ -56,6 +63,8 @@ export default async function Home() {
             <h2 className="text-3xl font-black text-center">셀퍼럴 대회 및 이벤트</h2>
             <EventList />
           </div> */}
+          <Divider />
+
           <div className="pt-20">
             {/* <div className="flex-1 flex justify-end pt-30 gap-2 px-2 max-w-screen-xl mx-auto">
           <Button
