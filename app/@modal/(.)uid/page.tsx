@@ -183,7 +183,7 @@ const Page = () => {
         </div>
       );
     }
-  }, [res, time]);
+  }, [res, leftTime, setUid]);
 
   return (
     <div className="bg-white dark:bg-[rgb(26,26,38)] rounded-lg">
