@@ -44,12 +44,13 @@ export default async function Page({ params }) {
           <div className="flex h-full justify-center items-center py-2 rounded-lg relative min-h-20">
             {exchangeData.image_thumb && <Image src={exchangeData.image_thumb} height={100} width={100} alt="image" />}
           </div>
-          <Button
-            // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
+          <Link
+            href={exchangeData.affiliate_join_url}
+            target="_blank"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full my-5 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
           >
             <p>페이백 계정 만들기</p>
-          </Button>
+          </Link>
         </div>
         <div style={{ flex: 5 }}>
           <div className=" flex flex-wrap gap-2 p-3  border-gray-200 dark:border-gray-700 rounded-lg">
