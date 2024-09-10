@@ -40,6 +40,10 @@ export default function Page() {
         }
       });
       router.push("/");
+    } else {
+      if (state.CODE && state.CODE === "AL002") {
+        addToast({ text: "일치하는 회원정보가 없습니다." });
+      }
     }
   }, [state]);
 

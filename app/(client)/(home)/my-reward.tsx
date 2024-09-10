@@ -36,6 +36,12 @@ const MyReward = ({ uidData }) => {
     }
   }, [refresh]);
 
+  useEffect(() => {
+    if (usdt === 0) {
+      setRefresh(true);
+    }
+  }, [usdt]);
+
   return (
     <>
       {user && Object.keys(user).length > 0 && (

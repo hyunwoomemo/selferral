@@ -111,20 +111,7 @@ export async function login(prevState: any, formData: FormData) {
 
   console.log("data", data);
 
-  if (data.CODE === "AL000") {
-    return data;
-  } else {
-    switch (data.CODE) {
-      case "AL001":
-        return {
-          message: "필수 입력값이 입력되지 않았습니다.",
-        };
-      case "AL002":
-        return {
-          message: "회원 정보가 없습니다.",
-        };
-    }
-  }
+  return data;
 }
 
 export const getInfo = async (token, refresh) => {

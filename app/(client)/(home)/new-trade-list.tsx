@@ -16,7 +16,7 @@ const TradeItem = ({ data }: { data: any }) => {
       onClick={() => router.push(`/exchange/${data.id}`)}
     >
       <div className="flex items-center flex-1 min-w-full justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center pl-2">
           <div className="min-w-[70px]">
             <div className="relative w-[50px]  h-[50px] flex items-center justify-center">{data.image_thumb && <Image src={data.image_thumb} width={50} height={50} alt="exchange-logo" />}</div>
           </div>
@@ -79,7 +79,7 @@ const NewTradeList = ({ data }) => {
           <div className="  justify-self-center"></div>
         </div>
         <div className="grid-cols-[1.5fr_1fr_1fr_1fr_1fr] p-4 font-bold text-gray-400 border-b border-gray-100 dark:border-gray-800   hidden md:grid ">
-          <div className="  ">거래소명</div>
+          <div className="pl-2">거래소명</div>
           {/* <div className=" justify-self-center ">1인 평균 환급금</div> */}
           <div className="  justify-self-center">지정가</div>
           <div className="  justify-self-center">시장가</div>
