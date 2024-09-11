@@ -1,6 +1,6 @@
 // import { getUsers } from "@/app/action";
 import moment from "moment";
-import UserType from "./user-type";
+
 import { getAllUser } from "@/actions/user/action";
 import Container from "./container";
 import { cookies } from "next/headers";

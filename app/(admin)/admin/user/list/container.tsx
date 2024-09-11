@@ -79,7 +79,11 @@ const Container = ({ users, token }) => {
                 </UserType> */}
                 <div className="cursor-pointer relative">
                   <span onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>{getUserTypeText(user.type)}</span>
-                  <div className={`absolute flex flex-col gap-4 top-10 items-center  ${isVisible === user.id ? "block" : "hidden"} bg-gray-700 z-10 p-3 rounded-lg left-[50%] translate-x-[-50%]`}>
+                  <div
+                    className={`absolute flex flex-col gap-4 top-10 items-center  ${
+                      isVisible === user.id ? "block" : "hidden"
+                    } bg-gray-200 dark:bg-gray-700 z-10 p-3 rounded-lg left-[50%] translate-x-[-50%]`}
+                  >
                     {typeData
                       .filter((v) => v.value !== user.type)
                       .map((v) => (

@@ -16,6 +16,16 @@ const data = [
         value: "list",
         path: "/admin/user/list",
       },
+      {
+        label: "UID 등록 대기",
+        value: "list",
+        path: "/admin/user/uid/standby",
+      },
+      {
+        label: "UID 등록 완료",
+        value: "list",
+        path: "/admin/user/uid/success",
+      },
     ],
   },
   {
@@ -55,7 +65,7 @@ const data = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ standbyCount }) {
   const [expand, setExpand] = useState(null);
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
@@ -95,13 +105,18 @@ export default function Sidebar() {
               <div className="flex flex-col pt-5 gap-8">
                 {item.children.map((v, i) => {
                   return (
-                    <Link
-                      href={v.path || "/admin"}
-                      className={`pl-2 ${pathname === v.path ? "text-orange-400" : "text-gray-600 hover:text-orange-400 dark:text-gray-400 dark:hover:text-orange-400"}`}
-                      key={i}
-                    >
-                      {v.label}
-                    </Link>
+                    <div key={i}>
+                      <Link
+                        href={v.path || "/admin"}
+                        className={`pl-2 relative ${pathname === v.path ? "text-orange-400" : "text-gray-600 hover:text-orange-400 dark:text-gray-400 dark:hover:text-orange-400"}`}
+                        key={i}
+                      >
+                        {v.label}
+                        {v.path.includes("standby") && (
+                          <div className="absolute bottom-[90%] left-[100%] w-6 h-6 bg-red-500 flex justify-center items-center rounded-full text-white text-sm">{standbyCount}</div>
+                        )}
+                      </Link>
+                    </div>
                   );
                 })}
               </div>

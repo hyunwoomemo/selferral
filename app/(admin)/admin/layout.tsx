@@ -1,15 +1,20 @@
 import { Ban } from "lucide-react";
 import Sidebar from "./sidebar";
 import Link from "next/link";
+import { getUidRegisterStatus } from "@/actions/trade/action";
+import { cookies } from "next/headers";
 
-export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+  const token = cookies().get("token");
+  const data = await getUidRegisterStatus({ token: token?.value, status: 0, exchange_id: 0, rownum: 20, page: 1 });
+
   return (
     <>
       <div className="sm: hidden md:block">
         <div className="md:hidden">햄버거</div>
         <div className="flex-1 flex">
           {/* <div className="md:flex-1"> */}
-          <Sidebar />
+          <Sidebar standbyCount={data?.data?.total} />
           {/* </div> */}
           <div className="flex-[4] p-0 flex">{children}</div>
           {modal}

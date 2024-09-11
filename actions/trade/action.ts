@@ -185,3 +185,13 @@ export const getUidList = async ({ token }) => {
 
   return data;
 };
+
+export const getUidRegisterStatus = async ({ token, status, exchange_id, rownum, page }) => {
+  const res = await fetch(`${API_URL}/affiliate/Exchange/order_uid/${status}/${exchange_id}/${rownum}/${page}`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+
+  const data = await res.json();
+
+  return data;
+};
