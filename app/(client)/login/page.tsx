@@ -15,12 +15,18 @@ const initialState = {
   message: "",
 };
 
-export default function Page() {
+export default function Page({ searchParams }) {
   const { pending } = useFormStatus();
   const [state, formAction] = useFormState(login, initialState);
   const [user, setUser] = useAtom(userAtom);
   const router = useRouter();
   const { addToast, loadingToast } = useToast();
+
+  useEffect(() => {
+    if (searchParams && searchParams.callback) {
+      addToast({ text: "로그인이 만료되었습니다." });
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (state.CODE && state.CODE === "AL000") {
@@ -31,6 +37,9 @@ export default function Page() {
         if (res.CODE === "AI000") {
           addToast({ text: "로그인에 성공했습니다." });
           setUser(res.DATA);
+          if (searchParams && searchParams.callback) {
+            router.push(`${searchParams.callback}`);
+          }
         } else {
           if (res.CODE === "AC001") {
             addToast({ text: "로그인이 만료되었습니다." });

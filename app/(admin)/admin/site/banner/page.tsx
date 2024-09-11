@@ -14,12 +14,12 @@ export default async function Page() {
   // 사용자 배너 : /auth/banners
   const token = cookies().get("token");
 
-  const banners = await getAdminBanner({ type: "all", token: token.value });
+  const banners = await getAdminBanner({ type: "all", token: token?.value });
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">
       <h1 className="text-3xl">배너</h1>
-      <Container banners={banners} token={token.value} />
+      <Container banners={banners} token={token?.value} />
       <AddBtn />
     </div>
   );
