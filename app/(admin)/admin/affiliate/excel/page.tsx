@@ -1,5 +1,6 @@
 "use client";
 import { API_URL } from "@/actions";
+import { uploadExcel } from "@/actions/trade/action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useToast } from "@/hooks/useToast";
 import { cn } from "@/lib/utils";
@@ -30,13 +31,7 @@ const Page = () => {
     }
 
     try {
-      const response = await fetch(`${API_URL}/affiliate/Exchange/uid/excel`, {
-        method: "POST",
-        body: formData,
-        headers: { authorization: `Bearer ${token}` },
-      });
-
-      const data = await response.json();
+      const data = await uploadExcel({ token: token, formData: formData });
 
       console.log("data!!!", data);
       if (data.flag === "ok") {

@@ -23,7 +23,7 @@ const page = async () => {
     UID: v.user_uid,
     거래소명: exchangeData?.data?.find((v) => v.exchange_id == v.exchange_id)?.name,
     유저: users.DATA.find((user) => user.id == v.user_id).email,
-    커미션: `${parseInt(v.point).toLocaleString()} USDT`,
+    커미션: v.point ? `${parseInt(v.point).toLocaleString()} USDT` : 0,
     등록일: moment(v.createtime).format("YYYY-MM-DD HH:mm"),
   }));
 

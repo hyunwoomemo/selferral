@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import ExchangeTab from "./exchange-tab";
 import { getWithdrawals, updateStep } from "@/actions/trade/action";
 import Tab from "@/components/tab";
-import Dropdown from "@/components/ui/dropdown";
 import { useToast } from "@/hooks/useToast";
 import { useAtomValue } from "jotai";
 import { exchangesAtom } from "@/app/store/trade";

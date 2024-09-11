@@ -1,17 +1,12 @@
 "use client";
-import { API_URL } from "@/actions";
-import { registerUID } from "@/actions/trade/action";
-import { Button, buttonVariants } from "@/components/ui/button";
-import Dropdown from "@/components/ui/dropdown";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { dummyTrade } from "@/dummy";
-import { cn } from "@/lib/utils";
+
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getCookie } from "cookies-next";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
+import Dropdown from "@/components/exchange/dropdown";
 
 const tabData = [
   {
@@ -65,8 +60,6 @@ const SearchUid = ({ exchangeData }) => {
                 //   console.log("res!!!", res);
                 // });
                 const data = new FormData();
-
-                console.log("asdasdasd", exchange, exchange.exchange_id);
 
                 data.append("uid", uid);
                 fetch(`https://api.xn--3l2b13oekp.com/exchange/affiliate/set/${exchange.exchange_id}`, {

@@ -5,40 +5,26 @@ import Title from "@/components/ui/title";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import Contents from "./contents";
 
 export default async function Page({ params }) {
   const data = await getExchanges();
 
+  console.log(
+    "smdfkdmsf",
+    data.data.find((v) => v.id == Number(params.id))
+  );
+
   const exchangeData = await data.data.find((v) => v.id == Number(params.id));
+
+  console.log("exchangeData", exchangeData);
+
+  if (!exchangeData) return null;
 
   return (
     <div className="p-5 md:px-10 overflow-x-hidden ">
       {/* <h2 className="text-3xl font-black py-10">{exchangeData.name}</h2> */}
-      <Title
-        text={exchangeData.name}
-        size="lg"
-        bold
-        // buttons={[
-        //   <Link
-        //     key={"customer"}
-        //     href={exchangeData.customer_url ? exchangeData.customer_url : ""}
-        //     target="_blank"
-        //     // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
-        //     className={cn(buttonVariants({ variant: "outline", size: "lg" }), " my-5 text-gray-400 border-gray-400 dark:text-gray-400 dark:border-gray-400")}
-        //   >
-        //     <p>고객센터</p>
-        //   </Link>,
-        //   <Link
-        //     key={"blog"}
-        //     href={exchangeData.blog_url ? exchangeData.blog_url : ""}
-        //     target="_blank"
-        //     // onClick={() => router.push(`/exchange/${exchangeData.name}`)}
-        //     className={cn(buttonVariants({ variant: "outline", size: "lg" }), " my-5 text-gray-400 border-gray-400 dark:text-gray-400 dark:border-gray-400")}
-        //   >
-        //     <p>블로그</p>
-        //   </Link>,
-        // ]}
-      />
+      <Title text={exchangeData?.name} size="lg" bold />
       <div className="md:flex gap-10">
         <div className="flex flex-col flex-1 justify-between py-3">
           <div className="flex flex-1 h-full justify-center items-center py-2 rounded-lg relative min-h-20">
@@ -53,12 +39,12 @@ export default async function Page({ params }) {
           </Link>
         </div>
         <div style={{ flex: 5, display: "flex", flexDirection: "column" }}>
-          <div className="flex-1 flex flex-wrap md:gap-2 border-gray-400  border md:border-none  rounded-lg">
-            <div className="min-w-[250px] flex-1 border-b md:border p-2 border-gray-400 dark:border-gray-700 md:rounded-md flex flex-col gap-2  ">
+          <div className="flex-1 flex flex-wrap md:gap-0 border-gray-400  border md:border-none  rounded-lg">
+            <div className="min-w-[250px] flex-1   p-2 border-gray-400 dark:border-gray-700 md:rounded-md flex flex-col gap-2  ">
               <p className="text-gray-500">수수료 할인</p>
               <p className="font-bold">{exchangeData.discount}%</p>
             </div>
-            <div className="min-w-[250px] flex-1 border-b md:border border-gray-400 dark:border-gray-700 p-2 md:rounded-md flex flex-col gap-2">
+            <div className="min-w-[250px] flex-1   border-gray-400 dark:border-gray-700 p-2 md:rounded-md flex flex-col gap-2">
               <p className="text-gray-500">페이백을 감안한 수수료</p>
               <div className="flex gap-2">
                 <div className="flex whitespace-pre-wrap">
@@ -71,7 +57,7 @@ export default async function Page({ params }) {
                 </div>
               </div>
             </div>
-            <div className=" min-w-[250px] flex-1  md:border border-gray-400 dark:border-gray-700 p-2 md:rounded-md flex flex-col gap-2 ">
+            <div className=" min-w-[250px] flex-1   border-gray-400 dark:border-gray-700 p-2 md:rounded-md flex flex-col gap-2 ">
               <p className="text-gray-500">수수료 페이백</p>
               <p className="font-bold">{exchangeData.payback}%</p>
             </div>
@@ -107,6 +93,7 @@ export default async function Page({ params }) {
           </div>
         </div>
       </div>
+      <Contents exchangeName={exchangeData?.name} />
     </div>
   );
 }

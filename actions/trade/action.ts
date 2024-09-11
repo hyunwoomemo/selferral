@@ -188,10 +188,46 @@ export const getUidList = async ({ token }) => {
 
 export const getUidRegisterStatus = async ({ token, status, exchange_id, rownum, page }) => {
   const res = await fetch(`${API_URL}/affiliate/Exchange/order_uid/${status}/${exchange_id}/${rownum}/${page}`, {
-    headers: { authorization: `Bearer ${token}` },
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+    next: { tags: ["uidstandby"] },
   });
 
   const data = await res.json();
+
+  return data;
+};
+
+export const updateUidStatus = async ({ status, order_id, token }) => {
+  console.log(status, order_id, token);
+
+  const res = await fetch(`${API_URL}/affiliate/Exchange/order_uid/${status}/${order_id}`, {
+    method: "POST",
+    headers: { authorization: `Bearer ${token}` },
+  });
+  console.log("res1231231", res);
+
+  const data = await res.json();
+
+  console.log("data1231231", data);
+
+  revalidateTag("uidstandby");
+  revalidateTag("uidlist");
+
+  return data;
+};
+
+export const uploadExcel = async ({ formData, token }) => {
+  const response = await fetch(`${API_URL}/affiliate/Exchange/uid/excel`, {
+    method: "POST",
+    body: formData,
+    headers: { authorization: `Bearer ${token}` },
+  });
+
+  revalidateTag("uidlist");
+
+  const data = await response.json();
 
   return data;
 };

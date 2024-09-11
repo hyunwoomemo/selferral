@@ -174,10 +174,15 @@ const Page = () => {
     if (res && res.hasOwnProperty("order")) {
       return (
         <div>
-          {res.order.status <= 1 && (
+          {res.order.status < 1 && (
             <>
               <div className="py-4 text-lg font-bold">처리 중입니다.</div>
               <div>{leftTime}</div>
+            </>
+          )}
+          {res.order.status === 1 && (
+            <>
+              <div className="py-4 text-lg font-bold">등록되었습니다.</div>
             </>
           )}
         </div>
