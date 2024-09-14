@@ -16,6 +16,10 @@ export async function fetchWithAuth(url, options = {}) {
     authorization: `Bearer ${token}`,
   };
 
+  // if (!token && !refresh) {
+  //   return;
+  // }
+
   // 액세스 토큰 만료 확인
   if (isTokenExpired(token)) {
     try {
@@ -29,7 +33,7 @@ export async function fetchWithAuth(url, options = {}) {
     } catch (error) {
       // 갱신 실패 시, 로그인 페이지로 리다이렉트하거나 오류 처리
       console.error("Failed to refresh token:", error);
-      redirectToLogin();
+      // redirectToLogin();
       return;
     }
   }
@@ -44,7 +48,7 @@ export async function fetchWithAuth(url, options = {}) {
   // 응답 처리
   if (response.status === 401) {
     // 401 에러 처리: 액세스 토큰 만료 시 다시 로그인
-    redirectToLogin();
+    // redirectToLogin();
   }
 
   return response.json();
