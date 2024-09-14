@@ -14,14 +14,14 @@ const page = async () => {
 
   const data = await getUidRegisterStatus({ token: token?.value, status: 0, exchange_id: 0, rownum: 20, page: 1 });
 
-  console.log("data123", data);
+  console.log("data123", data?.data?.list);
 
   const exchangeData = await getExchanges();
 
   const users = await getAllUser();
 
   const tableData = await data?.data?.list.map((v) => ({
-    거래소명: exchangeData?.data?.find((v) => v.exchange_id == v.exchange_id)?.name,
+    거래소명: exchangeData?.data?.find((v1) => v1.exchange_id == v.exchange_id)?.name,
     유저: users.DATA.find((user) => user.id == v.user_id).email,
     UID: v.user_uid,
     신청일: moment(v.createtime).format("YYYY-MM-DD HH:mm"),

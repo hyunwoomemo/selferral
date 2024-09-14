@@ -36,9 +36,9 @@ export function SiteHeader() {
         setUser(res.DATA);
       }
       if (res?.CODE === "AC001") {
-        addToast({ text: "로그인이 만료되었습니다." });
-        setCookie("token", "");
-        setUser({});
+        // addToast({ text: "로그인이 만료되었습니다." });
+        // setCookie("token", "");
+        // setUser({});
       }
 
       if (res?.accessToken) {
@@ -103,7 +103,7 @@ export function SiteHeader() {
                 </Link>
               )}
 
-              <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} />
+              {/* <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} /> */}
               {/* <MobileNav user={user} /> */}
               <MobileNav user={user} />
             </nav>

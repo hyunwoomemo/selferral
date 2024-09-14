@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { getCookie } from "cookies-next";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { getExchange } from "@/actions/trade/action";
+import { getExchange, registerUID } from "@/actions/trade/action";
 import { CircleDollarSign } from "lucide-react";
 
 const Page = () => {
@@ -59,26 +59,30 @@ const Page = () => {
   }, [uid]);
 
   const setUid = async () => {
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    formData.append("uid", uid);
+    // formData.append("uid", uid);
 
-    const res = await fetch(`${API_URL}/exchange/affiliate/set/${exchange}`, {
-      method: "POST",
-      body: formData,
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    // const res = await fetch(`${API_URL}/exchange/affiliate/set/${exchange}`, {
+    //   method: "POST",
+    //   body: formData,
+    //   headers: {
+    //     authorization: `Bearer ${token}`,
+    //   },
+    // });
 
-    const result = await res.json();
+    // const result = await res.json();
+
+    const result = await registerUID({ id: exchange, token, uid });
+
+    console.log("registerUIDregisterUID", result);
 
     if (result.CODE === "EAS000") {
       router.back();
 
       setTimeout(() => {
         router.push("/payback/process/1");
-      }, 100);
+      }, 500);
     }
   };
 

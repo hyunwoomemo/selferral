@@ -30,7 +30,9 @@ const RegisterDropdown = ({ id }) => {
     if (value && value[id] === 1) {
       updateUidStatus({ status: 1, order_id: id, token });
       addToast({ text: "UID 등록이 처리되었습니다." });
-    } else if (value === 2) {
+    } else if (value && value[id] === 2) {
+      updateUidStatus({ status: 2, order_id: id, token });
+      addToast({ text: "UID 거절 처리되었습니다." });
     }
   }, [value]);
 

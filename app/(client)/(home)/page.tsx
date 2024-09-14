@@ -2,12 +2,13 @@ import SearchUid from "./search-uid";
 import PaybackSection from "./payback-section";
 import EventList from "./event-list";
 import ExchangeWrapper from "./exchange-wrapper";
-import { getExchanges, getUidList } from "@/actions/trade/action";
+import { getExchanges, getUidList, getUidStatus } from "@/actions/trade/action";
 import { cookies } from "next/headers";
 import { getBanners } from "@/actions/common/action";
 import "swiper/css";
 import MyReward from "./my-reward";
 import RollingBanner from "./rolling-banner";
+import MyTrade from "./my-trade";
 
 export default async function Home() {
   const token = cookies().get("token");
@@ -15,8 +16,12 @@ export default async function Home() {
   console.log("exchangesexchanges", exchanges);
 
   // const banners = await getBanners();
-  const uidData = await getUidList({ token: token?.value });
-  console.log("uidData", uidData);
+  // const uidData = await getUidList({ token: token?.value });
+  // console.log("uidData", uidData);
+
+  const uidData = await getUidStatus({ token: token?.value });
+
+  console.log("dddads", uidData);
 
   const Divider = () => {
     return <div className="h-3 w-full bg-gray-50 dark:bg-gray-900"></div>;
@@ -24,8 +29,7 @@ export default async function Home() {
 
   return (
     <div className="px-0">
-      <MyReward uidData={uidData} />
-
+      <MyReward uidData={uidData} exchanges={exchanges} />
       <Divider />
       <section className="space-y-6 pt-20  mx-auto">
         <div className="flex flex-col gap-4  md:px-0">

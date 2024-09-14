@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 
 import { API_URL } from "..";
 import { revalidateTag } from "next/cache";
+import { fetchWithAuth } from "@/lib/fetchWithAuth";
+import { cookies } from "next/headers";
 export const getAllUser = async () => {
   const res = await fetch(`${API_URL}/auth/getuser`, {
     next: { tags: ["users"], revalidate: 1800000 },
@@ -116,15 +118,13 @@ export async function login(prevState: any, formData: FormData) {
 
 export const getInfo = async (token, refresh) => {
   if (token) {
-    const res = await fetch(`${API_URL}/auth/info`, {
-      headers: { authorization: `Bearer ${token}`, refresh },
+    const res = await fetchWithAuth(`${API_URL}/auth/info`, {
+      headers: { authorization: `Bearer ${token}` },
     });
 
-    const data = await res.json();
+    console.log("getInfogetInfo", res);
 
-    console.log("dd", data);
-
-    return data;
+    return res;
   }
 };
 
@@ -142,14 +142,12 @@ export const refresh = async (refreshToken) => {
 
 export const getWithdrawal = async ({ token }) => {
   console.log("tokentoken", token);
-  const res = await fetch(`${API_URL}/exchange/withdrawal/10/1`, {
+  const res = await fetchWithAuth(`${API_URL}/exchange/withdrawal/10/1`, {
     headers: { authorization: `Bearer ${token}` },
     next: { tags: ["clientWithdrawal"] },
   });
 
-  const data = await res.json();
-
-  return data;
+  return res;
 };
 
 export const setUserType = async ({ token, id, type }) => {
@@ -157,18 +155,19 @@ export const setUserType = async ({ token, id, type }) => {
 
   formData.append("type", type);
 
-  const res = await fetch(`${API_URL}/auth/type/${id}`, {
+  const res = await fetchWithAuth(`${API_URL}/auth/type/${id}`, {
     method: "POST",
     body: formData,
     headers: { authorization: `Bearer ${token}` },
   });
 
-  const data = await res.json();
-  console.log("dddd", data);
-
-  if (data.data === "ok") {
+  if (res.data === "ok") {
     revalidateTag("user");
     revalidateTag("users");
   }
-  return data;
+  return res;
+};
+
+export const setCookie = (key, value) => {
+  cookies().set(key, value);
 };

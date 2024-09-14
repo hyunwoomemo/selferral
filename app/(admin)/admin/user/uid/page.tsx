@@ -1,9 +1,59 @@
+import Tab from "@/components/tab";
 import React from "react";
+import Container from "./container";
+import { getExchanges, getUidRegisterStatus } from "@/actions/trade/action";
+import { cookies } from "next/headers";
+import { getAllUser } from "@/actions/user/action";
+import moment from "moment";
+import RegisterDropdown from "./standby/register-dropdown";
+import Table from "@/components/ui/table";
+import ServerPagination from "@/components/ui/server-pagination";
 
 const page = async ({ searchParams }) => {
-  console.log(searchParams);
+  console.log("searchParams", searchParams);
+  const token = cookies().get("token");
 
-  return <div>page</div>;
+  const data = await getUidRegisterStatus({ token: token?.value, status: searchParams.type || 0, exchange_id: 0, rownum: 20, page: searchParams.page || 1 });
+
+  console.log("data", data);
+
+  const exchangeData = await getExchanges();
+
+  const users = await getAllUser();
+
+  const tableData = await data?.data?.list.map((v) => {
+    if (searchParams.type == 0) {
+      return {
+        거래소명: exchangeData?.data?.find((v1) => v1.exchange_id == v.exchange_id)?.name,
+        유저: users.DATA.find((user) => user.id == v.user_id).email,
+        UID: v.user_uid,
+        신청일: moment(v.createtime).format("YYYY-MM-DD HH:mm"),
+        "": <RegisterDropdown id={v.id} />,
+      };
+    } else {
+      return {
+        거래소명: exchangeData?.data?.find((v1) => v1.exchange_id == v.exchange_id)?.name,
+        유저: users.DATA.find((user) => user.id == v.user_id).email,
+        UID: v.user_uid,
+        신청일: moment(v.createtime).format("YYYY-MM-DD HH:mm"),
+      };
+    }
+  });
+
+  console.log("tableData", searchParams, tableData);
+
+  return (
+    <div className="font-bold flex-auto flex-col p-8 flex h-full gap-3">
+      <div className="flex justify-between">
+        <h1 className="text-3xl">UID</h1>
+      </div>
+      <div className="py-5">
+        <Container />
+      </div>
+      <div className="flex-1">{tableData?.length > 0 && <Table data={tableData} wide />}</div>
+      <ServerPagination offset={20} total={data.data.total} link={`/admin/user/uid?type=${searchParams.type}`} />
+    </div>
+  );
 };
 
 export default page;

@@ -59,7 +59,7 @@ export function MainNav() {
           관리자
         </Link>
       )}
-      <Switch active={!wide} setActive={setWide} />
+      {/* <Switch active={!wide} setActive={setWide} /> */}
     </nav>
   );
 }

@@ -23,7 +23,7 @@ export default function Page({ searchParams }) {
   const { addToast, loadingToast } = useToast();
 
   useEffect(() => {
-    if (searchParams && searchParams.callback) {
+    if (searchParams && searchParams.type === "expire") {
       addToast({ text: "로그인이 만료되었습니다." });
     }
   }, [searchParams]);
@@ -42,7 +42,7 @@ export default function Page({ searchParams }) {
           }
         } else {
           if (res.CODE === "AC001") {
-            addToast({ text: "로그인이 만료되었습니다." });
+            // addToast({ text: "로그인이 만료되었습니다." });
             setCookie("token", "");
             setUser({});
           }

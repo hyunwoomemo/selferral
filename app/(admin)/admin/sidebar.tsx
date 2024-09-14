@@ -17,14 +17,9 @@ const data = [
         path: "/admin/user/list",
       },
       {
-        label: "UID 등록 대기",
+        label: "UID 목록",
         value: "list",
-        path: "/admin/user/uid/standby",
-      },
-      {
-        label: "UID 등록 완료",
-        value: "list",
-        path: "/admin/user/uid/success",
+        path: "/admin/user/uid",
       },
     ],
   },
@@ -112,7 +107,7 @@ export default function Sidebar({ standbyCount }) {
                         key={i}
                       >
                         {v.label}
-                        {v.path.includes("standby") && (
+                        {v.path.includes("standby") && standbyCount > 0 && (
                           <div className="absolute bottom-[90%] left-[100%] w-6 h-6 bg-red-500 flex justify-center items-center rounded-full text-white text-sm">{standbyCount}</div>
                         )}
                       </Link>

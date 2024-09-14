@@ -16,7 +16,7 @@ const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black"
       </div>
       {data.map((v) => {
         return (
-          <div key={v} className={`border-b p-5 ${bodyClassname}`} style={{ display: "flex", alignItems: "center" }}>
+          <div key={v.value} className={`border-b p-5 ${bodyClassname}`} style={{ display: "flex", alignItems: "center" }}>
             {Object.entries(v).map(([key, value], index) => {
               return (
                 <div className="flex-1 flex justify-center " key={`${key} ${value} ${index}`}>
