@@ -2,6 +2,8 @@ import React from "react";
 import { exchangeDetailContents } from "@/exchange-detail-contents";
 
 const Contents = ({ exchangeName }: { exchangeName: string }) => {
+  if (!exchangeDetailContents[exchangeName.toLowerCase()]) return;
+
   const { title, description, section } = exchangeDetailContents[exchangeName.toLowerCase()];
 
   return (

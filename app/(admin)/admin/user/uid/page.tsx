@@ -51,7 +51,7 @@ const page = async ({ searchParams }) => {
         <Container />
       </div>
       <div className="flex-1">{tableData?.length > 0 && <Table data={tableData} wide />}</div>
-      <ServerPagination offset={20} total={data.data.total} link={`/admin/user/uid?type=${searchParams.type}`} />
+      <ServerPagination offset={20} total={data.data.total} link={`/admin/user/uid?type=${searchParams.type || 0}`} />
     </div>
   );
 };

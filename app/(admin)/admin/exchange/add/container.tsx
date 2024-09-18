@@ -1,179 +1,124 @@
 "use client";
 import { editExchangeForm, editLinksForm } from "@/actions/trade/action";
+import Input from "@/components/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/useToast";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const tabData = [
-  {
-    value: 0,
-    label: "기본",
-  },
-  {
-    value: 1,
-    label: "상세",
-  },
-];
-
-const basicField = ["name", "nameExt", "image_thumb", "image_big", "image_logo", "round_image", "square_image", "order", "blog_url", "customer_url"];
-const allField = [...basicField, "payback", "discount", "market_order", "limit_order", "tag", "average_refund", "custom_image", "affiliate_join_url"];
-
-const Container = ({ token, exchanges }) => {
-  const [values, setValues] = useState<any>({ status: 1 });
-  const [tab, setTab] = useState({ value: 0, label: "기본" });
-  const router = useRouter();
+const Container = ({ token }) => {
+  const [values, setValues] = useState({ status: 1 });
   const { addToast } = useToast();
+  const router = useRouter();
+  const [previewUrls, setPreviewUrls] = useState({});
 
-  const handleAdd = async (e) => {
-    try {
-      e.preventDefault();
-      if (!values.name) {
-        return addToast({ text: "거래소 이름값 입력은 필수입니다." });
+  const handleChange = (type, value) => {
+    if (!value) return;
+
+    setValues((prev) => ({ ...prev, [type]: value }));
+
+    if (type.includes("image")) {
+      const selectedFile = value;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrls((prev) => ({ ...prev, [type]: reader.result }));
+      };
+
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  console.log("values", values);
+
+  const handleEdit = async () => {
+    const formData = new FormData();
+
+    for (const key in values) {
+      if (values[key]) {
+        formData.append(key, values[key]);
       }
+    }
 
-      if (!values.status) {
-        return addToast({ text: "status값 입력은 필수입니다." });
-      }
+    console.log("vvvv", values);
 
-      const formData = new FormData();
-      let exchangeBody = {};
-      let linksBody = {};
+    const linkData = new FormData();
 
-      for (const key in values) {
-        console.log("key", key, values[key]);
-        if (basicField.includes(key) && key !== "status") {
-          exchangeBody[key] = values[key];
-        } else {
-          // linksBody = { [key]: values[key] };
-          linksBody[key] = values[key];
-        }
-      }
+    linkData.append("status", 1);
 
-      exchangeBody["status"] = values.status;
-      linksBody["status"] = values.status;
-      exchangeBody["order"] = values.order || exchanges.data.length + 1;
+    const res = await editExchangeForm({ id: 0, token, formData });
+    const res1 = await editLinksForm({ id: res.exchange_id, linkId: 0, token: token, formData: linkData });
+    console.log("vvvvvv", res, res1);
 
-      // const promises = [];
-      console.log("exchangeBody linksBody", exchangeBody, linksBody);
-
-      if (exchangeBody && Object.keys(exchangeBody).length > 0) {
-        for (const key in exchangeBody) {
-          if (key.includes("image")) {
-            if (typeof exchangeBody[key] === "string") continue;
-            for (let i = 0; i < exchangeBody[key]?.length; i++) {
-              formData.append(key, exchangeBody[key]?.[i]);
-            }
-          } else {
-            formData.append(key, exchangeBody[key]);
-          }
-        }
-
-        const res = await editExchangeForm({ id: 0, token: token, formData: formData });
-        console.log("res", res);
-
-        if (linksBody && Object.keys(linksBody).length > 0) {
-          console.log("sdmksmfsdkfmskdf!!!! ", res.exchange_id, token, linksBody);
-          const linkData = new FormData();
-
-          for (const key in linksBody) {
-            if (key.includes("image")) {
-              if (typeof linksBody[key] === "string") continue;
-
-              for (let i = 0; i < linksBody[key]?.length; i++) {
-                linkData.append(key, linksBody[key]?.[i]);
-              }
-            } else {
-              console.log("key", key, linksBody[key]);
-              linkData.append(key, linksBody[key]);
-            }
-          }
-
-          const res1 = await editLinksForm({ id: res.exchange_id, linkId: 0, token: token, formData: linkData });
-
-          console.log("res1", res1);
-        }
-      }
-
-      // if (linksBody && Object.keys(linksBody).length > 0) {
-      //   promises.push(editLinksForm({ id: 0, linkId: 0, token: token, body: linksBody }));
-      // }
-
-      // try {
-      //   const res = await Promise.all(promises);
-      //   console.log("add res", res);
-      //   router.push("/admin/exchange/list");
-      // } catch (err) {
-      //   console.log(err);
-      // }
-
+    if (res.exchange_id && res1.link_id) {
+      router.push("/admin/exchange/list");
       addToast({ text: "거래소가 추가되었습니다." });
-      setTimeout(() => {
-        router.push("/admin/exchange/list");
-      }, 300);
-    } catch (err) {
-      console.error(err);
     }
   };
 
   return (
-    <div>
-      <div className="flex gap-8 pb-10">
-        {tabData.map((tab) => {
-          return (
-            <div key={tab.value} onClick={() => setTab(tab)}>
-              {tab.label}
-            </div>
-          );
-        })}
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, flexWrap: "wrap" }}>
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          {allField &&
-            allField.map((item) => {
-              if (item.includes("id")) return;
+    <div className="flex gap-2">
+      <div className="flex flex-col gap-5">
+        <Input onChange={(e) => handleChange("name", e.target.value)} value={values.name} label={"거래소명"} />
+        <Input onChange={(e) => handleChange("nameExt", e.target.value)} value={values.nameExt} label={"태그"} />
+        <Input onChange={(e) => handleChange("order", e.target.value)} value={values.order} label={"순서"} type="number" />
+        <Input onChange={(e) => handleChange("blog_url", e.target.value)} value={values.blog_url} label={"블로그 URL"} />
+        <Input onChange={(e) => handleChange("customer_url", e.target.value)} value={values.customer_url} label={"고객센터 URL"} />
+        <Input onChange={(e) => handleChange("image_thumb", e.target.files[0])} label={"로고"} type="file" />
+        <Input onChange={(e) => handleChange("image_big", e.target.files[0])} label={"사각형 로고"} type="file" />
 
-              if (tab.value === 0) {
-                if (!basicField.includes(item) && item !== "status") return;
-              }
-
-              if (tab.value !== 0) {
-                if (basicField.includes(item) && item !== "status") return;
-              }
-
-              if (item.includes("image")) {
-                return (
-                  <div key={item} className="flex gap-2 items-center">
-                    <span>{item}</span>
-                    <input
-                      type={"file"}
-                      onChange={(e) => {
-                        setValues((prev) => ({ ...prev, [item]: e.target.files }));
-                      }}
-                      placeholder={item}
-                      name={item}
-                      style={{ border: "1px solid gray", background: "none", padding: 10 }}
-                    />
-                  </div>
-                );
-              }
-
-              return (
-                <div key={item} className="flex gap-2 items-center">
-                  <span>{item}</span>
-                  <input
-                    placeholder={item}
-                    onChange={(e) => setValues((prev) => ({ ...prev, [item]: e.target.value }))}
-                    name={item}
-                    style={{ border: "1px solid gray", background: "none", padding: 10 }}
-                    // defaultValue={prev[item]}
-                    value={values[item]}
-                  />
-                </div>
-              );
-            })}
+        <div className="mt-auto">
+          <Button onClick={handleEdit}>추가</Button>
         </div>
-        <button onClick={handleAdd}>저장하기</button>
+      </div>
+      <div className="flex-1 w-full">
+        <p>미리 보기</p>
+        {values && Object.keys(values).length > 0 && (
+          <>
+            <div className="flex py-10" onClick={() => router.push(`/exchange/${data.id}`)}>
+              <div className="flex items-center flex-1 min-w-full justify-between">
+                <div className="flex items-center pl-2">
+                  <div className="min-w-[70px]">
+                    <div className="relative w-[50px]  h-[50px] flex items-center justify-center">
+                      {previewUrls.image_thumb ? (
+                        <Image src={previewUrls.image_thumb} width={50} height={50} alt="exchange-logo" />
+                      ) : values.image_thumb ? (
+                        <Image src={values.image_thumb} width={50} height={50} alt="exchange-logo" />
+                      ) : undefined}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm md:text-lg">{values.name}</p>
+                    <p className="text-gray-400">{values.nameExt}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="max-w-72 mx-2 flex flex-col rounded-lg   font-bold border border-gray-200 dark:border-gray-600 shadow-2xl" style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 3px 20px" }}>
+              <div className="min-w-60 h-32  bg-background  rounded-t-md flex justify-center items-center text-black relative overflow-hidden border-b border-gray-200 dark:border-gray-600 bg-black">
+                {previewUrls.image_big ? (
+                  <Image src={previewUrls.image_big} fill className="object-contain md:object-contain" alt="exchange-image" />
+                ) : values.image_big ? (
+                  <Image src={values.image_big} fill className="object-contain md:object-contain" alt="exchange-image" />
+                ) : undefined}
+              </div>
+              <div className="py-3 px-2">
+                <p className="text-gray-500 dark:text-white">{values.name}</p>
+
+                <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">{values.nameExt}</p>
+              </div>
+            </div>
+            <div className="py-5 flex gap-5">
+              <Link className="p-1 px-2 rounded-md text-sm bg-orange-50" href={`${values.blog_url}`} target="_blank">
+                블로그
+              </Link>
+              <Link className="p-1 px-2 rounded-md text-sm bg-orange-50" href={`${values.customer_url}`} target="_blank">
+                고객센터
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -38,12 +38,25 @@ export default async function Page() {
 
   const uidData = await getUidList({ token: token.value });
 
-  // console.log("uidData", uidData.data[0]);
+  console.log("uidData", uidData);
 
   const withdrawal = await getWithdrawal({ token: token.value });
 
   const renderItem = () => {
-    if (!uidData?.data) return <div>데이터가 존재하지 않습니다.</div>;
+    if (uidData?.data.length === 0)
+      return (
+        <>
+          <div className="grid grid-cols-4 place-items-center p-2 border-b border-gray-100 dark:border-gray-800">
+            <span className="flex justify-center text-gray-600">거래소</span>
+            <span className="flex justify-center text-gray-600">UID</span>
+            <span className="flex justify-center text-gray-600">금액</span>
+            <span className="flex justify-center text-gray-600"></span>
+          </div>
+          <div className="flex justify-center items-center h-full py-10">
+            <div>데이터가 존재하지 않습니다.</div>
+          </div>
+        </>
+      );
 
     // return data.list.map((v, i) => <div key={i}>{i}<ㅔ/div>);
 

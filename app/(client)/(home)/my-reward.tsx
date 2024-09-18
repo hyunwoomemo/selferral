@@ -29,7 +29,7 @@ const MyReward = ({ uidData, exchanges }) => {
     }, 0);
   }, [uidData]);
 
-  console.log("uidData", usdt);
+  console.log("uidData", uidData);
 
   useEffect(() => {
     if (refresh) {
@@ -87,7 +87,7 @@ const MyReward = ({ uidData, exchanges }) => {
               </div>
             </Link>
           </div>
-          <MyTrade uidData={uidData} exchanges={exchanges} />
+          {uidData?.data?.DATA.length > 0 && <MyTrade uidData={uidData} exchanges={exchanges} />}
         </div>
       )}
     </>
