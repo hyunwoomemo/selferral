@@ -3,6 +3,7 @@ import { editExchangeForm } from "@/actions/trade/action";
 import Input from "@/components/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/useToast";
+import { Delete, LucideDelete, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -71,14 +72,74 @@ const Container = ({ data, token, exchangeId }) => {
 
   return (
     <div className="flex gap-2">
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-1 flex-col gap-5">
         <Input onChange={(e) => handleChange("name", e.target.value)} value={values.name} label={"거래소명"} />
         <Input onChange={(e) => handleChange("nameExt", e.target.value)} value={values.nameExt} label={"태그"} />
         <Input onChange={(e) => handleChange("order", e.target.value)} value={values.order} label={"순서"} type="number" />
         <Input onChange={(e) => handleChange("blog_url", e.target.value)} value={values.blog_url} label={"블로그 URL"} />
         <Input onChange={(e) => handleChange("customer_url", e.target.value)} value={values.customer_url} label={"고객센터 URL"} />
-        <Input onChange={(e) => handleChange("image_thumb", e.target.files[0])} label={"로고"} type="file" />
-        <Input onChange={(e) => handleChange("image_big", e.target.files[0])} label={"사각형 로고"} type="file" />
+        <div className="flex gap-2 items-center">
+          <Input onChange={(e) => handleChange("image_thumb", e.target.files[0])} label={"로고"} type="file" inputClassname={"max-w-[250px]"} />
+          <Trash2
+            onClick={() => {
+              setPreviewUrls((prev) => {
+                const temp = {};
+                for (const key in prev) {
+                  if (key === "image_thumb") {
+                    temp[key] = null;
+                  } else {
+                    temp[key] = prev[key];
+                  }
+                }
+
+                return temp;
+              });
+              setValues((prev) => {
+                const temp = {};
+                for (const key in prev) {
+                  if (key === "image_thumb") {
+                    temp[key] = null;
+                  } else {
+                    temp[key] = prev[key];
+                  }
+                }
+
+                return temp;
+              });
+            }}
+          />
+        </div>
+        <div className="flex gap-2 items-center">
+          <Input onChange={(e) => handleChange("image_big", e.target.files[0])} label={"사각형 로고"} type="file" inputClassname={"max-w-[250px]"} />
+          <Trash2
+            onClick={() => {
+              setPreviewUrls((prev) => {
+                const temp = {};
+                for (const key in prev) {
+                  if (key === "image_big") {
+                    temp[key] = null;
+                  } else {
+                    temp[key] = prev[key];
+                  }
+                }
+
+                return temp;
+              });
+              setValues((prev) => {
+                const temp = {};
+                for (const key in prev) {
+                  if (key === "image_big") {
+                    temp[key] = null;
+                  } else {
+                    temp[key] = prev[key];
+                  }
+                }
+
+                return temp;
+              });
+            }}
+          />
+        </div>
 
         <div className="mt-auto">
           <Button onClick={handleEdit}>수정</Button>

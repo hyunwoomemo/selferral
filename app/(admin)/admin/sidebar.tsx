@@ -18,7 +18,7 @@ const data = [
       },
       {
         label: "UID 목록",
-        value: "list",
+        value: "uidList",
         path: "/admin/user/uid",
       },
     ],

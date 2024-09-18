@@ -92,7 +92,7 @@ const ExchangeItem = ({ exchanges, token }) => {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  {tableData && tableData.length > 0 && <Table onClick={(id) => router.push(`/admin/exchange/${v.exchange_id}/link/${id}`)} data={tableData} headerClassname={"bg-gray-100"} />}
+                  {tableData && tableData.length > 0 && <Table hover onClick={(id) => router.push(`/admin/exchange/${v.exchange_id}/link/${id}`)} data={tableData} headerClassname={"bg-gray-100"} />}
                   <Link href={`/admin/exchange/${v.exchange_id}/add/link`} className="w-full flex justify-center p-3 hover:bg-gray-100">
                     추가하기
                   </Link>

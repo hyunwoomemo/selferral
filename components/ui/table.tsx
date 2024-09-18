@@ -1,6 +1,6 @@
 import React from "react";
 
-const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black", onClick }) => {
+const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black", onClick, hover }) => {
   if (!data) {
     return <div>데이터가 존재하지 않습니다.</div>;
   }
@@ -18,10 +18,10 @@ const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black"
       </div>
       {data.map((v) => {
         return (
-          <div onClick={() => onClick(v.id)} key={v.value} className={`border-b p-5 ${bodyClassname} hover:bg-orange-50`} style={{ display: "flex", alignItems: "center" }}>
+          <div onClick={onClick ? () => onClick(v.id) : null} key={v.value} className={`border-b p-5 ${bodyClassname} hover:bg-orange-50`} style={{ display: "flex", alignItems: "center" }}>
             {Object.entries(v).map(([key, value], index) => {
               return (
-                <div className="flex-1 flex justify-center" key={`${key} ${value} ${index}`}>
+                <div className="flex-1 flex justify-center cursor-pointer" key={`${key} ${value} ${index}`}>
                   {value}
                 </div>
               );

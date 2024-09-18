@@ -10,7 +10,6 @@ import Table from "@/components/ui/table";
 import ServerPagination from "@/components/ui/server-pagination";
 
 const page = async ({ searchParams }) => {
-  console.log("searchParams", searchParams);
   const token = cookies().get("token");
 
   const data = await getUidRegisterStatus({ token: token?.value, status: searchParams.type || 0, exchange_id: 0, rownum: 20, page: searchParams.page || 1 });
@@ -40,8 +39,6 @@ const page = async ({ searchParams }) => {
     }
   });
 
-  console.log("tableData", searchParams, tableData);
-
   return (
     <div className="font-bold flex-auto flex-col p-8 flex h-full gap-3">
       <div className="flex justify-between">
@@ -51,7 +48,7 @@ const page = async ({ searchParams }) => {
         <Container />
       </div>
       <div className="flex-1">{tableData?.length > 0 && <Table data={tableData} wide />}</div>
-      <ServerPagination offset={20} total={data.data.total} link={`/admin/user/uid?type=${searchParams.type || 0}`} />
+      {/* <ServerPagination offset={20} total={data.data.total} link={`/admin/user/uid?type=${searchParams.type || 0}`} /> */}
     </div>
   );
 };
