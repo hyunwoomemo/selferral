@@ -14,6 +14,8 @@ export default async function Page() {
   const token = cookies().get("token");
   const exchanges = await getExchanges();
 
+  console.log("exchanges", exchanges);
+
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}

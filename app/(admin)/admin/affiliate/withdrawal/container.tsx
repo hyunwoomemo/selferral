@@ -6,6 +6,7 @@ import Tab from "@/components/tab";
 import { useToast } from "@/hooks/useToast";
 import { useAtomValue } from "jotai";
 import { exchangesAtom } from "@/app/store/trade";
+import Dropdown from "@/components/ui/dropdown";
 
 const stepData = [
   {
@@ -62,7 +63,9 @@ const Container = ({ exchanges, token }) => {
       <h1 className="text-3xl">출금 신청 리스트</h1>
       {/* <ExchangeTab tab={tab} setTab={setTab} data={exchanges.data} /> */}
 
-      <Tab tab={tab} setTab={setTab} data={tabData} all />
+      <div className="pt-5 pb-10">
+        <Tab tab={tab} setTab={setTab} data={tabData} all />
+      </div>
       {!data.total ? (
         <div>출금 신청 내역이 존재하지 않습니다.</div>
       ) : (
@@ -85,7 +88,7 @@ const Container = ({ exchanges, token }) => {
                     <span className="flex justify-center items-center min-w-[180px]">{item.point}</span>
                     <span className="flex justify-center items-center min-w-[180px]">{item.usdt_address}</span>
                     <span className="flex justify-center items-center min-w-[180px]">{item.user_id}</span>
-                    <span className="flex justify-center items-center min-w-[180px] relative">
+                    {/* <span className="flex justify-center items-center min-w-[180px] relative">
                       <span onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step).label}</span>
                       <div className={`absolute flex flex-col gap-4 top-10 items-center  ${isVisible === item.id ? "block" : "hidden"} bg-gray-700 z-10 p-3 rounded-lg`}>
                         {stepData
@@ -96,6 +99,17 @@ const Container = ({ exchanges, token }) => {
                             </span>
                           ))}
                       </div>
+                    </span> */}
+                    <span className="flex justify-center items-center min-w-[180px]">
+                      <Dropdown
+                        value={stepData.find((v) => v.value === item.step)}
+                        // placeholder={stepData.find((v) => v.value === item.step).label}
+                        minWidth={100}
+                        data={stepData.filter((v) => v.value !== item.step)}
+                        isVisible={isVisible}
+                        setIsVisible={setIsVisible}
+                        dropdownClick={(v) => handleUpdateStep({ id: item.id, step: v.value })}
+                      />
                     </span>
                   </div>
                   {/* <div className="absolute right-10 flex gap-8">

@@ -49,7 +49,7 @@ const Container = ({ banners, token }) => {
             {data.map((v, i) => (
               <div onClick={() => router.push(`/admin/site/banner/edit/${v.id}`)} key={v.title + i} className="flex justify-center items-center min-w-60 h-40 bg-gray-100 dark:bg-gray-900 rounded-lg">
                 {v.banner_image}
-                <Image src={`${v.path}`} alt="banner-image" width={300} height={100} />
+                <Image src={`http://api.xn--3l2b13oekp.com${v.path}`} alt="banner-image" width={300} height={100} />
               </div>
             ))}
           </div>

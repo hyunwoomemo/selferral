@@ -37,7 +37,7 @@ export default async function Page() {
         </div>
 
         <Head>하는방법도 어렵지 않아요! 3분이면 완료!</Head>
-        <div className="flex flex-wrap justify-between">
+        <div className="flex flex-wrap justify-center md:justify-between">
           <div className="">
             <Contents>1. 셀퍼럴닷컴 전용 거래소 회원가입 및 트레이딩</Contents>
             <div>
@@ -61,7 +61,13 @@ export default async function Page() {
         </div>
 
         <Head>자, 그러면 서비스를 이용하려면 어떻게 해야하나요??</Head>
-        <Contents>셀퍼럴닷컴 홈페이지 메인에 있는 추천거래소들을 통해 입맛에 맞는 거래소를 선택후 가입, 홈페이지 메인에 있는 UID입력창에 UID 입력 후 거래소완 연동하시면 완료됩니다!</Contents>
+
+        <Contents>1. 셀퍼럴닷컴 홈페이지 회원가입 후 제휴거래소와 UID연동 및 트레이딩 커미션 발생</Contents>
+        <div>
+          <Image src={require("../../service6.jpg")} className="object-cover" alt="service4" />
+        </div>
+        <Contents>2. 셀퍼럴닷컴에서 마이리워드 출금신청</Contents>
+        <Contents>3. 페이백 완료!</Contents>
         {/* <Head>셀퍼럴닷컴 추천 거래소 둘러보기 시작!</Head> */}
         {/* <Contents className="text-orange-400 font-bold pt-10">그래서 페이백을 받으려면 어떻게 해야 하나요?</Contents> */}
         <Link href={"/exchange"} className="flex py-10 justify-center">

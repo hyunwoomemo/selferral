@@ -15,6 +15,7 @@ export default async function Page() {
   const token = cookies().get("token");
 
   const banners = await getAdminBanner({ type: "all", token: token?.value });
+  console.log("banners", banners.data);
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">

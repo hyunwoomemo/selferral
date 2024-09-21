@@ -87,7 +87,7 @@ const MyReward = ({ uidData, exchanges }) => {
               </div>
             </Link>
           </div>
-          {uidData?.data?.DATA.length > 0 && <MyTrade uidData={uidData} exchanges={exchanges} />}
+          {uidData?.data?.DATA?.length > 0 && <MyTrade uidData={uidData} exchanges={exchanges} />}
         </div>
       )}
     </>

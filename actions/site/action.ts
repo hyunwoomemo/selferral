@@ -5,15 +5,13 @@ import { redirect } from "next/navigation";
 import { fetchWithAuth } from "@/lib/fetchWithAuth";
 
 export const getAdminBanner = async ({ type, token, num = 10, page = 1 }) => {
-  const res = await fetch(`${API_URL}/affiliate/banner/${type}/${num}/${page}`, {
+  const res = await fetchWithAuth(`${API_URL}/affiliate/banner/${type}/${num}/${page}`, {
     cache: "force-cache",
     next: { tags: ["adminBanner"] },
     headers: { authorization: `Bearer ${token}` },
   });
 
-  const data = await res.json();
-
-  return data;
+  return res;
 };
 
 export const setBanner = async ({ data, token, bannerType, id = 0 }) => {

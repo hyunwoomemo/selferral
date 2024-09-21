@@ -15,11 +15,15 @@ const page = async ({ params, searchParams }) => {
 
   console.log("123123", uidData, exchangeData);
 
+  if (!exchangeData) {
+    return <div className="p-4">존재하지 않는 거래소입니다.</div>;
+  }
+
   return (
     <div className="p-4">
       <div className="flex gap-5">
         <div className="relative w-[50px]  h-[50px] flex items-center justify-center">
-          {exchangeData.image_thumb && <Image src={exchangeData.image_thumb} width={50} height={50} alt="exchange-logo" />}
+          {exchangeData?.image_thumb && <Image src={exchangeData?.image_thumb} width={50} height={50} alt="exchange-logo" />}
         </div>
         <div>
           <div className="font-semibold text-gray-500 ">{exchangeData.name}</div>

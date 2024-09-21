@@ -9,6 +9,7 @@ import { getUidList } from "@/actions/trade/action";
 import Title from "@/components/ui/title";
 import Link from "next/link";
 import React from "react";
+import EditButton from "./editPassword-button";
 
 const stepData = [
   {
@@ -49,7 +50,7 @@ export default async function Page() {
           <div className="grid grid-cols-4 place-items-center p-2 border-b border-gray-100 dark:border-gray-800">
             <span className="flex justify-center text-gray-600">거래소</span>
             <span className="flex justify-center text-gray-600">UID</span>
-            <span className="flex justify-center text-gray-600">금액</span>
+            <span className="flex justify-centers text-gray-600">금액</span>
             <span className="flex justify-center text-gray-600"></span>
           </div>
           <div className="flex justify-center items-center h-full py-10">
@@ -165,7 +166,7 @@ export default async function Page() {
     <div className="flex flex-col flex-auto p-2">
       {/* <RednerItem /> */}
       {/* <Title text={"마이 페이지"} buttons={[<WithdrawalButton />, <LogoutButton />]} /> */}
-      <Title text={"마이 페이지"} buttons={[<LogoutButton key={"logout"} />]} />
+      <Title text={"마이 페이지"} buttons={[<EditButton key={"edit"} />, <LogoutButton key={"logout"} />]} />
       <div className="flex-auto  rounded-md  bg-white dark:bg-gray-950 my-5">{renderItem()}</div>
     </div>
   );

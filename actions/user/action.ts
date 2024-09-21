@@ -171,3 +171,19 @@ export const setUserType = async ({ token, id, type }) => {
 export const setCookie = (key, value) => {
   cookies().set(key, value);
 };
+
+export const editPassword = async ({ token, data }) => {
+  const formData = new FormData();
+
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
+
+  const res = await fetchWithAuth(`${API_URL}/auth/editpassword`, {
+    method: "POST",
+    body: formData,
+    headers: { authorization: `Bearer ${token}` },
+  });
+
+  return res;
+};

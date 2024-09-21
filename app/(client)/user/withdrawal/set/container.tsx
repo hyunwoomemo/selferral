@@ -5,18 +5,23 @@ import Dropdown from "@/components/ui/dropdown";
 import { cn } from "@/lib/utils";
 import { getCookie } from "cookies-next";
 import { revalidateTag } from "next/cache";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 const Container = ({ data }) => {
-  const [exchange, setExchange] = useState(data[0]);
+  const dropdownData = useMemo(() => {
+    return data.map((v) => ({ label: v.name, value: v.exchange_id, icon: <Image width={30} height={30} alt="logo" src={v.image_thumb} /> }));
+  }, [data]);
+
+  const [exchange, setExchange] = useState(dropdownData[0]);
   const [isVisible, setIsVisible] = useState(false);
   const [values, setValues] = useState({});
   const token = getCookie("token");
   const router = useRouter();
 
   const handleSubmit = async () => {
-    const res = await setWithdrawal({ token, data: { exchange_id: exchange.exchange_id, ...values } });
+    const res = await setWithdrawal({ token, data: { exchange_id: exchange.value, ...values } });
 
     console.log("result", res);
 
@@ -32,12 +37,19 @@ const Container = ({ data }) => {
     }
   };
 
+  const handleDropdownClick = (value) => {
+    console.log("value", value);
+    setExchange(value);
+  };
+
+  console.log("exchange", exchange);
+
   return (
     <div className="mx-auto max-w-screen-xl">
       <div className="py-4 flex gap-4 flex-col">
         <p>거래소 선택</p>
         <div className="flex w-60">
-          <Dropdown item={exchange} setItem={setExchange} data={data} isVisible={isVisible} setIsVisible={setIsVisible} />
+          <Dropdown value={exchange} placeholder={"거래소를 선택해주세요."} dropdownClick={handleDropdownClick} data={dropdownData} isVisible={isVisible} setIsVisible={setIsVisible} minWidth={160} />
         </div>
       </div>
       <div className="py-4 flex gap-4 flex-col">
