@@ -58,7 +58,7 @@ const Container = ({ exchangeId, link, linkId }) => {
         <Input value={values.affiliate_join_url} label={"가입 링크"} onChange={(e) => setValues((prev) => ({ ...prev, affiliate_join_url: e.target.value }))} />
         <div className="flex gap-5">
           <p className="min-w-16">적용</p>
-          <Switch active={values?.status} setActive={() => setValues((prev) => ({ ...prev, status: !prev.status }))} />
+          <Switch active={values?.status} setActive={() => setValues((prev) => ({ ...prev, status: prev.status ? 0 : 1 }))} />
         </div>
       </div>
 
