@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
-const ExchangeItem = ({ exchanges, token }) => {
+const ExchangeItem = ({ exchanges }) => {
   const [links, setLinks] = useState();
   const [exchange, setExchange] = useState();
   const router = useRouter();
@@ -24,7 +24,7 @@ const ExchangeItem = ({ exchanges, token }) => {
   }, [params]);
 
   useEffect(() => {
-    getLinks({ token, exchange_id: exchange })
+    getLinks({ exchange_id: exchange })
       .then((res) => setLinks(res.data))
       .finally(() => setLoading(false));
   }, [exchange]);
@@ -68,9 +68,7 @@ const ExchangeItem = ({ exchanges, token }) => {
       return (
         <div key={v.exchange_id} className="p-3 bg-white rounded-md" onClick={() => handleExchangeClick(v.exchange_id)}>
           <div className="px-3 pr-5 flex bg-white min-h-20  gap-5 items-center">
-            <div className="flex justify-center items-center">
-              <Image src={v.image_thumb} width={50} height={50} alt="logo" />
-            </div>
+            <div className="flex justify-center items-center">{v.image_thumb && <Image src={v.image_thumb} width={50} height={50} alt="logo" />}</div>
             <div className="font-bold text-gray-600">{v.name}</div>
             {v.nameExt && <div className="text-xs p-1 px-2 bg-orange-100 rounded-md">{v.nameExt}</div>}
             <div className="ml-auto flex gap-5">

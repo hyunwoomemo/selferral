@@ -5,8 +5,7 @@ import { getUidRegisterStatus } from "@/actions/trade/action";
 import { cookies } from "next/headers";
 
 export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
-  const token = cookies().get("token");
-  const data = await getUidRegisterStatus({ token: token?.value, status: 0, exchange_id: 0, rownum: 20, page: 1 });
+  const data = await getUidRegisterStatus({ status: 0, exchange_id: 0, rownum: 20, page: 1 });
 
   return (
     <>

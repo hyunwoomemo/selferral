@@ -10,9 +10,7 @@ import React from "react";
 import RegisterDropdown from "./register-dropdown";
 
 const page = async () => {
-  const token = cookies().get("token");
-
-  const data = await getUidRegisterStatus({ token: token?.value, status: 0, exchange_id: 0, rownum: 20, page: 1 });
+  const data = await getUidRegisterStatus({ status: 0, exchange_id: 0, rownum: 20, page: 1 });
 
   console.log("data123", data?.data?.list);
 

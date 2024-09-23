@@ -116,16 +116,12 @@ export async function login(prevState: any, formData: FormData) {
   return data;
 }
 
-export const getInfo = async (token, refresh) => {
-  if (token) {
-    const res = await fetchWithAuth(`${API_URL}/auth/info`, {
-      headers: { authorization: `Bearer ${token}` },
-    });
+export const getInfo = async () => {
+  const res = await fetchWithAuth(`${API_URL}/auth/info`, {});
 
-    console.log("getInfogetInfo", res);
+  console.log("getInfogetInfo", res);
 
-    return res;
-  }
+  return res;
 };
 
 export const refresh = async (refreshToken) => {
@@ -140,17 +136,15 @@ export const refresh = async (refreshToken) => {
   }
 };
 
-export const getWithdrawal = async ({ token }) => {
-  console.log("tokentoken", token);
+export const getWithdrawal = async ({}) => {
   const res = await fetchWithAuth(`${API_URL}/exchange/withdrawal/10/1`, {
-    headers: { authorization: `Bearer ${token}` },
     next: { tags: ["clientWithdrawal"] },
   });
 
   return res;
 };
 
-export const setUserType = async ({ token, id, type }) => {
+export const setUserType = async ({ id, type }) => {
   const formData = new FormData();
 
   formData.append("type", type);
@@ -158,7 +152,6 @@ export const setUserType = async ({ token, id, type }) => {
   const res = await fetchWithAuth(`${API_URL}/auth/type/${id}`, {
     method: "POST",
     body: formData,
-    headers: { authorization: `Bearer ${token}` },
   });
 
   if (res.data === "ok") {
@@ -172,7 +165,7 @@ export const setCookie = (key, value) => {
   cookies().set(key, value);
 };
 
-export const editPassword = async ({ token, data }) => {
+export const editPassword = async ({ data }) => {
   const formData = new FormData();
 
   for (const key in data) {
@@ -182,7 +175,6 @@ export const editPassword = async ({ token, data }) => {
   const res = await fetchWithAuth(`${API_URL}/auth/editpassword`, {
     method: "POST",
     body: formData,
-    headers: { authorization: `Bearer ${token}` },
   });
 
   return res;

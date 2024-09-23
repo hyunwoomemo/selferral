@@ -4,9 +4,7 @@ import React from "react";
 import Container from "./container";
 
 const page = async ({ params }) => {
-  const token = cookies().get("token");
-
-  const links = await getLinks({ token: token?.value, exchange_id: params.id });
+  const links = await getLinks({ exchange_id: params.id });
   const data = await getExchange(params.id);
 
   const link = await links.data.find((v) => v.id == params.linkid);
@@ -17,7 +15,7 @@ const page = async ({ params }) => {
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}
       <h1 className="text-3xl pb-10">{data?.name}</h1>
-      <Container data={data} exchangeId={params.id} token={token} linkId={params.linkid} link={link} />
+      <Container data={data} exchangeId={params.id} linkId={params.linkid} link={link} />
     </div>
   );
 };

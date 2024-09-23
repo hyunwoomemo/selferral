@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { Mail } from "lucide-react";
 import { Icons } from "./icons";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function SiteFooter() {
   const pathname = usePathname();
@@ -13,10 +14,10 @@ export function SiteFooter() {
     <footer>
       <div className="mb-6 mt-14 flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
-          <a target="_blank" rel="noreferrer" href="mailto:hello@example.com">
+          {/* <a target="_blank" rel="noreferrer" href="mailto:hello@example.com">
             <span className="sr-only">Mail</span>
             <Mail className="h-6 w-6" />
-          </a>
+          </a> */}
           {/* <a target="_blank" rel="noreferrer" href={siteConfig.links.twitter}>
             <span className="sr-only">Twitter</span>
             <Icons.twitter className="h-6 w-6" />
@@ -31,6 +32,13 @@ export function SiteFooter() {
           {/* <a href={siteConfig.links.personalSite} target="_blank">
             {siteConfig.author}
           </a> */}
+          <div>상호명 : 주식회사 씨씨씨그룹 (CCC Group)</div>
+          <div>|</div>
+          <div>사업자번호 : 296-81-03378</div>
+          <div>|</div>
+          <div>주소 : 서울특별시 강남구 언주로 331,6층 601호 (역삼동, 안산빌딩)</div>
+          <div>|</div>
+          <Link href={"mailto:ccc_33@naver.com"}>이메일 : ccc_33@naver.com</Link>
         </div>
       </div>
     </footer>

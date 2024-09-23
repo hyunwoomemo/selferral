@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-const Container = ({ banners, token }) => {
+const Container = ({ banners }) => {
   const router = useRouter();
   console.log("banners", banners);
 
@@ -18,8 +18,7 @@ const Container = ({ banners, token }) => {
 
   useEffect(() => {
     if (tab !== "all") {
-      console.log("token", token);
-      getAdminBanner({ type: tab, token: token }).then((res) => {
+      getAdminBanner({ type: tab }).then((res) => {
         console.log("res", res);
         setData(res);
       });

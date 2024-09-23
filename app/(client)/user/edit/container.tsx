@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const Container = ({ token }) => {
+const Container = ({}) => {
   const [values, setValues] = useState({});
   const { addToast } = useToast();
   const router = useRouter();
@@ -21,7 +21,7 @@ const Container = ({ token }) => {
 
   const handleEditPassword = async () => {
     const data = { password: values.pw, newPassword: values.newPw };
-    const res = await editPassword({ token, data });
+    const res = await editPassword({ data });
 
     console.log("resres", res);
     if (res.CODE === "AL002") {

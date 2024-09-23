@@ -4,9 +4,7 @@ import Container from "./container";
 import { cookies } from "next/headers";
 
 const Page = async ({ params }) => {
-  const token = cookies().get("token");
-
-  const links = await getLinks({ token: token?.value, exchange_id: params.id });
+  const links = await getLinks({ exchange_id: params.id });
   const data = await getExchange(params.id);
 
   console.log("links", links);

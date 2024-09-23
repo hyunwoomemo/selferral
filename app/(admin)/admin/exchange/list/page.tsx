@@ -11,16 +11,13 @@ import { useMemo } from "react";
 import ExchangeItem from "./exchange-item";
 
 export default async function Page() {
-  const token = cookies().get("token");
   const exchanges = await getExchanges();
-
-  console.log("exchanges", exchanges);
 
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}
       <h1 className="text-3xl pb-10">거래소</h1>
-      <ExchangeItem exchanges={exchanges} token={token} />
+      <ExchangeItem exchanges={exchanges} />
       <AddBtn />
     </div>
   );

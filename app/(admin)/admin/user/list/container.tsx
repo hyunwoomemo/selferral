@@ -9,7 +9,7 @@ import { revalidateTag } from "next/cache";
 import { revalidate } from "@/actions/common/action";
 import { useToast } from "@/hooks/useToast";
 
-const Container = ({ users, token }) => {
+const Container = ({ users }) => {
   const [isVisible, setIsVisible] = useState(-1);
   const router = useRouter();
   const { addToast } = useToast();
@@ -38,7 +38,7 @@ const Container = ({ users, token }) => {
 
   const handleUpdateType = async ({ id, type }) => {
     setIsVisible(-1);
-    const res = await setUserType({ token, id, type });
+    const res = await setUserType({ id, type });
 
     if (res.data === "ok") {
       addToast({ text: "유저 타입이 변경되었습니다." });
@@ -74,9 +74,6 @@ const Container = ({ users, token }) => {
                 <div>{name}</div>
                 <div>{hp}</div>
                 <div>{moment(createdAt).format("YYYY-MM-DD")}</div>
-                {/* <UserType id={user.id} typeData={typeData} token={token} isVisible={isVisible}>
-                  
-                </UserType> */}
                 <div className="cursor-pointer relative">
                   <span onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>{getUserTypeText(user.type)}</span>
                   <div

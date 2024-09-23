@@ -16,7 +16,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 const fields = ["title", "memo", "order", "starttime", "endtime", "status", "banner_image", "banner_type"];
 
-const Container = ({ token, banners, exchanges, banner, id }) => {
+const Container = ({ banners, exchanges, banner, id }) => {
   const [values, setValues] = useState({ status: 1, order: banners.length + 1 });
   const [isVisibleDate, setIsVisibleDate] = useState(false);
   const { addToast } = useToast();
@@ -98,7 +98,7 @@ const Container = ({ token, banners, exchanges, banner, id }) => {
 
     console.log("vvvv", values);
 
-    const res = await setBanner({ token, data: formData, bannerType: "event", id });
+    const res = await setBanner({ data: formData, bannerType: "event", id });
 
     console.log("vvvvv", res);
 

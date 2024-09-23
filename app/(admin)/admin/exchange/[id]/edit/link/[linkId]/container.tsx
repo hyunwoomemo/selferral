@@ -20,7 +20,7 @@ const tabData = [
 const basicField = ["name", "nameExt", "image_thumb", "image_big", "image_logo", "round_image", "square_image", "status", "order", "blog_url", "customer_url", "createtime"];
 const allField = [...basicField, "payback", "discount", "market_order", "limit_order", "tag", "average_refund", "custom_image", "affiliate_join_url"];
 
-const Container = ({ data, token, links, exchangeId }) => {
+const Container = ({ data, links, exchangeId }) => {
   const [prev, setPrev] = useState(data);
   const [values, setValues] = useState<any>({});
   const [tab, setTab] = useState({ value: 1, label: "기본" });
@@ -67,7 +67,7 @@ const Container = ({ data, token, links, exchangeId }) => {
 
       if (!linksData.has("status")) linksData.append("status", prev["status"]);
 
-      const res = await editLinksForm({ id: data.exchange_id, linkId: data.id, token: token, formData: linksData });
+      const res = await editLinksForm({ id: data.exchange_id, linkId: data.id, formData: linksData });
 
       console.log("123123 links DAta!!!", res);
     }

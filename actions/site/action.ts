@@ -4,23 +4,19 @@ import { API_URL } from "..";
 import { redirect } from "next/navigation";
 import { fetchWithAuth } from "@/lib/fetchWithAuth";
 
-export const getAdminBanner = async ({ type, token, num = 10, page = 1 }) => {
+export const getAdminBanner = async ({ type, num = 10, page = 1 }) => {
   const res = await fetchWithAuth(`${API_URL}/affiliate/banner/${type}/${num}/${page}`, {
     cache: "force-cache",
     next: { tags: ["adminBanner"] },
-    headers: { authorization: `Bearer ${token}` },
   });
 
   return res;
 };
 
-export const setBanner = async ({ data, token, bannerType, id = 0 }) => {
-  console.log("setBanner", data, token);
-
+export const setBanner = async ({ data, bannerType, id = 0 }) => {
   const res = await fetchWithAuth(`${API_URL}/affiliate/banner/${bannerType}/${id}`, {
     method: "POST",
     body: data,
-    headers: { authorization: `Bearer ${token}` },
   });
 
   revalidateTag("adminBanner");

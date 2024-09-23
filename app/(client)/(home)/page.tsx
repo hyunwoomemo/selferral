@@ -12,16 +12,16 @@ import MyTrade from "./my-trade";
 import { getAdminBanner } from "@/actions/site/action";
 
 export default async function Home() {
-  const token = cookies().get("token");
   const exchanges = await getExchanges();
   console.log("exchangesexchanges", exchanges);
-  const banners = await getAdminBanner({ type: "all", token: token?.value });
+  const banners = await getAdminBanner({ type: "all" });
 
   // const banners = await getBanners();
+  console.log("banners", banners);
   // const uidData = await getUidList({ token: token?.value });
   // console.log("uidData", uidData);
 
-  const uidData = await getUidStatus({ token: token?.value });
+  const uidData = await getUidStatus({});
 
   console.log("dddads", uidData);
 
@@ -49,7 +49,7 @@ export default async function Home() {
 
           <RollingBanner />
 
-          {exchanges.data.length > 0 && <SearchUid exchangeData={exchanges.data} token={token?.value} />}
+          {exchanges.data.length > 0 && <SearchUid exchangeData={exchanges.data} />}
           <Divider />
 
           <PaybackSection />

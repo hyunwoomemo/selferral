@@ -8,8 +8,7 @@ import { getAffiliateExchanges, getExchanges } from "@/actions/trade/action";
 import { cookies } from "next/headers";
 
 export default async function Page() {
-  const token = cookies().get("token");
-  const exchanges = await getAffiliateExchanges(token?.value);
+  const exchanges = await getAffiliateExchanges();
   console.log("exchanges", exchanges);
 
   return (

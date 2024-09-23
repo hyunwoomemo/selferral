@@ -6,9 +6,8 @@ import React from "react";
 
 const page = async ({ params, searchParams }) => {
   const uid = params.uid;
-  const token = cookies().get("token");
 
-  const uidDatas = await getUidStatus({ token: token?.value });
+  const uidDatas = await getUidStatus({});
   const uidData = await uidDatas.data.DATA.find((v) => v.user_uid === uid);
 
   const exchangeData = await getExchange(uidData.exchange_id);

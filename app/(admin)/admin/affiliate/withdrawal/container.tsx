@@ -27,7 +27,7 @@ const stepData = [
   },
 ];
 
-const Container = ({ exchanges, token }) => {
+const Container = ({ exchanges }) => {
   const [tab, setTab] = useState("all");
   const [data, setData] = useState({ total: 0, list: [] });
   const [exchange, setExchange] = useState({});
@@ -38,7 +38,7 @@ const Container = ({ exchanges, token }) => {
   console.log("storedExchanges", storedExchanges);
 
   useEffect(() => {
-    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, token }).then((res) => setData(res.data));
+    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab }).then((res) => setData(res.data));
   }, [tab]);
 
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
@@ -46,10 +46,10 @@ const Container = ({ exchanges, token }) => {
   console.log("exchanges", exchanges, data);
 
   const handleUpdateStep = async ({ id, step }) => {
-    const res = await updateStep({ withdrawlId: id, step, token });
+    const res = await updateStep({ withdrawlId: id, step });
 
     if (res.data === "OK") {
-      getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, token })
+      getWithdrawals({ exchangeId: tab === "all" ? 0 : tab })
         .then((res) => setData(res.data))
         .finally(() => {
           setIsVisible(-1);

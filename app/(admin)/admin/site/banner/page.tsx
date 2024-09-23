@@ -12,15 +12,14 @@ export default async function Page() {
   // title, memo, status [1 active, 2 close] , order, starttime [2024-09-15 00:00:00], endtime,  banner_image 배너 이미지, banner_id 0 신규, banner_type 은 자유임 사용자 화면에 구역별로 입력요망
 
   // 사용자 배너 : /auth/banners
-  const token = cookies().get("token");
 
-  const banners = await getAdminBanner({ type: "all", token: token?.value });
+  const banners = await getAdminBanner({ type: "all" });
   console.log("banners", banners.data);
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">
       <h1 className="text-3xl">배너</h1>
-      <Container banners={banners} token={token?.value} />
+      <Container banners={banners} />
       <AddBtn />
     </div>
   );

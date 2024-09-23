@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 
 const keys = ["payback", "discount", "market_order", "limit_order", "tag", "status", "average_refund", "affiliate_join_url"];
 
-const Container = ({ exchangeId, token, link, linkId }) => {
+const Container = ({ exchangeId, link, linkId }) => {
   const [values, setValues] = useState({});
   const { addToast } = useToast();
   const router = useRouter();
@@ -36,7 +36,7 @@ const Container = ({ exchangeId, token, link, linkId }) => {
         formData.append(key, values[key]);
       }
     }
-    const res = await editLinksForm({ id: exchangeId, linkId: linkId, token, formData });
+    const res = await editLinksForm({ id: exchangeId, linkId: linkId, formData });
 
     console.log("addddd res", res);
 

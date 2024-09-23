@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 
 const keys = ["name", "nameExt", "blog_url", "customer_url", "tag", "image_thumb", "image_big", "status", "order"];
 
-const Container = ({ data, token, exchangeId }) => {
+const Container = ({ data, exchangeId }) => {
   const [values, setValues] = useState({});
   const { addToast } = useToast();
   const router = useRouter();
@@ -60,7 +60,7 @@ const Container = ({ data, token, exchangeId }) => {
 
     console.log("vvvv", values);
 
-    const res = await editExchangeForm({ id: exchangeId, token, formData });
+    const res = await editExchangeForm({ id: exchangeId, formData });
 
     console.log("vvvvv", res);
 

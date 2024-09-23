@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const Container = ({ token }) => {
+const Container = ({}) => {
   const [values, setValues] = useState({ status: 1 });
   const { addToast } = useToast();
   const router = useRouter();
@@ -47,8 +47,8 @@ const Container = ({ token }) => {
 
     linkData.append("status", 1);
 
-    const res = await editExchangeForm({ id: 0, token, formData });
-    const res1 = await editLinksForm({ id: res.exchange_id, linkId: 0, token: token, formData: linkData });
+    const res = await editExchangeForm({ id: 0, formData });
+    const res1 = await editLinksForm({ id: res.exchange_id, linkId: 0, formData: linkData });
     console.log("vvvvvv", res, res1);
 
     if (res.exchange_id && res1.link_id) {

@@ -7,9 +7,8 @@ import { cookies } from "next/headers";
 
 export default async function Page() {
   const users = await getAllUser();
-  const token = cookies().get("token");
 
   console.log("users", users);
 
-  return <Container users={users.DATA} token={token?.value} />;
+  return <Container users={users.DATA} />;
 }

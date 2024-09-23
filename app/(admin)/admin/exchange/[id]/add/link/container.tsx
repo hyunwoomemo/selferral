@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Switch from "@/components/ui/switch";
 import React, { useState } from "react";
 
-const Container = ({ exchangeId, token }) => {
+const Container = ({ exchangeId }) => {
   const [values, setValues] = useState({});
 
   console.log("vvv", values);
@@ -18,7 +18,7 @@ const Container = ({ exchangeId, token }) => {
         formData.append(key, values[key]);
       }
     }
-    const res = await editLinksForm({ id: exchangeId, linkId: 0, token, formData });
+    const res = await editLinksForm({ id: exchangeId, linkId: 0, formData });
 
     console.log("addddd res", res);
   };

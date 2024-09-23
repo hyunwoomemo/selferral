@@ -9,7 +9,7 @@ import React, { useCallback, useState } from "react";
 
 const fields = ["title", "memo", "order", "starttime", "endtime", "status", "banner_image", "banner_type"];
 
-const Container = ({ token }) => {
+const Container = ({}) => {
   const [values, setValues] = useState({});
   const router = useRouter();
   const { addToast } = useToast();
@@ -63,7 +63,7 @@ const Container = ({ token }) => {
       }
     }
 
-    const res = await setBanner({ token, data: formData, bannerType: values["banner_type"] });
+    const res = await setBanner({ data: formData, bannerType: values["banner_type"] });
 
     addToast({ text: "배너가 추가되었습니다." });
 

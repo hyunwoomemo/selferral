@@ -6,15 +6,13 @@ import { cookies } from "next/headers";
 import React from "react";
 
 const page = async () => {
-  const token = cookies().get("token");
-
-  const data = await getUidRegisterStatus({ token: token?.value, status: 1, exchange_id: 0, rownum: 10, page: 1 });
+  const data = await getUidRegisterStatus({ status: 1, exchange_id: 0, rownum: 10, page: 1 });
 
   const exchangeData = await getExchanges();
 
   const users = await getAllUser();
 
-  const a = await getUidList({ token: token?.value });
+  const a = await getUidList({});
   console.log("getUidList", a);
 
   console.log("data", data.data.list);

@@ -28,23 +28,20 @@ export const getExchange = async (id) => {
   return data.data.find((v) => v.exchange_id == id);
 };
 
-export const getAffiliateExchanges = async (token) => {
+export const getAffiliateExchanges = async () => {
   const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/getAll`, {
-    headers: { authorization: `Bearer ${token}` },
     // cache: "force-cache",
   });
 
   return res;
 };
 
-export const editExchangeForm = async ({ id, token, formData }) => {
-  console.log("123123", id, token, formData);
+export const editExchangeForm = async ({ id, formData }) => {
   try {
     console.log("body", formData);
 
     const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/${id}`, {
       //"Content-Type": "multipart/form-data"
-      headers: { authorization: `Bearer ${token}` },
       body: formData,
       method: "POST",
     });
@@ -56,11 +53,8 @@ export const editExchangeForm = async ({ id, token, formData }) => {
   }
 };
 
-export const editLinksForm = async ({ id, linkId, token, formData }) => {
-  console.log("idasdasd", id, linkId, token, formData);
-
+export const editLinksForm = async ({ id, linkId, formData }) => {
   const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/links/${id}/${linkId}`, {
-    headers: { authorization: `Bearer ${token}` },
     body: formData,
     method: "POST",
   });
@@ -70,12 +64,9 @@ export const editLinksForm = async ({ id, linkId, token, formData }) => {
   return res;
 };
 
-export const getUidListById = async ({ id, token }) => {
+export const getUidListById = async ({ id }) => {
   console.log("idid", id);
-  const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/${id}/10/1`, {
-    headers: { authorization: `Bearer ${token}` },
-    // cache: "force-cache",
-  });
+  const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/${id}/10/1`, {});
 
   return res;
 };
@@ -84,15 +75,12 @@ export const getUidListById = async ({ id, token }) => {
 // /exchange/affiliate/:mode/:exchange_id
 // mode = get 조회 / set 신청.   신청시 uid post 로 전달
 
-export const registerUID = async ({ id, token, uid }) => {
+export const registerUID = async ({ id, uid }) => {
   try {
-    console.log(id, token, uid);
-
     const formData = new FormData();
     formData.append("uid", uid);
     const res = await fetchWithAuth(`${API_URL}/exchange/affiliate/set/${id}`, {
       method: "POST",
-      headers: { authorization: `Bearer ${token}` },
 
       body: formData,
     });
@@ -107,12 +95,11 @@ export const registerUID = async ({ id, token, uid }) => {
   }
 };
 
-export const getWithdrawals = async ({ exchangeId, token, num = 10, page = 1 }) => {
+export const getWithdrawals = async ({ exchangeId, num = 10, page = 1 }) => {
   const res = await fetchWithAuth(
     `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page} 
 `,
     {
-      headers: { authorization: `Bearer ${token}` },
       next: { tags: ["withdrawals"] },
     }
   );
@@ -120,7 +107,7 @@ export const getWithdrawals = async ({ exchangeId, token, num = 10, page = 1 }) 
   return res;
 };
 
-export const setWithdrawal = async ({ token, data }) => {
+export const setWithdrawal = async ({ data }) => {
   const formData = new FormData();
   for (const key in data) {
     formData.append(key, data[key]);
@@ -128,7 +115,6 @@ export const setWithdrawal = async ({ token, data }) => {
 
   const res = await fetchWithAuth(`${API_URL}/exchange/withdrawal`, {
     method: "POST",
-    headers: { authorization: `Bearer ${token}` },
     body: formData,
   });
 
@@ -136,13 +122,12 @@ export const setWithdrawal = async ({ token, data }) => {
   return res;
 };
 
-export const updateStep = async ({ withdrawlId, step, token }) => {
+export const updateStep = async ({ withdrawlId, step }) => {
   const res = await fetchWithAuth(
     `${API_URL}/affiliate/Exchange/withdrawal/${withdrawlId}/${step}
 `,
     {
       method: "POST",
-      headers: { authorization: `Bearer ${token}` },
     }
   );
 
@@ -154,40 +139,31 @@ export const updateStep = async ({ withdrawlId, step, token }) => {
   return res;
 };
 
-export const getLinks = async ({ token, exchange_id }) => {
-  const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/links/${exchange_id}`, {
-    headers: { authorization: `Bearer ${token}` },
-  });
+export const getLinks = async ({ exchange_id }) => {
+  const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/links/${exchange_id}`, {});
 
   return res;
 };
 
-export const getUidList = async ({ token }) => {
+export const getUidList = async ({}) => {
   const res = await fetchWithAuth(`${API_URL}/exchange/withdrawals`, {
-    headers: { authorization: `Bearer ${token}` },
     next: { tags: ["uidlist"] },
   });
 
   return res;
 };
 
-export const getUidRegisterStatus = async ({ token, status, exchange_id, rownum, page }) => {
+export const getUidRegisterStatus = async ({ status, exchange_id, rownum, page }) => {
   const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/order_uid/${status}/${exchange_id}/${rownum}/${page}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
     next: { tags: ["uidstandby"] },
   });
 
   return res;
 };
 
-export const updateUidStatus = async ({ status, order_id, token }) => {
-  console.log(status, order_id, token);
-
+export const updateUidStatus = async ({ status, order_id }) => {
   const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/order_uid/${status}/${order_id}`, {
     method: "POST",
-    headers: { authorization: `Bearer ${token}` },
   });
   console.log("res1231231", res);
 
@@ -197,11 +173,10 @@ export const updateUidStatus = async ({ status, order_id, token }) => {
   return res;
 };
 
-export const uploadExcel = async ({ formData, token }) => {
+export const uploadExcel = async ({ formData }) => {
   const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/excel`, {
     method: "POST",
     body: formData,
-    headers: { authorization: `Bearer ${token}` },
   });
 
   revalidateTag("uidlist");
@@ -209,9 +184,8 @@ export const uploadExcel = async ({ formData, token }) => {
   return response;
 };
 
-export const getUidStatus = async ({ token }) => {
+export const getUidStatus = async ({}) => {
   const response = await fetchWithAuth(`${API_URL}/exchange/UidStatus`, {
-    headers: { authorization: `Bearer ${token}` },
     next: { tags: ["uidStatus"] },
   });
 

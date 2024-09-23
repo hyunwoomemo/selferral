@@ -6,9 +6,8 @@ import { cookies } from "next/headers";
 
 const Page = async () => {
   const exchanges = await getExchanges();
-  const { value: token } = cookies().get("token");
 
-  return <Container exchanges={exchanges} token={token} />;
+  return <Container exchanges={exchanges} />;
 };
 
 export default Page;

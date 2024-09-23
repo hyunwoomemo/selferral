@@ -10,7 +10,6 @@ import Title from "@/components/ui/title";
 import Link from "next/link";
 import React from "react";
 import EditButton from "./editPassword-button";
-import { setCookie } from "cookies-next";
 
 const stepData = [
   {
@@ -32,17 +31,15 @@ const stepData = [
 ];
 
 export default async function Page() {
-  const token = cookies().get("token");
-  const refresh = cookies().get("refresh");
-  const data = await getInfo(token?.value, refresh?.value);
+  const data = await getInfo();
 
   // const uidData = await getUidListById({ id });
 
-  const uidData = await getUidList({ token: token?.value });
+  const uidData = await getUidList({});
 
   console.log("uidData", uidData);
 
-  const withdrawal = await getWithdrawal({ token: token?.value });
+  const withdrawal = await getWithdrawal({});
 
   const renderItem = () => {
     if (uidData?.data.length === 0)
@@ -137,8 +134,8 @@ export default async function Page() {
   }
 
   if (data?.accessToken) {
-    setCookie("token", data.accessToken);
-    // cookies().set("token", data.accessToken);
+    // setCookie("token", data.accessToken);
+    cookies().set("token", data.accessToken);
   }
 
   // const RednerItem = () => {

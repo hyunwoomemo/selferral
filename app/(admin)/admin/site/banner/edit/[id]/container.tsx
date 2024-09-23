@@ -8,7 +8,7 @@ import React, { useCallback, useState } from "react";
 
 const fields = ["title", "memo", "order", "starttime", "endtime", "status", "banner_image", "banner_type"];
 
-const Container = ({ token, banner }) => {
+const Container = ({ banner }) => {
   const [values, setValues] = useState({});
   const router = useRouter();
   const { addToast } = useToast();
@@ -66,7 +66,7 @@ const Container = ({ token, banner }) => {
     }
 
     console.log("123123123123, ", formData);
-    const res = await setBanner({ token, data: formData, bannerType: values["banner_type"] || banner["position"], id: banner.id });
+    const res = await setBanner({ data: formData, bannerType: values["banner_type"] || banner["position"], id: banner.id });
 
     console.log("res", res);
 

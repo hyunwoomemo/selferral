@@ -10,9 +10,7 @@ import Table from "@/components/ui/table";
 import ServerPagination from "@/components/ui/server-pagination";
 
 const page = async ({ searchParams }) => {
-  const token = cookies().get("token");
-
-  const data = await getUidRegisterStatus({ token: token?.value, status: searchParams.type || 0, exchange_id: 0, rownum: 20, page: searchParams.page || 1 });
+  const data = await getUidRegisterStatus({ status: searchParams.type || 0, exchange_id: 0, rownum: 20, page: searchParams.page || 1 });
 
   console.log("data", data);
 
