@@ -1,10 +1,10 @@
-import { getExchange, getLinks } from "@/actions/trade/action";
+import { getAffiliateExchange, getExchange, getLinks } from "@/actions/trade/action";
 import React from "react";
 import Container from "./container";
 import { cookies } from "next/headers";
 
 const Page = async ({ params }) => {
-  const data = await getExchange(params.id);
+  const data = await getAffiliateExchange(params.id);
 
   console.log("datadata", data);
 

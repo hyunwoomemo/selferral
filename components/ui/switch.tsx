@@ -1,13 +1,19 @@
 "use client";
+import { useToast } from "@/hooks/useToast";
 import React, { useState } from "react";
 
 const Switch = ({ active, setActive }) => {
   // const [active, setActive] = useState(false);
 
+  const { addToast } = useToast();
+
   return (
     <div
       className={`hidden lg:inline-block ${active ? "bg-orange-400 dark:bg-orange-600" : "bg-gray-200 dark:bg-gray-400"}`}
-      onClick={() => setActive((prev) => !prev)}
+      onClick={(e) => {
+        e.stopPropagation();
+        setActive((prev) => !prev);
+      }}
       style={{ position: "relative", width: 60, height: 30, borderRadius: 30 }}
     >
       <div

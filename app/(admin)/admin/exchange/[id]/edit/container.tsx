@@ -30,8 +30,6 @@ const Container = ({ data, exchangeId }) => {
   }, [data]);
 
   const handleChange = (type, value) => {
-    if (!value) return;
-
     setValues((prev) => ({ ...prev, [type]: value }));
 
     if (type.includes("image")) {
@@ -147,9 +145,9 @@ const Container = ({ data, exchangeId }) => {
                   <div className="min-w-[70px]">
                     <div className="relative w-[50px]  h-[50px] flex items-center justify-center">
                       {previewUrls.image_thumb ? (
-                        <Image src={previewUrls.image_thumb} width={50} height={50} alt="preview-thumb" />
+                        <Image src={`http://api.xn--3l2b13oekp.com${previewUrls.image_thumb}`} width={50} height={50} alt="preview-thumb" />
                       ) : values.image_thumb ? (
-                        <Image src={values.image_thumb} width={50} height={50} alt="logo" />
+                        <Image src={`http://api.xn--3l2b13oekp.com${values.image_thumb}`} width={50} height={50} alt="logo" />
                       ) : undefined}
                     </div>
                   </div>
@@ -163,9 +161,9 @@ const Container = ({ data, exchangeId }) => {
             <div className="max-w-72 mx-2 flex flex-col rounded-lg   font-bold border border-gray-200 dark:border-gray-600 shadow-2xl" style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 3px 20px" }}>
               <div className="min-w-60 h-32  bg-background  rounded-t-md flex justify-center items-center text-black relative overflow-hidden border-b border-gray-200 dark:border-gray-600 bg-black">
                 {previewUrls.image_big ? (
-                  <Image src={previewUrls.image_big} fill className="object-contain md:object-contain" alt="exchange-image" />
+                  <Image src={`http://api.xn--3l2b13oekp.com${previewUrls.image_big}`} fill className="object-contain md:object-contain" alt="exchange-image" />
                 ) : values.image_big ? (
-                  <Image src={values.image_big} fill className="object-contain md:object-contain" alt="exchange-image" />
+                  <Image src={`http://api.xn--3l2b13oekp.com${values.image_big}`} fill className="object-contain md:object-contain" alt="exchange-image" />
                 ) : undefined}
               </div>
               <div className="py-3 px-2">

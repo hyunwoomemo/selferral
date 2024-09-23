@@ -1,5 +1,5 @@
 "use client";
-import { getLinks } from "@/actions/trade/action";
+import { editStatusExchange, getLinks } from "@/actions/trade/action";
 import Switch from "@/components/ui/switch";
 import Table from "@/components/ui/table";
 import { ChevronDown, Edit, Link2, Loader } from "lucide-react";
@@ -66,23 +66,24 @@ const ExchangeItem = ({ exchanges }) => {
   const render = () => {
     return exchanges.data.map((v) => {
       return (
-        <div key={v.exchange_id} className="p-3 bg-white rounded-md" onClick={() => handleExchangeClick(v.exchange_id)}>
+        <div key={v.id} className="p-3 bg-white rounded-md" onClick={() => handleExchangeClick(v.id)}>
           <div className="px-3 pr-5 flex bg-white min-h-20  gap-5 items-center">
-            <div className="flex justify-center items-center">{v.image_thumb && <Image src={v.image_thumb} width={50} height={50} alt="logo" />}</div>
+            <div className="flex justify-center items-center">{v.image_thumb && <Image src={`http://api.xn--3l2b13oekp.com${v.image_thumb}`} width={50} height={50} alt="logo" />}</div>
             <div className="font-bold text-gray-600">{v.name}</div>
             {v.nameExt && <div className="text-xs p-1 px-2 bg-orange-100 rounded-md">{v.nameExt}</div>}
             <div className="ml-auto flex gap-5">
+              <Switch active={v.status === 1} setActive={() => editStatusExchange({ id: v.id, data: v })} />
               <Edit
                 className="hover:text-orange-400"
                 onClick={(e) => {
                   e.stopPropagation();
-                  router.push(`/admin/exchange/${v.exchange_id}/edit`);
+                  router.push(`/admin/exchange/${v.id}/edit`);
                 }}
               />
               <ChevronDown />
             </div>
           </div>
-          {exchange === v.exchange_id && (
+          {exchange === v.id && (
             <>
               {loading ? (
                 <div className="flex justify-center min-h-20 items-center">

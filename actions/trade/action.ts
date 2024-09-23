@@ -23,6 +23,8 @@ export const getExchange = async (id) => {
 
   const data = await res.json();
 
+  console.log("dddd", data, id);
+
   return data.data.find((v) => v.exchange_id == id);
 };
 
@@ -34,7 +36,44 @@ export const getAffiliateExchanges = async () => {
   return res;
 };
 
+export const getAffiliateExchange = async (id) => {
+  const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/getAll`, {
+    // cache: "force-cache",
+  });
+
+  console.log("13123123", res);
+
+  return res.data.find((v) => v.id == id);
+};
+
 export const editExchangeForm = async ({ id, formData }) => {
+  console.log("ffffsdfsdf", formData);
+
+  try {
+    const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/${id}`, {
+      //"Content-Type": "multipart/form-data"
+      body: formData,
+      method: "POST",
+    });
+
+    revalidateTag("exchanges");
+    return res;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const editStatusExchange = async ({ id, data, status }) => {
+  const formData = new FormData();
+
+  for (const key in data) {
+    if (key !== "status") {
+      formData.append(key, data[key]);
+    } else {
+      formData.append(key, data[key] === 1 ? 0 : 1);
+    }
+  }
+
   try {
     const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/${id}`, {
       //"Content-Type": "multipart/form-data"

@@ -11,7 +11,9 @@ import { useMemo } from "react";
 import ExchangeItem from "./exchange-item";
 
 export default async function Page() {
-  const exchanges = await getExchanges();
+  const exchanges = await getAffiliateExchanges();
+
+  console.log("exchanges", exchanges);
 
   return (
     <div className="p-8 font-bold flex-auto pb-32">

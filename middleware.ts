@@ -14,8 +14,6 @@ export default async function middleware(request: NextRequest) {
 
   const accessToken = cookies.get("token");
 
-  console.log("accessToken", accessToken);
-
   // const res = await getInfo({ accessToken });
 
   // console.log("rrfrfrfr", res);
