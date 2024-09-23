@@ -33,15 +33,15 @@ const stepData = [
 export default async function Page() {
   const token = cookies().get("token");
   const refresh = cookies().get("refresh");
-  const data = await getInfo(token?.value, refresh.value);
+  const data = await getInfo(token?.value, refresh?.value);
 
   // const uidData = await getUidListById({ id });
 
-  const uidData = await getUidList({ token: token.value });
+  const uidData = await getUidList({ token: token?.value });
 
   console.log("uidData", uidData);
 
-  const withdrawal = await getWithdrawal({ token: token.value });
+  const withdrawal = await getWithdrawal({ token: token?.value });
 
   const renderItem = () => {
     if (uidData?.data.length === 0)

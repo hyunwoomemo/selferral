@@ -8,7 +8,7 @@ const Page = async ({ params }) => {
   const token = cookies().get("token");
   const data = await getExchange(params.id);
 
-  const uid = await getUidListById({ id: params.id, token: token.value });
+  const uid = await getUidListById({ id: params.id, token: token?.value });
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">

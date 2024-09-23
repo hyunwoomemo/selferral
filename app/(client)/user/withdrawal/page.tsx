@@ -29,7 +29,7 @@ const stepData = [
 const Page = async ({ searchParams }) => {
   const token = cookies().get("token");
   console.log("token", token);
-  const withdrawal = await getWithdrawal({ token: token.value });
+  const withdrawal = await getWithdrawal({ token: token?.value });
 
   const exchange_id = searchParams?.exchange_id;
 

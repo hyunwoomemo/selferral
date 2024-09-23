@@ -9,7 +9,7 @@ import { getExchanges } from "@/actions/trade/action";
 const page = async ({ params }) => {
   const token = cookies().get("token");
 
-  const banners = await getAdminBanner({ type: "all", token: token.value });
+  const banners = await getAdminBanner({ type: "all", token: token?.value });
 
   const banner = await banners.data.list.find((v) => v.id == params.id);
 
