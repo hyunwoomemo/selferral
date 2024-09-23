@@ -90,7 +90,7 @@ export default async function Home() {
             {banners && Object.keys(banners).length && <Banner banners={banners} />}
           </div> */}
 
-          {banners.data.list.length > 0 && (
+          {banners?.data?.list?.length > 0 && (
             <>
               <Divider />
 
