@@ -10,6 +10,7 @@ import Title from "@/components/ui/title";
 import Link from "next/link";
 import React from "react";
 import EditButton from "./editPassword-button";
+import { setCookie } from "cookies-next";
 
 const stepData = [
   {
@@ -136,7 +137,8 @@ export default async function Page() {
   }
 
   if (data?.accessToken) {
-    cookies().set("token", data.accessToken);
+    setCookie("token", data.accessToken);
+    // cookies().set("token", data.accessToken);
   }
 
   // const RednerItem = () => {
