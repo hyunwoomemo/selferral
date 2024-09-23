@@ -41,6 +41,11 @@ const data = [
         value: "exchangeList",
         path: "/admin/exchange/list",
       },
+      {
+        label: "이벤트 목록",
+        value: "eventList",
+        path: "/admin/exchange/event",
+      },
     ],
   },
   {

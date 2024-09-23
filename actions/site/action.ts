@@ -24,6 +24,6 @@ export const setBanner = async ({ data, token, bannerType, id = 0 }) => {
   });
 
   revalidateTag("adminBanner");
-  redirect("/admin/site/banner");
+  redirect("/admin/exchange/event");
   // return result;
 };
