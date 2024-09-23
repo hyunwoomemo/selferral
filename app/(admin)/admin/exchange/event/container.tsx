@@ -9,12 +9,12 @@ const Container = ({ data, exchanges }) => {
   const renderItem = useCallback(() => {
     return (
       <div className="flex gap-5">
-        {data.map((v) => {
+        {data.map((v, i) => {
           const exchange = exchanges.find((v1) => v1.exchange_id === v.exchange_id);
 
           console.log("zxczxc", exchange);
           return (
-            <Link href={`/admin/exchange/event/edit/${v.id}`} className="flex flex-col gap-2 w-[200px]  relative">
+            <Link key={i} href={`/admin/exchange/event/edit/${v.id}`} className="flex flex-col gap-2 w-[200px]  relative">
               {v.path ? <Image className="rounded-2xl" src={`http://api.xn--3l2b13oekp.com${v.path}`} width={200} height={200} alt="logo" /> : undefined}
               <p className="text-gray-400 font-bold">{v.title}</p>
               <p className="font-bold text-xl break-keep">{v.memo}</p>
