@@ -27,9 +27,9 @@ const EventList = ({ data }) => {
               {/* <div className="relative"> */}
               {/* </div> */}
               {/* </div> */}
-              <p className="w-full font-bold text-gray-400  pt-3">{v.title}</p>
-              <p className="w-full py-1 text-lg font-bold break-keep">{v.memo}</p>
-              <div className="flex gap-1 text-xs text-gray-600 dark:text-gray-200">
+              <p className="text-sm w-full font-bold text-gray-400  pt-3">{v.title}</p>
+              <p className="text-sm md:text-[16px] w-full py-1  font-bold break-keep">{v.memo}</p>
+              <div className="flex gap-1 text-[10px] md:text-xs text-gray-600 dark:text-gray-200">
                 <CalendarDaysIcon size={16} />
                 <p>{moment(v.starttime).format("YYYY-MM-DD")}</p>
                 <p>~</p>

@@ -92,7 +92,7 @@ export default async function Home() {
               <Divider />
 
               <div className="px-4 pt-20">
-                <h2 className="text-2xl font-bold">셀퍼럴닷컴과 함께하는 이벤트</h2>
+                <h2 className="text-lg md:text-2xl font-bold">셀퍼럴닷컴과 함께하는 이벤트</h2>
                 <p className="text-gray-400 font-bold pt-2">트레이더님들을 위해 준비했어요</p>
                 <EventList data={banners.event} />
               </div>
