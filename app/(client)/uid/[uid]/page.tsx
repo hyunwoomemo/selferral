@@ -1,8 +1,10 @@
+import { getBanners } from "@/actions/common/action";
 import { getExchange, getUidList, getUidStatus } from "@/actions/trade/action";
 import { CircleDollarSign } from "lucide-react";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import React from "react";
+import EventList from "../../(home)/event-list";
 
 const page = async ({ params, searchParams }) => {
   const uid = params.uid;
@@ -11,12 +13,17 @@ const page = async ({ params, searchParams }) => {
   const uidData = await uidDatas.data.DATA.find((v) => v.user_uid === uid);
 
   const exchangeData = await getExchange(uidData.exchange_id);
+  const banners = await getBanners();
 
   console.log("123123", uidData, exchangeData);
 
   if (!exchangeData) {
     return <div className="p-4">존재하지 않는 거래소입니다.</div>;
   }
+
+  const Divider = () => {
+    return <div className="h-3 w-full bg-gray-50 dark:bg-gray-900"></div>;
+  };
 
   return (
     <div className="p-4">
@@ -43,6 +50,13 @@ const page = async ({ params, searchParams }) => {
       </div>
 
       <div className="pt-10 font-semibold text-gray-500">{uidData.exchange_name} 페이백 금액은 매일 오후 2시 전에 업데이트 됩니다.</div>
+
+      {banners.event.filter((v) => v.exchange_id === uidData.exchange_id).length > 0 && (
+        <div className="pt-10">
+          <p className="font-bold text-xl">진행 중인 이벤트</p>
+          <EventList data={banners.event.filter((v) => v.exchange_id === uidData.exchange_id)} />
+        </div>
+      )}
     </div>
   );
 };

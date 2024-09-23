@@ -20,6 +20,7 @@ export const setBanner = async ({ data, bannerType, id = 0 }) => {
   });
 
   revalidateTag("adminBanner");
+  revalidateTag("banner");
   redirect("/admin/exchange/event");
   // return result;
 };

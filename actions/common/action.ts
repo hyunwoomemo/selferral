@@ -7,7 +7,9 @@ export const revalidate = async (tag) => {
 };
 
 export const getBanners = async () => {
-  const res = await fetch(`${API_URL}/auth/banners`);
+  const res = await fetch(`${API_URL}/auth/banners`, {
+    next: { tags: ["banner"] },
+  });
 
   const data = await res.json();
 

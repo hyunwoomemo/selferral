@@ -4,6 +4,7 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useCallback } from "react";
+import { SwiperSlide } from "swiper/react";
 
 const Container = ({ data, exchanges }) => {
   const renderItem = useCallback(() => {
@@ -14,18 +15,25 @@ const Container = ({ data, exchanges }) => {
 
           console.log("zxczxc", exchange);
           return (
-            <Link key={i} href={`/admin/exchange/event/edit/${v.id}`} className="flex flex-col gap-2 w-[200px]  relative">
-              {v.path ? <Image className="rounded-2xl" src={`http://api.xn--3l2b13oekp.com${v.path}`} width={200} height={200} alt="logo" /> : undefined}
-              <p className="text-gray-400 font-bold">{v.title}</p>
-              <p className="font-bold text-xl break-keep">{v.memo}</p>
-              <div className="flex gap-1 text-xs items-center">
-                <CalendarDaysIcon size={16} />
-                <p>{moment(v.starttime).format("YYYY-MM-DD")}</p>
-                <p>~</p>
-                <p>{moment(v.endtime).format("YYYY-MM-DD")}</p>
+            <SwiperSlide id="event-slide" about="" key={i}>
+              <div className="w-full max-w-[155px] md:max-w-[200px] cursor-pointer" key={i} onClick={() => v.link && v.link != "null" && window.open(v.link)}>
+                <Image style={{ borderRadius: 20 }} width={200} height={180} src={`http://api.xn--3l2b13oekp.com${v.path}`} className="object-cover w-full max-h-[180px]" alt="eventImage" />
+                {/* <div className="relative w-full"> */}
+                {/* <Image className="rounded-lg object-cover" src={dummy.image} fill alt="eventImage" /> */}
+                {/* <div className="relative"> */}
+                {/* </div> */}
+                {/* </div> */}
+                <p className="w-full font-bold text-gray-400  pt-3">{v.title}</p>
+                <p className="w-full py-1 text-lg font-bold break-keep">{v.memo}</p>
+                <div className="flex gap-1 text-xs text-gray-600 dark:text-gray-200">
+                  <CalendarDaysIcon size={16} />
+                  <p>{moment(v.starttime).format("YYYY-MM-DD")}</p>
+                  <p>~</p>
+                  <p>{moment(v.endtime).format("YYYY-MM-DD")}</p>
+                </div>
               </div>
-              {exchange && exchange.image_thumb && <Image src={exchange.image_thumb} width={45} height={45} className="absolute top-[-8px] right-[-8px]" alt="logo" />}
-            </Link>
+              {exchange && exchange.image_thumb && <Image src={exchange.image_thumb} width={45} height={45} className="absolute top-[-15px] right-[-15px]" alt="logo" />}
+            </SwiperSlide>
           );
         })}
       </div>

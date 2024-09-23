@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import EventList from "./event-list";
 
 const MyTrade = ({ uidData, exchanges }) => {
   console.log("uu", uidData);
