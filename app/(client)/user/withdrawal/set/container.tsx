@@ -23,8 +23,6 @@ const Container = ({ data }) => {
   const handleSubmit = async () => {
     const res = await setWithdrawal({ token, data: { exchange_id: exchange.value, ...values } });
 
-    console.log("result", res);
-
     if (res.data === "aleady") {
       return window.alert("이미 등록되어있습니다.");
     }
@@ -38,11 +36,8 @@ const Container = ({ data }) => {
   };
 
   const handleDropdownClick = (value) => {
-    console.log("value", value);
     setExchange(value);
   };
-
-  console.log("exchange", exchange);
 
   return (
     <div className="mx-auto max-w-screen-xl">

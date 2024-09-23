@@ -9,7 +9,6 @@ import { cookies } from "next/headers";
 
 export default async function Page() {
   const exchanges = await getAffiliateExchanges();
-  console.log("exchanges", exchanges);
 
   return (
     <div className="p-8 font-bold flex-auto pb-32">

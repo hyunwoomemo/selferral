@@ -31,7 +31,8 @@ export function SiteHeader() {
   const { addToast } = useToast();
 
   useEffect(() => {
-    getInfo(token, refresh).then((res) => {
+    getInfo().then((res) => {
+      console.log("rrrrr", res);
       if (res?.CODE === "AI000") {
         setUser(res.DATA);
       }
@@ -40,10 +41,8 @@ export function SiteHeader() {
         // setCookie("token", "");
         // setUser({});
       }
-
       if (res?.accessToken) {
         setCookie("token", res.accessToken);
-
         getInfo(res.accessToken, refresh).then((res) => {
           if (res.CODE === "AI000") {
             setUser(res.DATA);

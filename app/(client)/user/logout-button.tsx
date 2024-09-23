@@ -15,6 +15,7 @@ export default function LogoutButton() {
 
   const handleLogout = async () => {
     deleteCookie("token");
+    deleteCookie("refresh");
     setUser({});
     router.push("/");
   };

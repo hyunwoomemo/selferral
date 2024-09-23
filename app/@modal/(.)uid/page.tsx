@@ -22,10 +22,6 @@ const Page = () => {
 
   const router = useRouter();
 
-  console.log("res", res);
-
-  console.log("uid", uid);
-
   // /exchange/affiliate/:mode/:exchange_id
 
   useEffect(() => {
@@ -42,12 +38,10 @@ const Page = () => {
         });
         const data = await res.json();
 
-        console.log("data", data);
         if (data.CODE === "EAG000") {
           setRes(data.DATA);
         }
       } catch (err) {
-        console.log(err);
       } finally {
         setLoading(false);
       }
@@ -74,8 +68,6 @@ const Page = () => {
     // const result = await res.json();
 
     const result = await registerUID({ id: exchange, token, uid });
-
-    console.log("registerUIDregisterUID", result);
 
     if (result.CODE === "EAS000") {
       router.back();
@@ -104,17 +96,11 @@ const Page = () => {
     }
   }, [time]);
 
-  console.log("time", time);
-
   const leftTime = useMemo(() => {
     if (time) {
       const hour = Math.abs(parseInt(time / 3600));
       const minute = parseInt((time - hour * 3600) / 60);
       const second = time - hour * 3600 - minute * 60;
-
-      console.log("hour", hour);
-      console.log("minute", minute);
-      console.log("second", second);
 
       if (hour > 0) {
         return `${hour}시간 ${minute}분 ${second}초`;
@@ -128,11 +114,7 @@ const Page = () => {
     }
   }, [time]);
 
-  console.log("leftTime", leftTime);
-
   const renderItem = useCallback(() => {
-    console.log("rr", res);
-
     if (!res) {
       return <div>로딩..</div>;
     }

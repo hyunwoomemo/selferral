@@ -9,8 +9,6 @@ const serveraction = (prevState, formData) => {
   const name = formData.get("name");
   const hp = formData.get("hp");
 
-  console.log("123", email, password, name, hp);
-
   const bname = formData.get("insert");
 
   if (bname === "insert") {

@@ -8,8 +8,6 @@ import React, { useState } from "react";
 const Container = ({ exchangeId }) => {
   const [values, setValues] = useState({});
 
-  console.log("vvv", values);
-
   const handleAdd = async () => {
     const formData = new FormData();
 
@@ -19,8 +17,6 @@ const Container = ({ exchangeId }) => {
       }
     }
     const res = await editLinksForm({ id: exchangeId, linkId: 0, formData });
-
-    console.log("addddd res", res);
   };
 
   return (

@@ -33,7 +33,6 @@ const Page = () => {
     try {
       const data = await uploadExcel({ token: token, formData: formData });
 
-      console.log("data!!!", data);
       if (data.flag === "ok") {
         setFile(null);
         // window.alert("액셀이 업로드 되었습니다.");

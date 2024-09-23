@@ -27,8 +27,6 @@ const Container = ({ data, links, exchangeId }) => {
   const router = useRouter();
   const { addToast } = useToast();
 
-  console.log("dddddd", prev, data);
-
   const handleEdit = async (e) => {
     e.preventDefault();
 
@@ -36,8 +34,6 @@ const Container = ({ data, links, exchangeId }) => {
     const linksData = new FormData();
 
     for (const key in values) {
-      console.log("key", key, values[key]);
-
       linksBody[key] = values[key];
     }
 
@@ -60,7 +56,6 @@ const Container = ({ data, links, exchangeId }) => {
 
       for (const key in linksBody) {
         if (!key.includes("image")) {
-          console.log("key", key, linksBody[key]);
           linksData.append(key, linksBody[key]);
         }
       }
@@ -68,8 +63,6 @@ const Container = ({ data, links, exchangeId }) => {
       if (!linksData.has("status")) linksData.append("status", prev["status"]);
 
       const res = await editLinksForm({ id: data.exchange_id, linkId: data.id, formData: linksData });
-
-      console.log("123123 links DAta!!!", res);
     }
 
     addToast({ text: "거래소가 수정되었습니다." });

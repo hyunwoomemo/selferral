@@ -14,10 +14,7 @@ import { getAdminBanner } from "@/actions/site/action";
 export default async function Home() {
   const exchanges = await getExchanges();
   console.log("exchangesexchanges", exchanges);
-  const banners = await getAdminBanner({ type: "all" });
-
-  // const banners = await getBanners();
-  console.log("banners", banners);
+  const banners = await getBanners();
   // const uidData = await getUidList({ token: token?.value });
   // console.log("uidData", uidData);
 
@@ -90,14 +87,14 @@ export default async function Home() {
             {banners && Object.keys(banners).length && <Banner banners={banners} />}
           </div> */}
 
-          {banners?.data?.list?.length > 0 && (
+          {banners?.event?.length > 0 && (
             <>
               <Divider />
 
               <div className="px-4 pt-20">
                 <h2 className="text-2xl font-bold">셀퍼럴닷컴과 함께하는 이벤트</h2>
                 <p className="text-gray-400 font-bold pt-2">트레이더님들을 위해 준비했어요</p>
-                <EventList data={banners.data.list} />
+                <EventList data={banners.event} />
               </div>
             </>
           )}

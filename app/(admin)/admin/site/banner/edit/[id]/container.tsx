@@ -13,8 +13,6 @@ const Container = ({ banner }) => {
   const router = useRouter();
   const { addToast } = useToast();
 
-  console.log("banner", banner);
-
   const FieldItem = useCallback(({ field, type, onChange, defaultValue }) => {
     return (
       <div className="flex gap-2 items-center">
@@ -24,7 +22,7 @@ const Container = ({ banner }) => {
           onChange={onChange}
           defaultValue={defaultValue}
           // onChange={(e) => {
-          //   console.log(e.target.files[0]);
+
           //   setValues((prev) => ({ ...prev, files: prev.files ? [...prev.files, e.target.files[0]] : [e.target.files[0]] }));
           // }}
           placeholder={field}
@@ -35,10 +33,7 @@ const Container = ({ banner }) => {
     );
   }, []);
 
-  console.log("values", values);
-
   const handleBanner = async (e) => {
-    console.log("sdmfkmsdkfmks");
     e.preventDefault();
 
     const formData = new FormData();
@@ -52,10 +47,8 @@ const Container = ({ banner }) => {
         formData.append(key, values[key]);
       }
     }
-    console.log("sdmfkmsdkfmks", banner);
 
     for (const key in banner) {
-      console.log(formData.has(key));
       if (formData.has(key)) continue;
 
       if (key === "position") {
@@ -65,10 +58,7 @@ const Container = ({ banner }) => {
       }
     }
 
-    console.log("123123123123, ", formData);
     const res = await setBanner({ data: formData, bannerType: values["banner_type"] || banner["position"], id: banner.id });
-
-    console.log("res", res);
 
     addToast({ text: "배너가 변경되었습니다." });
   };
@@ -77,7 +67,6 @@ const Container = ({ banner }) => {
     <form onSubmit={handleBanner}>
       <div className="flex gap-3 flex-wrap">
         {fields.map((field) => {
-          console.log("field", field);
           // if (field.includes("image")) {
           //   return <FieldItem field={field} type={"file"} />;
           // }

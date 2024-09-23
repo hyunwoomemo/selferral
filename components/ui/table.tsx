@@ -5,8 +5,6 @@ const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black"
     return <div>데이터가 존재하지 않습니다.</div>;
   }
 
-  console.log("dddd", data);
-
   return (
     <div className={`${wide ? "w-full" : undefined}`}>
       <div className={`flex border-b p-3 px-5 ${headerClassname}`}>

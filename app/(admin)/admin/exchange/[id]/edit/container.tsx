@@ -17,8 +17,6 @@ const Container = ({ data, exchangeId }) => {
   const router = useRouter();
   const [previewUrls, setPreviewUrls] = useState({});
 
-  console.log("data", data);
-
   useEffect(() => {
     const temp = {};
 
@@ -47,8 +45,6 @@ const Container = ({ data, exchangeId }) => {
     }
   };
 
-  console.log("values", values);
-
   const handleEdit = async () => {
     const formData = new FormData();
 
@@ -58,11 +54,7 @@ const Container = ({ data, exchangeId }) => {
       }
     }
 
-    console.log("vvvv", values);
-
     const res = await editExchangeForm({ id: exchangeId, formData });
-
-    console.log("vvvvv", res);
 
     if (res.exchange_id) {
       router.push("/admin/exchange/list");

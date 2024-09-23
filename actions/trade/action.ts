@@ -23,8 +23,6 @@ export const getExchange = async (id) => {
 
   const data = await res.json();
 
-  console.log("data", data);
-
   return data.data.find((v) => v.exchange_id == id);
 };
 
@@ -38,8 +36,6 @@ export const getAffiliateExchanges = async () => {
 
 export const editExchangeForm = async ({ id, formData }) => {
   try {
-    console.log("body", formData);
-
     const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/${id}`, {
       //"Content-Type": "multipart/form-data"
       body: formData,
@@ -65,7 +61,6 @@ export const editLinksForm = async ({ id, linkId, formData }) => {
 };
 
 export const getUidListById = async ({ id }) => {
-  console.log("idid", id);
   const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/${id}/10/1`, {});
 
   return res;
@@ -165,7 +160,6 @@ export const updateUidStatus = async ({ status, order_id }) => {
   const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/order_uid/${status}/${order_id}`, {
     method: "POST",
   });
-  console.log("res1231231", res);
 
   revalidateTag("uidstandby");
   revalidateTag("uidlist");
@@ -188,8 +182,6 @@ export const getUidStatus = async ({}) => {
   const response = await fetchWithAuth(`${API_URL}/exchange/UidStatus`, {
     next: { tags: ["uidStatus"] },
   });
-
-  console.log("getUidStatus", response);
 
   return { data: response, time: Date.now() };
 };

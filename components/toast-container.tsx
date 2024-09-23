@@ -7,8 +7,6 @@ import ToastItem from "./toast-tiem";
 const ToastContainer = () => {
   const [toast, setToast] = useAtom(toastAtom);
 
-  console.log("toast", toast);
-
   if (toast.length === 0) {
     return;
   }

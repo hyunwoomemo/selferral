@@ -9,8 +9,6 @@ const days = ["일", "월", "화", "수", "목", "금", "토"];
 const Calendar = ({ dates, setDates, setIsVisibleDate }) => {
   const [date, setDate] = useState(dates[0] || new Date());
 
-  console.log("asdasd", date);
-
   const year = useMemo(() => {
     return date.getFullYear();
   }, [date]);
@@ -52,7 +50,7 @@ const Calendar = ({ dates, setDates, setIsVisibleDate }) => {
     (target) => {
       if (target === 0) return;
       const newDate = new Date(date.getFullYear(), date.getMonth(), target);
-      console.log(dates, target);
+
       if (dates.length === 2) {
         return dates[0] <= newDate && dates[1] >= newDate;
       } else {
@@ -104,8 +102,6 @@ const Calendar = ({ dates, setDates, setIsVisibleDate }) => {
       }
     });
   };
-
-  console.log("dates", date, dates);
 
   return (
     <div style={{ padding: "15px 0", position: "absolute", width: "100%", background: "white", zIndex: 9999 }}>

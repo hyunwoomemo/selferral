@@ -1,19 +1,24 @@
 "use server";
 import { API_URL } from "@/actions";
-import { setCookie } from "@/actions/user/action";
-// import { getCookie, setCookie } from "cookies-next";
+import { getCookie, setCookie } from "@/actions/user/action";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function fetchWithAuth(url, options = {}) {
-  const token = cookies().get("token")?.value; // 쿠키에서 액세스 토큰 가져오기
-  const refresh = cookies().get("refresh")?.value; // 쿠키에서 액세스 토큰 가져오기
-  console.log("fetchWithAuth", token, refresh);
+  // const token = getCookie("token");
+
+  const token = await getCookie("token"); // 쿠키에서 액세스 토큰 가져오기
+  // const a = await fetch("ht/api/user/logout", { method: "POST" });
+
+  // const token = await fetch("/api/user/token");
+  // const refresh = cookies().get("refresh")?.value; // 쿠키에서 액세스 토큰 가져오기
+
+  // console.log("tokentokentoken", token);
 
   // 요청 헤더에 액세스 토큰 포함
   options.headers = {
     ...options.headers,
-    authorization: `Bearer ${token}`,
+    authorization: token && `Bearer ${token}`,
   };
 
   // if (!token && !refresh) {
@@ -32,18 +37,14 @@ export async function fetchWithAuth(url, options = {}) {
       };
     } catch (error) {
       // 갱신 실패 시, 로그인 페이지로 리다이렉트하거나 오류 처리
-      console.error("Failed to refresh token:", error);
+
       // redirectToLogin();
       return;
     }
   }
 
-  console.log("optionsoptions", options);
-
   // API 요청 보내기
   const response = await fetch(url, options);
-
-  console.log("response", response.status);
 
   // 응답 처리
   if (response.status === 401) {
@@ -75,9 +76,8 @@ export async function fetchWithAuth(url, options = {}) {
 function isTokenExpired(token) {
   if (!token) return true;
 
-  console.log("isTokenExpired", token);
   const payload = JSON.parse(atob(token.split(".")[1]));
-  console.log("isTokenExpired payload", payload);
+
   return payload.exp < Date.now() / 1000;
 }
 
@@ -93,8 +93,6 @@ async function refreshToken() {
     },
   });
 
-  console.log("refreshTokenrefreshToken", refreshToken, response);
-
   // if (response.CODE !== 'ART000') {
   //   throw new Error("Failed to refresh token");
   // }
@@ -104,8 +102,6 @@ async function refreshToken() {
   if (data.CODE !== "ART000") {
     throw new Error("Failed to refresh token");
   }
-
-  console.log("datadata", data);
 
   return data.TOKEN.accessToken;
 }

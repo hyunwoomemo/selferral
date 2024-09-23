@@ -11,7 +11,6 @@ export const getAllUser = async () => {
   });
   const data = await res.json();
 
-  console.log("zxczxc", data);
   return data;
 };
 
@@ -30,7 +29,6 @@ export async function register(prevState: any, formData: FormData) {
   const password = formData.get("password");
   const name = formData.get("name");
   const hp = formData.get("hp");
-  console.log("nnn", id, password, name, hp);
 
   if (id === "" || password === "" || name === "" || hp === "") {
     return {
@@ -51,8 +49,6 @@ export async function register(prevState: any, formData: FormData) {
   });
 
   const data = await res.json();
-
-  console.log("data", data);
 
   if (data.CODE === "AR000") {
     redirect("/login");
@@ -111,15 +107,11 @@ export async function login(prevState: any, formData: FormData) {
 
   const data = await res.json();
 
-  console.log("data", data);
-
   return data;
 }
 
 export const getInfo = async () => {
   const res = await fetchWithAuth(`${API_URL}/auth/info`, {});
-
-  console.log("getInfogetInfo", res);
 
   return res;
 };
@@ -159,6 +151,10 @@ export const setUserType = async ({ id, type }) => {
     revalidateTag("users");
   }
   return res;
+};
+
+export const getCookie = (key) => {
+  return cookies().get(key)?.value;
 };
 
 export const setCookie = (key, value) => {

@@ -35,15 +35,12 @@ const Container = ({ exchanges }) => {
   const { addToast } = useToast();
 
   const storedExchanges = useAtomValue(exchangesAtom);
-  console.log("storedExchanges", storedExchanges);
 
   useEffect(() => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab }).then((res) => setData(res.data));
   }, [tab]);
 
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
-
-  console.log("exchanges", exchanges, data);
 
   const handleUpdateStep = async ({ id, step }) => {
     const res = await updateStep({ withdrawlId: id, step });
