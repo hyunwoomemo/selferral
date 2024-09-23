@@ -23,16 +23,16 @@ const data = [
       },
     ],
   },
-  {
-    label: "site",
-    children: [
-      {
-        label: "배너",
-        value: "banner",
-        path: "/admin/site/banner",
-      },
-    ],
-  },
+  // {
+  //   label: "site",
+  //   children: [
+  //     {
+  //       label: "배너",
+  //       value: "banner",
+  //       path: "/admin/site/banner",
+  //     },
+  //   ],
+  // },
   {
     label: "exchange",
     children: [
