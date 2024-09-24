@@ -81,8 +81,8 @@ const Container = ({ banners, exchanges }) => {
       <div className="flex gap-10 relative">
         <div className="flex flex-col gap-2">
           <Input type="file" onChange={(e) => handleChange("banner_image", e.target.files[0])} label={"이미지"} inputClassname={"max-w-[215px]"} />
-          <Input onChange={(e) => handleChange("title", e.target.value)} label={"타이틀"} />
-          <Input onChange={(e) => handleChange("memo", e.target.value)} label={"내용"} />
+          <Input maxLength={45} onChange={(e) => handleChange("title", e.target.value)} label={"타이틀"} />
+          <Input maxLength={45} onChange={(e) => handleChange("memo", e.target.value)} label={"내용"} />
           <Input onChange={(e) => handleChange("link", e.target.value)} label={"링크"} />
           {/* <Input onChange={(e) => handleChange('starttime', e.target.value)} label={"시작일"} />
         <Input onChange={(e) => handleChange('title', e.target.value)} label={"종료일"} /> */}
