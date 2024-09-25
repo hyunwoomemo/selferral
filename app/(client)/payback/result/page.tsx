@@ -145,7 +145,9 @@ export default function Page() {
       {/* <TradeReport /> */}
       <div className="py-10 flex justify-center">
         <Button
-          onClick={() => router.replace(`/uid?exchange=${paybackTest.id}&uid=${paybackTest.uid}&apply=true`)}
+          onClick={() => {
+            router.push("/exchange");
+          }}
           className={cn(buttonVariants({ size: "lg" }), "bg-orange-400 text-lg mx-auto w-1/2")}
         >
           {"페이백 신청하러 가기"}

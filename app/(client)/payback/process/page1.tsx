@@ -6,14 +6,12 @@ import { cn } from "@/lib/utils";
 import { useAtom, useSetAtom } from "jotai";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const Page1 = ({ exchanges }) => {
   const router = useRouter();
   const setSelectTrade = useSetAtom(selectedTradeAtom);
   const setPaybackTest = useSetAtom(paybackTestAtom);
-  // const params = useSearchParams();
-
-  // const uid = params.get("uid");
 
   return (
     <div className="px-2 py-10 text-xl font-bold bg-white">
@@ -34,7 +32,7 @@ const Page1 = ({ exchanges }) => {
               router.push("/payback/process/2");
               setPaybackTest((prev) => {
                 console.log("psdf", prev);
-                return { ...prev, name: v.name, id: v.exchange_id, market_order: v.market_order, limit_order: v.limit_order, payback: v.payback, image: v.image_thumb, uid };
+                return { ...prev, name: v.name, id: v.exchange_id, market_order: v.market_order, limit_order: v.limit_order, payback: v.payback, image: v.image_thumb };
               });
             }}
             className="min-w-[47%] flex items-center py-2  cursor-pointer gap-4"
