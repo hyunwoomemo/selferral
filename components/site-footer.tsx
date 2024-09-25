@@ -28,16 +28,16 @@ export function SiteFooter() {
           </a> */}
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">{siteConfig.copyright}</div>
-        <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">
+        <div className="py-2 mb-2 flex flex-col gap-1 md:gap-0 md:flex-row  text-sm text-muted-foreground">
           {/* <a href={siteConfig.links.personalSite} target="_blank">
             {siteConfig.author}
           </a> */}
           <div>상호명 : 주식회사 씨씨씨그룹 (CCC Group)</div>
-          <div>|</div>
+          <div className="hidden md:block">|</div>
           <div>사업자번호 : 296-81-03378</div>
-          <div>|</div>
+          <div className="hidden md:block">|</div>
           <div>주소 : 서울특별시 강남구 언주로 331,6층 601호 (역삼동, 안산빌딩)</div>
-          <div>|</div>
+          <div className="hidden md:block">|</div>
           <Link href={"mailto:ccc_33@naver.com"}>이메일 : ccc_33@naver.com</Link>
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">

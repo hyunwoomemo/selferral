@@ -8,7 +8,7 @@ export const revalidate = async (tag) => {
 
 export const getBanners = async () => {
   const res = await fetch(`${API_URL}/auth/banners`, {
-    next: { tags: ["banner"] },
+    next: { tags: ["banner"], revalidate: 60 * 60 * 1000 },
   });
 
   const data = await res.json();

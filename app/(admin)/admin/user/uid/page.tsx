@@ -12,7 +12,7 @@ import ServerPagination from "@/components/ui/server-pagination";
 const page = async ({ searchParams }) => {
   const data = await getUidRegisterStatus({ status: searchParams.type || 0, exchange_id: 0, rownum: 20, page: searchParams.page || 1 });
 
-  console.log("data", data);
+  console.log("data13123123", data.data);
 
   const exchangeData = await getExchanges();
 
@@ -24,6 +24,7 @@ const page = async ({ searchParams }) => {
       거래소명: exchangeData?.data?.find((v1) => v1.exchange_id == v.exchange_id)?.name,
       유저: users.DATA.find((user) => user.id == v.user_id).email,
       UID: v.user_uid,
+      // 커미션: v.
       신청일: moment(v.createtime).format("YYYY-MM-DD HH:mm"),
       "": <RegisterDropdown id={v.id} type={searchParams.type} />,
     };

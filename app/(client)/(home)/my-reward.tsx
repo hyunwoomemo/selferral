@@ -20,7 +20,7 @@ const MyReward = ({ uidData, exchanges }) => {
   console.log("useruser", user);
 
   const usdt = useMemo(() => {
-    return uidData.data?.DATA?.reduce((result, cur) => {
+    return uidData.data?.DATA?.filter((v) => exchanges.data.find((v1) => v1.exchange_id === v.exchange_id)?.status === 1).reduce((result, cur) => {
       if (cur.point) {
         result = result + Number(cur.point);
       }

@@ -18,9 +18,11 @@ export default async function Home() {
   // const uidData = await getUidList({ token: token?.value });
   // console.log("uidData", uidData);
 
+  console.log("exchanges.data", exchanges.data);
+
   const uidData = await getUidStatus({});
 
-  console.log("banners213123", banners.event);
+  console.log("uidDatauidData", uidData.data.DATA);
 
   const Divider = () => {
     return <div className="h-3 w-full bg-gray-50 dark:bg-gray-900"></div>;

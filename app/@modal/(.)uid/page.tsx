@@ -66,10 +66,14 @@ const Page = () => {
       return addToast({ text: "UID 등록에 실패했습니다." });
     }
 
-    const result = await registerUID({ id: exchange, token, uid });
+    const result = await registerUID({ id: exchange, uid });
+
+    console.log("13123123123123", result);
 
     if (result.CODE === "EAS000") {
-      router.back();
+      setTimeout(() => {
+        router.back();
+      }, 100);
 
       addToast({ text: "UID 등록 신청되었습니다." });
 
