@@ -11,9 +11,9 @@ const Page1 = ({ exchanges }) => {
   const router = useRouter();
   const setSelectTrade = useSetAtom(selectedTradeAtom);
   const setPaybackTest = useSetAtom(paybackTestAtom);
-  const params = useSearchParams();
+  // const params = useSearchParams();
 
-  const uid = params.get("uid");
+  // const uid = params.get("uid");
 
   return (
     <div className="px-2 py-10 text-xl font-bold bg-white">
