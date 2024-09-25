@@ -13,8 +13,6 @@ const page = async ({ params }) => {
 
   const exchanges = await getExchanges();
 
-  console.log(";bbbb", banners);
-
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}

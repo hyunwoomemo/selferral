@@ -3,7 +3,18 @@ export const selectedTradeAtom = atom("");
 
 export const exchangesAtom = atom();
 
-export const paybackTestAtom = atom<{ name: string; leverage: number; seed: number; number: number; id: number; market_order: string; limit_order: string; payback: string; image: string }>({
+export const paybackTestAtom = atom<{
+  name: string;
+  leverage: number;
+  seed: number;
+  number: number;
+  id: number;
+  market_order: string;
+  limit_order: string;
+  payback: string;
+  image: string;
+  uid: number;
+}>({
   name: "",
   leverage: 0,
   seed: 0,
@@ -13,4 +24,5 @@ export const paybackTestAtom = atom<{ name: string; leverage: number; seed: numb
   limit_order: "",
   payback: "",
   image: "",
+  uid: 0,
 });

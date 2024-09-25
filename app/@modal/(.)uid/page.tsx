@@ -8,6 +8,9 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getExchange, registerUID } from "@/actions/trade/action";
 import { CircleDollarSign } from "lucide-react";
+import { useToast } from "@/hooks/useToast";
+import { useAtom, useSetAtom } from "jotai";
+import { paybackTestAtom } from "@/app/store/trade";
 
 const Page = () => {
   const token = getCookie("token");
@@ -18,6 +21,12 @@ const Page = () => {
   const [exchangeData, setExchangeData] = useState();
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(-1);
+  const apply = params.get("apply");
+
+  const setPaybackTest = useSetAtom(paybackTestAtom);
+
+  const { addToast } = useToast();
+
   let timeInterval;
 
   const router = useRouter();
@@ -53,28 +62,25 @@ const Page = () => {
   }, [uid]);
 
   const setUid = async () => {
-    // const formData = new FormData();
-
-    // formData.append("uid", uid);
-
-    // const res = await fetch(`${API_URL}/exchange/affiliate/set/${exchange}`, {
-    //   method: "POST",
-    //   body: formData,
-    //   headers: {
-    //     authorization: `Bearer ${token}`,
-    //   },
-    // });
-
-    // const result = await res.json();
+    if (!uid) {
+      return addToast({ text: "UID 등록에 실패했습니다." });
+    }
 
     const result = await registerUID({ id: exchange, token, uid });
 
     if (result.CODE === "EAS000") {
       router.back();
 
-      setTimeout(() => {
-        router.push("/payback/process/1");
-      }, 500);
+      addToast({ text: "UID 등록 신청되었습니다." });
+
+      if (apply) {
+        setTimeout(() => {
+          router.push("/");
+        }, 500);
+      }
+      // setTimeout(() => {
+      //   router.push("/payback/process/1");
+      // }, 500);
     }
   };
 
@@ -132,12 +138,29 @@ const Page = () => {
             <div className="text-orange-400">모든 거래는 페이백이 적용 돼요!</div>
           </div>
 
-          <Button
-            onClick={() => setUid()}
-            className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
-          >
-            1분만에 확인하기
-          </Button>
+          <div className="w-full flex justify-between">
+            <Button
+              onClick={() => setUid()}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
+            >
+              UID 연동하기
+            </Button>
+            {!apply && (
+              <Button
+                onClick={() => {
+                  console.log("uid", uid);
+
+                  router.back();
+                  setTimeout(() => {
+                    router.push(`/payback/process/1?uid=${uid}`);
+                  }, 100);
+                }}
+                className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
+              >
+                예상 페이백 확인하기
+              </Button>
+            )}
+          </div>
         </div>
       );
     }
@@ -174,11 +197,11 @@ const Page = () => {
         </div>
       );
     }
-  }, [res, leftTime, setUid]);
+  }, [res, leftTime]);
 
   return (
     <div className="bg-white dark:bg-[rgb(26,26,38)] rounded-lg">
-      <div className="p-4 flex gap-4 h-full">{renderItem()}</div>
+      <div className="p-4  gap-4 h-full w-full">{renderItem()}</div>
     </div>
   );
 };

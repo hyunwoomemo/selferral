@@ -11,11 +11,15 @@ import Lottie from "react-lottie-player";
 import lottieJson from "@/assets/loading.json";
 import Table from "@/components/ui/table";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const paybackTest = useAtomValue(paybackTestAtom);
 
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  console.log("paybackTest", paybackTest);
 
   useEffect(() => {
     setTimeout(() => {
@@ -140,9 +144,12 @@ export default function Page() {
       </div> */}
       {/* <TradeReport /> */}
       <div className="py-10 flex justify-center">
-        <Link href={"/exchange"} className={cn(buttonVariants({ size: "lg" }), "bg-orange-400 text-lg mx-auto w-1/2")}>
+        <Button
+          onClick={() => router.replace(`/uid?exchange=${paybackTest.id}&uid=${paybackTest.uid}&apply=true`)}
+          className={cn(buttonVariants({ size: "lg" }), "bg-orange-400 text-lg mx-auto w-1/2")}
+        >
           {"페이백 신청하러 가기"}
-        </Link>
+        </Button>
       </div>
     </div>
   );

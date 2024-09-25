@@ -20,7 +20,7 @@ export default async function Home() {
 
   const uidData = await getUidStatus({});
 
-  console.log("dddads", uidData);
+  console.log("banners213123", banners.event);
 
   const Divider = () => {
     return <div className="h-3 w-full bg-gray-50 dark:bg-gray-900"></div>;

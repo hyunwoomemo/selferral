@@ -3,6 +3,7 @@ import { useAtomValue } from "jotai";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { wideAtom } from "./store/common";
+import { paybackTestAtom } from "./store/trade";
 
 const prefetches = ["/withdrawal", "/exchange", "/service", "/payback", "/user", "/user/withdrawal"];
 
@@ -11,6 +12,9 @@ const ClientLayout = ({ children }) => {
   const router = useRouter();
 
   const wide = useAtomValue(wideAtom);
+
+  const paybackTest = useAtomValue(paybackTestAtom);
+  console.log("paybackTest", paybackTest);
 
   useEffect(() => {
     prefetches.forEach((v) => router.prefetch(v));

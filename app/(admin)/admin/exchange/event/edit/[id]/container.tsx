@@ -134,6 +134,10 @@ const Container = ({ banners, exchanges, banner, id }) => {
             </div>
           </div>
 
+          <div className="flex items-center">
+            <p className="min-w-20">사용</p>
+            <Switch active={values.status} setActive={() => setValues((prev) => ({ ...prev, status: prev.status === 1 ? 0 : 1 }))} />
+          </div>
           <Button className={cn(buttonVariants({ variant: "secondary" }))} onClick={() => setIsVisibleDate((prev) => !prev)}>
             {dates.length === 2 ? `${moment(dates[0]).format("YYYY-MM-DD")} ~ ${moment(dates[1]).format("YYYY-MM-DD")}` : "날짜 선택"}
           </Button>

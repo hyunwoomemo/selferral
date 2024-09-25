@@ -5,12 +5,15 @@ import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
 import { useAtom, useSetAtom } from "jotai";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Page1 = ({ exchanges }) => {
   const router = useRouter();
   const setSelectTrade = useSetAtom(selectedTradeAtom);
   const setPaybackTest = useSetAtom(paybackTestAtom);
+  const params = useSearchParams();
+
+  const uid = params.get("uid");
 
   return (
     <div className="px-2 py-10 text-xl font-bold bg-white">
@@ -29,7 +32,10 @@ const Page1 = ({ exchanges }) => {
           <div
             onClick={() => {
               router.push("/payback/process/2");
-              setPaybackTest({ name: v.name, id: v.exchange_id, market_order: v.market_order, limit_order: v.limit_order, payback: v.payback, image: v.image_thumb });
+              setPaybackTest((prev) => {
+                console.log("psdf", prev);
+                return { ...prev, name: v.name, id: v.exchange_id, market_order: v.market_order, limit_order: v.limit_order, payback: v.payback, image: v.image_thumb, uid };
+              });
             }}
             className="min-w-[47%] flex items-center py-2  cursor-pointer gap-4"
             key={v.name}
