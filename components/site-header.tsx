@@ -101,7 +101,7 @@ export function SiteHeader() {
                   // href={"/user"}
                   className={cn("text-md font-bold transition-colors hover:text-primary hidden md:inline-block", pathname === "/user" ? "text-orange-400" : "", "relative")}
                 >
-                  <div className="cursor-pointer" onMouseEnter={() => setSetting(true)} onMouseLeave={() => setSetting(false)}>
+                  <div className="cursor-pointer" onClick={() => setSetting(true)}>
                     {user.name}
                   </div>
                   <div

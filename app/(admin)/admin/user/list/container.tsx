@@ -103,9 +103,9 @@ const Container = ({ users, exchanges }) => {
               console.log("vvvvv", exchanges);
               return (
                 <div key={`${v.exchange_id} ${i}`} className="flex gap-0 items-center px-4 py-1">
-                  {exchanges.find((v1) => v1.id === v.exchange_id)?.image_thumb ? (
+                  {exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb ? (
                     <div className="w-[80px]">
-                      <Image src={`${exchanges.find((v1) => v1.id === v.exchange_id)?.image_thumb}`} width={40} height={40} />
+                      <Image src={`${exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb}`} width={40} height={40} />
                     </div>
                   ) : (
                     <div className="w-[80px] min-h-[40px]"></div>
