@@ -5,6 +5,11 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import React from "react";
 import EventList from "../../(home)/event-list";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import WithdrawalButton from "./withdrawal-button";
 
 const page = async ({ params, searchParams }) => {
   const uid = params.uid;
@@ -14,8 +19,6 @@ const page = async ({ params, searchParams }) => {
 
   const exchangeData = await getExchange(uidData.exchange_id);
   const banners = await getBanners();
-
-  console.log("123123", uidData, exchangeData);
 
   if (!exchangeData) {
     return <div className="p-4">존재하지 않는 거래소입니다.</div>;
@@ -45,6 +48,9 @@ const page = async ({ params, searchParams }) => {
           <div>
             <div className="font-semibold text-gray-500">거래소 페이백</div>
             <div className="font-bold text-lg md:text-2xl">{uidData.point || 0} USDT</div>
+          </div>
+          <div className="ml-10">
+            <WithdrawalButton id={uidData.exchange_id} point={uidData.point} />
           </div>
         </div>
       </div>

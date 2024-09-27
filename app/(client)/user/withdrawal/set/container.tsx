@@ -7,9 +7,9 @@ import { getCookie } from "cookies-next";
 import { revalidateTag } from "next/cache";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-const Container = ({ data }) => {
+const Container = ({ data, exchangeId }) => {
   const dropdownData = useMemo(() => {
     return data.map((v) => ({ label: v.name, value: v.exchange_id, icon: <Image width={30} height={30} alt="logo" src={v.image_thumb} /> }));
   }, [data]);
@@ -19,6 +19,16 @@ const Container = ({ data }) => {
   const [values, setValues] = useState({});
   const token = getCookie("token");
   const router = useRouter();
+
+  console.log(
+    "dropdownData",
+    exchangeId,
+    dropdownData.find((v) => v.value == exchangeId)
+  );
+
+  useEffect(() => {
+    setExchange(dropdownData.find((v) => v.value == exchangeId));
+  }, [dropdownData, exchangeId]);
 
   const handleSubmit = async () => {
     const res = await setWithdrawal({ token, data: { exchange_id: exchange.value, ...values } });

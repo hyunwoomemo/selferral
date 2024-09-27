@@ -24,7 +24,7 @@ const page = async ({ searchParams }) => {
       거래소명: exchangeData?.data?.find((v1) => v1.exchange_id == v.exchange_id)?.name,
       유저: users.DATA.find((user) => user.id == v.user_id).email,
       UID: v.user_uid,
-      // 커미션: v.
+      커미션: v.point || 0,
       신청일: moment(v.createtime).format("YYYY-MM-DD HH:mm"),
       "": <RegisterDropdown id={v.id} type={searchParams.type} />,
     };

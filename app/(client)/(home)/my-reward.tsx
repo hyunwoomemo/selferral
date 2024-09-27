@@ -49,7 +49,7 @@ const MyReward = ({ uidData, exchanges }) => {
     <>
       {user && Object.keys(user).length > 0 && (
         <div className="px-4 py-10">
-          <div className="flex gap-6 font-bold flex-col sm:flex-row">
+          <div className="flex gap-6 font-bold flex-col sm:flex-row max-w-[50%]">
             <div className="rounded-3xl bg-gradient-to-l to-orange-400 dark:to-[#db6a00] from-orange-500 dark:from-[#c45f00]  border-0 border-orange-500 flex-1  text-white p-5">
               <div className="flex justify-between">
                 <div>
@@ -76,7 +76,7 @@ const MyReward = ({ uidData, exchanges }) => {
                 <ChevronsRight />
               </Link>
             </div>
-            <Link href={"/user"} className="rounded-3xl border-2 border-orange-400 dark:border-[#db6a00] flex-1 flex flex-col text-gray-600 dark:text-gray-300 p-5">
+            {/* <Link href={"/user"} className="rounded-3xl border-2 border-orange-400 dark:border-[#db6a00] flex-1 flex flex-col text-gray-600 dark:text-gray-300 p-5">
               <div className="flex gap-2 items-center">
                 <CircleUserRound />
                 <div>마이 페이지</div>
@@ -85,7 +85,7 @@ const MyReward = ({ uidData, exchanges }) => {
                 <span>최근 접속일: </span>
                 <span>{moment(user.lastlogin).format("YYYY-MM-DD HH:mm")}</span>
               </div>
-            </Link>
+            </Link> */}
           </div>
           {uidData?.data?.DATA?.length > 0 && <MyTrade uidData={uidData} exchanges={exchanges} />}
         </div>

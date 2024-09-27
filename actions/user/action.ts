@@ -24,6 +24,14 @@ export const getUser = async (id) => {
   return data;
 };
 
+export const getAllUsersWithUidStatus = async () => {
+  const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus`, {
+    next: { tags: ["userWithUid"] },
+  });
+
+  return res;
+};
+
 export async function register(prevState: any, formData: FormData) {
   const id = formData.get("id");
   const password = formData.get("password");

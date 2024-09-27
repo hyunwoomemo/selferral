@@ -15,7 +15,7 @@ import { userAtom } from "@/app/store/user";
 import { ArrowRight } from "lucide-react";
 import { getInfo } from "@/actions/user/action";
 // import { info } from "@/app/action";
-import { getCookie, setCookie } from "cookies-next";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import Switch from "./ui/switch";
 import { wideAtom } from "@/app/store/common";
 import { useToast } from "@/hooks/useToast";
@@ -26,9 +26,19 @@ export function SiteHeader() {
   const [user, setUser] = useAtom(userAtom);
   const token = getCookie("token");
   const refresh = getCookie("refresh");
+  const router = useRouter();
   const [wide, setWide] = useAtom(wideAtom);
 
+  const [setting, setSetting] = useState(false);
+
   const { addToast } = useToast();
+
+  const handleLogout = async () => {
+    deleteCookie("token");
+    deleteCookie("refresh");
+    setUser({});
+    router.push("/");
+  };
 
   useEffect(() => {
     getInfo().then((res) => {
@@ -87,12 +97,29 @@ export function SiteHeader() {
           <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="flex items-center md:gap-4 ">
               {user && Object.keys(user).length > 0 ? (
-                <Link
-                  href={"/user"}
-                  className={cn("text-md font-bold transition-colors hover:text-primary hidden md:inline-block", pathname === "/user" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
+                <div
+                  // href={"/user"}
+                  className={cn("text-md font-bold transition-colors hover:text-primary hidden md:inline-block", pathname === "/user" ? "text-orange-400" : "", "relative")}
                 >
-                  {user.name}
-                </Link>
+                  <div className="cursor-pointer" onMouseEnter={() => setSetting(true)} onMouseLeave={() => setSetting(false)}>
+                    {user.name}
+                  </div>
+                  <div
+                    onMouseLeave={() => setSetting(false)}
+                    className={cn(
+                      "absolute  bg-white border top-[130%] w-32 right-[100%] translate-x-[50%] flex flex-col",
+                      setting ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+                      "transition-opacity items-center"
+                    )}
+                  >
+                    <Link href={"/user/edit"} className="py-2 text-center border-b w-full">
+                      비밀번호 변경
+                    </Link>
+                    <div onClick={handleLogout} className="py-2 text-center w-full cursor-pointer">
+                      로그 아웃
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <Link
                   href="/login"

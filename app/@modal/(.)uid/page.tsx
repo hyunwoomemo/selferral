@@ -71,17 +71,18 @@ const Page = () => {
     console.log("13123123123123", result);
 
     if (result.CODE === "EAS000") {
-      setTimeout(() => {
-        router.back();
-      }, 100);
-
+      // setTimeout(() => {
+      //   router.back();
+      // }, 100);
       addToast({ text: "UID 등록 신청되었습니다." });
 
-      if (apply) {
-        setTimeout(() => {
-          router.push("/");
-        }, 500);
-      }
+      router.back();
+
+      // if (apply) {
+      //   setTimeout(() => {
+      //     router.push("/");
+      //   }, 500);
+      // }
       // setTimeout(() => {
       //   router.push("/payback/process/1");
       // }, 500);

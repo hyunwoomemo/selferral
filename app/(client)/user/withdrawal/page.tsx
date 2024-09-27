@@ -77,7 +77,7 @@ const Page = async ({ searchParams }) => {
       //   {/* 옵션 */}
       // </div>
       <>
-        <div className="grid grid-cols-4 border-b border-gray-100 dark:border-gray-800 py-2">
+        <div className="grid grid-cols-4 border-b border-gray-100 bg-gray-100 py-2">
           <span className="flex justify-center text-gray-600">거래소</span>
           <span className="flex justify-center text-gray-600">금액</span>
           <span className="flex justify-center text-gray-600">USDT 주소</span>
