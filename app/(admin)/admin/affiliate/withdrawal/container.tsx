@@ -117,7 +117,7 @@ const Container = ({ exchanges }) => {
                             {stepData
                               .filter((v) => v.value !== item.step)
                               .map((v) => (
-                                <div onClick={() => handleUpdateStep({ id: item.id, step: v.value })} className="hover:bg-gray-100 w-full text-center">
+                                <div key={v.value} onClick={() => handleUpdateStep({ id: item.id, step: v.value })} className="hover:bg-gray-100 w-full text-center">
                                   {v.label}
                                 </div>
                               ))}
