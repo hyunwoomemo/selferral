@@ -2,6 +2,7 @@
 import { setWithdrawal } from "@/actions/trade/action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Dropdown from "@/components/ui/dropdown";
+import { useToast } from "@/hooks/useToast";
 import { cn } from "@/lib/utils";
 import { getCookie } from "cookies-next";
 import { revalidateTag } from "next/cache";
@@ -10,6 +11,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
 const Container = ({ data, exchangeId }) => {
+  const { addToast } = useToast();
+
   const dropdownData = useMemo(() => {
     return data.map((v) => ({ label: v.name, value: v.exchange_id, icon: <Image width={30} height={30} alt="logo" src={v.image_thumb} /> }));
   }, [data]);
@@ -20,17 +23,17 @@ const Container = ({ data, exchangeId }) => {
   const token = getCookie("token");
   const router = useRouter();
 
-  console.log(
-    "dropdownData",
-    exchangeId,
-    dropdownData.find((v) => v.value == exchangeId)
-  );
+  console.log("dropdownData", exchangeId);
 
   useEffect(() => {
     setExchange(dropdownData.find((v) => v.value == exchangeId));
   }, [dropdownData, exchangeId]);
 
   const handleSubmit = async () => {
+    if (values.point < 100) {
+      return addToast({ text: "최소 100USDT 이상부터 출금신청 가능합니다" });
+    }
+
     const res = await setWithdrawal({ token, data: { exchange_id: exchange.value, ...values } });
 
     if (res.data === "aleady") {
@@ -74,6 +77,7 @@ const Container = ({ data, exchangeId }) => {
         </div>
       </div>
       <Button
+        disabled={!exchange || !values.point || !values.usdt_address}
         onClick={handleSubmit}
         // onClick={handleSetWithdrawal}
         className={cn(

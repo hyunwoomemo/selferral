@@ -40,6 +40,7 @@ const Container = ({ exchanges }) => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab }).then((res) => setData(res.data));
   }, [tab]);
 
+  console.log("res", data);
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
 
   const handleUpdateStep = async ({ id, step }) => {
@@ -56,36 +57,39 @@ const Container = ({ exchanges }) => {
   };
 
   return (
-    <div className="font-bold flex-auto flex-col p-8 flex">
-      <h1 className="text-3xl">출금 신청 리스트</h1>
-      {/* <ExchangeTab tab={tab} setTab={setTab} data={exchanges.data} /> */}
+    <>
+      {isVisible > -1 && <div onClick={() => setIsVisible(-1)} className="absolute top-0 right-0 left-0 bottom-0 bg-gray-50 opacity-40"></div>}
 
-      <div className="pt-5 pb-10">
-        <Tab tab={tab} setTab={setTab} data={tabData} all />
-      </div>
-      {!data.total ? (
-        <div>출금 신청 내역이 존재하지 않습니다.</div>
-      ) : (
-        <div className="h-full">
-          <div className="flex flex-col gap-0 md:max-w-[80dvw] overflow-x-auto h-full">
-            <div className="">
-              <div className="flex gap-10 py-5 border-b-2">
-                <span className="flex justify-center min-w-[180px]">거래소</span>
-                <span className="flex justify-center min-w-[180px]">금액</span>
-                <span className="flex justify-center min-w-[180px]">USDT 주소</span>
-                <span className="flex justify-center min-w-[180px]">유저</span>
-                <span className="flex justify-center min-w-[180px]">상태</span>
+      <div className="font-bold flex-auto flex-col p-8 flex">
+        <h1 className="text-3xl">출금 신청 리스트</h1>
+        {/* <ExchangeTab tab={tab} setTab={setTab} data={exchanges.data} /> */}
+
+        <div className="pt-5 pb-10">
+          <Tab tab={tab} setTab={setTab} data={tabData} all />
+        </div>
+        {!data.total ? (
+          <div>출금 신청 내역이 존재하지 않습니다.</div>
+        ) : (
+          <div className="h-full">
+            <div className="flex flex-col gap-0 md:max-w-[80dvw] overflow-x-auto h-full">
+              <div className="">
+                <div className="flex gap-10 py-5 border-b-2">
+                  <span className="flex justify-center min-w-[180px]">거래소</span>
+                  <span className="flex justify-center min-w-[180px]">금액</span>
+                  <span className="flex justify-center min-w-[180px]">USDT 주소</span>
+                  <span className="flex justify-center min-w-[180px]">유저</span>
+                  <span className="flex justify-center min-w-[180px]">상태</span>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col flex-auto">
-              {data.list.map((item, index) => (
-                <div className="flex py-5 items-center" key={item.exchange_id}>
-                  <div className="flex items-center  gap-10">
-                    <span className="min-w-[180px] flex justify-center">{storedExchanges?.find((v) => v.exchange_id === item.exchange_id)?.name || item.exchange_id}</span>
-                    <span className="flex justify-center items-center min-w-[180px]">{item.point}</span>
-                    <span className="flex justify-center items-center min-w-[180px]">{item.usdt_address}</span>
-                    <span className="flex justify-center items-center min-w-[180px]">{item.user_id}</span>
-                    {/* <span className="flex justify-center items-center min-w-[180px] relative">
+              <div className="flex flex-col flex-auto">
+                {data.list.map((item, index) => (
+                  <div className="flex py-5 items-center" key={item.exchange_id}>
+                    <div className="flex items-center  gap-10">
+                      <span className="min-w-[180px] flex justify-center">{storedExchanges?.find((v) => v.exchange_id === item.exchange_id)?.name || item.exchange_id}</span>
+                      <span className="flex justify-center items-center min-w-[180px]">{item.point}</span>
+                      <span className="flex justify-center items-center min-w-[180px]">{item.usdt_address}</span>
+                      <span className="flex justify-center items-center min-w-[180px]">{item.user_id}</span>
+                      {/* <span className="flex justify-center items-center min-w-[180px] relative">
                       <span onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step).label}</span>
                       <div className={`absolute flex flex-col gap-4 top-10 items-center  ${isVisible === item.id ? "block" : "hidden"} bg-gray-700 z-10 p-3 rounded-lg`}>
                         {stepData
@@ -97,8 +101,8 @@ const Container = ({ exchanges }) => {
                           ))}
                       </div>
                     </span> */}
-                    <span className="flex justify-center items-center min-w-[180px]">
-                      <Dropdown
+                      <span className="flex justify-center items-center min-w-[180px] relative">
+                        {/* <Dropdown
                         value={stepData.find((v) => v.value === item.step)}
                         // placeholder={stepData.find((v) => v.value === item.step).label}
                         minWidth={100}
@@ -106,23 +110,36 @@ const Container = ({ exchanges }) => {
                         isVisible={isVisible}
                         setIsVisible={setIsVisible}
                         dropdownClick={(v) => handleUpdateStep({ id: item.id, step: v.value })}
-                      />
-                    </span>
-                  </div>
-                  {/* <div className="absolute right-10 flex gap-8">
+                      /> */}
+                        <p onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step)?.label}</p>
+                        {isVisible === item.id && (
+                          <div className="absolute bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30">
+                            {stepData
+                              .filter((v) => v.value !== item.step)
+                              .map((v) => (
+                                <div onClick={() => handleUpdateStep({ id: item.id, step: v.value })} className="hover:bg-gray-100 w-full text-center">
+                                  {v.label}
+                                </div>
+                              ))}
+                          </div>
+                        )}
+                      </span>
+                    </div>
+                    {/* <div className="absolute right-10 flex gap-8">
               <Link href={`/admin/exchange/edit?id=${exchange.id}`}>
                 <Pencil />
               </Link>
               <DeleteButton id={exchange.id} />
             </div> */}
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
+              {/* 옵션 */}
             </div>
-            {/* 옵션 */}
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 

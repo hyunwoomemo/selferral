@@ -12,5 +12,5 @@ export default async function Page() {
 
   console.log("users", exchanges);
 
-  return <Container users={users.DATA} exchanges={exchanges.data} />;
+  return <Container users={users?.DATA} exchanges={exchanges?.data} />;
 }

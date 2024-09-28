@@ -39,7 +39,7 @@ const Page = async ({ searchParams }) => {
 
   const exchange_name = data?.list.find((v) => v.exchange_id == exchange_id)?.exchange_name;
 
-  console.log("data", data);
+  console.log("123123123dadta", data);
 
   const renderItem = () => {
     if (!data?.total) return <div>데이터가 존재하지 않습니다.</div>;

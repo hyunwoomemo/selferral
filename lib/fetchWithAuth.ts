@@ -49,7 +49,7 @@ export async function fetchWithAuth(url, options = {}) {
   // 응답 처리
   if (response.status === 401) {
     // 401 에러 처리: 액세스 토큰 만료 시 다시 로그인
-    // redirectToLogin();
+    redirectToLogin();
   }
 
   return response.json();

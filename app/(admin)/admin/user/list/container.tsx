@@ -31,8 +31,6 @@ const Container = ({ users, exchanges }) => {
     }
   };
 
-  console.log("ser.exchanges", users[0].exchanges);
-
   const typeData = [
     {
       label: "관리자",
@@ -56,7 +54,7 @@ const Container = ({ users, exchanges }) => {
   };
 
   const tableData = useMemo(() => {
-    return users.map((user) => {
+    return users?.map((user) => {
       const { email, name, hp, createdAt, type, total } = user;
 
       console.log("isA", user.id);
