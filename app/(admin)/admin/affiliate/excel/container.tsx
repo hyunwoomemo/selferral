@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/useToast";
 import { cn } from "@/lib/utils";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import ExcelList from "./excel-list";
 
 const Container = () => {

@@ -90,7 +90,7 @@ const Container = ({ exchanges }) => {
               </div>
               <div className="flex flex-col flex-auto">
                 {data.list.map((item, index) => (
-                  <div className="flex py-5 items-center" key={item.exchange_id}>
+                  <div className="flex py-5 items-center" key={`${item.exchange_id} ${index}`}>
                     <div className="flex items-center  gap-10">
                       <span className="min-w-[180px] flex justify-center">{storedExchanges?.find((v) => v.exchange_id === item.exchange_id)?.name || item.exchange_id}</span>
                       <span className="flex justify-center items-center min-w-[180px]">{item.point}</span>
@@ -123,8 +123,8 @@ const Container = ({ exchanges }) => {
                           <div className="absolute bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30">
                             {stepData
                               .filter((v) => v.value !== item.step)
-                              .map((v) => (
-                                <div key={v.value} onClick={() => handleUpdateStep({ id: item.id, step: v.value })} className="hover:bg-gray-100 w-full text-center">
+                              .map((v, i) => (
+                                <div key={`${v.value} ${i}`} onClick={() => handleUpdateStep({ id: item.id, step: v.value })} className="hover:bg-gray-100 w-full text-center">
                                   {v.label}
                                 </div>
                               ))}
