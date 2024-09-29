@@ -226,7 +226,7 @@ export const getUidStatus = async ({}) => {
 };
 
 export const getExcel = async ({ num, page }) => {
-  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/excel/${num}/${page}`);
+  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/get/excel/${num}/${page}`);
 
   console.log("response123123", response);
 

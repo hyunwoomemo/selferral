@@ -47,7 +47,7 @@ const page = async ({ searchParams }) => {
         <Container />
       </div>
       <div className="flex-1">{tableData?.length > 0 ? <Table data={tableData} wide /> : <div className="p-2">데이터가 존재하지 않습니다.</div>}</div>
-      {/* <ServerPagination offset={20} total={data.data.total} link={`/admin/user/uid?type=${searchParams.type || 0}`} /> */}
+      <ServerPagination offset={20} total={data.data.total} link={`/admin/user/uid?type=${searchParams.type || 0}`} />
     </div>
   );
 };

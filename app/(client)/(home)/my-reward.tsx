@@ -49,7 +49,7 @@ const MyReward = ({ uidData, exchanges }) => {
     <>
       {user && Object.keys(user).length > 0 && (
         <div className="px-4 py-10">
-          <div className="flex gap-6 font-bold flex-col sm:flex-row max-w-[50%]">
+          <div className="flex gap-6 font-bold flex-col sm:flex-row md:max-w-[50%]">
             <div className="rounded-3xl bg-gradient-to-l to-orange-400 dark:to-[#db6a00] from-orange-500 dark:from-[#c45f00]  border-0 border-orange-500 flex-1  text-white p-5">
               <div className="flex justify-between">
                 <div>

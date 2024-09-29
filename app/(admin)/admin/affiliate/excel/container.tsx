@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import ExcelList from "./excel-list";
 
 const Container = () => {
   const token = getCookie("token");
@@ -57,9 +58,7 @@ const Container = () => {
         >
           <p className="font-bold">업로드</p>
         </Button>
-        {/* <div className="pt-10">
-          <p>업로드 내역</p>
-        </div> */}
+        <ExcelList />
       </div>
     </>
   );

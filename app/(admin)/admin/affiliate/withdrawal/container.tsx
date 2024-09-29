@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/useToast";
 import { useAtomValue } from "jotai";
 import { exchangesAtom } from "@/app/store/trade";
 import Dropdown from "@/components/ui/dropdown";
+import Pagination from "@/components/pagination";
 
 const stepData = [
   {
@@ -33,12 +34,18 @@ const Container = ({ exchanges }) => {
   const [exchange, setExchange] = useState({});
   const [isVisible, setIsVisible] = useState(-1);
   const { addToast } = useToast();
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(1);
 
   const storedExchanges = useAtomValue(exchangesAtom);
 
   useEffect(() => {
-    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab }).then((res) => setData(res.data));
-  }, [tab]);
+    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1 }).then((res) => {
+      console.log("res123", res);
+      setData(res.data);
+      setTotal(res.data.total);
+    });
+  }, [tab, page]);
 
   console.log("res", data);
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
@@ -135,6 +142,7 @@ const Container = ({ exchanges }) => {
                 ))}
               </div>
               {/* 옵션 */}
+              {total > 10 && <Pagination page={page} setPage={setPage} total={total} offset={10} />}
             </div>
           </div>
         )}
