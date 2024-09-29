@@ -17,7 +17,7 @@ const ExcelList = () => {
       setTotal(res.data.total);
     });
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window?.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
   console.log("data", data);
