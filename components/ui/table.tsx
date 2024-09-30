@@ -26,7 +26,7 @@ const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black"
                 .filter(([key]) => key !== "accordion")
                 .map(([key, value], colIndex) => {
                   return (
-                    <div id={"tableitem"} className="flex-1 overflow-x-scroll flex justify-center cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
+                    <div id={"tableitem"} className="flex-1 flex justify-center cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
                       {value}
                     </div>
                   );

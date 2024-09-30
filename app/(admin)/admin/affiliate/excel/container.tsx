@@ -8,6 +8,7 @@ import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import React, { Suspense, useState } from "react";
 import ExcelList from "./excel-list";
+import { revalidateTag } from "next/cache";
 
 const Container = () => {
   const token = getCookie("token");
@@ -39,6 +40,9 @@ const Container = () => {
         // window.alert("액셀이 업로드 되었습니다.");
         addToast({ text: "액셀이 업로드 되었습니다." });
         router.push("/admin/exchange/list");
+        // router.refresh();
+        // revalidateTag("excellist");
+        // router.refresh();
       }
     } catch (err) {
       console.error(err);

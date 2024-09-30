@@ -118,7 +118,9 @@ const Container = ({ exchanges }) => {
                         setIsVisible={setIsVisible}
                         dropdownClick={(v) => handleUpdateStep({ id: item.id, step: v.value })}
                       /> */}
-                        <p onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step)?.label}</p>
+                        <p className="cursor-pointer" onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>
+                          {stepData.find((v) => v.value === item.step)?.label}
+                        </p>
                         {isVisible === item.id && (
                           <div className="absolute bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30">
                             {stepData

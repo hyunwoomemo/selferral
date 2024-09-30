@@ -1,7 +1,7 @@
 "use client";
 
 import moment from "moment";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { setUserType } from "@/actions/user/action";
 import { ArrowBigDown, ArrowDown, ArrowDown01, ArrowDownCircle, ArrowDownSquare, RefreshCw } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 const Container = ({ users, exchanges }) => {
   const [isVisible, setIsVisible] = useState(-1);
   const [isAccordion, setIsAccordion] = useState(-1);
+  const [refresh, setRefresh] = useState(false);
 
   const router = useRouter();
   const { addToast } = useToast();
@@ -122,13 +123,27 @@ const Container = ({ users, exchanges }) => {
     });
   }, [users, isVisible, exchanges, isAccordion, setIsAccordion]);
 
+  useEffect(() => {
+    if (refresh) {
+      setTimeout(() => {
+        setRefresh(false);
+      }, 1000);
+    }
+  }, [refresh]);
+
   console.log("tableDatatableData", tableData);
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">
       <div className="flex justify-between">
         <h1 className="text-3xl">유저</h1>
-        <RefreshCw onClick={() => revalidate("users")} />
+        <RefreshCw
+          className={cn("cursor-pointer", refresh ? "refresh" : "")}
+          onClick={() => {
+            setRefresh(true);
+            revalidate("users");
+          }}
+        />
       </div>
       <Table data={tableData}></Table>
       {/* <div className="flex flex-col flex-auto ">
