@@ -57,7 +57,7 @@ const page = async ({ params, searchParams }) => {
 
       <div className="pt-10 font-semibold text-gray-500">{uidData.exchange_name} 페이백 금액은 매일 오후 2시 전에 업데이트 됩니다.</div>
 
-      {banners.event.filter((v) => v.exchange_id === uidData.exchange_id).length > 0 && (
+      {banners.event?.filter((v) => v.exchange_id === uidData.exchange_id).length > 0 && (
         <div className="pt-10">
           <p className="font-bold text-xl">진행 중인 이벤트</p>
           <EventList data={banners.event.filter((v) => v.exchange_id === uidData.exchange_id)} />

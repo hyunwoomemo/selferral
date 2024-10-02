@@ -183,3 +183,29 @@ export const editPassword = async ({ data }) => {
 
   return res;
 };
+
+export const findUser = async ({ type, data }) => {
+  console.log("type", type, data);
+
+  const formData = new FormData();
+
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
+
+  const res = await fetch(`${API_URL}/auth/find/${type}`, {
+    method: "POST",
+    body: formData,
+  });
+
+  // const res = await fetch(`${API_URL}/auth/find/${type}`, {
+  //   method: "POST",
+  //   body: formData,
+  // });
+
+  const result = await res.json();
+
+  console.log("rere", result);
+
+  return result;
+};

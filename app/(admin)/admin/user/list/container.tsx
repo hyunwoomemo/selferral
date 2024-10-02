@@ -12,6 +12,8 @@ import Table from "@/components/ui/table";
 import Image from "next/image";
 import { API_URL } from "@/actions";
 import { cn } from "@/lib/utils";
+import Dropdown from "@/components/ui/dropdown";
+import TypeDropdown from "./type-dropdown";
 
 const Container = ({ users, exchanges }) => {
   const [isVisible, setIsVisible] = useState(-1);
@@ -72,25 +74,28 @@ const Container = ({ users, exchanges }) => {
           </div>
         ),
         "유저 타입": (
-          <div className="cursor-pointer relative w-full flex justify-center">
-            <span onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>{getUserTypeText(type)}</span>
-            <div
-              className={`absolute flex flex-col gap-4 top-10 items-center  ${
-                isVisible === user.id ? "block" : "hidden"
-              } bg-white border dark:bg-gray-400 z-10 p-3 w-full rounded-lg left-[50%] translate-x-[-50%]`}
-            >
-              {typeData
-                .filter((v) => v.value !== user.type)
-                .map((v) => (
-                  <span key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
-                    {v.label}
-                  </span>
-                ))}
-            </div>
-          </div>
+          // <div className="cursor-pointer relative w-full flex justify-center">
+          //   <span className="border p-1 px-4 rounded-md" onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>
+          //     {getUserTypeText(type)}
+          //   </span>
+          //   <div
+          //     className={`absolute flex flex-col gap-4 top-10 items-center  ${
+          //       isVisible === user.id ? "block" : "hidden"
+          //     } bg-white border dark:bg-gray-400 z-10 p-3 w-full rounded-lg left-[50%] translate-x-[-50%]`}
+          //   >
+          //     {typeData
+          //       .filter((v) => v.value !== user.type)
+          //       .map((v) => (
+          //         <span key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
+          //           {v.label}
+          //         </span>
+          //       ))}
+          //   </div>
+          // </div>
+          <TypeDropdown id={user.id} />
         ),
-        accordion: isAccordion === user.id && (
-          <div className=" flex flex-col gap-2 bg-white">
+        accordion: (
+          <div className={cn("origin-top-right flex overflow-hidden flex-col gap-2 bg-white", isAccordion === user.id ? "scale-y-100 h-full" : "scale-y-0 h-0", "transition-all")}>
             {/* {user.exchanges && <Table data={user.exchanges} />} */}
             <div className="flex bg-gray-100 p-4">
               <div className="w-[80px]"></div>
@@ -134,8 +139,8 @@ const Container = ({ users, exchanges }) => {
   console.log("tableDatatableData", tableData);
 
   return (
-    <div className="font-bold flex-auto flex-col p-8 flex">
-      <div className="flex justify-between">
+    <div className="font-bold flex-auto flex-col flex p-4  ">
+      <div className="flex justify-between p-4  items-center">
         <h1 className="text-3xl">유저</h1>
         <RefreshCw
           className={cn("cursor-pointer", refresh ? "refresh" : "")}
@@ -145,7 +150,9 @@ const Container = ({ users, exchanges }) => {
           }}
         />
       </div>
-      <Table data={tableData}></Table>
+      <div className="rounded-lg">
+        <Table data={tableData}></Table>
+      </div>
       {/* <div className="flex flex-col flex-auto ">
         <div className="pt-10 md:grid md:grid-cols-5 p-2 text-center border-b-[1px]">
           <div>이메일</div>

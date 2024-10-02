@@ -87,7 +87,7 @@ export default function Sidebar({ standbyCount }) {
   );
 
   return (
-    <div className="md:sticky top-0 translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:w-[15%] md:min-w-40  bg-gray-100 dark:bg-[rgb(26,26,36)] p-4 flex-col flex gap-10 h-screen">
+    <div className="md:sticky top-0 translate-x-[-100%] duration-300 transition-all md:translate-x-0 md:w-[15%] md:min-w-40  bg-gray-50 dark:bg-[rgb(26,26,36)] p-4 flex-col flex gap-10 h-screen shadow-xl">
       <div className="flex gap-2 flex-col justify-center font-bold text-lg">
         <Link href={"/admin"} className="items-center flex gap-2">
           <SiLoop />

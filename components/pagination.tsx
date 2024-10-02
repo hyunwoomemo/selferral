@@ -2,6 +2,10 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 const Pagination = ({ page = 1, total, offset = 10, setPage }) => {
+  if (total / offset <= 1) {
+    return;
+  }
+
   return (
     <div className="flex gap-1">
       {Array(Math.ceil(total / offset))

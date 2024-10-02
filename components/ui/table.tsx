@@ -7,8 +7,8 @@ const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black"
   }
 
   return (
-    <div className={cn(`${wide ? "w-full" : undefined}`)}>
-      <div className={`flex border-b p-3 px-5 ${headerClassname}`}>
+    <div className={cn(`${wide ? "w-full" : undefined}`, "bg-gray-50 my-4")}>
+      <div className={`flex border-b p-3 px-5 bg-orange-100  ${headerClassname}`}>
         {data[0] &&
           Object.keys(data[0])
             .filter((v) => v !== "accordion")
@@ -20,7 +20,7 @@ const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black"
       </div>
       {data.map((v, rowIndex) => {
         return (
-          <div key={v.id || rowIndex}>
+          <div key={v.id || rowIndex} className="bg-white">
             <div onClick={onClick ? () => onClick(v.id) : null} className={`border-b p-5 ${bodyClassname} hover:bg-orange-50`} style={{ display: "flex", alignItems: "center" }}>
               {Object.entries(v)
                 .filter(([key]) => key !== "accordion")

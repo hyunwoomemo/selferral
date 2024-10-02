@@ -64,7 +64,7 @@ export default function Page({ searchParams }) {
     <div className="pt-20 font-bold px-4 max-w-[800px] mx-auto">
       <h2 className="text-3xl text-center">로그인</h2>
       {/* <form method="post"  className="pt-20"> */}
-      <form method="post" action={formAction} className="pt-20">
+      <form method="post" action={formAction} className="pt-10">
         <div className="p-4">
           <input name="email" placeholder="이메일" className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400" />
         </div>
@@ -85,7 +85,16 @@ export default function Page({ searchParams }) {
           </Button>
         </div>
       </form>
-      <div className="flex gap-1 justify-center items-center pt-2">
+      <div className="flex gap-2 justify-center items-center pt-2">
+        <Link className="text-gray-400" href={"/findid"}>
+          아이디 찾기
+        </Link>
+        <div className="text-gray-400">|</div>
+        <Link className="text-gray-400" href={"/findpw"}>
+          비밀번호 찾기
+        </Link>
+      </div>
+      <div className="flex gap-1 justify-center items-center py-4">
         <p className="text-gray-400">아직 계정이 없으신가요?</p>
         <Link className="text-orange-400" href={"/register"}>
           가입하기

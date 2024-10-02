@@ -39,7 +39,7 @@ const Container = () => {
         setFile(null);
         // window.alert("액셀이 업로드 되었습니다.");
         addToast({ text: "액셀이 업로드 되었습니다." });
-        router.push("/admin/exchange/list");
+        router.push("/admin/user/uid?type=1");
         // router.refresh();
         // revalidateTag("excellist");
         // router.refresh();
