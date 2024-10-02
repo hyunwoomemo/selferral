@@ -71,12 +71,10 @@ const Page = () => {
     console.log("13123123123123", result);
 
     if (result.CODE === "EAS000") {
-      // setTimeout(() => {
-      //   router.back();
-      // }, 100);
       addToast({ text: "UID 등록 신청되었습니다." });
-
-      router.back();
+      setTimeout(() => {
+        router.back();
+      }, 100);
 
       // if (apply) {
       //   setTimeout(() => {

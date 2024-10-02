@@ -82,7 +82,7 @@ const Container = ({ exchanges }) => {
           )}
         </div>
       ),
-      신청시간: moment(item.createtime).format("YYYY-MM-DD HH:mm"),
+      신청시간: moment(item.createtime).add(9, "hour").format("YYYY-MM-DD HH:mm"),
     }));
   }, [data, isVisible]);
 

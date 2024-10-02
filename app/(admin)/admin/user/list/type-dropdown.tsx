@@ -19,6 +19,17 @@ const data = [
 const TypeDropdown = ({ id, type }) => {
   console.log("id", id);
 
+  const getUserTypeText = (type) => {
+    switch (type) {
+      case "UT02":
+        return "관리자";
+      case "UT01":
+        return "일반 회원";
+      default:
+        return type;
+    }
+  };
+
   const [isVisible, setIsVisible] = useState(false);
   const [value, setIsValue] = useState();
   const { addToast } = useToast();

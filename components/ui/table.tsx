@@ -21,12 +21,12 @@ const Table = ({ data, wide, headerClassname, bodyClassname, textColor = "black"
       {data.map((v, rowIndex) => {
         return (
           <div key={v.id || rowIndex} className="bg-white">
-            <div onClick={onClick ? () => onClick(v.id) : null} className={`border-b p-5 ${bodyClassname} hover:bg-orange-50`} style={{ display: "flex", alignItems: "center" }}>
+            <div onClick={onClick ? () => onClick(v.id) : null} className={`border-b p-5 ${bodyClassname} hover:bg-orange-50 `} style={{ display: "flex", alignItems: "center" }}>
               {Object.entries(v)
                 .filter(([key]) => key !== "accordion")
                 .map(([key, value], colIndex) => {
                   return (
-                    <div id={"tableitem"} className="flex-1 flex justify-center cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
+                    <div id={"tableitem"} className="flex-1 max-w-full flex justify-center cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
                       {value}
                     </div>
                   );

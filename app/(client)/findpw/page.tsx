@@ -82,11 +82,11 @@ const Page = () => {
             <>
               <div className="flex gap-1">
                 <Input onChange={(e) => handleChange("email", e.target.value)} value={values.email} label={"이메일"} />
-                {!checkCode && (
-                  <Button onClick={handleCheckEmail} disabled={verfiyDisabled}>
-                    {isCheckVisible ? "재전송" : "인증코드 전송"}
-                  </Button>
-                )}
+                {/* {!checkCode && ( */}
+                <Button onClick={handleCheckEmail} disabled={verfiyDisabled}>
+                  {isCheckVisible ? "재전송" : "인증코드 전송"}
+                </Button>
+                {/* )} */}
               </div>
               {error.email && <p className="text-sm text-orange-400">{error.email}</p>}
               {/* <Input onChange={(e) => handleChange("code", e.target.value)} value={values.code} label={"인증번호"} /> */}

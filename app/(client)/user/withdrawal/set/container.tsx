@@ -41,6 +41,7 @@ const Container = ({ data, exchangeId }) => {
     }
 
     if (res.data === "ok") {
+      addToast({ text: "출금 신청이 완료되었습니다." });
       router.back();
       setTimeout(() => {
         router.refresh();

@@ -74,25 +74,25 @@ const Container = ({ users, exchanges }) => {
           </div>
         ),
         "유저 타입": (
-          // <div className="cursor-pointer relative w-full flex justify-center">
-          //   <span className="border p-1 px-4 rounded-md" onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>
-          //     {getUserTypeText(type)}
-          //   </span>
-          //   <div
-          //     className={`absolute flex flex-col gap-4 top-10 items-center  ${
-          //       isVisible === user.id ? "block" : "hidden"
-          //     } bg-white border dark:bg-gray-400 z-10 p-3 w-full rounded-lg left-[50%] translate-x-[-50%]`}
-          //   >
-          //     {typeData
-          //       .filter((v) => v.value !== user.type)
-          //       .map((v) => (
-          //         <span key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
-          //           {v.label}
-          //         </span>
-          //       ))}
-          //   </div>
-          // </div>
-          <TypeDropdown id={user.id} />
+          <div className="cursor-pointer relative w-full flex justify-center">
+            <span className="border p-1 px-4 rounded-md" onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>
+              {getUserTypeText(type)}
+            </span>
+            <div
+              className={`absolute flex flex-col gap-4 top-10 items-center  ${
+                isVisible === user.id ? "block" : "hidden"
+              } bg-white border dark:bg-gray-400 z-10 p-3 w-full rounded-lg left-[50%] translate-x-[-50%]`}
+            >
+              {typeData
+                .filter((v) => v.value !== user.type)
+                .map((v) => (
+                  <span key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
+                    {v.label}
+                  </span>
+                ))}
+            </div>
+          </div>
+          // <TypeDropdown id={user.id} />
         ),
         accordion: (
           <div className={cn("origin-top-right flex overflow-hidden flex-col gap-2 bg-white", isAccordion === user.id ? "scale-y-100 h-full" : "scale-y-0 h-0", "transition-all")}>
@@ -150,7 +150,7 @@ const Container = ({ users, exchanges }) => {
           }}
         />
       </div>
-      <div className="rounded-lg">
+      <div className="rounded-lg pb-10">
         <Table data={tableData}></Table>
       </div>
       {/* <div className="flex flex-col flex-auto ">
