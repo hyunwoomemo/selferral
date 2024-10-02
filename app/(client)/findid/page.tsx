@@ -8,7 +8,7 @@ import { validateJoin } from "@/lib/validate";
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [values, setValues] = useState({});
   const [result, setResult] = useState();
   const { addToast } = useToast();
@@ -75,4 +75,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
