@@ -33,7 +33,7 @@ const Dropdown = ({ data, value, setValue, isVisible, setIsVisible, placeholder,
         {/* {isVisible && ( */}
         <div
           className={cn(
-            "absolute border top-[110%] left-1/2 translate-x-[-50%] flex flex-col  z-50 bg-white whitespace-nowrap items-center transition-all w-full",
+            "absolute border top-[110%] left-1/2 translate-x-[-50%] flex flex-col  z-50 bg-white whitespace-nowrap items-center transition-all w-full max-h-[300px] overflow-y-scroll",
             isVisible ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-[-16px] opacity-0 pointer-events-none"
           )}
         >

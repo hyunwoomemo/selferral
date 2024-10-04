@@ -16,7 +16,6 @@ export default async function Home() {
   const banners = await getBanners();
   console.log("banners", banners);
   // const uidData = await getUidList({ token: token?.value });
-  // console.log("uidData", uidData);
 
   console.log("exchanges.data", exchanges.data);
 

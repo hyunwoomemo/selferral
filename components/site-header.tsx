@@ -17,7 +17,6 @@ import { getInfo } from "@/actions/user/action";
 // import { info } from "@/app/action";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import Switch from "./ui/switch";
-import { wideAtom } from "@/app/store/common";
 import { useToast } from "@/hooks/useToast";
 
 export function SiteHeader() {
@@ -27,7 +26,6 @@ export function SiteHeader() {
   const token = getCookie("token");
   const refresh = getCookie("refresh");
   const router = useRouter();
-  const [wide, setWide] = useAtom(wideAtom);
 
   const [setting, setSetting] = useState(false);
 
@@ -92,7 +90,7 @@ export function SiteHeader() {
   return (
     <>
       <header className="z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur light:supports-[backdrop-filter]:bg-background/60">
-        <div className={`flex h-14 items-center px-2  ${wide ? "max-w-screen-xl" : "max-w-[840px]"} mx-auto`}>
+        <div className={`flex h-14 items-center px-2  ${"max-w-screen-xl"} mx-auto`}>
           <MainNav />
           <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="flex items-center md:gap-4 ">

@@ -7,7 +7,7 @@ import { fetchWithAuth } from "@/lib/fetchWithAuth";
 import { cookies } from "next/headers";
 export const getAllUser = async () => {
   const res = await fetch(`${API_URL}/auth/getuser`, {
-    next: { tags: ["users"], revalidate: 60000 },
+    next: { tags: ["users"] },
   });
   const data = await res.json();
 

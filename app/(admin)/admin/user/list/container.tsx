@@ -3,7 +3,7 @@
 import moment from "moment";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { setUserType } from "@/actions/user/action";
-import { ArrowBigDown, ArrowDown, ArrowDown01, ArrowDownCircle, ArrowDownSquare, RefreshCw } from "lucide-react";
+import { ArrowBigDown, ArrowDown, ArrowDown01, ArrowDownCircle, ArrowDownSquare, ArrowDownWideNarrow, ArrowUp01, ArrowUpWideNarrow, Filter, RefreshCw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { revalidateTag } from "next/cache";
 import { revalidate } from "@/actions/common/action";
@@ -14,14 +14,74 @@ import { API_URL } from "@/actions";
 import { cn } from "@/lib/utils";
 import Dropdown from "@/components/ui/dropdown";
 import TypeDropdown from "./type-dropdown";
+import { useAtom } from "jotai";
+import { bottomSheetAtom } from "@/app/store/common";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { register } from "module";
 
 const Container = ({ users, exchanges }) => {
   const [isVisible, setIsVisible] = useState(-1);
   const [isAccordion, setIsAccordion] = useState(-1);
   const [refresh, setRefresh] = useState(false);
+  const [bottomSheet, setBottomSheet] = useAtom(bottomSheetAtom);
+  const [data, setData] = useState([]);
+
+  const [state, setState] = useState(false);
+
+  const [sort, setSort] = useState({
+    register: 0,
+    point: null,
+  });
+
+  const handleSort = (type, value) => {
+    setSort((prev) => ({ [type]: value }));
+    setState((prev) => !prev);
+  };
 
   const router = useRouter();
   const { addToast } = useToast();
+
+  console.log("ss", sort);
+
+  useEffect(() => {
+    setBottomSheet((prev) => ({ ...prev, isVisible: false }));
+  }, [sort]);
+
+  const handleFilter = () => {
+    setBottomSheet((prev) => ({
+      ...prev,
+      isVisible: true,
+      contents: () => (
+        <div className="p-4 flex flex-col gap-10">
+          <div className="">
+            <div>가입일</div>
+            <div className="flex gap-4 py-2">
+              <Button onClick={() => handleSort("register", 0)} className={cn("hover:bg-orange-400", sort.register !== 0 && buttonVariants({ variant: "secondary" }))}>
+                가입일 빠른 순
+              </Button>
+              <Button onClick={() => handleSort("register", 1)} className={cn("hover:bg-orange-400", sort.register !== 1 && buttonVariants({ variant: "secondary" }))}>
+                가입일 느린 순
+              </Button>
+            </div>
+          </div>
+          <div className="">
+            <div>커미션</div>
+            <div className="flex gap-4 py-2">
+              <Button onClick={() => handleSort("point", 0)} className={cn("hover:bg-orange-400", sort.point !== 0 && buttonVariants({ variant: "secondary" }))}>
+                커미션 많은 순
+              </Button>
+              <Button onClick={() => handleSort("point", 1)} className={cn("hover:bg-orange-400", sort.point !== 1 && buttonVariants({ variant: "secondary" }))}>
+                커미션 적은 순
+              </Button>
+            </div>
+          </div>
+          {/* <div className="mt-auto">
+            <Button>적용</Button>
+          </div> */}
+        </div>
+      ),
+    }));
+  };
 
   const getUserTypeText = (type) => {
     switch (type) {
@@ -57,76 +117,83 @@ const Container = ({ users, exchanges }) => {
   };
 
   const tableData = useMemo(() => {
-    return users?.map((user) => {
-      const { email, name, hp, createdAt, type, total } = user;
+    return users
+      ?.sort((a, b) => {
+        const totalDiff = sort.point === 0 ? Number(b.total) - Number(a.total) : sort.point === 1 ? Number(a.total) - Number(b.total) : undefined;
+        const dateDiff = sort.register === 0 ? new Date(b.createdAt) - new Date(a.createdAt) : sort.register === 1 ? new Date(a.createdAt) - new Date(b.createdAt) : undefined;
 
-      console.log("isA", user.id);
+        return dateDiff || totalDiff;
+      })
+      ?.map((user) => {
+        const { email, name, hp, createdAt, type, total } = user;
 
-      return {
-        이메일: email,
-        이름: name,
-        번호: hp,
-        가입일: moment(createdAt).format("YYYY-MM-DD"),
-        커미션: (
-          <div className="flex gap-2 justify-center relative" onClick={() => setIsAccordion((prev) => (prev === user.id ? -1 : user.id))}>
-            <div>{Number(total).toLocaleString()}</div>
-            {total > 0 && <ArrowDownCircle className={cn("transition-all", `${user.id === isAccordion ? "rotate-180" : undefined}`, "absolute left-[110%]")} />}
-          </div>
-        ),
-        "유저 타입": (
-          <div className="cursor-pointer relative w-full flex justify-center">
-            <span className="border p-1 px-4 rounded-md" onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>
-              {getUserTypeText(type)}
-            </span>
-            <div
-              className={`absolute flex flex-col gap-4 top-10 items-center  ${
-                isVisible === user.id ? "block" : "hidden"
-              } bg-white border dark:bg-gray-400 z-10 p-3 w-full rounded-lg left-[50%] translate-x-[-50%]`}
-            >
-              {typeData
-                .filter((v) => v.value !== user.type)
-                .map((v) => (
-                  <span key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
-                    {v.label}
-                  </span>
-                ))}
+        console.log("isA", user.id);
+
+        return {
+          이메일: email,
+          이름: name,
+          번호: hp,
+          가입일: moment(createdAt).format("YYYY-MM-DD"),
+          커미션: (
+            <div className="flex gap-2 justify-center relative" onClick={() => setIsAccordion((prev) => (prev === user.id ? -1 : user.id))}>
+              <div>{Number(total).toLocaleString()}</div>
+              {total > 0 && <ArrowDownCircle className={cn("transition-all", `${user.id === isAccordion ? "rotate-180" : undefined}`, "absolute left-[110%]")} />}
             </div>
-          </div>
-          // <TypeDropdown id={user.id} />
-        ),
-        accordion: (
-          <div className={cn("origin-top-right flex overflow-hidden flex-col gap-2 bg-white", isAccordion === user.id ? "scale-y-100 h-full" : "scale-y-0 h-0", "transition-all")}>
-            {/* {user.exchanges && <Table data={user.exchanges} />} */}
-            <div className="flex bg-gray-100 p-4">
-              <div className="w-[80px]"></div>
-              <div className="w-[150px]">거래소</div>
-              <div className="w-[150px]">UID</div>
-              <div className="w-[150px]">커미션</div>
+          ),
+          "유저 타입": (
+            <div className="cursor-pointer relative w-full flex justify-center">
+              <span className="border p-1 px-4 rounded-md" onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>
+                {getUserTypeText(type)}
+              </span>
+              <div
+                className={`absolute flex flex-col gap-4 top-10 items-center  ${
+                  isVisible === user.id ? "block" : "hidden"
+                } bg-white border dark:bg-gray-400 z-10 p-3 w-full rounded-lg left-[50%] translate-x-[-50%]`}
+              >
+                {typeData
+                  .filter((v) => v.value !== user.type)
+                  .map((v) => (
+                    <span key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
+                      {v.label}
+                    </span>
+                  ))}
+              </div>
             </div>
-            {user.exchanges.map((v, i) => {
-              console.log("vvvvv", exchanges);
-              return (
-                <div key={`${v.exchange_id} ${i}`} className="flex gap-0 items-center px-4 py-1">
-                  {exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb ? (
-                    <div className="w-[80px]">
-                      <Image src={`${exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb}`} width={40} height={40} />
-                    </div>
-                  ) : (
-                    <div className="w-[80px] min-h-[40px]"></div>
-                  )}
-                  <div className="w-[150px]">{exchanges.find((v1) => v1.id === v.exchange_id)?.name}</div>
-                  <div className="w-[150px]">{v.user_uid}</div>
-                  <div className="w-[150px]">{v.point || 0}</div>
-                  {/* <div>{v.user_uid}</div> */}
-                </div>
-              );
-            })}
-            <div></div>
-          </div>
-        ),
-      };
-    });
-  }, [users, isVisible, exchanges, isAccordion, setIsAccordion]);
+            // <TypeDropdown id={user.id} />
+          ),
+          accordion: (
+            <div className={cn("origin-top-right flex overflow-hidden flex-col gap-2 bg-white", isAccordion === user.id ? "scale-y-100 h-full" : "scale-y-0 h-0", "transition-all")}>
+              {/* {user.exchanges && <Table data={user.exchanges} />} */}
+              <div className="flex bg-gray-100 p-4">
+                <div className="w-[80px]"></div>
+                <div className="w-[150px]">거래소</div>
+                <div className="w-[150px]">UID</div>
+                <div className="w-[150px]">커미션</div>
+              </div>
+              {user.exchanges.map((v, i) => {
+                console.log("vvvvv", exchanges);
+                return (
+                  <div key={`${v.exchange_id} ${i}`} className="flex gap-0 items-center px-4 py-1">
+                    {exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb ? (
+                      <div className="w-[80px]">
+                        <Image src={`${exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb}`} width={40} height={40} />
+                      </div>
+                    ) : (
+                      <div className="w-[80px] min-h-[40px]"></div>
+                    )}
+                    <div className="w-[150px]">{exchanges.find((v1) => v1.id === v.exchange_id)?.name}</div>
+                    <div className="w-[150px]">{v.user_uid}</div>
+                    <div className="w-[150px]">{v.point || 0}</div>
+                    {/* <div>{v.user_uid}</div> */}
+                  </div>
+                );
+              })}
+              <div></div>
+            </div>
+          ),
+        };
+      });
+  }, [users, isVisible, exchanges, isAccordion, setIsAccordion, sort]);
 
   useEffect(() => {
     if (refresh) {
@@ -138,20 +205,84 @@ const Container = ({ users, exchanges }) => {
 
   console.log("tableDatatableData", tableData);
 
+  const headerData = [
+    {
+      label: "이메일",
+    },
+    {
+      label: "이름",
+    },
+    {
+      label: "번호",
+    },
+    {
+      label: "가입일",
+      sort: () => handleSort("register", sort.register == 0 ? 1 : 0),
+      sortKey: "register",
+    },
+    {
+      label: "커미션",
+      sort: () => handleSort("point", sort.point == 0 ? 1 : 0),
+      sortKey: "point",
+    },
+    {
+      label: "유저타입",
+    },
+  ];
+
   return (
     <div className="font-bold flex-auto flex-col flex p-4  ">
       <div className="flex justify-between p-4  items-center">
         <h1 className="text-3xl">유저</h1>
-        <RefreshCw
-          className={cn("cursor-pointer", refresh ? "refresh" : "")}
-          onClick={() => {
-            setRefresh(true);
-            revalidate("users");
-          }}
-        />
+        <div className="flex gap-5">
+          {/* <Filter onClick={handleFilter} /> */}
+          <RefreshCw
+            className={cn("cursor-pointer", refresh ? "refresh" : "")}
+            onClick={() => {
+              setRefresh(true);
+              revalidate("users");
+            }}
+          />
+        </div>
       </div>
       <div className="rounded-lg pb-10">
-        <Table data={tableData}></Table>
+        {/* <Table data={tableData} sorts={['']}></Table> */}
+        <div className={cn("bg-gray-50 my-4")}>
+          <div className={`flex border-b p-3 px-5 bg-orange-100`}>
+            {headerData
+              // .filter((v) => v !== "accordion")
+              .map((v) => (
+                <div className="flex-1 flex justify-center items-center gap-1" key={v}>
+                  {v.label}
+                  {v.sort ? (
+                    sort[v.sortKey] == 0 ? (
+                      <ArrowUp01 onClick={v.sort} size={20} />
+                    ) : (
+                      <ArrowDown01 className={sort[v.sortKey] == 1 ? "" : "opacity-30"} onClick={v.sort} size={20} />
+                    )
+                  ) : undefined}
+                </div>
+              ))}
+          </div>
+          {tableData.map((v, rowIndex) => {
+            return (
+              <div key={v.id || rowIndex} className="bg-white">
+                <div className={`border-b p-5  hover:bg-orange-50 `} style={{ display: "flex", alignItems: "center" }}>
+                  {Object.entries(v)
+                    .filter(([key]) => key !== "accordion")
+                    .map(([key, value], colIndex) => {
+                      return (
+                        <div id={"tableitem"} className=" flex-1 max-w-full  flex justify-center text-start cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
+                          {value}
+                        </div>
+                      );
+                    })}
+                </div>
+                {v.accordion}
+              </div>
+            );
+          })}
+        </div>
       </div>
       {/* <div className="flex flex-col flex-auto ">
         <div className="pt-10 md:grid md:grid-cols-5 p-2 text-center border-b-[1px]">

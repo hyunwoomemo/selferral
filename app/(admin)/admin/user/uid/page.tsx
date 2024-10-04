@@ -8,6 +8,7 @@ import moment from "moment";
 import RegisterDropdown from "./standby/register-dropdown";
 import Table from "@/components/ui/table";
 import ServerPagination from "@/components/ui/server-pagination";
+import { cn } from "@/lib/utils";
 
 const page = async ({ searchParams }) => {
   const data = await getUidRegisterStatus({ status: searchParams.type || 0, exchange_id: 0, rownum: 20, page: searchParams.page || 1 });

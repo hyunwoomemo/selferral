@@ -1,6 +1,5 @@
 "use client";
 
-import { siteConfig } from "@/config/site";
 import { Icons } from "./icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,12 +9,10 @@ import { userAtom } from "@/app/store/user";
 import { useAtom } from "jotai";
 import Image from "next/image";
 import Switch from "./ui/switch";
-import { wideAtom } from "@/app/store/common";
 
 export function MainNav() {
   const pathname = usePathname();
   const [user, setUser] = useAtom(userAtom);
-  const [wide, setWide] = useAtom(wideAtom);
 
   console.log(user);
 

@@ -30,7 +30,7 @@ const stepData = [
   },
 ];
 
-const Container = ({ exchanges }) => {
+const Container = ({ exchanges, users }) => {
   const [tab, setTab] = useState("all");
   const [data, setData] = useState({ total: 0, list: [] });
   const [exchange, setExchange] = useState({});
@@ -39,33 +39,21 @@ const Container = ({ exchanges }) => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
 
-  console.log("isVsibile", isVisible);
+  console.log("exchanges", exchanges);
 
   const storedExchanges = useAtomValue(exchangesAtom);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
+
   const tableData = useMemo(() => {
     return data.list.map((item) => ({
-      거래소: storedExchanges?.find((v) => v.exchange_id === item.exchange_id)?.name || item.exchange_id,
-      금액: item.point,
+      거래소: exchanges.data?.find((v) => v.exchange_id === item.exchange_id)?.name || item.exchange_id,
+      금액: Number(item.point).toLocaleString(),
       ["USDT 주소"]: item.usdt_address,
-      유저: item.user_id,
+      유저: users.find((v) => v.id === item.user_id)?.email,
       상태: (
-        // <span className="flex justify-center items-center relative">
-        //   <p className="cursor-pointer" onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>
-        //     {stepData.find((v) => v.value === item.step)?.label}
-        //   </p>
-        //   {isVisible === item.id && (
-        //     <div className="absolute bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30">
-        //       {stepData
-        //         .filter((v) => v.value !== item.step)
-        //         .map((v, i) => (
-        //           <div key={`${v.value} ${i}`} onClick={() => handleUpdateStep({ id: item.id, step: v.value })} className="hover:bg-gray-100 w-full text-center">
-        //             {v.label}
-        //           </div>
-        //         ))}
-        //     </div>
-        //   )}
-        // </span>
         <div className="cursor-pointer relative w-full flex justify-center">
           <span onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step)?.label}</span>
 
