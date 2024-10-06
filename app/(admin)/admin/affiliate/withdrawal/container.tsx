@@ -10,6 +10,8 @@ import Dropdown from "@/components/ui/dropdown";
 import Pagination from "@/components/pagination";
 import Table from "@/components/ui/table";
 import moment from "moment";
+import { cn } from "@/lib/utils";
+import { ArrowDown01, ArrowUp01 } from "lucide-react";
 
 const stepData = [
   {
@@ -39,9 +41,46 @@ const Container = ({ exchanges, users }) => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
 
-  console.log("exchanges", exchanges);
+  const [sort, setSort] = useState({
+    createtime: "desc",
+  });
 
-  const storedExchanges = useAtomValue(exchangesAtom);
+  const handleSort = (type, value) => {
+    setSort((prev) => ({ [type]: value }));
+  };
+
+  const headerData = [
+    {
+      label: "거래소",
+      sort: () => handleSort("exchange_id", sort.exchange_id == "desc" ? "asc" : "desc"),
+      sortKey: "exchange_id",
+    },
+    {
+      label: "금액",
+      sort: () => handleSort("point", sort.point == "desc" ? "asc" : "desc"),
+      sortKey: "point",
+    },
+    {
+      label: "USDT 주소",
+    },
+    {
+      label: "유저",
+      sort: () => handleSort("user_id", sort.user_id == "desc" ? "asc" : "desc"),
+      sortKey: "user_id",
+    },
+    {
+      label: "상태",
+      sort: () => handleSort("step", sort.step == "desc" ? "asc" : "desc"),
+      sortKey: "step",
+    },
+    {
+      label: "신청시간",
+      sort: () => handleSort("createtime", sort.createtime == "desc" ? "asc" : "desc"),
+      sortKey: "createtime",
+    },
+  ];
+
+  console.log("exchanges", exchanges);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -75,12 +114,12 @@ const Container = ({ exchanges, users }) => {
   }, [data, isVisible]);
 
   useEffect(() => {
-    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1 }).then((res) => {
+    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1] }).then((res) => {
       console.log("res123", res);
       setData(res.data);
       setTotal(res.data.total);
     });
-  }, [tab, page]);
+  }, [tab, page, sort]);
 
   console.log("res", data);
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
@@ -113,7 +152,43 @@ const Container = ({ exchanges, users }) => {
           <div>출금 신청 내역이 존재하지 않습니다.</div>
         ) : (
           <div className="h-full">
-            <Table data={tableData} />
+            {/* <Table data={tableData} /> */}
+            <div className={cn("bg-gray-50 my-4")}>
+              <div className={`flex border-b p-3 px-5 bg-orange-100`}>
+                {headerData
+                  // .filter((v) => v !== "accordion")
+                  .map((v) => (
+                    <div className="flex-1 flex justify-center items-center gap-1" key={v}>
+                      {v.label}
+                      {v.sort ? (
+                        sort[v.sortKey] == "desc" ? (
+                          <ArrowUp01 onClick={v.sort} size={20} />
+                        ) : (
+                          <ArrowDown01 className={sort[v.sortKey] == "asc" ? "" : "opacity-30"} onClick={v.sort} size={20} />
+                        )
+                      ) : undefined}
+                    </div>
+                  ))}
+              </div>
+              {tableData.map((v, rowIndex) => {
+                return (
+                  <div key={v.id || rowIndex} className="bg-white">
+                    <div className={`border-b p-5  hover:bg-orange-50 `} style={{ display: "flex", alignItems: "center" }}>
+                      {Object.entries(v)
+                        .filter(([key]) => key !== "accordion")
+                        .map(([key, value], colIndex) => {
+                          return (
+                            <div id={"tableitem"} className=" flex-1 max-w-full  flex justify-center text-start cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
+                              {value}
+                            </div>
+                          );
+                        })}
+                    </div>
+                    {v.accordion}
+                  </div>
+                );
+              })}
+            </div>
             <div className="pt-5">
               <Pagination page={page} setPage={setPage} total={total} offset={10} />
             </div>

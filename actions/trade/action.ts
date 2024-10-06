@@ -129,9 +129,9 @@ export const registerUID = async ({ id, uid }) => {
   }
 };
 
-export const getWithdrawals = async ({ exchangeId, num = 10, page = 1 }) => {
+export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, orderby }) => {
   const res = await fetchWithAuth(
-    `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page} 
+    `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}
 `,
     {
       next: { tags: ["withdrawals"] },

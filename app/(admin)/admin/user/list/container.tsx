@@ -24,9 +24,6 @@ const Container = ({ users, exchanges }) => {
   const [isAccordion, setIsAccordion] = useState(-1);
   const [refresh, setRefresh] = useState(false);
   const [bottomSheet, setBottomSheet] = useAtom(bottomSheetAtom);
-  const [data, setData] = useState([]);
-
-  const [state, setState] = useState(false);
 
   const [sort, setSort] = useState({
     register: 0,
@@ -35,7 +32,6 @@ const Container = ({ users, exchanges }) => {
 
   const handleSort = (type, value) => {
     setSort((prev) => ({ [type]: value }));
-    setState((prev) => !prev);
   };
 
   const router = useRouter();

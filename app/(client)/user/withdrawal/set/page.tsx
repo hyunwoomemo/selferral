@@ -1,17 +1,17 @@
 import React from "react";
 import Container from "./container";
-import { getExchanges, getUidStatus } from "@/actions/trade/action";
+import { getExchanges, getUidList, getUidStatus } from "@/actions/trade/action";
 
 const Page = async ({ searchParams }) => {
   const exchanges = await getExchanges();
 
   const exchangeId = searchParams.id;
   console.log("params", searchParams);
-  const uidData = await getUidStatus({});
+  const uidData = await getUidList({});
 
-  console.log("ex123", exchanges, uidData.data.DATA);
+  console.log("ex123", uidData.data);
 
-  const data = await uidData.data.DATA.map((v) => {
+  const data = await uidData.data.map((v) => {
     return {
       ...v,
       name: exchanges.data.find((v1) => v1.exchange_id === v.exchange_id)?.name,

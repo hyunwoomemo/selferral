@@ -37,7 +37,8 @@ const Container = ({ data, exchangeId }) => {
       return addToast({ text: "최소 100USDT 이상부터 출금신청 가능합니다" });
     }
 
-    const res = await setWithdrawal({ token, data: { exchange_id: exchange.id, point: exchange.point, usdt_address: exchange.uid } });
+    const res = await setWithdrawal({ token, data: { exchange_id: exchange.id, point: exchange.point, usdt_address: exchange.uid, uid_id: exchange.uid_id } });
+
 
     if (res.data === "aleady") {
       return window.alert("이미 등록되어있습니다.");
@@ -69,7 +70,7 @@ const Container = ({ data, exchangeId }) => {
               return (
                 <div
                   onClick={() => {
-                    setExchange({ id: v.exchange_id, uid: v.user_uid, image_thumb: v.image_thumb, name: v.name, maxPoint: v.point });
+                    setExchange({ id: v.exchange_id, uid: v.uid, image_thumb: v.image_thumb, name: v.name, maxPoint: v.point, uid_id: v.id });
                     setBottomSheet((prev) => ({ ...prev, isVisible: false }));
                   }}
                   key={data.user_uid}
@@ -123,12 +124,13 @@ const Container = ({ data, exchangeId }) => {
             className="bg-transparent p-3 border border-gray-400 rounded-lg"
             placeholder="금액을 입력해주세요."
             type="number"
+            disabled={!exchange}
             value={exchange?.point || ""}
             onChange={(e) =>
               setExchange((prev) => {
-                if (e.target.value > Number(exchange.maxPoint)) {
-                  addToast({ text: "출금 가능 금액을 초과했습니다." });
-                  return { ...prev, point: "" };
+                if (e.target.value > Number(exchange?.maxPoint)) {
+                  // addToast({ text: "출금 가능 금액을 초과했습니다." });
+                  return { ...prev, point: Number(exchange?.maxPoint) };
                 } else {
                   return { ...prev, point: e.target.value };
                 }
@@ -141,6 +143,7 @@ const Container = ({ data, exchangeId }) => {
         <p>USDT 주소</p>
         <div className="flex w-80">
           <input
+            disabled={!exchange}
             className="bg-transparent p-3 border border-gray-400 rounded-lg"
             placeholder="주소를 입력해주세요."
             value={exchange?.uid || ""}
