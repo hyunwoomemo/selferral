@@ -90,7 +90,9 @@ const Page = async ({ searchParams }) => {
                 <span className="flex justify-center ">{v.exchange_name}</span>
                 <span className="flex justify-center">{Number(v.point).toLocaleString()}</span>
                 <span className="truncate max-w-[50px] sm:max-w-[200px]">{v.usdt_address}</span>
-                <span className="flex justify-center py-1 px-2 bg-orange-400 justify-self-center rounded-full text-white font-bold text-sm md:text-[16px]">
+                <span
+                  className={cn("flex justify-center py-1 px-4 bg-orange-400 justify-self-center font-bold rounded-full  ", `bg-orange-${v.step + 1}00`, v.step < 4 ? "text-gray-600" : "text-white")}
+                >
                   {stepData.find((v1) => v1.value === v.step).label}
                 </span>
               </React.Fragment>
