@@ -39,9 +39,8 @@ const Container = ({ data, exchangeId }) => {
 
     const res = await setWithdrawal({ token, data: { exchange_id: exchange.id, point: exchange.point, usdt_address: exchange.uid, uid_id: exchange.uid_id } });
 
-
     if (res.data === "aleady") {
-      return window.alert("이미 등록되어있습니다.");
+      return addToast({ text: "기존 신청 건이 있습니다." });
     }
 
     if (res.data === "ok") {
