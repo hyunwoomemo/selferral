@@ -47,35 +47,6 @@ const Page = async ({ searchParams }) => {
     // return data?.list.map((v, i) => <div key={i}>{i}</div>);
 
     return (
-      // <div className="flex flex-col gap-0 md:max-w-[80dvw] overflow-x-auto">
-      //   <div className="">
-      //     <div className="flex gap-10 py-5 border-b-2">
-      //       <span className="flex justify-center min-w-[180px]">거래소</span>
-      //       <span className="flex justify-center min-w-[180px]">금액</span>
-      //       <span className="flex justify-center min-w-[180px]">USDT 주소</span>
-      //       <span className="flex justify-center min-w-[180px]">상태</span>
-      //     </div>
-      //   </div>
-      //   <div className="flex flex-col flex-auto">
-      //     {data?.list.map((item, index) => (
-      //       <div className="flex py-5 items-center" key={item.id}>
-      //         <div className="flex items-center  gap-10">
-      //           <span className="min-w-[180px] flex justify-center">{item.exchange_name}</span>
-      //           <span className="flex justify-center items-center min-w-[180px]">{item.point}</span>
-      //           <span className="flex justify-center items-center min-w-[180px]">{item.usdt_address}</span>
-      //           <span className="flex justify-center items-center min-w-[180px]">{stepData.find((v) => v.value === item.step).label}</span>
-      //         </div>
-      //         {/* <div className="absolute right-10 flex gap-8">
-      //         <Link href={`/admin/exchange/edit?id=${exchange.id}`}>
-      //           <Pencil />
-      //         </Link>
-      //         <DeleteButton id={exchange.id} />
-      //       </div> */}
-      //       </div>
-      //     ))}
-      //   </div>
-      //   {/* 옵션 */}
-      // </div>
       <>
         <div className="grid grid-cols-4 border-b border-gray-100 bg-gray-100 py-2">
           <span className="flex justify-center text-gray-600">거래소</span>
@@ -91,7 +62,11 @@ const Page = async ({ searchParams }) => {
                 <span className="flex justify-center">{Number(v.point).toLocaleString()}</span>
                 <span className="truncate max-w-[50px] sm:max-w-[200px]">{v.usdt_address}</span>
                 <span
-                  className={cn("flex justify-center py-1 px-4 bg-orange-400 justify-self-center font-bold rounded-full  ", `bg-orange-${v.step + 1}00`, v.step < 4 ? "text-gray-600" : "text-white")}
+                  className={cn(
+                    "flex justify-center py-1 px-4 bg-orange-400 justify-self-center font-bold rounded-full",
+                    v.step > -1 ? `bg-orange-${v.step + 1}00` : "bg-orange-500",
+                    v.step < 4 ? "text-gray-600" : "text-white"
+                  )}
                 >
                   {stepData.find((v1) => v1.value === v.step).label}
                 </span>
