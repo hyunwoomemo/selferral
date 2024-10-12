@@ -253,8 +253,8 @@ const Container = ({ exchanges, users }) => {
           </div>
           <Input
             onChange={(e) => setKeyword(e.target.value)}
-            type={searchType.value.includes("point") ? "number" : undefined}
-            placeholder={searchType.value.includes("point") ? "숫자를 입력해주세요." : undefined}
+            type={searchType?.value.includes("point") ? "number" : undefined}
+            placeholder={searchType?.value.includes("point") ? "숫자를 입력해주세요." : undefined}
           />
           <Button disabled={!searchType || !keyword} onClick={handleSearch}>
             검색
