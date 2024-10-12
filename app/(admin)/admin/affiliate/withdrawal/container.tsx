@@ -179,7 +179,7 @@ const Container = ({ exchanges, users }) => {
         setTotal(res.data.total);
       }
     );
-  }, [tab, page, sort, keyword, searchType]);
+  }, [tab, page, sort]);
 
   const handleSearch = () => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value })
@@ -236,7 +236,7 @@ const Container = ({ exchanges, users }) => {
                             setSearchType(v);
                             setBottomSheet((prev) => ({ isVisible: false }));
                           }}
-                          className="p-2 bg-gray-50 border border-gray-100 rounded-md"
+                          className="cursor-pointer p-2 bg-gray-50 border border-gray-100 rounded-md"
                           key={v.value}
                         >
                           {v.label}
@@ -247,12 +247,18 @@ const Container = ({ exchanges, users }) => {
                 },
               }));
             }}
-            className="border bg-gray-50  p-2 rounded-md"
+            className="border bg-gray-50  p-2 rounded-md cursor-pointer"
           >
             {searchType ? searchType.label : "선택"}
           </div>
-          <Input onChange={(e) => setKeyword(e.target.value)} />
-          <Button onClick={handleSearch}>검색</Button>
+          <Input
+            onChange={(e) => setKeyword(e.target.value)}
+            type={searchType.value.includes("point") ? "number" : undefined}
+            placeholder={searchType.value.includes("point") ? "숫자를 입력해주세요." : undefined}
+          />
+          <Button disabled={!searchType || !keyword} onClick={handleSearch}>
+            검색
+          </Button>
         </div>
         {!data.total ? (
           <div>출금 신청 내역이 존재하지 않습니다.</div>
