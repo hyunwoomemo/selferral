@@ -4,14 +4,17 @@ import ExchangeTab from "./exchange-tab";
 import { getWithdrawals, updateStep } from "@/actions/trade/action";
 import Tab from "@/components/tab";
 import { useToast } from "@/hooks/useToast";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { exchangesAtom } from "@/app/store/trade";
 import Dropdown from "@/components/ui/dropdown";
 import Pagination from "@/components/pagination";
 import Table from "@/components/ui/table";
 import moment from "moment";
 import { cn } from "@/lib/utils";
-import { ArrowDown01, ArrowUp01 } from "lucide-react";
+import { ArrowDown01, ArrowUp01, ListFilter } from "lucide-react";
+import { bottomSheetAtom } from "@/app/store/common";
+import Input from "@/components/input";
+import { Button } from "@/components/ui/button";
 
 const stepData = [
   {
@@ -32,6 +35,25 @@ const stepData = [
   },
 ];
 
+const searchTypeData = [
+  {
+    label: "포인트 같음",
+    value: "pointeq",
+  },
+  {
+    label: "포인트 같거나 작음",
+    value: "pointdn",
+  },
+  {
+    label: "포인트 크거나 같음",
+    value: "pointup",
+  },
+  {
+    label: "이메일",
+    value: "user",
+  },
+];
+
 const Container = ({ exchanges, users }) => {
   const [tab, setTab] = useState("all");
   const [data, setData] = useState({ total: 0, list: [] });
@@ -40,6 +62,11 @@ const Container = ({ exchanges, users }) => {
   const { addToast } = useToast();
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
+  const [bottomSheet, setBottomSheet] = useAtom(bottomSheetAtom);
+  const [searchType, setSearchType] = useState(null);
+  const [keyword, setKeyword] = useState(null);
+
+  console.log("bottomSheetbottomSheet", bottomSheet);
 
   const [sort, setSort] = useState({
     createtime: "desc",
@@ -54,6 +81,40 @@ const Container = ({ exchanges, users }) => {
       label: "거래소",
       sort: () => handleSort("exchange_id", sort.exchange_id == "desc" ? "asc" : "desc"),
       sortKey: "exchange_id",
+      // sort: () => {
+      //   setBottomSheet((prev) => ({
+      //     ...prev,
+      //     isVisible: true,
+      //     contents: () => (
+      //       <div className="p-4">
+      //         <h1 className="text-gray-600 font-bold">거래소 선택</h1>
+      //         <div className="flex gap-4 pt-4">
+      //           {Object.values(
+      //             data.list.reduce((result, cur) => {
+      //               if (!result[cur.exchange_id]) {
+      //                 result[cur.exchange_id] = exchanges.data?.find((v) => v.exchange_id === cur.exchange_id)?.name || cur.exchange_id;
+      //               }
+
+      //               return result;
+      //             }, {})
+      //           ).map((v) => (
+      //             <div className="py-2 px-4 bg-orange-50 flex gap-2 items-center">
+      //               <input
+      //                 id={v}
+      //                 type="checkbox"
+      //                 className="rounded-md accent-orange-400 size-6 border-0 appearance-none bg-white relative cursor-pointer border-none outline-none checked:appearance-auto"
+      //               />
+      //               <label className="cursor-pointer" for={v}>
+      //                 {v}
+      //               </label>
+      //             </div>
+      //           ))}
+      //         </div>
+      //       </div>
+      //     ),
+      //   }));
+      // },
+      // sortKey: "exchange_id",
     },
     {
       label: "금액",
@@ -80,8 +141,6 @@ const Container = ({ exchanges, users }) => {
     },
   ];
 
-  console.log("exchanges", exchanges);
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
@@ -97,7 +156,7 @@ const Container = ({ exchanges, users }) => {
           <span onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step)?.label}</span>
 
           {isVisible === item.id && (
-            <div className="absolute bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30">
+            <div key={item.id} className="absolute bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30">
               {stepData
                 .filter((v) => v.value !== item.step)
                 .map((v, i) => (
@@ -114,12 +173,23 @@ const Container = ({ exchanges, users }) => {
   }, [data, isVisible]);
 
   useEffect(() => {
-    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1] }).then((res) => {
-      console.log("res123", res);
-      setData(res.data);
-      setTotal(res.data.total);
-    });
-  }, [tab, page, sort]);
+    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value }).then(
+      (res) => {
+        setData(res.data);
+        setTotal(res.data.total);
+      }
+    );
+  }, [tab, page, sort, keyword, searchType]);
+
+  const handleSearch = () => {
+    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value })
+      .then((res) => {
+        console.log("rrr", res);
+        setData(res.data);
+        setTotal(res.data.total);
+      })
+      .catch((err) => console.log(err));
+  };
 
   console.log("res", data);
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
@@ -127,8 +197,10 @@ const Container = ({ exchanges, users }) => {
   const handleUpdateStep = async ({ id, step }) => {
     const res = await updateStep({ withdrawlId: id, step });
 
+    console.log("sdmfmfksdmfksmdkf", res);
+
     if (res.data === "OK") {
-      getWithdrawals({ exchangeId: tab === "all" ? 0 : tab })
+      getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value })
         .then((res) => setData(res.data))
         .finally(() => {
           setIsVisible(-1);
@@ -148,6 +220,40 @@ const Container = ({ exchanges, users }) => {
         <div className="pt-5 pb-5">
           <Tab tab={tab} setTab={setTab} data={tabData} all />
         </div>
+        <div className="py-3 flex gap-2 items-center">
+          <div
+            onClick={() => {
+              setBottomSheet((prev) => ({
+                ...prev,
+                isVisible: true,
+                height: "h-[30%]",
+                contents: () => {
+                  return (
+                    <div className="flex gap-2 p-4">
+                      {searchTypeData.map((v) => (
+                        <div
+                          onClick={() => {
+                            setSearchType(v);
+                            setBottomSheet((prev) => ({ isVisible: false }));
+                          }}
+                          className="p-2 bg-gray-50 border border-gray-100 rounded-md"
+                          key={v.value}
+                        >
+                          {v.label}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                },
+              }));
+            }}
+            className="border bg-gray-50  p-2 rounded-md"
+          >
+            {searchType ? searchType.label : "선택"}
+          </div>
+          <Input onChange={(e) => setKeyword(e.target.value)} />
+          <Button onClick={handleSearch}>검색</Button>
+        </div>
         {!data.total ? (
           <div>출금 신청 내역이 존재하지 않습니다.</div>
         ) : (
@@ -158,15 +264,16 @@ const Container = ({ exchanges, users }) => {
                 {headerData
                   // .filter((v) => v !== "accordion")
                   .map((v) => (
-                    <div className="flex-1 flex justify-center items-center gap-1" key={v}>
+                    <div className="flex-1 flex justify-center items-center gap-1" key={v.sortKey}>
                       {v.label}
-                      {v.sort ? (
+                      {/* {v.sort ? (
                         sort[v.sortKey] == "desc" ? (
                           <ArrowUp01 onClick={v.sort} size={20} />
                         ) : (
                           <ArrowDown01 className={sort[v.sortKey] == "asc" ? "" : "opacity-30"} onClick={v.sort} size={20} />
                         )
-                      ) : undefined}
+                      ) : undefined} */}
+                      {v.sort && <ListFilter onClick={v.sort} size={20} color="gray" />}
                     </div>
                   ))}
               </div>
@@ -189,6 +296,7 @@ const Container = ({ exchanges, users }) => {
                 );
               })}
             </div>
+
             <div className="pt-5">
               <Pagination page={page} setPage={setPage} total={total} offset={10} />
             </div>

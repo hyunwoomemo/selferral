@@ -129,16 +129,26 @@ export const registerUID = async ({ id, uid }) => {
   }
 };
 
-export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, orderby }) => {
-  const res = await fetchWithAuth(
-    `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}
-`,
-    {
-      next: { tags: ["withdrawals"] },
-    }
-  );
-
-  return res;
+export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, orderby, search_type, keyword }) => {
+  if (keyword && search_type) {
+    const res = await fetchWithAuth(
+      `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}&search_type=${search_type}&keyword=${keyword}
+  `,
+      {
+        next: { tags: ["withdrawals"] },
+      }
+    );
+    return res;
+  } else {
+    const res = await fetchWithAuth(
+      `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}
+  `,
+      {
+        next: { tags: ["withdrawals"] },
+      }
+    );
+    return res;
+  }
 };
 
 export const setWithdrawal = async ({ data }) => {
