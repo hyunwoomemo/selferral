@@ -51,6 +51,7 @@ const ExchangeItem = ({ exchanges }) => {
         할인: v.discount,
         지정가: v.limit_order,
         시장가: v.market_order,
+        환급률: v.refund,
         // 링크: (
         //   <div className="truncate max-w-20" aria-label={v.affiliate_join_url} content={v.affiliate_join_url}>
         //     <span>{v.affiliate_join_url}</span>

@@ -129,15 +129,21 @@ export const registerUID = async ({ id, uid }) => {
   }
 };
 
-export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, orderby, search_type, keyword }) => {
-  if (keyword && search_type) {
+export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, orderby, search_type, keyword, step, dt_start, dt_end }) => {
+  console.log("zxczxc", dt_start);
+  if ((keyword && search_type) || step > -1 || dt_start || dt_end) {
     const res = await fetchWithAuth(
-      `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}&search_type=${search_type}&keyword=${keyword}
+      `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}&search_type=${search_type}&keyword=${keyword}${step > -1 ? `&step=${step}` : ""}${
+        dt_start ? `&dt_start=${dt_start}` : ""
+      }${dt_end ? `&dt_end=${dt_end}` : ""}
   `,
       {
         next: { tags: ["withdrawals"] },
       }
     );
+
+    console.log("getWithdrawals", res);
+
     return res;
   } else {
     const res = await fetchWithAuth(
@@ -236,7 +242,7 @@ export const getUidStatus = async ({}) => {
 };
 
 export const getExcel = async ({ num = 10, page = 1 }) => {
-  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/get/excel/${num}/${page}`, { next: { tags: ["excellist"] } });
+  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/excel/${num}/${page}`, { next: { tags: ["excellist"] }, method: "GET" });
 
   console.log("response123123", response);
 

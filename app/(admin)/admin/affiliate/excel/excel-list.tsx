@@ -46,7 +46,7 @@ const ExcelList = () => {
             <p>{moment(v.create_at).format("YYYY-MM-DD HH:mm")}</p>
           </div>
         ))} */}
-        <Table data={tableData} />
+        {data?.list ? <Table data={tableData} /> : <div className="py-4">데이터가 존재하지 않습니다.</div>}
       </div>
       <div className="pt-10">
         <Pagination total={total} page={page} setPage={setPage} />

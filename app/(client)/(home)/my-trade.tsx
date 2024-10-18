@@ -38,7 +38,7 @@ const MyTrade = ({ uidData, exchanges }) => {
               </div>
               <div>
                 <div className="text-gray-600 font-semibold">UID {v.user_uid}</div>
-                <div className="font-bold text-lg">{v.point || 0} USDT</div>
+                <div className="font-bold text-lg">{Number(v.point) || 0} USDT</div>
               </div>
             </Link>
           );

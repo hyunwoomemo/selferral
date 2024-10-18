@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const keys = ["payback", "discount", "market_order", "limit_order", "tag", "status", "average_refund", "affiliate_join_url"];
+const keys = ["payback", "discount", "market_order", "limit_order", "tag", "status", "average_refund", "affiliate_join_url", "refund"];
 
 const Container = ({ exchangeId, link, linkId }) => {
   const [values, setValues] = useState({});
@@ -53,6 +53,7 @@ const Container = ({ exchangeId, link, linkId }) => {
         <Input value={values.discount} label={"할인"} type="number" unit="%" onChange={(e) => setValues((prev) => ({ ...prev, discount: e.target.value }))} />
         <Input value={values.limit_order} label={"지정가"} type="number" unit="%" onChange={(e) => setValues((prev) => ({ ...prev, limit_order: e.target.value }))} />
         <Input value={values.market_order} label={"시장가"} type="number" unit="%" onChange={(e) => setValues((prev) => ({ ...prev, market_order: e.target.value }))} />
+        <Input value={values.refund} label={"환급률"} type="number" unit="%" onChange={(e) => setValues((prev) => ({ ...prev, refund: e.target.value }))} />
         <Input value={values.average_refund} label={"평균 환급금"} type="number" placeholder="" unit={"만원"} onChange={(e) => setValues((prev) => ({ ...prev, average_refund: e.target.value }))} />
         <Input value={values.tag} label={"태그"} onChange={(e) => setValues((prev) => ({ ...prev, tag: e.target.value }))} />
         <Input value={values.affiliate_join_url} label={"가입 링크"} onChange={(e) => setValues((prev) => ({ ...prev, affiliate_join_url: e.target.value }))} />

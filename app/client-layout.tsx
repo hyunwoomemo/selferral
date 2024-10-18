@@ -26,7 +26,9 @@ const ClientLayout = ({ children }) => {
     return (
       <main>
         {children}
-        <BottomSheet />
+        <div className="pointer-events-none  fixed top-0 bottom-0 left-0 right-0 h-screen">
+          <BottomSheet />
+        </div>
       </main>
     );
   }

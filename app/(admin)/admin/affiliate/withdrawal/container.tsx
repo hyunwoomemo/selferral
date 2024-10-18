@@ -15,6 +15,7 @@ import { ArrowDown01, ArrowUp01, ListFilter } from "lucide-react";
 import { bottomSheetAtom } from "@/app/store/common";
 import Input from "@/components/input";
 import { Button } from "@/components/ui/button";
+import Calendar from "@/components/calendar";
 
 const stepData = [
   {
@@ -52,6 +53,14 @@ const searchTypeData = [
     label: "이메일",
     value: "user",
   },
+  {
+    label: "상태",
+    value: "step",
+  },
+  {
+    label: "신청 시간",
+    value: "date",
+  },
 ];
 
 const Container = ({ exchanges, users }) => {
@@ -65,8 +74,8 @@ const Container = ({ exchanges, users }) => {
   const [bottomSheet, setBottomSheet] = useAtom(bottomSheetAtom);
   const [searchType, setSearchType] = useState(null);
   const [keyword, setKeyword] = useState(null);
-
-  console.log("bottomSheetbottomSheet", bottomSheet);
+  const [dates, setDates] = useState([]);
+  const [dateSave, setDateSave] = useState(false);
 
   const [sort, setSort] = useState({
     createtime: "desc",
@@ -75,6 +84,70 @@ const Container = ({ exchanges, users }) => {
   const handleSort = (type, value) => {
     setSort((prev) => ({ [type]: value }));
   };
+
+  useEffect(() => {
+    return () => {
+      setDateSave(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    setDates([]);
+    setDateSave(false);
+
+    if (searchType && searchType.value === "date") {
+      setBottomSheet((prev) => ({
+        ...prev,
+        isVisible: true,
+        contents: () => <Calendar dates={dates} setDates={setDates} setDateSave={setDateSave} />,
+      }));
+    }
+  }, [searchType]);
+
+  useEffect(() => {
+    if (dateSave) {
+      setBottomSheet({ isVisible: false });
+
+      const ddates = dates.sort((a, b) => new Date(a) - new Date(b));
+
+      getWithdrawals({
+        exchangeId: tab === "all" ? 0 : tab,
+        num: 10,
+        page: page || 1,
+        order: Object.keys(sort)[0],
+        orderby: Object.entries(sort)[0][1],
+        dt_start: moment(ddates[0]).format("YYYY-MM-DD"),
+        dt_end: ddates[1] ? moment(ddates[1]).format("YYYY-MM-DD") : null,
+      })
+        .then((res) => {
+          console.log("rrr", res);
+          setData(res.data);
+          setTotal(res.data.total);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [dates, dateSave]);
+
+  // useEffect(() => {
+  //   setBottomSheet({ isVisible: false });
+
+  //   console.log("dates", dates);
+
+  //   getWithdrawals({
+  //     exchangeId: tab === "all" ? 0 : tab,
+  //     num: 10,
+  //     page: page || 1,
+  //     order: Object.keys(sort)[0],
+  //     orderby: Object.entries(sort)[0][1],
+  //     dt_start: moment(dates[0]).format("YYYY-MM-DD"),
+  //   })
+  //     .then((res) => {
+  //       console.log("rrr", res);
+  //       setData(res.data);
+  //       setTotal(res.data.total);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [dates]);
 
   const headerData = [
     {
@@ -175,14 +248,24 @@ const Container = ({ exchanges, users }) => {
   useEffect(() => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value }).then(
       (res) => {
+        console.log("res", res);
         setData(res.data);
         setTotal(res.data.total);
       }
     );
   }, [tab, page, sort]);
 
-  const handleSearch = () => {
-    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value })
+  const handleSearch = (value) => {
+    getWithdrawals({
+      exchangeId: tab === "all" ? 0 : tab,
+      num: 10,
+      page: page || 1,
+      order: Object.keys(sort)[0],
+      orderby: Object.entries(sort)[0][1],
+      keyword: keyword,
+      search_type: searchType?.value,
+      step: searchType?.value === "step" ? value : undefined,
+    })
       .then((res) => {
         console.log("rrr", res);
         setData(res.data);
@@ -207,6 +290,20 @@ const Container = ({ exchanges, users }) => {
           addToast({ text: "출금 신청 상태가 수정되었습니다." });
         });
     }
+  };
+
+  useEffect(() => {
+    setKeyword("");
+  }, [searchType]);
+
+  const getData = () => {
+    setSearchType(null);
+    setKeyword("");
+    getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1] })
+      .then((res) => setData(res.data))
+      .finally(() => {
+        setIsVisible(-1);
+      });
   };
 
   return (
@@ -251,39 +348,66 @@ const Container = ({ exchanges, users }) => {
           >
             {searchType ? searchType.label : "선택"}
           </div>
-          <Input
-            onChange={(e) => setKeyword(e.target.value)}
-            type={searchType?.value.includes("point") ? "number" : undefined}
-            placeholder={searchType?.value.includes("point") ? "숫자를 입력해주세요." : undefined}
-          />
-          <Button disabled={!searchType || !keyword} onClick={handleSearch}>
-            검색
-          </Button>
+          {searchType?.value === "step" ? (
+            <>
+              {stepData.map((v) => (
+                <div key={v.value} onClick={() => handleSearch(v.value)}>
+                  {v.label}
+                </div>
+              ))}
+            </>
+          ) : dates.length > 0 ? (
+            <div className="flex gap-2" onClick={() => setDates([])}>
+              {dates
+                .sort((a, b) => new Date(a) - new Date(b))
+                .map((v) => {
+                  return <div>{moment(v).format("YYYY-MM-DD")}</div>;
+                })}
+            </div>
+          ) : (
+            <>
+              <Input
+                onChange={(e) => setKeyword(e.target.value)}
+                type={searchType?.value.includes("point") ? "number" : undefined}
+                placeholder={!searchType ? "검색 종류를 선택해주세요." : searchType?.value.includes("point") ? "숫자를 입력해주세요." : undefined}
+                value={keyword}
+                disabled={!searchType}
+              />
+              <Button disabled={!searchType || !keyword} onClick={handleSearch}>
+                검색
+              </Button>
+            </>
+          )}
         </div>
-        {!data.total ? (
-          <div>출금 신청 내역이 존재하지 않습니다.</div>
-        ) : (
-          <div className="h-full">
-            {/* <Table data={tableData} /> */}
-            <div className={cn("bg-gray-50 my-4")}>
-              <div className={`flex border-b p-3 px-5 bg-orange-100`}>
-                {headerData
-                  // .filter((v) => v !== "accordion")
-                  .map((v) => (
-                    <div className="flex-1 flex justify-center items-center gap-1" key={v.sortKey}>
-                      {v.label}
-                      {/* {v.sort ? (
+        <div className="h-full">
+          {/* <Table data={tableData} /> */}
+          <div className={cn("bg-gray-50 my-4")}>
+            <div className={`flex border-b p-3 px-5 bg-orange-100`}>
+              {headerData
+                // .filter((v) => v !== "accordion")
+                .map((v) => (
+                  <div className="flex-1 flex justify-center items-center gap-1" key={v.sortKey}>
+                    {v.label}
+                    {/* {v.sort ? (
                         sort[v.sortKey] == "desc" ? (
                           <ArrowUp01 onClick={v.sort} size={20} />
                         ) : (
                           <ArrowDown01 className={sort[v.sortKey] == "asc" ? "" : "opacity-30"} onClick={v.sort} size={20} />
                         )
                       ) : undefined} */}
-                      {v.sort && <ListFilter onClick={v.sort} size={20} color="gray" />}
-                    </div>
-                  ))}
-              </div>
-              {tableData.map((v, rowIndex) => {
+                    {v.sort && <ListFilter onClick={v.sort} size={20} color="gray" />}
+                  </div>
+                ))}
+            </div>
+            {!data.total ? (
+              <>
+                <div className="p-2 min-h-[400px] flex flex-col gap-4 justify-center items-center">
+                  <div>내역이 존재하지 않습니다.</div>
+                  <Button onClick={getData}>전체 데이터 보기</Button>
+                </div>
+              </>
+            ) : (
+              tableData.map((v, rowIndex) => {
                 return (
                   <div key={v.id || rowIndex} className="bg-white">
                     <div className={`border-b p-5  hover:bg-orange-50 `} style={{ display: "flex", alignItems: "center" }}>
@@ -300,14 +424,14 @@ const Container = ({ exchanges, users }) => {
                     {v.accordion}
                   </div>
                 );
-              })}
-            </div>
-
-            <div className="pt-5">
-              <Pagination page={page} setPage={setPage} total={total} offset={10} />
-            </div>
+              })
+            )}
           </div>
-        )}
+
+          <div className="pt-5">
+            <Pagination page={page} setPage={setPage} total={total} offset={10} />
+          </div>
+        </div>
       </div>
     </>
   );

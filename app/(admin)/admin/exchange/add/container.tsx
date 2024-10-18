@@ -65,6 +65,9 @@ const Container = ({}) => {
         <Input onChange={(e) => handleChange("order", e.target.value)} value={values.order} label={"순서"} type="number" />
         <Input onChange={(e) => handleChange("blog_url", e.target.value)} value={values.blog_url} label={"블로그 URL"} />
         <Input onChange={(e) => handleChange("customer_url", e.target.value)} value={values.customer_url} label={"고객센터 URL"} />
+        <Input type="number" onChange={(e) => handleChange("excel_uid", e.target.value)} value={values.excel_uid} label={"액셀 UID"} />
+        <Input type="number" onChange={(e) => handleChange("excel_commision", e.target.value)} value={values.excel_commision} label={"액셀 커미션"} />
+        <Input type="number" onChange={(e) => handleChange("excel_time", e.target.value)} value={values.excel_time} label={"액셀 시간"} />
         <Input onChange={(e) => handleChange("image_thumb", e.target.files[0])} label={"로고"} type="file" />
         <Input onChange={(e) => handleChange("image_big", e.target.files[0])} label={"사각형 로고"} type="file" />
 
@@ -76,7 +79,7 @@ const Container = ({}) => {
         <p>미리 보기</p>
         {values && Object.keys(values).length > 0 && (
           <>
-            <div className="flex py-10" onClick={() => router.push(`/exchange/${data.id}`)}>
+            <div className="flex py-10">
               <div className="flex items-center flex-1 min-w-full justify-between">
                 <div className="flex items-center pl-2">
                   <div className="min-w-[70px]">

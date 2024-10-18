@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
-const Calendar = ({ dates, setDates, setIsVisibleDate }) => {
+const Calendar = ({ dates, setDates, setIsVisibleDate, setDateSave }) => {
   const [date, setDate] = useState(dates[0] || new Date());
 
   const year = useMemo(() => {
@@ -88,6 +88,8 @@ const Calendar = ({ dates, setDates, setIsVisibleDate }) => {
   const handleClickDate = (data) => {
     const newDate = new Date(date.getFullYear(), date.getMonth(), data);
 
+    console.log("newDate", newDate);
+
     setDates((prev) => {
       if (prev.length === 0) {
         return [newDate];
@@ -117,7 +119,7 @@ const Calendar = ({ dates, setDates, setIsVisibleDate }) => {
           </button>
         </div>
         <div style={{ flex: 1 }}>
-          <Button onClick={() => setIsVisibleDate(false)} style={{ display: "flex", justifyContent: "flex-end", marginLeft: "auto" }}>
+          <Button onClick={() => setDateSave(true)} style={{ display: "flex", justifyContent: "flex-end", marginLeft: "auto" }}>
             적용
           </Button>
         </div>
