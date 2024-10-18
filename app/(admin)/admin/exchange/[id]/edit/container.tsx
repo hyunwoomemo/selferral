@@ -66,7 +66,7 @@ const Container = ({ data, exchangeId }) => {
       <div className="flex flex-1 flex-col gap-5">
         <Input onChange={(e) => handleChange("name", e.target.value)} value={values.name} label={"거래소명"} />
         <Input onChange={(e) => handleChange("nameExt", e.target.value)} value={values.nameExt} label={"태그"} />
-        <Input type="number" onChange={(e) => handleChange("order", e.target.value)} value={values.order} label={"순서"} type="number" />
+        <Input type="number" onChange={(e) => handleChange("order", e.target.value)} value={values.order} label={"순서"} />
         <Input onChange={(e) => handleChange("blog_url", e.target.value)} value={values.blog_url} label={"블로그 URL"} />
         <Input onChange={(e) => handleChange("customer_url", e.target.value)} value={values.customer_url} label={"고객센터 URL"} />
         <Input type="number" onChange={(e) => handleChange("excel_uid", e.target.value)} value={values.excel_uid} label={"액셀 UID"} />

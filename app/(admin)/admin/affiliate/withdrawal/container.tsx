@@ -361,7 +361,7 @@ const Container = ({ exchanges, users }) => {
               {dates
                 .sort((a, b) => new Date(a) - new Date(b))
                 .map((v) => {
-                  return <div>{moment(v).format("YYYY-MM-DD")}</div>;
+                  return <div key={v}>{moment(v).format("YYYY-MM-DD")}</div>;
                 })}
             </div>
           ) : (
