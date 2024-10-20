@@ -105,6 +105,16 @@ const Container = ({ exchanges, users }) => {
   }, [searchType]);
 
   useEffect(() => {
+    if (searchType && searchType.value === "date") {
+      setBottomSheet((prev) => ({
+        ...prev,
+        isVisible: true,
+        contents: () => <Calendar dates={dates} setDates={setDates} setDateSave={setDateSave} />,
+      }));
+    }
+  }, [dates]);
+
+  useEffect(() => {
     if (dateSave) {
       setBottomSheet({ isVisible: false });
 
@@ -386,7 +396,9 @@ const Container = ({ exchanges, users }) => {
               </Button>
             </>
           )}
-          <Button onClick={() => getData()}>초기화</Button>
+          <Button className="ml-auto" onClick={() => getData()}>
+            초기화
+          </Button>
         </div>
         <div className="h-full">
           {/* <Table data={tableData} /> */}

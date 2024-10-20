@@ -27,7 +27,7 @@ const BottomSheet = ({}) => {
         className={cn(
           "pointer-events-auto absolute  left-0 right-0  bg-white rounded-t-lg border transition-all overflow-y-scroll",
 
-          bottomSheet.isVisible ? `bottom-0 ${bottomSheet.height ? bottomSheet.height : "h-2/3"}` : "bottom-0 h-0 overflow-hidden"
+          bottomSheet.isVisible ? `bottom-0 ${bottomSheet.height ? bottomSheet.height : "h-[80%]"}` : "bottom-0 h-0 overflow-hidden"
         )}
       >
         {bottomSheet.contents && <div className="py-2  h-full">{bottomSheet.contents()}</div>}
