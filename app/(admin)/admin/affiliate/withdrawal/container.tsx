@@ -117,7 +117,7 @@ const Container = ({ exchanges, users }) => {
         order: Object.keys(sort)[0],
         orderby: Object.entries(sort)[0][1],
         dt_start: moment(ddates[0]).format("YYYY-MM-DD"),
-        dt_end: ddates[1] ? moment(ddates[1]).format("YYYY-MM-DD") : null,
+        dt_end: ddates[1] ? moment(ddates[1]).format("YYYY-MM-DD") : ddates[0] ? moment(ddates[0]).format("YYYY-MM-DD") : null,
       })
         .then((res) => {
           console.log("rrr", res);
@@ -300,7 +300,10 @@ const Container = ({ exchanges, users }) => {
     setSearchType(null);
     setKeyword("");
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1] })
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setTotal(res.data.total);
+      })
       .finally(() => {
         setIsVisible(-1);
       });
@@ -356,12 +359,17 @@ const Container = ({ exchanges, users }) => {
                 </div>
               ))}
             </>
-          ) : dates.length > 0 ? (
+          ) : searchType?.value === "date" ? (
             <div className="flex gap-2" onClick={() => setDates([])}>
               {dates
                 .sort((a, b) => new Date(a) - new Date(b))
-                .map((v) => {
-                  return <div key={v}>{moment(v).format("YYYY-MM-DD")}</div>;
+                .map((v, i) => {
+                  return (
+                    <>
+                      {i === 1 && "~"}
+                      <div key={v}>{moment(v).format("YYYY-MM-DD")}</div>
+                    </>
+                  );
                 })}
             </div>
           ) : (
@@ -378,6 +386,7 @@ const Container = ({ exchanges, users }) => {
               </Button>
             </>
           )}
+          <Button onClick={() => getData()}>초기화</Button>
         </div>
         <div className="h-full">
           {/* <Table data={tableData} /> */}
