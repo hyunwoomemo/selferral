@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 
 export const getExchanges = async () => {
   const res = await fetch(`${API_URL}/exchange/getExchanges`, {
-    // cache: "force-cache",
+    cache: "force-cache",
     next: { tags: ["exchanges"] },
   });
 

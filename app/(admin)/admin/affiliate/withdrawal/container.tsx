@@ -236,10 +236,12 @@ const Container = ({ exchanges, users }) => {
       유저: users.find((v) => v.id === item.user_id)?.email,
       상태: (
         <div className="cursor-pointer relative w-full flex justify-center">
-          <span onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>{stepData.find((v) => v.value === item.step)?.label}</span>
+          <span className={cn(isVisible == -1 ? "opacity-100" : isVisible === item.id ? `opacity-100` : `opacity-10`)} onClick={() => setIsVisible((prev) => (prev === item.id ? -1 : item.id))}>
+            {stepData.find((v) => v.value === item.step)?.label}
+          </span>
 
           {isVisible === item.id && (
-            <div key={item.id} className="absolute bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30">
+            <div key={item.id} className={`absolute border bg-white p-1 w-full items-center flex flex-col gap-2 top-[110%] z-30`}>
               {stepData
                 .filter((v) => v.value !== item.step)
                 .map((v, i) => (
@@ -321,7 +323,7 @@ const Container = ({ exchanges, users }) => {
 
   return (
     <>
-      {isVisible > -1 && <div onClick={() => setIsVisible(-1)} className="absolute top-0 right-0 left-0 bottom-0 bg-gray-50 opacity-40"></div>}
+      {isVisible > -1 && <div onClick={() => setIsVisible(-1)} className="absolute top-0 right-0 left-0 bottom-0 bg-gray-50 opacity-80"></div>}
 
       <div className="font-bold flex-auto flex-col p-8 flex">
         <h1 className="text-3xl">출금 신청 리스트</h1>

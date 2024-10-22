@@ -107,7 +107,7 @@ const Container = ({ exchanges }) => {
           <div>
             <input type="file" onChange={handleFileChange} />
             <Button
-              disabled={!file}
+              disabled={!file || !exchange}
               onClick={handleUpload}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
             >
