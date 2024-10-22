@@ -21,8 +21,6 @@ export default async function Home() {
 
   const uidData = await getUidStatus({});
 
-  console.log("uidData", uidData.data.DATA);
-
   const Divider = () => {
     return <div className="h-3 w-full bg-gray-50 dark:bg-gray-900"></div>;
   };
