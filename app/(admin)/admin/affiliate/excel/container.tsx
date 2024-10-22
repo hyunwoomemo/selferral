@@ -115,7 +115,7 @@ const Container = ({ exchanges }) => {
             </Button>
           </div>
         </div>
-        <ExcelList />
+        <ExcelList exchanges={exchanges} />
       </div>
     </>
   );

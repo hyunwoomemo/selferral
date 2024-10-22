@@ -223,7 +223,7 @@ export const updateUidStatus = async ({ status, order_id }) => {
 };
 
 export const uploadExcel = async ({ formData }) => {
-  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/excel`, {
+  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/excel/uid`, {
     method: "POST",
     body: formData,
   });
@@ -242,9 +242,9 @@ export const getUidStatus = async ({}) => {
 };
 
 export const getExcel = async ({ num = 10, page = 1 }) => {
-  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/excel/${num}/${page}`, { next: { tags: ["excellist"] }, method: "GET" });
+  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/excel/uid/${num}/${page}`, { next: { tags: ["excellist"] }, method: "GET" });
 
-  console.log("response123123", response);
+  console.log("response123123", response.data.list);
 
   return response;
 };
