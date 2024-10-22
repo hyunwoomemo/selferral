@@ -53,39 +53,36 @@ const ServerPagination = ({ offset, total, link, serverPage, home }) => {
 
   if (offset > total) return;
 
-  const handleMove = useCallback(
-    (type) => {
-      if (type === "prev") {
-        // if (page - 1 <= 0) return;
+  const handleMove = (type) => {
+    if (type === "prev") {
+      // if (page - 1 <= 0) return;
 
-        // if (page % 5 === 1) {
-        //   setPage((prev) => prev - 1);
-        //   setGroup((prev) => prev - 1);
-        // } else {
-        //   setPage((prev) => prev - 1);
-        // }
+      // if (page % 5 === 1) {
+      //   setPage((prev) => prev - 1);
+      //   setGroup((prev) => prev - 1);
+      // } else {
+      //   setPage((prev) => prev - 1);
+      // }
 
-        if (group === 1) return;
-        setGroup((prev) => prev - 1);
-        setPage((group - 2) * 10 + 1);
-      } else {
-        // if (totalPage < page + 1) return;
+      if (group === 1) return;
+      setGroup((prev) => prev - 1);
+      setPage((group - 2) * 10 + 1);
+    } else {
+      // if (totalPage < page + 1) return;
 
-        // if (page % 5 === 0) {
-        //   setPage((prev) => prev + 1);
-        //   setGroup((prev) => prev + 1);
-        // } else {
-        //   setPage((prev) => prev + 1);
-        // }
+      // if (page % 5 === 0) {
+      //   setPage((prev) => prev + 1);
+      //   setGroup((prev) => prev + 1);
+      // } else {
+      //   setPage((prev) => prev + 1);
+      // }
 
-        if (totalGroup < group + 1) return;
+      if (totalGroup < group + 1) return;
 
-        setGroup((prev) => prev + 1);
-        setPage(group * 10 + 1);
-      }
-    },
-    [page, total, totalGroup, totalPage]
-  );
+      setGroup((prev) => prev + 1);
+      setPage(group * 10 + 1);
+    }
+  };
 
   return (
     <div className="flex gap-3 justify-center">
