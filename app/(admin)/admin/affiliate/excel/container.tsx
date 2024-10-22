@@ -20,6 +20,7 @@ const Container = ({ exchanges }) => {
   const router = useRouter();
   const [bottomSheet, setBottomSheet] = useAtom(bottomSheetAtom);
   const [exchange, setExnchange] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { addToast } = useToast();
 
@@ -29,6 +30,7 @@ const Container = ({ exchanges }) => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!file) return;
 
@@ -55,6 +57,8 @@ const Container = ({ exchanges }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -111,7 +115,7 @@ const Container = ({ exchanges }) => {
               onClick={handleUpload}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full max-w-64 text-orange-400 border-orange-400 dark:text-orange-200 dark:border-orange-200")}
             >
-              <p className="font-bold">업로드</p>
+              <p className="font-bold">{loading ? "업로드 중 ..." : "업로드"}</p>
             </Button>
           </div>
         </div>

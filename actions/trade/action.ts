@@ -63,12 +63,20 @@ export const editExchangeForm = async ({ id, formData }) => {
   }
 };
 
-export const editStatusExchange = async ({ id, data, status }) => {
+export const editStatusExchange = async ({ id, data }) => {
   const formData = new FormData();
 
   for (const key in data) {
     if (key !== "status") {
-      formData.append(key, data[key]);
+      if (!data[key]) {
+        if (key.includes("excel")) {
+          formData.append(key, 0);
+        } else if (key.includes("order")) {
+          formData.append(key, 999);
+        }
+      } else {
+        formData.append(key, data[key]);
+      }
     } else {
       formData.append(key, data[key] === 1 ? 0 : 1);
     }
@@ -245,6 +253,45 @@ export const getExcel = async ({ num = 10, page = 1 }) => {
   const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/excel/uid/${num}/${page}`, { next: { tags: ["excellist"] }, method: "GET" });
 
   console.log("response123123", response.data.list);
+
+  return response;
+};
+
+export const getExcelLog = async ({ num = 10, page = 1, excel_id, exchange_id, uid }: { num: number; page: number; excel_id?: number; exchange_id?: number; uid?: string }) => {
+  let query = "";
+
+  if (excel_id) {
+    if (!query) {
+      query += `?excel_id=${excel_id}`;
+    } else {
+      query += `&excel_id=${excel_id}`;
+    }
+  }
+
+  if (exchange_id) {
+    if (!query) {
+      query += `?exchang_id=${exchange_id}`;
+    } else {
+      query += `&exchang_id=${exchange_id}`;
+    }
+  }
+
+  if (uid) {
+    if (!query) {
+      query += `?uid=${uid}`;
+    } else {
+      query += `&uid=${uid}`;
+    }
+  }
+
+  const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/uid/log/${num}/${page}${query}`, {
+    next: {
+      tags: ["excellog"],
+    },
+    method: "GET",
+  });
+
+  console.log("sdfsdfsdf", response);
 
   return response;
 };

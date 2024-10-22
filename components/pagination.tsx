@@ -7,7 +7,7 @@ const Pagination = ({ page = 1, total, offset = 10, setPage }) => {
   }
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-3 justify-center">
       {Array(Math.ceil(total / offset))
         .fill("")
         .map((v, i) => (

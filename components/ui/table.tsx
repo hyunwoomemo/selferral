@@ -7,7 +7,7 @@ const Table = ({ data, wide = true, headerClassname, bodyClassname, textColor = 
   }
 
   return (
-    <div className={cn(`${wide ? "w-full" : "w-[50%]"}`, "bg-gray-50 my-4")}>
+    <div className={cn(`${wide ? "w-full" : "w-[80%]"}`, "bg-gray-50 my-4")}>
       <div className={`flex border-b p-3 px-5 bg-orange-100  ${headerClassname}`}>
         {data[0] &&
           Object.keys(data[0])

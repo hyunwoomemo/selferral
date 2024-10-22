@@ -160,16 +160,20 @@ const Container = ({ users, exchanges }) => {
           accordion: (
             <div className={cn("origin-top-right flex overflow-hidden flex-col gap-2 bg-white", isAccordion === user.id ? "scale-y-100 h-full" : "scale-y-0 h-0", "transition-all")}>
               {/* {user.exchanges && <Table data={user.exchanges} />} */}
-              <div className="flex bg-gray-100 p-4">
+              <div className="flex bg-gray-100 p-4 ">
                 <div className="w-[80px]"></div>
                 <div className="w-[150px]">거래소</div>
                 <div className="w-[150px]">UID</div>
                 <div className="w-[150px]">커미션</div>
               </div>
               {user.exchanges.map((v, i) => {
-                console.log("vvvvv", exchanges);
+                console.log("vvvvv", v);
                 return (
-                  <div key={`${v.exchange_id} ${i}`} className="flex gap-0 items-center px-4 py-1">
+                  <div
+                    onClick={() => router.push(`/admin/user/list/${v.exchange_id}/${v.user_uid}`)}
+                    key={`${v.exchange_id} ${i}`}
+                    className="flex gap-0 items-center px-4 py-1 hover:bg-orange-50 cursor-pointer"
+                  >
                     {exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb ? (
                       <div className="w-[80px]">
                         <Image src={`${exchanges.find((v1) => v1.exchange_id === v.exchange_id)?.image_thumb}`} width={40} height={40} />

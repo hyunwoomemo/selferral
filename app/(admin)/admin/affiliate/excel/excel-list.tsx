@@ -4,6 +4,7 @@ import Pagination from "@/components/pagination";
 import Table from "@/components/ui/table";
 import moment from "moment";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
 const ExcelList = ({ exchanges }) => {
@@ -11,6 +12,8 @@ const ExcelList = ({ exchanges }) => {
   const [data, setData] = useState();
 
   const [total, setTotal] = useState(1);
+
+  const router = useRouter();
 
   console.log("exchangesexchanges", exchanges);
 
@@ -33,7 +36,11 @@ const ExcelList = ({ exchanges }) => {
       거래소: exchanges.find((v1) => v1.id == v.exchange_id) && (
         <Image width={40} height={40} src={`http://api.xn--3l2b13oekp.com${exchanges.find((v1) => v1.id === v.exchange_id).image_thumb}`} alt="exchangelogo" />
       ),
-      파일명: v.file_name,
+      파일명: (
+        <div className="" onClick={() => router.push(`/admin/affiliate/excel/${v.id}`)}>
+          {v.file_name}
+        </div>
+      ),
       // 상태: v.status
       //   .split(",")
       //   .filter((v) => Number(v.slice(v.lastIndexOf("|") + 1) > 0))

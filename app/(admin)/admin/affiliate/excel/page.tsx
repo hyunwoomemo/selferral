@@ -7,10 +7,6 @@ const page = async ({ params }) => {
 
   const exchanges = await getAffiliateExchanges();
 
-  console.log("exchanges", exchanges);
-
-  console.log("excel", excel);
-
   return <Container exchanges={exchanges.data} />;
 };
 

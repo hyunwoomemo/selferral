@@ -99,6 +99,8 @@ async function refreshToken() {
 
   const data = await response.json();
 
+  console.log("ddd", data);
+
   if (data.CODE !== "ART000") {
     throw new Error("Failed to refresh token");
   }
