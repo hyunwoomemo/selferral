@@ -24,12 +24,24 @@ export const getUser = async (id) => {
   return data;
 };
 
-export const getAllUsersWithUidStatus = async () => {
-  const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus`, {
-    next: { tags: ["userWithUid"] },
-  });
+export const getAllUsersWithUidStatus = async (data: { type?: any; text?: any }) => {
+  if (data?.type && data?.text) {
+    console.log("dddd", data);
 
-  return res;
+    const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus?search_type=${data.type}&search_value=${data.text}`, {
+      next: { tags: ["userWithUid"] },
+    });
+
+    console.log("rrrr", res);
+
+    return res;
+  } else {
+    const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus`, {
+      next: { tags: ["userWithUid"] },
+    });
+
+    return res;
+  }
 };
 
 export async function register(prevState: any, formData: FormData) {

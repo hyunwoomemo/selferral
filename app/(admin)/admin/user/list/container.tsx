@@ -1,9 +1,9 @@
 "use client";
 
 import moment from "moment";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { setUserType } from "@/actions/user/action";
-import { ArrowBigDown, ArrowDown, ArrowDown01, ArrowDownCircle, ArrowDownSquare, ArrowDownWideNarrow, ArrowUp01, ArrowUpWideNarrow, Filter, RefreshCw } from "lucide-react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { getAllUsersWithUidStatus, setUserType } from "@/actions/user/action";
+import { ArrowBigDown, ArrowDown, ArrowDown01, ArrowDownCircle, ArrowDownSquare, ArrowDownWideNarrow, ArrowUp01, ArrowUpWideNarrow, Filter, RefreshCw, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { revalidateTag } from "next/cache";
 import { revalidate } from "@/actions/common/action";
@@ -18,12 +18,43 @@ import { useAtom } from "jotai";
 import { bottomSheetAtom } from "@/app/store/common";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { register } from "module";
+import Input from "@/components/input";
+//name, email, hp , type , uid
+
+const searchTypes = [
+  {
+    value: "name",
+    label: "이름",
+  },
+
+  {
+    value: "email",
+    label: "이메일",
+  },
+  {
+    value: "hp",
+    label: "전화번호",
+  },
+  {
+    value: "type",
+    label: "유저 타입",
+  },
+  {
+    value: "uid",
+    label: "UID",
+  },
+];
 
 const Container = ({ users, exchanges }) => {
   const [isVisible, setIsVisible] = useState(-1);
   const [isAccordion, setIsAccordion] = useState(-1);
   const [refresh, setRefresh] = useState(false);
   const [bottomSheet, setBottomSheet] = useAtom(bottomSheetAtom);
+  const [dropdown, setDropdown] = useState(false);
+  const [searchType, setSearchType] = useState(searchTypes[0]);
+  const [result, setResult] = useState(null);
+
+  const searchValue = useRef("");
 
   const [sort, setSort] = useState({
     register: 0,
@@ -43,6 +74,16 @@ const Container = ({ users, exchanges }) => {
     setBottomSheet((prev) => ({ ...prev, isVisible: false }));
   }, [sort]);
 
+  const handleSearch = () => {
+    console.log("tttt", searchType.value, searchValue.current);
+    getAllUsersWithUidStatus({ type: searchType.value, text: searchValue.current }).then((res) => {
+      console.log("sdmfksmdf", res);
+    });
+  };
+
+  const handleChangeSearchValue = (e) => {
+    searchValue.current = e.target.value;
+  };
   const handleFilter = () => {
     setBottomSheet((prev) => ({
       ...prev,
@@ -231,60 +272,87 @@ const Container = ({ users, exchanges }) => {
   ];
 
   return (
-    <div className="font-bold flex-auto flex-col flex p-4  ">
-      <div className="flex justify-between p-4  items-center">
-        <h1 className="text-3xl">유저</h1>
-        <div className="flex gap-5">
-          {/* <Filter onClick={handleFilter} /> */}
-          <RefreshCw
-            className={cn("cursor-pointer", refresh ? "refresh" : "")}
-            onClick={() => {
-              setRefresh(true);
-              revalidate("users");
-            }}
-          />
-        </div>
-      </div>
-      <div className="rounded-lg pb-10">
-        {/* <Table data={tableData} sorts={['']}></Table> */}
-        <div className={cn("bg-gray-50 my-4")}>
-          <div className={`flex border-b p-3 px-5 bg-orange-100`}>
-            {headerData
-              // .filter((v) => v !== "accordion")
-              .map((v) => (
-                <div className="flex-1 flex justify-center items-center gap-1" key={v}>
-                  {v.label}
-                  {v.sort ? (
-                    sort[v.sortKey] == 0 ? (
-                      <ArrowUp01 onClick={v.sort} size={20} />
-                    ) : (
-                      <ArrowDown01 className={sort[v.sortKey] == 1 ? "" : "opacity-30"} onClick={v.sort} size={20} />
-                    )
-                  ) : undefined}
-                </div>
-              ))}
-          </div>
-          {tableData.map((v, rowIndex) => {
-            return (
-              <div key={v.id || rowIndex} className="bg-white">
-                <div className={`border-b p-5  hover:bg-orange-50 `} style={{ display: "flex", alignItems: "center" }}>
-                  {Object.entries(v)
-                    .filter(([key]) => key !== "accordion")
-                    .map(([key, value], colIndex) => {
-                      return (
-                        <div id={"tableitem"} className=" flex-1 max-w-full  flex justify-center text-start cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
-                          {value}
-                        </div>
-                      );
-                    })}
-                </div>
-                {v.accordion}
+    <>
+      {dropdown && <div onClick={() => setDropdown(false)} className="absolute w-full h-full bg-black opacity-5"></div>}
+      <div className="font-bold flex-auto flex-col flex p-4  ">
+        <div className="flex justify-between p-4  items-center relative">
+          <div className="flex gap-10 items-center">
+            <h1 className="text-3xl">유저</h1>
+            <div className="flex gap-2 items-center bg-white rounded-lg p-2 px-4">
+              <div onClick={() => setDropdown((prev) => !prev)} className="p-2 px-4 border rounded-lg cursor-pointer">
+                {searchType.label}
               </div>
-            );
-          })}
+              <input className="outline-none p-2 min-w-[400px]" onChange={handleChangeSearchValue} />
+              <Search className="cursor-pointer" onClick={handleSearch} />
+            </div>
+          </div>
+          <div
+            className={cn("absolute flex flex-col p-2 bg-gray-50 border gap-2 rounded-lg top-[100%] min-w-[30%] transition-all", dropdown ? "opacity-100 translate-y-2" : "opacity-0 translate-y-0")}
+          >
+            {searchTypes.map((v) => (
+              <div
+                key={v.value}
+                onClick={() => {
+                  setDropdown(false);
+                  setSearchType(v);
+                }}
+                className="p-2 bg-white hover:bg-orange-50 cursor-pointer"
+              >
+                {v.label}
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-5">
+            {/* <Filter onClick={handleFilter} /> */}
+            <RefreshCw
+              className={cn("cursor-pointer", refresh ? "refresh" : "")}
+              onClick={() => {
+                setRefresh(true);
+                revalidate("users");
+              }}
+            />
+          </div>
         </div>
-      </div>
-      {/* <div className="flex flex-col flex-auto ">
+        <div className="rounded-lg pb-10">
+          {/* <Table data={tableData} sorts={['']}></Table> */}
+          <div className={cn("bg-gray-50 my-4")}>
+            <div className={`flex border-b p-3 px-5 bg-orange-100`}>
+              {headerData
+                // .filter((v) => v !== "accordion")
+                .map((v) => (
+                  <div className="flex-1 flex justify-center items-center gap-1" key={v}>
+                    {v.label}
+                    {v.sort ? (
+                      sort[v.sortKey] == 0 ? (
+                        <ArrowUp01 onClick={v.sort} size={20} />
+                      ) : (
+                        <ArrowDown01 className={sort[v.sortKey] == 1 ? "" : "opacity-30"} onClick={v.sort} size={20} />
+                      )
+                    ) : undefined}
+                  </div>
+                ))}
+            </div>
+            {tableData.map((v, rowIndex) => {
+              return (
+                <div key={v.id || rowIndex} className="bg-white">
+                  <div className={`border-b p-5  hover:bg-orange-50 `} style={{ display: "flex", alignItems: "center" }}>
+                    {Object.entries(v)
+                      .filter(([key]) => key !== "accordion")
+                      .map(([key, value], colIndex) => {
+                        return (
+                          <div id={"tableitem"} className=" flex-1 max-w-full  flex justify-center text-start cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
+                            {value}
+                          </div>
+                        );
+                      })}
+                  </div>
+                  {v.accordion}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {/* <div className="flex flex-col flex-auto ">
         <div className="pt-10 md:grid md:grid-cols-5 p-2 text-center border-b-[1px]">
           <div>이메일</div>
           <div>이름</div>
@@ -312,7 +380,8 @@ const Container = ({ users, exchanges }) => {
           })}
         </div>
       </div> */}
-    </div>
+      </div>
+    </>
   );
 };
 
