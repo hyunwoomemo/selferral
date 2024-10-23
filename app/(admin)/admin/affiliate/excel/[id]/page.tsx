@@ -12,8 +12,6 @@ const page = async ({ params, searchParams }) => {
   const data = await getExcelLog({ num: 10, page: page, excel_id: id });
   const exchanges = await getAffiliateExchanges();
 
-  console.log("logslogs", data, data.data.list, exchanges);
-
   const image_url = (await data.data.list) && exchanges.data.find((v) => v.id == data.data.list[0]?.exchange_id)?.image_thumb;
   console.log("image_url", image_url);
 

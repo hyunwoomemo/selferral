@@ -10,12 +10,8 @@ const ServerPagination = ({ offset, total, link, serverPage, home }) => {
   const [group, setGroup] = useState(1);
   const [totalGroup, setTotalGroup] = useState(1);
 
-  console.log("totalGroup", totalGroup, group);
-
   const router = useRouter();
   const totalPage = Math.ceil(total / offset);
-
-  console.log("page", page, serverPage);
 
   // useEffect(() => {
   //   if (!serverPage && home) {
