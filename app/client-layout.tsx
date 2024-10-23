@@ -36,6 +36,7 @@ const ClientLayout = ({ children }) => {
   return (
     <main className={`flex-1  bg-white dark:bg-gray-950  w-full ${wide ? "max-w-screen-xl" : "max-w-[840px]"} mx-auto flex flex-col`}>
       {children}
+      <div className="fixed bottom-10 right-10 w-16 h-16 rounded-full flex items-center justify-center bg-orange-400 text-white font-bold hover:scale-110 transition-all cursor-pointer">k</div>
       <BottomSheet />
     </main>
   );

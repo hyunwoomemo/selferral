@@ -397,7 +397,7 @@ const Container = ({ exchanges, users }) => {
                   setDropdown(false);
                   setSearchType(v);
                 }}
-                className="p-2 bg-white hover:bg-orange-50"
+                className="p-2 bg-white hover:bg-orange-50 cursor-pointer"
               >
                 {v.label}
               </div>

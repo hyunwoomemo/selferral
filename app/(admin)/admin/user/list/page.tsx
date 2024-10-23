@@ -1,10 +1,6 @@
-// import { getUsers } from "@/app/action";
-import moment from "moment";
-
-import { getAllUser, getAllUsersWithUidStatus } from "@/actions/user/action";
+import { getAllUsersWithUidStatus } from "@/actions/user/action";
 import Container from "./container";
-import { cookies } from "next/headers";
-import { getAffiliateExchanges, getExchanges } from "@/actions/trade/action";
+import { getAffiliateExchanges } from "@/actions/trade/action";
 
 export default async function Page() {
   const users = await getAllUsersWithUidStatus();
