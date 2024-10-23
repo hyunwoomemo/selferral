@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-r
 import React from "react";
 
 const Pagination = ({ page = 1, total, offset = 10, setPage, group, setGroup, totalGroup, setTotalGroup, totalPage }) => {
-  if (total / offset <= 1) {
+  if (totalPage < 2) {
     return;
   }
 

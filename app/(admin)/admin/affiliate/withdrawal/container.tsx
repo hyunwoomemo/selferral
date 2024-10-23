@@ -70,12 +70,17 @@ const Container = ({ exchanges, users }) => {
   const [isVisible, setIsVisible] = useState(-1);
   const { addToast } = useToast();
   const [page, setPage] = useState(1);
+  const [group, setGroup] = useState(1);
+  const [totalGroup, setTotalGroup] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
   const [total, setTotal] = useState(1);
+
   const [bottomSheet, setBottomSheet] = useAtom(bottomSheetAtom);
   const [searchType, setSearchType] = useState(null);
   const [keyword, setKeyword] = useState(null);
   const [dates, setDates] = useState([]);
   const [dateSave, setDateSave] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
   const [sort, setSort] = useState({
     createtime: "desc",
@@ -103,6 +108,12 @@ const Container = ({ exchanges, users }) => {
       }));
     }
   }, [searchType]);
+
+  useEffect(() => {
+    if (!bottomSheet.isVisible && searchType && searchType.value === "date" && dates.length === 0) {
+      getData();
+    }
+  }, [bottomSheet]);
 
   useEffect(() => {
     if (searchType && searchType.value === "date") {
@@ -133,10 +144,15 @@ const Container = ({ exchanges, users }) => {
           console.log("rrr", res);
           setData(res.data);
           setTotal(res.data.total);
+          setTotalPage(Math.ceil(res.data.total / 10));
         })
         .catch((err) => console.log(err));
     }
   }, [dates, dateSave]);
+
+  useEffect(() => {
+    setTotalGroup(Math.ceil(totalPage / 10));
+  }, [totalPage]);
 
   // useEffect(() => {
   //   setBottomSheet({ isVisible: false });
@@ -260,9 +276,9 @@ const Container = ({ exchanges, users }) => {
   useEffect(() => {
     getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value }).then(
       (res) => {
-        console.log("res", res);
         setData(res.data);
         setTotal(res.data.total);
+        setTotalPage(Math.ceil(res.data.total / 10));
       }
     );
   }, [tab, page, sort]);
@@ -282,6 +298,7 @@ const Container = ({ exchanges, users }) => {
         console.log("rrr", res);
         setData(res.data);
         setTotal(res.data.total);
+        setTotalPage(Math.ceil(res.data.total / 10));
       })
       .catch((err) => console.log(err));
   };
@@ -315,6 +332,7 @@ const Container = ({ exchanges, users }) => {
       .then((res) => {
         setData(res.data);
         setTotal(res.data.total);
+        setTotalPage(Math.ceil(res.data.total / 10));
       })
       .finally(() => {
         setIsVisible(-1);
@@ -323,6 +341,7 @@ const Container = ({ exchanges, users }) => {
 
   return (
     <>
+      {dropdown && <div onClick={() => setDropdown(false)} className="absolute w-full h-full bg-black opacity-5"></div>}
       {isVisible > -1 && <div onClick={() => setIsVisible(-1)} className="absolute top-0 right-0 left-0 bottom-0 bg-gray-50 opacity-80"></div>}
 
       <div className="font-bold flex-auto flex-col p-8 flex">
@@ -332,37 +351,59 @@ const Container = ({ exchanges, users }) => {
         <div className="pt-5 pb-5">
           <Tab tab={tab} setTab={setTab} data={tabData} all />
         </div>
-        <div className="py-3 flex gap-2 items-center">
+        <div className="py-3 flex gap-2 items-center relative">
           <div
-            onClick={() => {
-              setBottomSheet((prev) => ({
-                ...prev,
-                isVisible: true,
-                height: "h-[30%]",
-                contents: () => {
-                  return (
-                    <div className="flex gap-2 p-4">
-                      {searchTypeData.map((v) => (
-                        <div
-                          onClick={() => {
-                            setSearchType(v);
-                            setBottomSheet((prev) => ({ isVisible: false }));
-                          }}
-                          className="cursor-pointer p-2 bg-gray-50 border border-gray-100 rounded-md"
-                          key={v.value}
-                        >
-                          {v.label}
-                        </div>
-                      ))}
-                    </div>
-                  );
-                },
-              }));
-            }}
+            // onClick={() => {
+            //   setBottomSheet((prev) => ({
+            //     ...prev,
+            //     isVisible: true,
+            //     height: "h-[30%]",
+            //     contents: () => {
+            //       return (
+            //         <div className="flex gap-2 p-4">
+            //           {searchTypeData.map((v) => (
+            //             <div
+            //               onClick={() => {
+            //                 setSearchType(v);
+            //                 setBottomSheet((prev) => ({ isVisible: false }));
+            //               }}
+            //               className="cursor-pointer p-2 bg-gray-50 border border-gray-100 rounded-md"
+            //               key={v.value}
+            //             >
+            //               {v.label}
+            //             </div>
+            //           ))}
+            //         </div>
+            //       );
+            //     },
+            //   }));
+            // }}
+
+            onClick={() => setDropdown((prev) => !prev)}
             className="border bg-gray-50  p-2 rounded-md cursor-pointer"
           >
             {searchType ? searchType.label : "선택"}
           </div>
+          {/* {dropdown && ( */}
+          {/* <> */}
+          {/* <div className="absolute w-full h-full bg-black opacity-5"></div> */}
+          <div
+            className={cn("absolute flex flex-col p-2 bg-gray-50 border gap-2 rounded-lg top-[100%] min-w-[30%] transition-all", dropdown ? "opacity-100 translate-y-2" : "opacity-0 translate-y-0")}
+          >
+            {searchTypeData.map((v) => (
+              <div
+                onClick={() => {
+                  setDropdown(false);
+                  setSearchType(v);
+                }}
+                className="p-2 bg-white hover:bg-orange-50"
+              >
+                {v.label}
+              </div>
+            ))}
+          </div>
+          {/* </> */}
+          {/* )} */}
           {searchType?.value === "step" ? (
             <>
               {stepData.map((v) => (
@@ -452,7 +493,7 @@ const Container = ({ exchanges, users }) => {
           </div>
 
           <div className="pt-5">
-            <Pagination page={page} setPage={setPage} total={total} offset={10} />
+            <Pagination total={total} totalPage={totalPage} page={page} group={group} totalGroup={totalGroup} setGroup={setGroup} setTotalGroup={setTotalGroup} setPage={setPage} />
           </div>
         </div>
       </div>
