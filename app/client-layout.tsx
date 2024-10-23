@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import BottomSheet from "@/components/ui/bottom-sheet";
 import { wideAtom } from "./store/common";
 
-// const prefetches = ["/withdrawal", "/exchange", "/service", "/payback", "/user", "/user/withdrawal"];
+const prefetches = ["/withdrawal", "/exchange", "/service", "/payback", "/user", "/user/withdrawal"];
 
 const ClientLayout = ({ children }) => {
   const pathname = usePathname();
@@ -18,9 +18,9 @@ const ClientLayout = ({ children }) => {
   const paybackTest = useAtomValue(paybackTestAtom);
   console.log("paybackTest", paybackTest);
 
-  // useEffect(() => {
-  //   prefetches.forEach((v) => router.prefetch(v));
-  // }, [router]);
+  useEffect(() => {
+    prefetches.forEach((v) => router.prefetch(v));
+  }, [router]);
 
   if (pathname.includes("admin")) {
     return (

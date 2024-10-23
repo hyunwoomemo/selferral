@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </Providers>
         {modal}
         <noscript>
-          <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1054798653043201&ev=PageView&noscript=1" />
+          <img height="1" width="1" style={{ display: "none" }} src="https://www.facebook.com/tr?id=1054798653043201&ev=PageView&noscript=1" />
         </noscript>
       </body>
     </html>
