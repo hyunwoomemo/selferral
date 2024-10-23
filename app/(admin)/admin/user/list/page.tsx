@@ -8,5 +8,5 @@ export default async function Page() {
 
   console.log("usersusersusers123", users);
 
-  return <Container users={users?.DATA} exchanges={exchanges?.data} />;
+  return <Container users={users?.lists} exchanges={exchanges?.data} />;
 }
