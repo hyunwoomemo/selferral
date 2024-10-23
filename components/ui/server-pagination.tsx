@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -84,9 +84,20 @@ const ServerPagination = ({ offset, total, link, serverPage, home }) => {
     }
   };
 
+  if (Math.ceil(total / offset) < 2) {
+    return;
+  }
+
   return (
     <div className="flex gap-3 justify-center">
       <div className="flex gap-5 items-center">
+        <ChevronsLeft
+          className={page === 1 ? "opacity-20" : "opacity-100"}
+          onClick={() => {
+            setGroup(1);
+            setPage(1);
+          }}
+        />
         <ChevronLeft className={`${group === 1 ? "opacity-20" : "opacity-100"}`} onClick={() => handleMove("prev")} />
         {pageData}
         {/* <div>...</div>
@@ -98,6 +109,13 @@ const ServerPagination = ({ offset, total, link, serverPage, home }) => {
           {totalPage}
         </div> */}
         <ChevronRight className={`${totalGroup < group + 1 ? "opacity-20" : "opacity-100"}`} onClick={() => handleMove("next")} />
+        <ChevronsRight
+          className={page === totalPage ? "opacity-20" : "opacity-100"}
+          onClick={() => {
+            setGroup(totalGroup);
+            setPage(totalPage);
+          }}
+        />
       </div>
     </div>
   );

@@ -10,6 +10,9 @@ import React, { useEffect, useMemo, useState } from "react";
 const ExcelList = ({ exchanges }) => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState();
+  const [group, setGroup] = useState(1);
+  const [totalGroup, setTotalGroup] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
 
   const [total, setTotal] = useState(1);
 
@@ -21,10 +24,15 @@ const ExcelList = ({ exchanges }) => {
     getExcel({ num: 10, page: page || 1 }).then((res) => {
       setData(res.data.list);
       setTotal(res.data.total);
+      setTotalPage(Math.ceil(res.data.total / 10));
     });
 
     window?.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
+
+  useEffect(() => {
+    setTotalGroup(Math.ceil(totalPage / 10));
+  }, [totalPage]);
 
   console.log("getExcelgetExcelgetExcel", data);
 
@@ -59,10 +67,10 @@ const ExcelList = ({ exchanges }) => {
             <p>{moment(v.create_at).format("YYYY-MM-DD HH:mm")}</p>
           </div>
         ))} */}
-        {data ? <Table wide={false} data={tableData} /> : <div className="py-4">데이터가 존재하지 않습니다.</div>}
+        {data ? <Table data={tableData} /> : <div className="py-4">데이터가 존재하지 않습니다.</div>}
       </div>
       <div className="pt-10">
-        <Pagination total={total} page={page} setPage={setPage} />
+        <Pagination total={total} totalPage={totalPage} page={page} group={group} totalGroup={totalGroup} setGroup={setGroup} setTotalGroup={setTotalGroup} setPage={setPage} />
       </div>
     </div>
   );
