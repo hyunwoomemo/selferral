@@ -66,8 +66,9 @@ const Pagination = ({ page = 1, total, offset = 10, setPage, group, setGroup, to
           );
         })}
       <ChevronRight className={`${totalGroup < group + 1 ? "opacity-20" : "opacity-100"}`} onClick={() => handleMove("next")} />
+
       <ChevronsRight
-        className={page === total ? "opacity-20" : "opacity-100"}
+        className={page === totalPage ? "opacity-20" : "opacity-100"}
         onClick={() => {
           setGroup(totalGroup);
           setPage(totalPage);

@@ -10,7 +10,7 @@ export default async function Page() {
   const users = await getAllUsersWithUidStatus();
   const exchanges = await getAffiliateExchanges();
 
-  console.log("users", exchanges);
+  console.log("usersusersusers123", users);
 
   return <Container users={users?.DATA} exchanges={exchanges?.data} />;
 }

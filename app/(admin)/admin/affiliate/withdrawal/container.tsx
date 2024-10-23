@@ -392,6 +392,7 @@ const Container = ({ exchanges, users }) => {
           >
             {searchTypeData.map((v) => (
               <div
+                key={v.value}
                 onClick={() => {
                   setDropdown(false);
                   setSearchType(v);
@@ -418,10 +419,10 @@ const Container = ({ exchanges, users }) => {
                 .sort((a, b) => new Date(a) - new Date(b))
                 .map((v, i) => {
                   return (
-                    <>
+                    <React.Fragment key={v}>
                       {i === 1 && "~"}
                       <div key={v}>{moment(v).format("YYYY-MM-DD")}</div>
-                    </>
+                    </React.Fragment>
                   );
                 })}
             </div>
