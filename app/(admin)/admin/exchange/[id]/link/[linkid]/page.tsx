@@ -9,8 +9,6 @@ const page = async ({ params }) => {
 
   const link = await links.data.find((v) => v.id == params.linkid);
 
-  console.log("links", params, links);
-
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}

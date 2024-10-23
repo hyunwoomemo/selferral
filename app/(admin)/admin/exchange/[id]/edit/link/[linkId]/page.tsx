@@ -6,10 +6,7 @@ import { cookies } from "next/headers";
 const Page = async ({ params }) => {
   const links = await getLinks({ exchange_id: params.id });
 
-  console.log("params", params, links);
   const data = await links.data.find((v) => v.id == params.linkId);
-
-  console.log("paramsparams", data);
 
   return (
     <div className="p-8 font-bold flex-auto pb-32">

@@ -13,7 +13,7 @@ export async function fetchWithAuth(url, options = {}) {
   // const token = await fetch("/api/user/token");
   // const refresh = cookies().get("refresh")?.value; // 쿠키에서 액세스 토큰 가져오기
 
-  // console.log("tokentokentoken", token);
+  //
 
   // 요청 헤더에 액세스 토큰 포함
   options.headers = {
@@ -98,8 +98,6 @@ async function refreshToken() {
   // }
 
   const data = await response.json();
-
-  console.log("ddd", data);
 
   if (data.CODE !== "ART000") {
     throw new Error("Failed to refresh token");

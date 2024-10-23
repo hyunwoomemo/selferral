@@ -23,8 +23,6 @@ export const getExchange = async (id) => {
 
   const data = await res.json();
 
-  console.log("dddd", data, id);
-
   return data.data.find((v) => v.exchange_id == id);
 };
 
@@ -41,14 +39,10 @@ export const getAffiliateExchange = async (id) => {
     // cache: "force-cache",
   });
 
-  console.log("13123123", res);
-
   return res.data.find((v) => v.id == id);
 };
 
 export const editExchangeForm = async ({ id, formData }) => {
-  console.log("ffffsdfsdf", formData);
-
   try {
     const res = await fetchWithAuth(`${API_URL}/affiliate/Exchange/${id}`, {
       //"Content-Type": "multipart/form-data"
@@ -58,9 +52,7 @@ export const editExchangeForm = async ({ id, formData }) => {
 
     revalidateTag("exchanges");
     return res;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 export const editStatusExchange = async ({ id, data }) => {
@@ -91,9 +83,7 @@ export const editStatusExchange = async ({ id, data }) => {
 
     revalidateTag("exchanges");
     return res;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 export const editLinksForm = async ({ id, linkId, formData }) => {
@@ -132,13 +122,10 @@ export const registerUID = async ({ id, uid }) => {
     }
 
     return res;
-  } catch (err) {
-    console.log("err", err);
-  }
+  } catch (err) {}
 };
 
 export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, orderby, search_type, keyword, step, dt_start, dt_end }) => {
-  console.log("zxczxc", dt_start);
   if ((keyword && search_type) || step > -1 || dt_start || dt_end) {
     const res = await fetchWithAuth(
       `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}&search_type=${search_type}&keyword=${keyword}${step > -1 ? `&step=${step}` : ""}${
@@ -149,8 +136,6 @@ export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, or
         next: { tags: ["withdrawals"] },
       }
     );
-
-    console.log("getWithdrawals", res);
 
     return res;
   } else {
@@ -252,8 +237,6 @@ export const getUidStatus = async ({}) => {
 export const getExcel = async ({ num = 10, page = 1 }) => {
   const response = await fetchWithAuth(`${API_URL}/affiliate/Exchange/excel/uid/${num}/${page}`, { next: { tags: ["excellist"] }, method: "GET" });
 
-  console.log("response123123", response.data.list);
-
   return response;
 };
 
@@ -290,8 +273,6 @@ export const getExcelLog = async ({ num = 10, page = 1, excel_id, exchange_id, u
     },
     method: "GET",
   });
-
-  console.log("sdfsdfsdf", response);
 
   return response;
 };

@@ -7,6 +7,7 @@ import { getCookie } from "cookies-next";
 import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import Dropdown from "@/components/exchange/dropdown";
+import { cn } from "@/lib/utils";
 
 const tabData = [
   {
@@ -25,13 +26,10 @@ const SearchUid = ({ exchangeData }) => {
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   const [uid, setUid] = useState<number | null>(null);
-  const [tab, setTab] = useState(0);
 
   const { isLogin } = useUser();
 
   const { addToast } = useToast();
-
-  console.log("exchangeData", exchangeData);
 
   return (
     <div className="py-10  md:w-[60%] mx-auto">
@@ -51,40 +49,32 @@ const SearchUid = ({ exchangeData }) => {
                 return addToast({ text: "UID는 4글자 이상 입력 해주세요" });
               }
 
-              if (tab === 0) {
-                router.push(`/uid?exchange=${exchange.exchange_id}&uid=${uid}`);
-              }
+              // if (tab === 0) {
+              router.push(`/uid?exchange=${exchange.exchange_id}&uid=${uid}`);
+              // }
 
-              if (tab === 1) {
-                // registerUID({ id: exchange.id, token, uid: uid }).then((res) => {
-                //   console.log("res!!!", res);
-                // });
-                const data = new FormData();
+              // if (tab === 1) {
+              //   // registerUID({ id: exchange.id, token, uid: uid }).then((res) => {
+              //   //
+              //   // });
+              //   const data = new FormData();
 
-                data.append("uid", uid);
-                fetch(`https://api.xn--3l2b13oekp.com/exchange/affiliate/set/${exchange.exchange_id}`, {
-                  method: "POST",
-                  body: data,
-                  headers: { authorization: `Bearer ${token}` },
-                }).then((res) => console.log(res));
-              }
+              //   data.append("uid", uid);
+              //   fetch(`https://api.xn--3l2b13oekp.com/exchange/affiliate/set/${exchange.exchange_id}`, {
+              //     method: "POST",
+              //     body: data,
+              //     headers: { authorization: `Bearer ${token}` },
+              //   }).then((res) =>
+              // }
               // const res = await fetch("/api/search");
 
-              // console.log("res", res);
+              //
             }}
           >
             <input placeholder="UID를 입력하세요" onChange={(e) => setUid(e.target.value)} className="bg-transparent outline-none flex-auto placeholder:text-sm" />
-            {tab === 0 && (
-              <button className="">
-                <Search className="text-gray-600 dark:text-gray-200 size-6 cursor-pointer" />
-              </button>
-            )}
-            {tab === 1 && (
-              <button className="">
-                신청
-                {/* <Search className="text-black dark:text-white size-6 cursor-pointer" /> */}
-              </button>
-            )}
+            <button className="">
+              <Search className={cn("text-gray-600 dark:text-gray-200 size-6 cursor-pointer")} />
+            </button>
           </form>
         </div>
       </div>

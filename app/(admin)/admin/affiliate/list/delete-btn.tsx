@@ -12,8 +12,6 @@ export default function DeleteButton({ id }) {
       body: id,
     });
 
-    console.log("res", res);
-
     const data = await res.json();
 
     if (data.CODE === "ED000") {

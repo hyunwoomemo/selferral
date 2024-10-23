@@ -79,7 +79,7 @@ export const useToast = () => {
   //   const id = addToast({ text: "Loading..." });
   //   return new Promise((resolve, reject) => {
   //     fn().then((res) => {
-  //       console.log("res123123", res, id);
+  //
   //       if (res.CODE === successCode) {
   //         resolve(() => modifyToast({ id, text: "성공", type: "success" }));
   //       } else {

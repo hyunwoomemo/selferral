@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 // box-shadow: 0 0 45px rgba(0, 0, 0, 0.07);
 
 const TradeItem = ({ data }: { data: any }) => {
-  console.log("ddd", data);
   const router = useRouter();
 
   return (

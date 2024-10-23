@@ -6,10 +6,8 @@ const Page = async ({ searchParams }) => {
   const exchanges = await getExchanges();
 
   const exchangeId = searchParams.id;
-  console.log("params", searchParams);
-  const uidData = await getUidList({});
 
-  console.log("ex123", uidData.data);
+  const uidData = await getUidList({});
 
   const data = await uidData.data.map((v) => {
     return {

@@ -40,7 +40,6 @@ const Container = ({ exchanges }) => {
       formData.append("file", file[i]);
     }
 
-    console.log("eee", exchange);
     formData.append("exchange_id", exchange);
 
     try {
@@ -56,7 +55,6 @@ const Container = ({ exchanges }) => {
         // router.refresh();
       }
     } catch (err) {
-      console.error(err);
     } finally {
       setLoading(false);
     }

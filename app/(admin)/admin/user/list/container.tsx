@@ -68,18 +68,20 @@ const Container = ({ users, exchanges }) => {
   const router = useRouter();
   const { addToast } = useToast();
 
-  console.log("ss", sort);
+  
 
   useEffect(() => {
     setBottomSheet((prev) => ({ ...prev, isVisible: false }));
   }, [sort]);
 
   const handleSearch = () => {
-    console.log("tttt", searchType.value, searchValue.current);
+    
     getAllUsersWithUidStatus({ type: searchType.value, text: searchValue.current }).then((res) => {
-      console.log("sdmfksmdf", res);
+      
+      setResult(res);
     });
   };
+  
 
   const handleChangeSearchValue = (e) => {
     searchValue.current = e.target.value;
@@ -154,7 +156,9 @@ const Container = ({ users, exchanges }) => {
   };
 
   const tableData = useMemo(() => {
-    return users
+    
+
+    return (result?.lists || users)
       ?.sort((a, b) => {
         const totalDiff = sort.point === 0 ? Number(b.total) - Number(a.total) : sort.point === 1 ? Number(a.total) - Number(b.total) : undefined;
         const dateDiff = sort.register === 0 ? new Date(b.createdAt) - new Date(a.createdAt) : sort.register === 1 ? new Date(a.createdAt) - new Date(b.createdAt) : undefined;
@@ -164,7 +168,7 @@ const Container = ({ users, exchanges }) => {
       ?.map((user) => {
         const { email, name, hp, createdAt, type, total } = user;
 
-        console.log("isA", user.id);
+        
 
         return {
           이메일: email,
@@ -208,7 +212,7 @@ const Container = ({ users, exchanges }) => {
                 <div className="w-[150px]">커미션</div>
               </div>
               {user.exchanges.map((v, i) => {
-                console.log("vvvvv", v);
+                
                 return (
                   <div
                     onClick={() => router.push(`/admin/user/list/${v.exchange_id}/${v.user_uid}`)}
@@ -234,7 +238,7 @@ const Container = ({ users, exchanges }) => {
           ),
         };
       });
-  }, [users, isVisible, exchanges, isAccordion, setIsAccordion, sort]);
+  }, [users, result, isVisible, exchanges, isAccordion, setIsAccordion, sort]);
 
   useEffect(() => {
     if (refresh) {
@@ -244,7 +248,7 @@ const Container = ({ users, exchanges }) => {
     }
   }, [refresh]);
 
-  console.log("tableDatatableData", tableData);
+  
 
   const headerData = [
     {
@@ -282,12 +286,38 @@ const Container = ({ users, exchanges }) => {
               <div onClick={() => setDropdown((prev) => !prev)} className="p-2 px-4 border rounded-lg cursor-pointer">
                 {searchType.label}
               </div>
-              <input className="outline-none p-2 min-w-[400px]" onChange={handleChangeSearchValue} />
-              <Search className="cursor-pointer" onClick={handleSearch} />
+              {searchType.value === "type" ? (
+                <div className="flex gap-4">
+                  <Button
+                    onClick={() => {
+                      searchValue.current = "UT01";
+                      handleSearch();
+                    }}
+                  >
+                    일반 회원
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      searchValue.current = "UT02";
+                      handleSearch();
+                    }}
+                  >
+                    관리자
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <input className="outline-none p-2 min-w-[400px]" onChange={handleChangeSearchValue} />
+                  <Search className="cursor-pointer" onClick={handleSearch} />
+                </>
+              )}
             </div>
           </div>
           <div
-            className={cn("absolute flex flex-col p-2 bg-gray-50 border gap-2 rounded-lg top-[100%] min-w-[30%] transition-all", dropdown ? "opacity-100 translate-y-2" : "opacity-0 translate-y-0")}
+            className={cn(
+              "absolute flex flex-col p-2 bg-gray-50 border gap-2 rounded-lg top-[100%] min-w-[30%] transition-all",
+              dropdown ? "opacity-100 translate-y-2 z-50" : "opacity-0 translate-y-0"
+            )}
           >
             {searchTypes.map((v) => (
               <div
@@ -363,7 +393,7 @@ const Container = ({ users, exchanges }) => {
         </div>
         <div className=" flex-[8]">
           {users.map((user, index) => {
-            console.log(user);
+            
             const { email, name, hp, createdAt, type } =users user;
             return (
               <div

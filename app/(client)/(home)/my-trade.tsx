@@ -7,9 +7,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import EventList from "./event-list";
 
 const MyTrade = ({ uidData, exchanges }) => {
-  console.log("uu", uidData);
-  console.log("exchangesexchanges", exchanges);
-
   const renderItem = useCallback(() => {
     if (!uidData.data.DATA) return;
 

@@ -14,7 +14,6 @@ export default async function Page() {
   // 사용자 배너 : /auth/banners
 
   const banners = await getAdminBanner({ type: "all" });
-  console.log("banners", banners.data);
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">

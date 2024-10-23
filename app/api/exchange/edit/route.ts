@@ -27,7 +27,7 @@
 //   let logoPath = "";
 //   let bannerPath = "";
 
-//   console.log("logo", typeof logo);
+//
 
 //   if (logo && typeof logo !== "string") {
 //     const fileBuffer = await logo.arrayBuffer();

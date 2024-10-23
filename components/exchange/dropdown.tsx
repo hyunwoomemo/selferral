@@ -3,8 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Dropdown({ item, setItem, data, isVisible, setIsVisible }: { item: any; setItem: any; data: any; isVisible: boolean; setIsVisible: any }) {
-  console.log("data", data);
-
   return (
     <>
       <div

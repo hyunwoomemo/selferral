@@ -26,8 +26,6 @@ const Container = ({ data, exchangeId }) => {
   const token = getCookie("token");
   const router = useRouter();
 
-  console.log("dropdownData", exchangeId);
-
   useEffect(() => {
     setExchange(dropdownData.find((v) => v.value == exchangeId));
   }, [dropdownData, exchangeId]);

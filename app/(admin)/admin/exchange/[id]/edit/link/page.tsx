@@ -7,8 +7,6 @@ const Page = async ({ params }) => {
   const links = await getLinks({ exchange_id: params.id });
   const data = await getExchange(params.id);
 
-  console.log("links", links);
-
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}

@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 const Banner = ({ banners }) => {
-  console.log("bannersbanners", banners);
   return (
     <div className="py-20 px-2 max-w-screen-xl mx-auto">
       <Swiper

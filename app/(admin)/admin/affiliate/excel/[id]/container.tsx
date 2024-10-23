@@ -11,7 +11,6 @@ import React, { useEffect, useMemo } from "react";
 // http://api.xn--3l2b13oekp.com
 
 const Container = ({ id, data, image_url }) => {
-  console.log("datadatadatadata", data);
   const router = useRouter();
 
   const tableData = useMemo(() => {

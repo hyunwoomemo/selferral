@@ -1,8 +1,6 @@
 import React from "react";
 
 const Container = ({ uid }) => {
-  console.log("uid", uid);
-
   if (!uid) return;
 
   return (

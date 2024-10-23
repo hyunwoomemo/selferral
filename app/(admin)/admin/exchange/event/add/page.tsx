@@ -10,8 +10,6 @@ const page = async () => {
   const banners = await getAdminBanner({ type: "all" });
   const exchanges = await getExchanges();
 
-  console.log(";bbbb", banners);
-
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}

@@ -12,7 +12,7 @@
 //   const searchParams = req.nextUrl.searchParams;
 //   const exchange = searchParams.get("exchange");
 //   const uid = searchParams.get("uid");
-//   console.log("uid", exchange, uid, searchParams);
+//
 
 //   const timestamp = new Date().toISOString();
 //   const endpoint = "/api/v5/affiliate/invitee/detail";
@@ -24,12 +24,12 @@
 //   // Prehash string
 //   const prehashString = `${timestamp}GET${endpoint}?${queryString}`;
 
-//   console.log("prehashString", prehashString);
+//
 
 //   // Signature
 //   const signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(prehashString, apiSecret));
 
-//   console.log(" signature", signature);
+//
 
 //   const headers = {
 //     "OK-ACCESS-KEY": apiKey,
@@ -46,14 +46,14 @@
 //   });
 
 //   const data = await res.json();
-//   console.log(data);
+//
 
-//   console.log("1111");
+//
 //   if (res.ok) {
-//     console.log("2222");
+//
 //     return NextResponse.json({ CODE: "US000", DATA: data });
 //   } else {
-//     console.log("3333");
+//
 //     return NextResponse.json({ CODE: "US001", message: "UID 검색에 실패했습니다." });
 //   }
 // }

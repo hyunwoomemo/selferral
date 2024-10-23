@@ -21,14 +21,11 @@ const data = [
 ];
 
 const RegisterDropdown = ({ id, type }) => {
-  console.log("id", id);
-
   const [isVisible, setIsVisible] = useState(false);
   const [value, setIsValue] = useState();
   const { addToast } = useToast();
 
   useEffect(() => {
-    console.log("value", value);
     if (value && value[id] === 1) {
       updateUidStatus({ status: 1, order_id: id });
       addToast({ text: "UID 등록이 처리되었습니다." });

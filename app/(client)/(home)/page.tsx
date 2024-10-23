@@ -14,10 +14,8 @@ import { getAdminBanner } from "@/actions/site/action";
 export default async function Home() {
   const exchanges = await getExchanges();
   const banners = await getBanners();
-  console.log("banners", banners);
-  // const uidData = await getUidList({ token: token?.value });
 
-  console.log("exchanges.data", exchanges.data);
+  // const uidData = await getUidList({ token: token?.value });
 
   const uidData = await getUidStatus({});
 

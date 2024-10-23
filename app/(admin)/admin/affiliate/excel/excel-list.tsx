@@ -18,8 +18,6 @@ const ExcelList = ({ exchanges }) => {
 
   const router = useRouter();
 
-  console.log("exchangesexchanges", exchanges);
-
   useEffect(() => {
     getExcel({ num: 10, page: page || 1 }).then((res) => {
       setData(res.data.list);
@@ -33,8 +31,6 @@ const ExcelList = ({ exchanges }) => {
   useEffect(() => {
     setTotalGroup(Math.ceil(totalPage / 10));
   }, [totalPage]);
-
-  console.log("getExcelgetExcelgetExcel", data);
 
   const tableData = useMemo(() => {
     if (!data) return;

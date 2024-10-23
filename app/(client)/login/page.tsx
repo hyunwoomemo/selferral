@@ -33,7 +33,6 @@ export default function Page({ searchParams }) {
       setCookie("token", state.TOKEN.accessToken);
       setCookie("refresh", state.TOKEN.refreshToken);
       getInfo(state.TOKEN.accessToken, state.TOKEN.refreshToken).then((res) => {
-        console.log("res", res);
         if (res.CODE === "AI000") {
           // addToast({ text: "로그인에 성공했습니다." });
           setUser(res.DATA);

@@ -7,13 +7,11 @@ import ServerPagination from "@/components/ui/server-pagination";
 const page = async ({ params, searchParams }) => {
   const id = params.id;
   const page = searchParams.page;
-  console.log("idididid", id, page);
 
   const data = await getExcelLog({ num: 10, page: page, excel_id: id });
   const exchanges = await getAffiliateExchanges();
 
   const image_url = (await data.data.list) && exchanges.data.find((v) => v.id == data.data.list[0]?.exchange_id)?.image_thumb;
-  console.log("image_url", image_url);
 
   if (data.data.list.length === 0) {
     return <div className="p-8">데이터가 존재하지 않습니다.</div>;

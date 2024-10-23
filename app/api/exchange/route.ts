@@ -5,6 +5,6 @@
 //   const sql = "select * from selferral.exchanges";
 //   const data = await executeQuery(sql, "");
 //   const getData = JSON.parse(JSON.stringify(data));
-//   console.log(getData);
+//
 //   return NextResponse.json({ CODE: "EL000", DATA: getData });
 // }

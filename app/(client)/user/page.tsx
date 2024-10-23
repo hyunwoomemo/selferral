@@ -37,8 +37,6 @@ export default async function Page() {
 
   const uidData = await getUidList({});
 
-  console.log("uidData", uidData);
-
   const withdrawal = await getWithdrawal({});
 
   const renderItem = () => {

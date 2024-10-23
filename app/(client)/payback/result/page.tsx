@@ -19,8 +19,6 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  console.log("paybackTest", paybackTest);
-
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);

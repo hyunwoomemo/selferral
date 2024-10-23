@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export default function ButtonWrapper({ data }) {
-  console.log("data", data);
   const [select, setSelect] = useState(data?.type);
   const router = useRouter();
 
@@ -16,7 +15,6 @@ export default function ButtonWrapper({ data }) {
     });
 
     const json = await res.json();
-    console.log("json", json);
 
     if (json.CODE === "UE000") {
       router.back();

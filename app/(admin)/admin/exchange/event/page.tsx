@@ -10,8 +10,6 @@ const page = async () => {
   const exchanges = await getExchanges();
   // const banners = await getBanners();
 
-  console.log("banners", banners);
-
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}

@@ -17,8 +17,6 @@ const data = [
 ];
 
 const TypeDropdown = ({ id, type }) => {
-  console.log("id", id);
-
   const getUserTypeText = (type) => {
     switch (type) {
       case "UT02":
@@ -35,7 +33,7 @@ const TypeDropdown = ({ id, type }) => {
   const { addToast } = useToast();
 
   // useEffect(() => {
-  //   console.log("value", value);
+  //
   //   if (value && value[id] === 1) {
   //     updateUidStatus({ status: 1, order_id: id });
   //     addToast({ text: "UID 등록이 처리되었습니다." });

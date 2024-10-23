@@ -17,8 +17,6 @@ const page = async ({ searchParams }) => {
 
   const users = await getAllUser();
 
-  console.log("data13123123", data.data, users.DATA);
-
   const tableData = await data?.data?.list.map((v) => {
     // if (searchParams.type == 0) {
     return {

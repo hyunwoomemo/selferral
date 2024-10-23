@@ -22,7 +22,7 @@ export default function Page() {
   const [error, setError] = useState({});
   const [checkCode, setCheckCode] = useState();
   const [isCheckVisible, setIsCheckVisible] = useState(false);
-  console.log("error", error);
+
   const { addToast } = useToast();
 
   const handleChange = (type, value) => {
@@ -55,8 +55,6 @@ export default function Page() {
 
     setCheckCode(data.CODE);
   };
-
-  console.log("eeee", checkCode, values.code);
 
   const verfiyDisabled = useMemo(() => {
     return !(!error.email && values?.email?.length > 0);

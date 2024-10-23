@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 const Container = ({ banners }) => {
   const router = useRouter();
-  console.log("banners", banners);
 
   const tabData = useMemo(() => {
     return banners?.data?.banner_types.map((v) => ({ value: v.banner_type }));
@@ -19,15 +18,12 @@ const Container = ({ banners }) => {
   useEffect(() => {
     if (tab !== "all") {
       getAdminBanner({ type: tab }).then((res) => {
-        console.log("res", res);
         setData(res);
       });
     } else {
       setData(banners);
     }
   }, [tab]);
-
-  console.log("data", data);
 
   const renderItem = useCallback(() => {
     return Object.entries(

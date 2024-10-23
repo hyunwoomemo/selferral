@@ -23,7 +23,6 @@ const Container = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("tt", tab);
     router.push(`/admin/user/uid?type=${tab}`);
   }, [tab]);
 

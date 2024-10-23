@@ -16,7 +16,7 @@ export default async function middleware(request: NextRequest) {
 
   // const res = await getInfo({ accessToken });
 
-  // console.log("rrfrfrfr", res);
+  //
 
   // if (res.CODE === "AC001" && !pathname.startsWith("/login")) {
   //   const url = request.nextUrl.clone();

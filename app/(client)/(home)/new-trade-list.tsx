@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 const TradeItem = ({ data }: { data: any }) => {
   const router = useRouter();
 
-  console.log("data", data);
-
   return (
     <div
       className="flex flex-wrap md:grid md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] font-bold items-center  p-3 px-4 border-b border-gray-100 dark:border-gray-800   gap-0 cursor-pointer"

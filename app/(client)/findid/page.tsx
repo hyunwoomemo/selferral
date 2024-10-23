@@ -30,7 +30,6 @@ const Page = () => {
 
   const handleSubmit = async () => {
     const res = await findUser({ type: "id", data: values });
-    console.log("rrr", res);
 
     if (res.CODE === "AFI000") {
       setResult(res);

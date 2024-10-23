@@ -3,8 +3,6 @@ import { ChevronDown } from "lucide-react";
 import React, { useEffect } from "react";
 
 const Dropdown = ({ data, value, setValue, isVisible, setIsVisible, placeholder, id, dropdownClick, minWidth }) => {
-  console.log("datadddd", dropdownClick);
-
   const handleClick = (item) => {
     setValue((prev) => ({ ...prev, [id]: item.value }));
     setIsVisible(false);

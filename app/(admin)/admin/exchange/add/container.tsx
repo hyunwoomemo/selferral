@@ -30,8 +30,6 @@ const Container = ({}) => {
     }
   };
 
-  console.log("values", values);
-
   const handleEdit = async () => {
     const formData = new FormData();
 
@@ -41,15 +39,12 @@ const Container = ({}) => {
       }
     }
 
-    console.log("vvvv", values);
-
     const linkData = new FormData();
 
     linkData.append("status", 1);
 
     const res = await editExchangeForm({ id: 0, formData });
     const res1 = await editLinksForm({ id: res.exchange_id, linkId: 0, formData: linkData });
-    console.log("vvvvvv", res, res1);
 
     if (res.exchange_id && res1.link_id) {
       router.push("/admin/exchange/list");

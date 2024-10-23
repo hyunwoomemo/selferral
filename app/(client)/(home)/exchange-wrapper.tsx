@@ -13,13 +13,10 @@ import { usePathname } from "next/navigation";
 import { useWidthSize } from "@/hooks/useWithSize";
 
 const ExchangeWrapper = ({ data }: { data: any }) => {
-  console.log("data", data);
   const pathname = usePathname();
   const [asIs, setAsIs] = useState(false);
 
   const { isMobile } = useWidthSize();
-
-  console.log("isMobile", isMobile);
 
   useEffect(() => {
     if (isMobile) {

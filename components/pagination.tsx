@@ -38,8 +38,6 @@ const Pagination = ({ page = 1, total, offset = 10, setPage, group, setGroup, to
     }
   };
 
-  console.log("asdasd", page, group, totalGroup);
-
   return (
     <div className="flex gap-5 justify-center items-center">
       <ChevronsLeft

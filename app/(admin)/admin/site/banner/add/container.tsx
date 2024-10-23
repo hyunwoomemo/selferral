@@ -22,7 +22,7 @@ const Container = ({}) => {
           type={type}
           onChange={onChange}
           // onChange={(e) => {
-          //   console.log(e.target.files[0]);
+          //
           //   setValues((prev) => ({ ...prev, files: prev.files ? [...prev.files, e.target.files[0]] : [e.target.files[0]] }));
           // }}
           placeholder={field}
@@ -32,8 +32,6 @@ const Container = ({}) => {
       </div>
     );
   }, []);
-
-  console.log("values", values);
 
   const handleBanner = async (e) => {
     e.preventDefault();
@@ -51,7 +49,6 @@ const Container = ({}) => {
         }
       } else {
         if (key === "status") {
-          console.log("123123", values[key]);
           values[key] === "null" || !values[key] ? formData.append(key, 0) : formData.append(key, values[key]);
         } else {
           // if (key.includes("time")) {
@@ -66,8 +63,6 @@ const Container = ({}) => {
     const res = await setBanner({ data: formData, bannerType: values["banner_type"] });
 
     addToast({ text: "배너가 추가되었습니다." });
-
-    console.log("res", res);
   };
 
   return (

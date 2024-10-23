@@ -16,7 +16,6 @@ const Container = ({ data, exchangeId }) => {
   const { addToast } = useToast();
   const router = useRouter();
   const [previewUrls, setPreviewUrls] = useState({});
-  console.log("exchangeIdexchangeId", typeof exchangeId, exchangeId);
 
   useEffect(() => {
     const temp = {};

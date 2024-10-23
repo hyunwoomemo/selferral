@@ -68,8 +68,6 @@ const Page = () => {
 
     const result = await registerUID({ id: exchange, uid });
 
-    console.log("13123123123123", result);
-
     if (result.CODE === "EAS000") {
       addToast({ text: "UID 등록 신청되었습니다." });
       setTimeout(() => {
@@ -151,8 +149,6 @@ const Page = () => {
             {!apply && (
               <Button
                 onClick={() => {
-                  console.log("uid", uid);
-
                   router.back();
                   setTimeout(() => {
                     router.push(`/payback/process/1?uid=${uid}`);

@@ -7,7 +7,6 @@ const Page = async ({ params }) => {
   const banners = await getAdminBanner({ type: "all" });
 
   const banner = await banners.data.list.find((v) => v.id == params.id);
-  console.log("bbb", banner);
 
   return (
     <div className="font-bold flex-auto flex-col p-8 flex">

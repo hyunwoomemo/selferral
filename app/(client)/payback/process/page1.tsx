@@ -31,7 +31,6 @@ const Page1 = ({ exchanges }) => {
             onClick={() => {
               router.push("/payback/process/2");
               setPaybackTest((prev) => {
-                console.log("psdf", prev);
                 return { ...prev, name: v.name, id: v.exchange_id, market_order: v.market_order, limit_order: v.limit_order, payback: v.payback, image: v.image_thumb };
               });
             }}

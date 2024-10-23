@@ -16,7 +16,6 @@ const ClientLayout = ({ children }) => {
   const wide = useAtomValue(wideAtom);
 
   const paybackTest = useAtomValue(paybackTestAtom);
-  console.log("paybackTest", paybackTest);
 
   useEffect(() => {
     prefetches.forEach((v) => router.prefetch(v));

@@ -14,9 +14,7 @@ export function MainNav() {
   const pathname = usePathname();
   const [user, setUser] = useAtom(userAtom);
 
-  console.log(user);
-
-  // console.log("role", role);
+  //
 
   return (
     <nav className="flex items-center space-x-4 lg:space-x-6">

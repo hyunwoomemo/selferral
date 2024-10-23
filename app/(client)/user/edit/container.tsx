@@ -23,7 +23,6 @@ const Container = ({}) => {
     const data = { password: values.pw, newPassword: values.newPw };
     const res = await editPassword({ data });
 
-    console.log("resres", res);
     if (res.CODE === "AL002") {
       addToast({ text: "비밀번호가 유효하지 않습니다." });
     } else {

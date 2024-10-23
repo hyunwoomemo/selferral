@@ -26,8 +26,6 @@ const Container = ({ exchangeId, link, linkId }) => {
     setValues(data);
   }, [link]);
 
-  console.log("vvv", values);
-
   const handleAdd = async () => {
     const formData = new FormData();
 
@@ -37,8 +35,6 @@ const Container = ({ exchangeId, link, linkId }) => {
       }
     }
     const res = await editLinksForm({ id: exchangeId, linkId: linkId, formData });
-
-    console.log("addddd res", res);
 
     if (res && res.link_id) {
       addToast({ text: "수정되었습니다." });

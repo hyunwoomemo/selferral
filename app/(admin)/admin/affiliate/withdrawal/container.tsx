@@ -141,12 +141,13 @@ const Container = ({ exchanges, users }) => {
         dt_end: ddates[1] ? moment(ddates[1]).format("YYYY-MM-DD") : ddates[0] ? moment(ddates[0]).format("YYYY-MM-DD") : null,
       })
         .then((res) => {
-          console.log("rrr", res);
           setData(res.data);
           setTotal(res.data.total);
           setTotalPage(Math.ceil(res.data.total / 10));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.error(err);
+        });
     }
   }, [dates, dateSave]);
 
@@ -157,7 +158,7 @@ const Container = ({ exchanges, users }) => {
   // useEffect(() => {
   //   setBottomSheet({ isVisible: false });
 
-  //   console.log("dates", dates);
+  //
 
   //   getWithdrawals({
   //     exchangeId: tab === "all" ? 0 : tab,
@@ -168,11 +169,11 @@ const Container = ({ exchanges, users }) => {
   //     dt_start: moment(dates[0]).format("YYYY-MM-DD"),
   //   })
   //     .then((res) => {
-  //       console.log("rrr", res);
+  //
   //       setData(res.data);
   //       setTotal(res.data.total);
   //     })
-  //     .catch((err) => console.log(err));
+  //     .catch((err) =>
   // }, [dates]);
 
   const headerData = [
@@ -295,21 +296,17 @@ const Container = ({ exchanges, users }) => {
       step: searchType?.value === "step" ? value : undefined,
     })
       .then((res) => {
-        console.log("rrr", res);
         setData(res.data);
         setTotal(res.data.total);
         setTotalPage(Math.ceil(res.data.total / 10));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
-  console.log("res", data);
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
 
   const handleUpdateStep = async ({ id, step }) => {
     const res = await updateStep({ withdrawlId: id, step });
-
-    console.log("sdmfmfksdmfksmdkf", res);
 
     if (res.data === "OK") {
       getWithdrawals({ exchangeId: tab === "all" ? 0 : tab, num: 10, page: page || 1, order: Object.keys(sort)[0], orderby: Object.entries(sort)[0][1], keyword, search_type: searchType?.value })

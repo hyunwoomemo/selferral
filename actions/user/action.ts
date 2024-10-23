@@ -26,13 +26,9 @@ export const getUser = async (id) => {
 
 export const getAllUsersWithUidStatus = async (data: { type?: any; text?: any }) => {
   if (data?.type && data?.text) {
-    console.log("dddd", data);
-
     const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus?search_type=${data.type}&search_value=${data.text}`, {
       next: { tags: ["userWithUid"] },
     });
-
-    console.log("rrrr", res);
 
     return res;
   } else {
@@ -197,8 +193,6 @@ export const editPassword = async ({ data }) => {
 };
 
 export const findUser = async ({ type, data }) => {
-  console.log("type", type, data);
-
   const formData = new FormData();
 
   for (const key in data) {
@@ -216,8 +210,6 @@ export const findUser = async ({ type, data }) => {
   // });
 
   const result = await res.json();
-
-  console.log("rere", result);
 
   return result;
 };

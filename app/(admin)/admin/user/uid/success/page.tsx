@@ -13,9 +13,6 @@ const page = async () => {
   const users = await getAllUser();
 
   const a = await getUidList({});
-  console.log("getUidList", a);
-
-  console.log("data", data.data.list);
 
   const tableData = await data.data.list.map((v) => ({
     UID: v.user_uid,

@@ -6,7 +6,5 @@ export default async function Page() {
   const users = await getAllUsersWithUidStatus();
   const exchanges = await getAffiliateExchanges();
 
-  console.log("usersusersusers123", users);
-
   return <Container users={users?.lists} exchanges={exchanges?.data} />;
 }

@@ -68,8 +68,6 @@ const Page = () => {
 
     const data = await res.json();
 
-    console.log("dddd", data.CODE);
-
     setCheckCode(data.CODE);
   };
 

@@ -17,8 +17,6 @@ const MyReward = ({ uidData, exchanges }) => {
   const user = useAtomValue(userAtom);
   const [refresh, setRefresh] = useState(false);
 
-  console.log("useruser", user);
-
   const usdt = useMemo(() => {
     return uidData.data?.DATA?.filter((v) => exchanges.data.find((v1) => v1.exchange_id === v.exchange_id)?.status === 1).reduce((result, cur) => {
       if (cur.point) {
@@ -28,8 +26,6 @@ const MyReward = ({ uidData, exchanges }) => {
       return result;
     }, 0);
   }, [uidData]);
-
-  console.log("uidData", uidData);
 
   useEffect(() => {
     if (refresh) {

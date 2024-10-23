@@ -25,8 +25,6 @@ const Container = ({ banners, exchanges, banner, id }) => {
   const [dates, setDates] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
 
-  console.log("ddd", dates);
-
   useEffect(() => {
     const arr = ["title", "memo", "order", "starttime", "endtime", "status", "path", "link", "exchange_id"];
 
@@ -47,10 +45,7 @@ const Container = ({ banners, exchanges, banner, id }) => {
     setDates(dates);
   }, [banner]);
 
-  console.log(";vv", values);
-
   const handleDropdownClick = (value) => {
-    console.log("value", value);
     setExchange(value);
   };
 
@@ -74,8 +69,6 @@ const Container = ({ banners, exchanges, banner, id }) => {
     }
   };
 
-  console.log("vvv", values);
-
   useEffect(() => {
     if (dates.length === 2) {
       setValues((prev) => ({ ...prev, starttime: dates[0], endtime: dates[1] }));
@@ -83,7 +76,6 @@ const Container = ({ banners, exchanges, banner, id }) => {
   }, [dates]);
 
   useEffect(() => {
-    console.log("eee", exchange);
     setValues((prev) => ({ ...prev, exchange_id: exchange.value }));
   }, [exchange]);
 
@@ -96,11 +88,7 @@ const Container = ({ banners, exchanges, banner, id }) => {
       }
     }
 
-    console.log("vvvv", values);
-
     const res = await setBanner({ data: formData, bannerType: "event", id });
-
-    console.log("vvvvv", res);
 
     // if (res.exchange_id) {
     //   router.push("/admin/exchange/list");

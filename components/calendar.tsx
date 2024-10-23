@@ -7,8 +7,6 @@ import { Button } from "./ui/button";
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const Calendar = ({ dates, setDates, setIsVisibleDate, setDateSave }) => {
-  console.log("dddd", dates);
-
   const [date, setDate] = useState(dates[0] || new Date());
 
   const year = useMemo(() => {
@@ -89,8 +87,6 @@ const Calendar = ({ dates, setDates, setIsVisibleDate, setDateSave }) => {
 
   const handleClickDate = (data) => {
     const newDate = new Date(date.getFullYear(), date.getMonth(), data);
-
-    console.log("newDate", newDate);
 
     setDates((prev) => {
       if (prev.length === 0) {

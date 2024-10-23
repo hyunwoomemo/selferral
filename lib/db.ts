@@ -17,9 +17,9 @@
 
 //   pool.getConnection((err, conn) => {
 //     if (err) {
-//       console.log("Error connecting to db...", err);
+//
 //     } else {
-//       console.log("Connected to db...!");
+//
 //       conn.release();
 //     }
 //   });
@@ -29,7 +29,7 @@
 //   return new Promise((resolve, reject) => {
 //     pool.getConnection((err, conn) => {
 //       if (err) {
-//         console.error("Error getting connection from pool:", err);
+//
 //         return reject(err);
 //       }
 
@@ -38,7 +38,7 @@
 //         conn.release();
 
 //         if (err) {
-//           console.error("Error executing query:", err);
+//
 //           return reject(err);
 //         }
 

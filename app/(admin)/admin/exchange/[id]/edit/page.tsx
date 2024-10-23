@@ -6,8 +6,6 @@ import { cookies } from "next/headers";
 const Page = async ({ params }) => {
   const data = await getAffiliateExchange(params.id);
 
-  console.log("datadata", data);
-
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}

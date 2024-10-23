@@ -40,7 +40,6 @@ export function SiteHeader() {
 
   useEffect(() => {
     getInfo().then((res) => {
-      console.log("rrrrr", res);
       if (res?.CODE === "AI000") {
         setUser(res.DATA);
       }
@@ -60,7 +59,7 @@ export function SiteHeader() {
     });
   }, []);
 
-  // console.log("pathname", pathname);
+  //
 
   if (pathname.startsWith("/admin")) return;
 

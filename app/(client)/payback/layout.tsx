@@ -14,8 +14,6 @@ export default function PaybackLayout({
 
   const process = isNaN(Number(pathname.slice(pathname.lastIndexOf("/") + 1))) ? 0 : Number(pathname.slice(pathname.lastIndexOf("/") + 1));
 
-  console.log(process);
-
   return (
     <div className="flex flex-col flex-auto">
       <ProgressBar width={`${(100 / TOTAL) * process}%`} height="5px" />

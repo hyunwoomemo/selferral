@@ -29,8 +29,6 @@ const ExchangeItem = ({ exchanges }) => {
       .finally(() => setLoading(false));
   }, [exchange]);
 
-  console.log("exchanges", exchange);
-
   const handleExchangeClick = (id) => {
     setLoading(true);
     setExchange((prev) => {
@@ -61,8 +59,6 @@ const ExchangeItem = ({ exchanges }) => {
       }));
     }
   }, [exchange, links]);
-
-  console.log("loading", loading);
 
   const render = () => {
     return exchanges.data.map((v) => {

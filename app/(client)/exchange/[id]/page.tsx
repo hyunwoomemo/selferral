@@ -17,8 +17,6 @@ export default async function Page({ params }) {
 
   const exchangeData = await data.data.find((v) => v.id == Number(params.id));
 
-  console.log("exchangeData", exchangeData);
-
   if (!exchangeData) return null;
 
   return (

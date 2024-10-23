@@ -62,7 +62,6 @@ const ToastItem = ({ data }: { data: any }) => {
         className="p-[20px] border-gray bg-orange-400 dark:bg-gray-800 rounded-lg  w-[95%] md:w-[400px] relative flex items-center gap-[10px] m-[10px] font-bold text-white"
         onClick={() => removeToast(data.id)}
         onMouseEnter={() => {
-          console.log("mmmmmm");
           clearInterval(timer.current);
         }}
         onMouseLeave={() => {
