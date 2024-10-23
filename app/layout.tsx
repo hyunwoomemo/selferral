@@ -62,7 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </Script>
       <body className={cn("min-h-screen bg-background font-sans antialiased min-w-screen ", inter.variable)}>
         <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5XN5PS2M" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5XN5PS2M" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
         </noscript>
 
         <script type="module" defer src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/spiral.js"></script>
