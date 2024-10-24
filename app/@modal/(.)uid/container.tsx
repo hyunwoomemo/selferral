@@ -15,6 +15,7 @@ import Lottie from "react-lottie-player";
 import lottieJson from "@/assets/loading.json";
 import { useUser } from "@/hooks/useUser";
 import { userAtom } from "@/app/store/user";
+import Link from "next/link";
 
 const Container = ({ user }) => {
   const token = getCookie("token");
@@ -169,10 +170,32 @@ const Container = ({ user }) => {
             </div>
           </div>
         );
+      } else {
+        return (
+          <div className="rounded-lg flex flex-col items-center gap-6 font-bold">
+            <div className="text-gray-500 text-[16px]">등록되지 않은 UID 입니다.</div>
+            <div className="flex flex-col gap-4 items-center">
+              <div className="text-2xl">셀퍼럴닷컴에 가입하여</div>
+              <div className="text-2xl">
+                <span className="text-orange-600">페이백 혜택</span>을 받아보세요.
+              </div>
+            </div>
+            <div className="text-gray-500">(이미 등록하셨다면, 승인까지 최대 24시간이 소요됩니다.)</div>
+            <div
+              onClick={() => {
+                router.back();
+                setTimeout(() => {
+                  router.push("/register");
+                }, 100);
+              }}
+              className="cursor-pointer mt-4  p-2 px-8 rounded-lg text-white text-2xl"
+              style={{ background: "rgb(235,78,43)" }}
+            >
+              가입하기
+            </div>
+          </div>
+        );
       }
-      // else {
-      //   return <div className="rounded-lg">등록되지 않은 UID 입니다. 셀퍼럴닷컴에 가입하여 페이백 혜택을 받아보세요. (이미 등록하셨다면, 승인까지 최대 24시간이 소요됩니다.) 가입하기</div>;
-      // }
     }
 
     if (res && res.hasOwnProperty("exchange")) {

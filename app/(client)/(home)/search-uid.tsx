@@ -41,9 +41,9 @@ const SearchUid = ({ exchangeData }) => {
             onSubmit={async (e) => {
               e.preventDefault();
 
-              if (!isLogin) {
-                return addToast({ text: "로그인이 필요합니다." });
-              }
+              // if (!isLogin) {
+              //   return addToast({ text: "로그인이 필요합니다." });
+              // }
 
               if (!uid || uid.length < 4) {
                 return addToast({ text: "UID는 4글자 이상 입력 해주세요" });

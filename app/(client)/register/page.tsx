@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 import { register } from "@/actions/user/action";
 import { API_URL } from "@/actions";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { validateJoin } from "@/lib/validate";
 import Input from "@/components/input";
 import { useToast } from "@/hooks/useToast";
@@ -18,10 +18,13 @@ export default function Page() {
   const { pending } = useFormStatus();
   const [state, formAction] = useFormState(register, initialState);
 
+  console.log("state", state);
+
   const [values, setValues] = useState({});
   const [error, setError] = useState({});
   const [checkCode, setCheckCode] = useState();
   const [isCheckVisible, setIsCheckVisible] = useState(false);
+  const [checkSuccess, setCheckSuccess] = useState(false);
 
   const { addToast } = useToast();
 
@@ -63,12 +66,20 @@ export default function Page() {
   const handleCheckCode = () => {
     if (values.code === checkCode) {
       addToast({ text: "인증되었습니다." });
+      setCheckSuccess(true);
       setIsCheckVisible(false);
     } else {
       addToast({ text: "인증코드가 일치하지 않습니다." });
       setValues((prev) => ({ ...prev, code: "" }));
+      setCheckSuccess(false);
     }
   };
+
+  useEffect(() => {
+    if (state?.message) {
+      addToast({ text: state.message });
+    }
+  }, [state]);
 
   return (
     <div className="pt-20 font-bold px-4 max-w-[800px] mx-auto">
@@ -156,7 +167,7 @@ export default function Page() {
         </div>
         {/* <div>{state?.message ? <h3 className="badge bg-danger">{state?.message}</h3> : null}</div> */}
         <Button
-          disabled={Object.keys(error).length > 0 || !values.email || !values.name || !values.pw || !values.pw2 || !values.hp || !checkCode}
+          disabled={Object.keys(error).length > 0 || !values.email || !values.name || !values.pw || !values.pw2 || !values.hp || !checkCode || !checkSuccess}
           className={cn(
             buttonVariants({ size: "lg", variant: "outline" }),
             "w-full  md:min-w-40  my-5 py-5 border border-orange-400 text-orange-400 text-lg dark:border-orange-200 dark:text-orange-200"
