@@ -41,7 +41,8 @@ export default function Page() {
     validateJoin(type, value, values, error, setError);
   };
 
-  const handleCheckEmail = async () => {
+  const handleCheckEmail = async (e) => {
+    e.preventDefault();
     setIsCheckVisible(true);
     setValues((prev) => ({ ...prev, code: "" }));
 
@@ -87,7 +88,7 @@ export default function Page() {
       <form method="post" action={formAction} className="pt-20">
         {/* <form className="pt-20" onSubmit={handleRegister}> */}
         <div className="p-4">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <input
               onChange={(e) => handleChange("email", e.target.value)}
               name="id"
@@ -95,9 +96,14 @@ export default function Page() {
               placeholder="이메일"
               className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
             />
-            {!checkCode && (
-              <Button onClick={handleCheckEmail} disabled={verfiyDisabled}>
-                {isCheckVisible ? "재전송" : "인증코드 전송"}
+
+            {!checkCode ? (
+              <Button onClick={(e) => handleCheckEmail(e)} disabled={verfiyDisabled}>
+                {"인증코드 전송"}
+              </Button>
+            ) : (
+              <Button onClick={(e) => handleCheckEmail(e)} disabled={verfiyDisabled}>
+                {"재전송"}
               </Button>
             )}
           </div>
