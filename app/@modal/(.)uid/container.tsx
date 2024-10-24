@@ -51,6 +51,7 @@ const Container = ({ user }) => {
             body: formData,
           });
           const data = await res.json();
+          console.log("ddddd", data);
 
           if (data.CODE === "EAG000") {
             setRes(data.DATA);
@@ -215,36 +216,88 @@ const Container = ({ user }) => {
     }
 
     if (res && res.hasOwnProperty("exchange")) {
-      return (
-        <div>
-          <div className="py-4 text-lg font-bold">존재하는 UID</div>
-          <div className="flex gap-4 text-md py-4 font-bold">
-            <div className="flex gap-2 ">
-              <CircleDollarSign />
-              <div>커미션</div>
+      if (user && Object.keys(user).length > 0) {
+        return (
+          <div>
+            <div className="py-4 text-lg font-bold">존재하는 UID</div>
+            <div className="flex gap-4 text-md py-4 font-bold">
+              <div className="flex gap-2 ">
+                <CircleDollarSign />
+                <div>커미션</div>
+              </div>
+              <div className="text-orange-400">{res.exchange.point} USDT</div>
             </div>
-            <div className="text-orange-400">{res.exchange.point} USDT</div>
           </div>
-        </div>
-      );
+        );
+      } else {
+        return (
+          <div className="rounded-lg flex flex-col items-center gap-6 font-bold">
+            <div className="text-2xl mt-10">
+              <span className="text-orange-600">로그인이</span> 필요합니다.
+            </div>
+            <div className="flex flex-col items-center text-lg">
+              <div className="text-gray-500">페이백 조회 및 출금신청은 </div>
+              <div className="text-gray-500">아래 버튼을 통해 로그인 후 진행해주세요.</div>
+            </div>
+            <div
+              onClick={() => {
+                router.back();
+                setTimeout(() => {
+                  router.push("/login");
+                }, 100);
+              }}
+              className="cursor-pointer mt-4  p-2 px-8 rounded-lg text-white text-2xl mb-5"
+              style={{ background: "rgb(235,78,43)" }}
+            >
+              로그인
+            </div>
+          </div>
+        );
+      }
     }
 
     if (res && res.hasOwnProperty("order")) {
-      return (
-        <div>
-          {res.order.status < 1 && (
-            <>
-              <div className="py-4 text-lg font-bold">처리 중입니다.</div>
-              <div>{leftTime}</div>
-            </>
-          )}
-          {res.order.status === 1 && (
-            <>
-              <div className="py-4 text-lg font-bold">등록되었습니다.</div>
-            </>
-          )}
-        </div>
-      );
+      if (user && Object.keys(user).length > 0) {
+        return (
+          <div>
+            {res.order.status < 1 && (
+              <>
+                <div className="py-4 text-lg font-bold">처리 중입니다.</div>
+                <div>{leftTime}</div>
+              </>
+            )}
+            {res.order.status === 1 && (
+              <>
+                <div className="py-4 text-lg font-bold">등록되었습니다.</div>
+              </>
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div className="rounded-lg flex flex-col items-center gap-6 font-bold">
+            <div className="text-2xl mt-10">
+              <span className="text-orange-600">로그인이</span> 필요합니다.
+            </div>
+            <div className="flex flex-col items-center text-lg">
+              <div className="text-gray-500">페이백 조회 및 출금신청은 </div>
+              <div className="text-gray-500">아래 버튼을 통해 로그인 후 진행해주세요.</div>
+            </div>
+            <div
+              onClick={() => {
+                router.back();
+                setTimeout(() => {
+                  router.push("/login");
+                }, 100);
+              }}
+              className="cursor-pointer mt-4  p-2 px-8 rounded-lg text-white text-2xl mb-5"
+              style={{ background: "rgb(235,78,43)" }}
+            >
+              로그인
+            </div>
+          </div>
+        );
+      }
     }
   }, [res, leftTime]);
 
