@@ -11,16 +11,8 @@ import Input from "@/components/input";
 import { useToast } from "@/hooks/useToast";
 import { redirect, useRouter } from "next/navigation";
 
-const initialState = {
-  message: "",
-};
-
 export default function Page() {
-  const { pending } = useFormStatus();
-  const [state, formAction] = useFormState(register, initialState);
   const router = useRouter();
-
-  console.log("state", state);
 
   const [values, setValues] = useState({});
   const [error, setError] = useState({});
@@ -100,11 +92,11 @@ export default function Page() {
     // }
   };
 
-  useEffect(() => {
-    if (state?.message) {
-      addToast({ text: state.message });
-    }
-  }, [state]);
+  // useEffect(() => {
+  //   if (state?.message) {
+  //     addToast({ text: state.message });
+  //   }
+  // }, [state]);
 
   const handleJoin = async () => {
     const id = values.email;
@@ -140,13 +132,11 @@ export default function Page() {
     } else {
       switch (data.CODE) {
         case "AR001":
-          return {
-            message: "필수 입력값이 입력되지 않았습니다.",
-          };
+          addToast({ text: "필수 입력값이 입력되지 않았습니다." });
+          break;
         case "AR002":
-          return {
-            message: "이미 등록되어있는 아이디입니다.",
-          };
+          addToast({ text: "이미 등록되어있는 아이디입니다." });
+          break;
       }
     }
   };
@@ -251,7 +241,7 @@ export default function Page() {
             name="insert"
             id="insert"
           >
-            {pending ? "회원가입 처리 중.." : "회원가입"}
+            회원가입
           </Button>
         </div>
       </div>
