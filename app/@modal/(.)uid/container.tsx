@@ -43,15 +43,31 @@ const Container = ({ user }) => {
 
         const formData = new FormData();
         formData.append("uid", uid);
-        const res = await fetch(`${API_URL}/exchange/affiliate/get/${exchange}`, {
-          headers: { authorization: `Bearer ${token}` },
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
 
-        if (data.CODE === "EAG000") {
-          setRes(data.DATA);
+        if (user && Object.keys(user).length > 0) {
+          const res = await fetch(`${API_URL}/exchange/affiliate/get/${exchange}`, {
+            headers: { authorization: `Bearer ${token}` },
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+
+          if (data.CODE === "EAG000") {
+            setRes(data.DATA);
+          }
+        } else {
+          const res = await fetch(`${API_URL}/exchange/affiliatenologin/get/${exchange}`, {
+            headers: { authorization: `Bearer ${token}` },
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+
+          console.log("ddddd", data);
+
+          if (data.CODE === "EAG000") {
+            setRes(data.DATA);
+          }
         }
       } catch (err) {
       } finally {
