@@ -60,8 +60,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5XN5PS2M')
 `}
       </Script>
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-4HVJ5RQKJV"></Script>
-      <Script>
+      <Script id="gtag" async src="https://www.googletagmanager.com/gtag/js?id=G-4HVJ5RQKJV"></Script>
+      <Script id="gtag">
         {`
         window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
