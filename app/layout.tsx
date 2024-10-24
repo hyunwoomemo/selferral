@@ -62,13 +62,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </Script>
       <Script id="gtag" async src="https://www.googletagmanager.com/gtag/js?id=G-4HVJ5RQKJV"></Script>
       <Script id="gtag">
-        {`
-        window.dataLayer = window.dataLayer || [];
+        {`window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4HVJ5RQKJV');
-      `}
+  gtag('js', new Date());gtag('config', 'G-4HVJ5RQKJV');`}
       </Script>
       <Script id="googletagmanager" strategy="afterInteractive">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
