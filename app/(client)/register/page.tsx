@@ -37,7 +37,6 @@ export default function Page() {
 
   const handleCheckEmail = async (e) => {
     e.preventDefault();
-    setIsCheckVisible(true);
     setValues((prev) => ({ ...prev, code: "" }));
 
     const formData = new FormData();
@@ -51,7 +50,12 @@ export default function Page() {
 
     const data = await res.json();
 
-    setCheckCode(data.CODE);
+    if (data.CODE === "000000") {
+      addToast({ text: "이미 가입되어있는 이메일입니다." });
+    } else {
+      setIsCheckVisible(true);
+      setCheckCode(data.CODE);
+    }
   };
 
   const verfiyDisabled = useMemo(() => {
@@ -142,7 +146,7 @@ export default function Page() {
   };
 
   return (
-    <div className="pt-20 font-bold px-4 max-w-[800px] mx-auto">
+    <div className="pt-20 font-bold px-4 max-w-[800px] mx-auto h-full">
       <h2 className="text-3xl font-black text-center">회원가입</h2>
       <div className="pt-20">
         {/* <form className="pt-20" onSubmit={handleRegister}> */}
@@ -156,13 +160,9 @@ export default function Page() {
               className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
             />
 
-            {!checkCode ? (
+            {!checkCode && (
               <Button onClick={(e) => handleCheckEmail(e)} disabled={verfiyDisabled}>
                 {"인증코드 전송"}
-              </Button>
-            ) : (
-              <Button onClick={(e) => handleCheckEmail(e)} disabled={verfiyDisabled}>
-                {"재전송"}
               </Button>
             )}
           </div>
@@ -186,64 +186,66 @@ export default function Page() {
             </div>
           )}
         </div>
-        <div className={cn(checkSuccess ? "" : "opacity-50 pointer-events-none")}>
-          <div className="p-4">
-            <input
-              name="password"
-              id="password"
-              type="password"
-              placeholder="비밀번호"
-              className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
-              onChange={(e) => handleChange("pw", e.target.value)}
-            />
+        {checkSuccess && (
+          <div className={cn(checkSuccess ? "" : "opacity-50 pointer-events-none")}>
+            <div className="p-4">
+              <input
+                name="password"
+                id="password"
+                type="password"
+                placeholder="비밀번호"
+                className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+                onChange={(e) => handleChange("pw", e.target.value)}
+              />
+            </div>
+            <div className="p-4">
+              <input
+                name="password"
+                id="password"
+                type="password"
+                placeholder="비밀번호 확인"
+                className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+                onChange={(e) => handleChange("pw2", e.target.value)}
+              />
+              {error.pw2 && <p className="text-sm text-orange-400">{error.pw2}</p>}
+            </div>
+            <div className="p-4">
+              <input
+                name="name"
+                id="name"
+                placeholder="이름"
+                className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+                onChange={(e) => handleChange("name", e.target.value)}
+              />
+            </div>
+            <div className="p-4">
+              <input
+                name="hp"
+                id="hp"
+                value={values.hp}
+                placeholder="휴대폰 번호"
+                type="number"
+                className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
+                onChange={(e) => handleChange("hp", e.target.value)}
+              />
+              <p className="text-gray-400 text-sm">하이픈 (-)없이 숫자만 입력바랍니다.</p>
+            </div>
+            {/* <div>{state?.message ? <h3 className="badge bg-danger">{state?.message}</h3> : null}</div> */}
+            <Button
+              onClick={() => handleJoin()}
+              disabled={Object.keys(error).length > 0 || !values.email || !values.name || !values.pw || !values.pw2 || !values.hp || !checkCode || !checkSuccess}
+              className={cn(
+                buttonVariants({ size: "lg", variant: "outline" }),
+                "w-full  md:min-w-40  my-5 py-5 border border-orange-400 text-orange-400 text-lg dark:border-orange-200 dark:text-orange-200"
+              )}
+              type="submit"
+              name="insert"
+              id="insert"
+            >
+              회원가입
+            </Button>
           </div>
-          <div className="p-4">
-            <input
-              name="password"
-              id="password"
-              type="password"
-              placeholder="비밀번호 확인"
-              className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
-              onChange={(e) => handleChange("pw2", e.target.value)}
-            />
-            {error.pw2 && <p className="text-sm text-orange-400">{error.pw2}</p>}
-          </div>
-          <div className="p-4">
-            <input
-              name="name"
-              id="name"
-              placeholder="이름"
-              className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
-              onChange={(e) => handleChange("name", e.target.value)}
-            />
-          </div>
-          <div className="p-4">
-            <input
-              name="hp"
-              id="hp"
-              value={values.hp}
-              placeholder="휴대폰 번호"
-              type="number"
-              className="p-4 bg-transparent w-full border-b text-lg focus-within:border-orange-400 outline-orange-400"
-              onChange={(e) => handleChange("hp", e.target.value)}
-            />
-            <p className="text-gray-400 text-sm">하이픈 (-)없이 숫자만 입력바랍니다.</p>
-          </div>
-          {/* <div>{state?.message ? <h3 className="badge bg-danger">{state?.message}</h3> : null}</div> */}
-          <Button
-            onClick={() => handleJoin()}
-            disabled={Object.keys(error).length > 0 || !values.email || !values.name || !values.pw || !values.pw2 || !values.hp || !checkCode || !checkSuccess}
-            className={cn(
-              buttonVariants({ size: "lg", variant: "outline" }),
-              "w-full  md:min-w-40  my-5 py-5 border border-orange-400 text-orange-400 text-lg dark:border-orange-200 dark:text-orange-200"
-            )}
-            type="submit"
-            name="insert"
-            id="insert"
-          >
-            회원가입
-          </Button>
-        </div>
+        )}
       </div>
       <div className="mt-auto flex gap-1 justify-center items-center pt-2">
         <p className="text-gray-400">이미 계정이 있으신가요?</p>
