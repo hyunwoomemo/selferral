@@ -11,6 +11,7 @@ import ToastContainer from "@/components/toast-container";
 import { getServerPathname } from "@/utils/getServerPathname";
 import ClientLayout from "./client-layout";
 import Script from "next/script";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -80,6 +81,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
 
         <script type="module" defer src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/spiral.js"></script>
+        <NextTopLoader showSpinner={false} color="orange" />
+
         <Providers>
           <Provider>
             <div className="relative flex min-h-dvh flex-col bg-gray-50 dark:bg-gray-900">

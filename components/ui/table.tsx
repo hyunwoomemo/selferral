@@ -1,43 +1,47 @@
+import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import React from "react";
 
-const Table = ({ data, wide = true, headerClassname, bodyClassname, textColor = "black", onClick, hover }) => {
-  if (!data) {
-    return <div>데이터가 존재하지 않습니다.</div>;
-  }
+const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(({ className, ...props }, ref) => (
+  <div className="w-full overflow-auto">
+    <table ref={ref} className={cn("w-full caption-bottom text-sm", className)} {...props} />
+  </div>
+));
+Table.displayName = "Table";
 
-  return (
-    <div className={cn(`${wide ? "w-full" : "w-[80%]"}`, "bg-gray-50 my-4")}>
-      <div className={`flex border-b p-3 px-5 bg-orange-100  ${headerClassname}`}>
-        {data[0] &&
-          Object.keys(data[0])
-            .filter((v) => v !== "accordion")
-            .map((v) => (
-              <div className="flex-1 flex justify-center items-center" key={v}>
-                {v}
-              </div>
-            ))}
-      </div>
-      {data.map((v, rowIndex) => {
-        return (
-          <div key={v.id || rowIndex} className="bg-white">
-            <div onClick={onClick ? () => onClick(v.id) : null} className={`border-b p-5 ${bodyClassname} hover:bg-orange-50 `} style={{ display: "flex", alignItems: "center" }}>
-              {Object.entries(v)
-                .filter(([key]) => key !== "accordion")
-                .map(([key, value], colIndex) => {
-                  return (
-                    <div id={"tableitem"} className=" flex-1 max-w-full  flex justify-center text-start cursor-pointer" key={`${key}-${colIndex}-${rowIndex}`}>
-                      {value}
-                    </div>
-                  );
-                })}
-            </div>
-            {v.accordion}
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
+  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
+));
+TableHeader.displayName = "TableHeader";
 
-export default Table;
+const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
+  <tbody ref={ref} className={cn("[&_tr:last-child]:border-0", className)} {...props} />
+));
+TableBody.displayName = "TableBody";
+
+const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
+  <tfoot ref={ref} className={cn("bg-primary font-medium text-primary-foreground", className)} {...props} />
+));
+TableFooter.displayName = "TableFooter";
+
+const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(({ className, ...props }, ref) => (
+  <tr ref={ref} className={cn("border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted", className)} {...props} />
+));
+TableRow.displayName = "TableRow";
+
+const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => (
+  <th ref={ref} className={cn("h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]", className)} {...props} />
+));
+TableHead.displayName = "TableHead";
+
+const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => (
+  <td ref={ref} className={cn("p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]", className)} {...props} />
+));
+TableCell.displayName = "TableCell";
+
+const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.HTMLAttributes<HTMLTableCaptionElement>>(({ className, ...props }, ref) => (
+  <caption ref={ref} className={cn("mt-4 text-sm text-muted-foreground", className)} {...props} />
+));
+TableCaption.displayName = "TableCaption";
+
+export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption };

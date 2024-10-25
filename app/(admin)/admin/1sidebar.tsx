@@ -65,7 +65,7 @@ const data = [
   },
 ];
 
-export default function Sidebar({ standbyCount }) {
+export default function S1idebar({ standbyCount }) {
   const [expand, setExpand] = useState(null);
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);

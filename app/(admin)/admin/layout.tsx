@@ -1,22 +1,19 @@
 import { Ban } from "lucide-react";
-import Sidebar from "./sidebar";
+import Sidebar from "./1sidebar";
 import Link from "next/link";
 import { getUidRegisterStatus } from "@/actions/trade/action";
 import { cookies } from "next/headers";
 import Modal from "@/components/modal";
 import ClientLayout from "./client-layout";
+import AppSidebar from "./app-sidebar";
+import NextTopLoader from "nextjs-toploader";
 
 export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
-  const data = await getUidRegisterStatus({ status: 0, exchange_id: 0, rownum: 20, page: 1 });
-
   return (
-    <>
-      <div className="sm: hidden md:block">
+    <AppSidebar>
+      {/* <div className="sm: hidden md:block">
         <div className="md:hidden">햄버거</div>
         <div className="flex-1 flex">
-          {/* <div className="md:flex-1"> */}
-          <Sidebar standbyCount={data?.data?.total} />
-          {/* </div> */}
           <div className="flex-[4] p-0 flex">
             <ClientLayout>{children}</ClientLayout>
           </div>
@@ -32,7 +29,8 @@ export default async function Layout({ children, modal }: { children: React.Reac
           <Ban color="orange" size={60} />
           <h2 className="text-2xl">PC에서 접속바랍니다.</h2>
         </div>
-      </div>
-    </>
+      </div> */}
+      {children}
+    </AppSidebar>
   );
 }
