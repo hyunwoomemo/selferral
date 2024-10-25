@@ -3,6 +3,8 @@ import Sidebar from "./sidebar";
 import Link from "next/link";
 import { getUidRegisterStatus } from "@/actions/trade/action";
 import { cookies } from "next/headers";
+import Modal from "@/components/modal";
+import ClientLayout from "./client-layout";
 
 export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   const data = await getUidRegisterStatus({ status: 0, exchange_id: 0, rownum: 20, page: 1 });
@@ -15,7 +17,9 @@ export default async function Layout({ children, modal }: { children: React.Reac
           {/* <div className="md:flex-1"> */}
           <Sidebar standbyCount={data?.data?.total} />
           {/* </div> */}
-          <div className="flex-[4] p-0 flex">{children}</div>
+          <div className="flex-[4] p-0 flex">
+            <ClientLayout>{children}</ClientLayout>
+          </div>
           {modal}
         </div>
       </div>

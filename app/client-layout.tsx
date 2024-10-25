@@ -1,12 +1,14 @@
 "use client";
 import { useAtom, useAtomValue } from "jotai";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { paybackTestAtom } from "./store/trade";
 import { cn } from "@/lib/utils";
 import BottomSheet from "@/components/ui/bottom-sheet";
 import { wideAtom } from "./store/common";
 import Image from "next/image";
+import { DropdownContext } from "@/components/dropdown";
+import Modal from "@/components/modal";
 
 const prefetches = ["/withdrawal", "/exchange", "/service", "/payback", "/user", "/user/withdrawal"];
 
@@ -43,6 +45,7 @@ const ClientLayout = ({ children }) => {
         <Image src={require("./chat.png")} width={30} height={30} alt="chat" />
       </div>
       <BottomSheet />
+      <Modal />
     </main>
   );
 };

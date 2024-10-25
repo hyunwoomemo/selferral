@@ -117,7 +117,7 @@ const Calendar = ({ dates, setDates, setIsVisibleDate, setDateSave }) => {
           </button>
         </div>
         <div style={{ flex: 1 }}>
-          <Button onClick={() => setDateSave(true)} style={{ display: "flex", justifyContent: "flex-end", marginLeft: "auto" }}>
+          <Button onClick={setDateSave ? () => setDateSave(true) : () => setIsVisibleDate(false)} style={{ display: "flex", justifyContent: "flex-end", marginLeft: "auto" }}>
             적용
           </Button>
         </div>

@@ -12,13 +12,14 @@ import Table from "@/components/ui/table";
 import Image from "next/image";
 import { API_URL } from "@/actions";
 import { cn } from "@/lib/utils";
-import Dropdown from "@/components/ui/dropdown";
-import TypeDropdown from "./type-dropdown";
+// import Dropdown from "@/components/ui/dropdown";
+// import TypeDropdown from "./type-dropdown";
 import { useAtom } from "jotai";
 import { bottomSheetAtom } from "@/app/store/common";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { register } from "module";
 import Input from "@/components/input";
+import Dropdown from "@/components/dropdown";
 //name, email, hp , type , uid
 
 const searchTypes = [
@@ -68,20 +69,15 @@ const Container = ({ users, exchanges }) => {
   const router = useRouter();
   const { addToast } = useToast();
 
-  
-
   useEffect(() => {
     setBottomSheet((prev) => ({ ...prev, isVisible: false }));
   }, [sort]);
 
   const handleSearch = () => {
-    
     getAllUsersWithUidStatus({ type: searchType.value, text: searchValue.current }).then((res) => {
-      
       setResult(res);
     });
   };
-  
 
   const handleChangeSearchValue = (e) => {
     searchValue.current = e.target.value;
@@ -156,8 +152,6 @@ const Container = ({ users, exchanges }) => {
   };
 
   const tableData = useMemo(() => {
-    
-
     return (result?.lists || users)
       ?.sort((a, b) => {
         const totalDiff = sort.point === 0 ? Number(b.total) - Number(a.total) : sort.point === 1 ? Number(a.total) - Number(b.total) : undefined;
@@ -167,8 +161,6 @@ const Container = ({ users, exchanges }) => {
       })
       ?.map((user) => {
         const { email, name, hp, createdAt, type, total } = user;
-
-        
 
         return {
           이메일: email,
@@ -186,7 +178,19 @@ const Container = ({ users, exchanges }) => {
               <span className="border p-1 px-4 rounded-md" onClick={() => setIsVisible((prev) => (prev === user.id ? null : user.id))}>
                 {getUserTypeText(type)}
               </span>
-              <div
+              <Dropdown on={isVisible === user.id} setOn={setIsVisible}>
+                {/* <Dropdown.dim></Dropdown.dim> */}
+                {typeData
+                  .filter((v) => v.value !== user.type)
+                  .map((v) => {
+                    return (
+                      <Dropdown.Item key={v.value} onClick={() => handleUpdateType({ id: user.id, type: v.value })}>
+                        {v.label}
+                      </Dropdown.Item>
+                    );
+                  })}
+              </Dropdown>
+              {/* <div
                 className={`absolute flex flex-col gap-4 top-10 items-center  ${
                   isVisible === user.id ? "block" : "hidden"
                 } bg-white border dark:bg-gray-400 z-10 p-3 w-full rounded-lg left-[50%] translate-x-[-50%]`}
@@ -198,7 +202,7 @@ const Container = ({ users, exchanges }) => {
                       {v.label}
                     </span>
                   ))}
-              </div>
+              </div> */}
             </div>
             // <TypeDropdown id={user.id} />
           ),
@@ -212,7 +216,6 @@ const Container = ({ users, exchanges }) => {
                 <div className="w-[150px]">커미션</div>
               </div>
               {user.exchanges.map((v, i) => {
-                
                 return (
                   <div
                     onClick={() => router.push(`/admin/user/list/${v.exchange_id}/${v.user_uid}`)}
@@ -248,8 +251,6 @@ const Container = ({ users, exchanges }) => {
     }
   }, [refresh]);
 
-  
-
   const headerData = [
     {
       label: "이메일",
@@ -277,7 +278,7 @@ const Container = ({ users, exchanges }) => {
 
   return (
     <>
-      {dropdown && <div onClick={() => setDropdown(false)} className="absolute w-full h-full bg-black opacity-5"></div>}
+      {/* {dropdown && <div onClick={() => setDropdown(false)} className="absolute w-full h-full bg-black opacity-5"></div>} */}
       <div className="font-bold flex-auto flex-col flex p-4  ">
         <div className="flex justify-between p-4  items-center relative">
           <div className="flex gap-10 items-center">
@@ -313,7 +314,21 @@ const Container = ({ users, exchanges }) => {
               )}
             </div>
           </div>
-          <div
+          <Dropdown on={dropdown} setOn={setDropdown}>
+            {/* <Dropdown.dim></Dropdown.dim> */}
+            {searchTypes.map((v) => (
+              <Dropdown.Item
+                key={v.value}
+                onClick={() => {
+                  setDropdown(false);
+                  setSearchType(v);
+                }}
+              >
+                {v.label}
+              </Dropdown.Item>
+            ))}
+          </Dropdown>
+          {/* <div
             className={cn(
               "absolute flex flex-col p-2 bg-gray-50 border gap-2 rounded-lg top-[100%] min-w-[30%] transition-all",
               dropdown ? "opacity-100 translate-y-2 z-50" : "opacity-0 translate-y-0"
@@ -331,7 +346,7 @@ const Container = ({ users, exchanges }) => {
                 {v.label}
               </div>
             ))}
-          </div>
+          </div> */}
           <div className="flex gap-5">
             {/* <Filter onClick={handleFilter} /> */}
             <RefreshCw

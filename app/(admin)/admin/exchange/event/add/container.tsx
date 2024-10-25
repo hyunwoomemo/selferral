@@ -24,6 +24,7 @@ const Container = ({ banners, exchanges }) => {
   const [previewUrls, setPreviewUrls] = useState({});
   const [dates, setDates] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [dateSave, setDateSave] = useState(false);
 
   const handleDropdownClick = (value) => {
     setExchange(value);
