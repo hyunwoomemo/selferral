@@ -167,7 +167,7 @@ export const navItems: NavItem[] = [
       },
       {
         title: "이벤트 목록",
-        url: "/admin/exchange/event",
+        url: "/admin/exchangeEvent",
         icon: "userPen",
       },
     ], // No child items

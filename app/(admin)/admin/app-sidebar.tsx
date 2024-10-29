@@ -39,7 +39,7 @@ export const company = {
   plan: "Enterprise",
 };
 
-export default function AppSidebar({ children }: { children: React.ReactNode }) {
+export default function AppSidebar({ children, user }: { children: React.ReactNode }) {
   const [mounted, setMounted] = React.useState(false);
   // const { data: session } = useSession();
   const pathname = usePathname();
@@ -121,12 +121,12 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
                 <DropdownMenuTrigger asChild>
                   <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                     <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
-                      <AvatarFallback className="rounded-lg">{session?.user?.name?.slice(0, 2)?.toUpperCase() || "CN"}</AvatarFallback>
+                      <AvatarImage src={user?.image || ""} alt={user?.name || ""} />
+                      <AvatarFallback className="rounded-lg">{user?.name?.slice(0, 2)?.toUpperCase() || "CN"}</AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">{session?.user?.name || ""}</span>
-                      <span className="truncate text-xs">{session?.user?.email || ""}</span>
+                      <span className="truncate font-semibold">{user?.name || ""}</span>
+                      <span className="truncate text-xs">{user?.email || ""}</span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4" />
                   </SidebarMenuButton>
@@ -135,35 +135,37 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
                   <DropdownMenuLabel className="p-0 font-normal">
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                       <Avatar className="h-8 w-8 rounded-lg">
-                        <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
-                        <AvatarFallback className="rounded-lg">{session?.user?.name?.slice(0, 2)?.toUpperCase() || "CN"}</AvatarFallback>
+                        <AvatarImage src={user?.image || ""} alt={user?.name || ""} />
+                        <AvatarFallback className="rounded-lg">{user?.name?.slice(0, 2)?.toUpperCase() || "CN"}</AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold">{session?.user?.name || ""}</span>
-                        <span className="truncate text-xs"> {session?.user?.email || ""}</span>
+                        <span className="truncate font-semibold">{user?.name || ""}</span>
+                        <span className="truncate text-xs"> {user?.email || ""}</span>
                       </div>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
 
                   <DropdownMenuGroup>
-                    <DropdownMenuItem>
+                    {/* <DropdownMenuItem>
                       <BadgeCheck />
                       Account
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    </DropdownMenuItem> */}
+                    {/* <DropdownMenuItem>
                       <CreditCard />
                       Billing
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    </DropdownMenuItem> */}
+                    {/* <DropdownMenuItem>
                       <Bell />
-                      Notifications
-                    </DropdownMenuItem>
+                      어드민 나가기
+                    </DropdownMenuItem> */}
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <LogOut />
-                    Log out
+                    <Link className="flex gap-2" href={"/"}>
+                      <LogOut />
+                      셀퍼럴닷컴 이동
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -177,7 +179,7 @@ export default function AppSidebar({ children }: { children: React.ReactNode }) 
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumbs />
+            {/* <Breadcrumbs /> */}
           </div>
           {/* <div className=" hidden w-1/3 items-center gap-2 px-4 md:flex ">
             <SearchInput />

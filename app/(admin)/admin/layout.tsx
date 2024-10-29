@@ -8,10 +8,15 @@ import ClientLayout from "./client-layout";
 import AppSidebar from "./app-sidebar";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
+import { getInfo } from "@/actions/user/action";
 
 export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+  const user = await getInfo();
+
+  console.log("use123123r", user);
+
   return (
-    <AppSidebar>
+    <AppSidebar user={user.DATA}>
       <Toaster />
       {/* <div className="sm: hidden md:block">
         <div className="md:hidden">햄버거</div>
