@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 // box-shadow: 0 0 45px rgba(0, 0, 0, 0.07);
+export const AUTO_REFUND = ["lbank", "tapbit", "bitget"];
 
 const TradeItem = ({ data }: { data: any }) => {
   const router = useRouter();
@@ -28,7 +29,9 @@ const TradeItem = ({ data }: { data: any }) => {
         </div>
       </div>
       <div className="">
-        <div className="justify-self-center p-1 flex place-content-center border border-orange-400 text-orange-400 font-bold rounded-lg hover:bg-orange-400 hover:text-white text-sm">자동환급</div>
+        {AUTO_REFUND.includes(String(data.name).toLocaleLowerCase()) && (
+          <div className="justify-self-center p-1 flex place-content-center border border-orange-400 text-orange-400 font-bold rounded-lg hover:bg-orange-400 hover:text-white text-sm">자동환급</div>
+        )}
       </div>
       <div className=" flex whitespace-pre md:hidden">
         <p>페이백 </p>

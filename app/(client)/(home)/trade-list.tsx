@@ -4,6 +4,7 @@ import { dummyTrade } from "@/dummy";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { AUTO_REFUND } from "./new-trade-list";
 
 // box-shadow: 0 0 45px rgba(0, 0, 0, 0.07);
 
@@ -42,7 +43,7 @@ const TradeItem = ({ data }: { data: any }) => {
           <p className="text-orange-400 font-bold pt-3">{Number(data.average_refund).toLocaleString()}</p> */}
         </div>
         <div className="flex gap-2">
-          <p className="p-1 bg-orange-400 text-white dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">자동환급</p>
+          {AUTO_REFUND.includes(String(data.name).toLocaleLowerCase()) && <p className="p-1 bg-orange-400 text-white dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">자동환급</p>}
           <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">{data.nameExt}</p>
         </div>
       </div>
