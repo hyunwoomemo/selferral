@@ -41,7 +41,10 @@ const TradeItem = ({ data }: { data: any }) => {
           {/* <p className="text-gray-900 dark:text-gray-400 font-bold pt-3"> / 1인 평균 환급금 </p>
           <p className="text-orange-400 font-bold pt-3">{Number(data.average_refund).toLocaleString()}</p> */}
         </div>
-        <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">{data.nameExt}</p>
+        <div className="flex gap-2">
+          <p className="p-1 bg-orange-400 text-white dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">자동환급</p>
+          <p className="p-1 bg-gray-100 dark:bg-gray-900 my-2 w-fit rounded-sm text-xs">{data.nameExt}</p>
+        </div>
       </div>
 
       <div className="w-full px-2">

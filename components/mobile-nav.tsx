@@ -28,11 +28,22 @@ export function MobileNav({ user }: { user?: any }) {
         </Button>
       </SheetTrigger>
       <SheetContent className="flex-auto flex flex-col" side="right">
-        <MobileLink onOpenChange={setOpen} href="/" className="flex items-center gap-2">
-          {/* <Icons.logo className="mr-2 h-4 w-4" /> */}
+        {/* <MobileLink onOpenChange={setOpen} href="/" className="flex items-center gap-2">
+          <Icons.logo className="mr-2 h-4 w-4" />
+          
           <SiLoop />
           <span className="font-bold">{siteConfig.name}</span>
-        </MobileLink>
+        </MobileLink> */}
+        {!isLogin && (
+          <div className="flex gap-4">
+            <MobileLink className={`${pathname === "/login" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/login">
+              로그인
+            </MobileLink>
+            <MobileLink className={`${pathname === "/register" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/register">
+              회원가입
+            </MobileLink>
+          </div>
+        )}
         <div className="flex flex-col gap-3 mt-3">
           <MobileLink className={`${pathname === "/exchange" ? "text-orange-400" : "text-foreground/60"}`} onOpenChange={setOpen} href="/exchange">
             제휴 거래소
@@ -55,15 +66,7 @@ export function MobileNav({ user }: { user?: any }) {
             셀퍼럴 가이드
           </MobileLink> */}
         </div>
-        <div className="mt-auto">
-          {isLogin ? (
-            <div>{info?.name}님, 안녕하세요</div>
-          ) : (
-            <MobileLink className={`${pathname === "/login" ? "text-foreground" : "text-foreground/60"}`} onOpenChange={setOpen} href="/login">
-              로그인
-            </MobileLink>
-          )}
-        </div>
+        <div className="mt-auto">{isLogin && <div>{info?.name}님, 안녕하세요</div>}</div>
       </SheetContent>
     </Sheet>
   );

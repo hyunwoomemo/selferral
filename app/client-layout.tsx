@@ -40,7 +40,7 @@ const ClientLayout = ({ children }) => {
       {children}
       <div
         onClick={() => window.open("http://pf.kakao.com/_xexhaEn/chat")}
-        className="fixed bottom-10 right-10 w-16 h-16 rounded-full flex items-center justify-center bg-orange-400 text-white font-bold hover:scale-110 transition-all cursor-pointer"
+        className="fixed bottom-5 right-5 md:bottom-10 md:right-10 w-16 h-16 rounded-full flex items-center justify-center bg-orange-400 text-white font-bold hover:scale-110 transition-all cursor-pointer"
       >
         <Image src={require("./chat.png")} width={30} height={30} alt="chat" />
       </div>

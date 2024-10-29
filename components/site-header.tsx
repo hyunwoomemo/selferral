@@ -88,8 +88,8 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur light:supports-[backdrop-filter]:bg-background/60">
-        <div className={`flex h-14 items-center px-2  ${"max-w-screen-xl"} mx-auto`}>
+      <header className=" z-20 sticky top-0 py-1 w-full border-b border-border bg-background/95 backdrop-blur light:supports-[backdrop-filter]:bg-background/60">
+        <div className={`flex h-14 items-center px-4 lg:px-[150px] md:px-[120px]  ${"max-w-screen-xl"} mx-auto`}>
           <MainNav />
           <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="flex items-center md:gap-4 ">
@@ -118,12 +118,20 @@ export function SiteHeader() {
                   </div>
                 </div>
               ) : (
-                <Link
-                  href="/login"
-                  className={cn("text-md font-bold transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
-                >
-                  로그인
-                </Link>
+                <div className="flex items-center gap-4">
+                  <Link
+                    href="/register"
+                    className={cn("text-md font-bold transition-colors hover:text-primary hidden sm:inline-block", pathname === "/register" ? "text-orange-400" : "text-orange-400 dark:text-gray-200")}
+                  >
+                    회원가입
+                  </Link>
+                  <Link
+                    href="/login"
+                    className={cn("text-md font-bold transition-colors hover:text-primary hidden sm:inline-block", pathname === "/login" ? "text-orange-400" : "text-gray-500 dark:text-gray-200")}
+                  >
+                    로그인
+                  </Link>
+                </div>
               )}
 
               {/* <ModeToggle isVisible={isVisible} setIsVisible={setIsVisible} /> */}

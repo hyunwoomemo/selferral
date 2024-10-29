@@ -12,9 +12,10 @@ const TradeItem = ({ data }: { data: any }) => {
 
   return (
     <div
-      className="flex flex-wrap md:grid md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] font-bold items-center  p-3 px-4 border-b border-gray-100 dark:border-gray-800   gap-0 cursor-pointer"
+      className="flex flex-wrap md:grid md:grid-cols-[1fr_1.5fr_1fr_1fr_1fr_1fr_1fr_1fr] font-bold items-center  p-3 px-4 border-b border-gray-100 dark:border-gray-800   gap-0 cursor-pointer hover:bg-orange-50"
       onClick={() => router.push(`/exchange/${data.id}`)}
     >
+      <div className="max-w-[150px]"></div>
       <div className="flex items-center flex-1 min-w-full justify-between">
         <div className="flex items-center pl-2">
           <div className="min-w-[70px]">
@@ -25,6 +26,9 @@ const TradeItem = ({ data }: { data: any }) => {
             <p className="text-gray-400">{data.nameExt}</p>
           </div>
         </div>
+      </div>
+      <div className="">
+        <div className="justify-self-center p-1 flex place-content-center border border-orange-400 text-orange-400 font-bold rounded-lg hover:bg-orange-400 hover:text-white text-sm">자동환급</div>
       </div>
       <div className=" flex whitespace-pre md:hidden">
         <p>페이백 </p>
@@ -55,14 +59,19 @@ const TradeItem = ({ data }: { data: any }) => {
           <p className="text-orange-900 dark:text-orange-200">{Number(data.average_refund).toLocaleString()}</p>
         </div> */}
       </div>
+      <div className="flex-1 justify-self-center hidden md:block text-orange-400">
+        {data?.payback?.replace("%", "") && data?.payback?.replace("%", "") !== "null" && `${data.payback?.replace("%", "")}%`}
+      </div>
+      <div className="flex-1 justify-self-center hidden md:block text-orange-400">
+        {data?.discount?.replace("%", "") && data?.discount?.replace("%", "") !== "null" && `${data?.discount?.replace("%", "")}%`}
+      </div>
       <div className="flex-1 justify-self-center  hidden md:block">
         {data?.limit_order?.replace("%", "") && data?.limit_order?.replace("%", "") !== "null" && `${data?.limit_order?.replace("%", "")}%`}
       </div>
       <div className="flex-1 justify-self-center hidden md:block">
         {data?.market_order?.replace("%", "") && data?.market_order?.replace("%", "") !== "null" && `${data?.market_order?.replace("%", "")}%`}
       </div>
-      <div className="flex-1 justify-self-center hidden md:block">{data?.payback?.replace("%", "") && data?.payback?.replace("%", "") !== "null" && `${data.payback?.replace("%", "")}%`}</div>
-      <div className="flex-1 justify-self-center hidden md:block">{data?.discount?.replace("%", "") && data?.discount?.replace("%", "") !== "null" && `${data?.discount?.replace("%", "")}%`}</div>
+      <div className="flex-1 justify-self-center hidden md:block max-w-[150px]"></div>
     </div>
   );
 };
@@ -70,21 +79,26 @@ const TradeItem = ({ data }: { data: any }) => {
 const NewTradeList = ({ data }) => {
   return (
     <div className="flex flex-col flex-auto bg-white dark:bg-gray-950 my-5">
-      <div className="flex flex-col flex-wrap  py-10">
-        <div className="grid-cols-[1.5fr_2fr_1fr_1fr] p-0 font-bold text-gray-100  hidden md:grid">
+      <div className="flex flex-col flex-wrap  py-10 ">
+        <div className="grid-cols-[1fr_1.5fr_2fr_1fr_1fr_1fr] p-0 font-bold text-gray-100  hidden md:grid">
+          <div className="  "></div>
           <div className="  "></div>
           <div className="  justify-self-center white tracking-widest font-bold text-gray-600">페이백을 감안한 수수료율</div>
+          <div></div>
           <div className=" justify-self-center "></div>
           <div className="  justify-self-center"></div>
           <div className="  justify-self-center"></div>
         </div>
-        <div className="grid-cols-[1.5fr_1fr_1fr_1fr_1fr] p-4 font-bold text-gray-400 border-b border-gray-100 dark:border-gray-800   hidden md:grid ">
+        <div className="grid-cols-[1fr_1.5fr_1fr_1fr_1fr_1fr_1fr_1fr] p-4 font-bold text-gray-400 border-b border-gray-100 dark:border-gray-800   hidden md:grid ">
+          <div className="pl-2 max-w-[150px]"></div>
           <div className="pl-2">거래소명</div>
+          <div></div>
           {/* <div className=" justify-self-center ">1인 평균 환급금</div> */}
-          <div className="  justify-self-center">지정가</div>
-          <div className="  justify-self-center">시장가</div>
           <div className="  justify-self-center">페이백</div>
           <div className="  justify-self-center">할인</div>
+          <div className="  justify-self-center">지정가</div>
+          <div className="  justify-self-center">시장가</div>
+          <div className="  justify-self-center max-w-[150px]"></div>
         </div>
         {data?.map((item, index) => (
           <TradeItem key={item.name + index} data={item} />
