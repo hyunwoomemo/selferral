@@ -6,6 +6,10 @@ export const searchParams = {
   q: parseAsString,
   gender: parseAsString,
   categories: parseAsString,
+  type: parseAsString,
+  exchange: parseAsString,
+  order: parseAsString.withDefault("createtime"),
+  orderBy: parseAsString.withDefault("desc"),
 };
 
 export const searchParamsCache = createSearchParamsCache(searchParams);

@@ -3,6 +3,7 @@ import { revalidateTag } from "next/cache";
 import { API_URL } from "..";
 import { fetchWithAuth } from "@/lib/fetchWithAuth";
 import { cookies } from "next/headers";
+import { toast } from "sonner";
 
 export const getExchanges = async () => {
   const res = await fetch(`${API_URL}/exchange/getExchanges`, {
@@ -81,6 +82,8 @@ export const editStatusExchange = async ({ id, data }) => {
       method: "POST",
     });
 
+    // toast.success("거래소가 활성화되었습니다." );
+
     revalidateTag("exchanges");
     return res;
   } catch (err) {}
@@ -125,8 +128,23 @@ export const registerUID = async ({ id, uid }) => {
   } catch (err) {}
 };
 
-export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, orderby, search_type, keyword, step, dt_start, dt_end }) => {
+export const getWithdrawals = async ({
+  exchangeId,
+  num = 10,
+  page = 1,
+  order = undefined,
+  orderby = undefined,
+  search_type = undefined,
+  keyword = undefined,
+  step = undefined,
+  dt_start = undefined,
+  dt_end = undefined,
+}) => {
+  console.log("ssss", search_type, keyword);
+
   if ((keyword && search_type) || step > -1 || dt_start || dt_end) {
+    console.log("asmdkamsdkmaskdm");
+
     const res = await fetchWithAuth(
       `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}&search_type=${search_type}&keyword=${keyword}${step > -1 ? `&step=${step}` : ""}${
         dt_start ? `&dt_start=${dt_start}` : ""
@@ -140,7 +158,7 @@ export const getWithdrawals = async ({ exchangeId, num = 10, page = 1, order, or
     return res;
   } else {
     const res = await fetchWithAuth(
-      `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}
+      `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}&search_type=${search_type}&keyword=${keyword}
   `,
       {
         next: { tags: ["withdrawals"] },

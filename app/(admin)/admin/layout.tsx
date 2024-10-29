@@ -7,10 +7,12 @@ import Modal from "@/components/modal";
 import ClientLayout from "./client-layout";
 import AppSidebar from "./app-sidebar";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "sonner";
 
 export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   return (
     <AppSidebar>
+      <Toaster />
       {/* <div className="sm: hidden md:block">
         <div className="md:hidden">햄버거</div>
         <div className="flex-1 flex">

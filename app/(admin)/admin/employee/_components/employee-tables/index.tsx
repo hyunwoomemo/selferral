@@ -6,19 +6,31 @@ import { DataTableResetFilter } from "@/components/ui/table/data-table-reset-fil
 import { DataTableSearch } from "@/components/ui/table/data-table-search";
 import { Employee } from "@/constants/data";
 import { columns } from "./columns";
-import { GENDER_OPTIONS, useEmployeeTableFilters } from "./use-employee-table-filters";
+import { TYPE_OPTIONS, useEmployeeTableFilters, USER_TYPE } from "./use-employee-table-filters";
+import { useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function EmployeeTable({ data, totalData, ddata }: { data: Employee[]; totalData: number; ddata: any }) {
-  const { genderFilter, setGenderFilter, isAnyFilterActive, resetFilters, searchQuery, setPage, setSearchQuery } = useEmployeeTableFilters();
+  const { searchType, setSearchType, typeFilter, setTypeFilter, isAnyFilterActive, resetFilters, searchQuery, setPage, setSearchQuery } = useEmployeeTableFilters();
+  const inputRef = useRef();
+
+  const [rowExpand, setRowExpand] = useState(false);
+
+  console.log("typeFilter", typeFilter);
 
   return (
     <div className="space-y-4 ">
       <div className="flex flex-wrap items-center gap-4">
-        <DataTableSearch searchKey="name" searchQuery={searchQuery} setSearchQuery={setSearchQuery} setPage={setPage} />
-        <DataTableFilterBox filterKey="gender" title="Gender" options={GENDER_OPTIONS} setFilterValue={setGenderFilter} filterValue={genderFilter} />
+        <DataTableFilterBox inputRef={inputRef} filterKey="type" title="검색 유형" options={TYPE_OPTIONS} setFilterValue={setTypeFilter} filterValue={typeFilter} />
+        {searchType === "type" ? (
+          <DataTableFilterBox inputRef={inputRef} filterKey="userType" title="유저" options={USER_TYPE} setFilterValue={setSearchQuery} filterValue={searchQuery} />
+        ) : (
+          <DataTableSearch typeFilter={typeFilter} inputRef={inputRef} searchKey="name" searchQuery={searchQuery} setSearchQuery={setSearchQuery} setPage={setPage} />
+        )}
+        {/* <Button variant="outline">Search</Button> */}
         <DataTableResetFilter isFilterActive={isAnyFilterActive} onReset={resetFilters} />
       </div>
-      <DataTable columns={columns} data={data} ddata={ddata} totalItems={totalData} />
+      <DataTable rowExpand={rowExpand} setRowExpand={setRowExpand} columns={columns} data={data} ddata={ddata} totalItems={totalData} />
     </div>
   );
 }

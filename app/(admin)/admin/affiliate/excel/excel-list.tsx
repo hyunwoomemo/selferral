@@ -1,11 +1,11 @@
 "use client";
 import { getExcel } from "@/actions/trade/action";
 import Pagination from "@/components/pagination";
-import Table from "@/components/ui/table";
 import moment from "moment";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
+import Table from "../../exchange/list/exchange-table";
 
 const ExcelList = ({ exchanges }) => {
   const [page, setPage] = useState(1);

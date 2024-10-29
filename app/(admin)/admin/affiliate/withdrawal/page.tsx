@@ -1,18 +1,19 @@
-import { getExchanges } from "@/actions/trade/action";
+import { searchParamsCache } from "@/lib/searchparams";
+import { SearchParams } from "nuqs/parsers";
 import React from "react";
-import ExchangeTab from "./exchange-tab";
-import Container from "./container";
-import { cookies } from "next/headers";
-import { getAllUser } from "@/actions/user/action";
-import { revalidateTag } from "next/cache";
+import EmployeeListingPage from "./_components/employee-listing-page";
 
-const Page = async () => {
-  const exchanges = await getExchanges();
-  const users = await getAllUser();
-
-  revalidateTag("users");
-
-  return <Container exchanges={exchanges} users={users.DATA} />;
+type pageProps = {
+  searchParams: SearchParams;
 };
 
-export default Page;
+export const metadata = {
+  title: "Dashboard : Employees",
+};
+
+export default async function Page({ searchParams }: pageProps) {
+  // Allow nested RSCs to access the search params (in a type-safe way)
+  searchParamsCache.parse(searchParams);
+
+  return <EmployeeListingPage />;
+}

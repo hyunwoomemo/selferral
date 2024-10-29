@@ -13,7 +13,11 @@ const Container = ({ exchangeId }) => {
 
     for (const key in values) {
       if (values[key]) {
-        formData.append(key, values[key]);
+        if (key === "status") {
+          formData.append(key, values[key] ? 1 : 0);
+        } else {
+          formData.append(key, values[key]);
+        }
       }
     }
     const res = await editLinksForm({ id: exchangeId, linkId: 0, formData });

@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { CheckIcon } from "lucide-react";
 // import { Options } from "nuqs";
-import React from "react";
+import React, { Ref } from "react";
 
 interface FilterOption {
   value: string;
@@ -23,9 +23,10 @@ interface FilterBoxProps {
   options: FilterOption[];
   setFilterValue: (value: string | ((old: string) => string | null) | null, options?: any) => Promise<URLSearchParams>;
   filterValue: string;
+  inputRef: Ref<any>;
 }
 
-export function DataTableFilterBox({ filterKey, title, options, setFilterValue, filterValue }: FilterBoxProps) {
+export function DataTableFilterBox({ filterKey, title, options, setFilterValue, filterValue, inputRef }: FilterBoxProps) {
   const selectedValuesSet = React.useMemo(() => {
     if (!filterValue) return new Set<string>();
     const values = filterValue.split(".");
@@ -33,13 +34,16 @@ export function DataTableFilterBox({ filterKey, title, options, setFilterValue, 
   }, [filterValue]);
 
   const handleSelect = (value: string) => {
-    const newSet = new Set(selectedValuesSet);
-    if (newSet.has(value)) {
-      newSet.delete(value);
-    } else {
-      newSet.add(value);
-    }
+    const newSet = new Set();
+    // if (newSet.has(value)) {
+    //   newSet.delete(value);
+    // } else {
+    newSet.add(value);
+    // }
     setFilterValue(Array.from(newSet).join(".") || null);
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   const resetFilter = () => setFilterValue(null);

@@ -1,12 +1,19 @@
 "use client";
+import { getLinks } from "@/actions/trade/action";
+import UserExpandList from "@/app/(admin)/admin/(user)/userlist/_components/employee-tables/user-expand-list";
+import ExpnadList from "@/app/(admin)/admin/(user)/userlist/_components/employee-tables/user-expand-list";
+import ExchangeExpandList from "@/app/(admin)/admin/exchange/list/_components/employee-tables/exchange-expand-list";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { exchangeAtom } from "@/store/exchange/atom";
 import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, PaginationState, useReactTable } from "@tanstack/react-table";
+import { useAtom } from "jotai";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { parseAsInteger, useQueryState } from "nuqs";
+import { useEffect, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -15,9 +22,12 @@ interface DataTableProps<TData, TValue> {
   pageSizeOptions?: number[];
 }
 
-export function DataTable<TData, TValue>({ columns, data, ddata, totalItems, pageSizeOptions = [10, 20, 30, 40, 50] }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, ddata, totalItems, pageSizeOptions = [10, 20, 30, 40, 50], rowExpand, setRowExpand, exchangeData }: DataTableProps<TData, TValue>) {
   const [currentPage, setCurrentPage] = useQueryState("page", parseAsInteger.withOptions({ shallow: false }).withDefault(1));
   const [pageSize, setPageSize] = useQueryState("limit", parseAsInteger.withOptions({ shallow: false, history: "push" }).withDefault(10));
+  const [exchange, setExchange] = useAtom(exchangeAtom);
+  const [links, setLinks] = useState();
+  const [loading, setLoading] = useState(true);
 
   const paginationState = {
     pageIndex: currentPage - 1, // zero-based index for React Table
@@ -47,6 +57,24 @@ export function DataTable<TData, TValue>({ columns, data, ddata, totalItems, pag
     manualFiltering: true,
   });
 
+  const handleExpandClick = (row, cell) => {
+    console.log("cellcell", cell);
+
+    if (cell.id.includes("total") || cell.id.includes("expand")) {
+      if (!(row.original.total || cell.id.includes("expand"))) return;
+      setRowExpand((prev) => (prev === row.id ? false : row.id));
+
+      if (cell.id.includes("expand")) {
+        setLoading(true);
+        setExchange((prev) => ({ ...prev, expand: row.id }));
+
+        getLinks({ exchange_id: row.original.id })
+          .then((res) => setLinks(res.data))
+          .finally(() => setLoading(false));
+      }
+    }
+  };
+
   return (
     <div className="space-y-4">
       <ScrollArea className="h-[calc(80vh-220px)] rounded-md border md:h-[calc(90dvh-240px)]">
@@ -62,13 +90,27 @@ export function DataTable<TData, TValue>({ columns, data, ddata, totalItems, pag
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table.getRowModel().rows.map((row) => {
+                console.log("zxczxc", row);
+                return (
+                  <>
+                    <TableRow className={rowExpand ? (rowExpand === row.id ? "" : "") : "opacity-100"} key={row.id} data-state={row.getIsSelected() && "selected"}>
+                      {row.getVisibleCells().map((cell) => {
+                        console.log("cell", cell, cell.id.includes("expand"));
+                        return (
+                          <TableCell onClick={() => handleExpandClick(row, cell)} key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        );
+                      })}
+                      {/* <TableRow>sdf</TableRow> */}
+                    </TableRow>
+                    {rowExpand === row.id && (
+                      <>{row.original.total ? <UserExpandList row={row} exchangeData={exchangeData} /> : exchange.expand === row.id && <ExchangeExpandList data={links} loading={loading} />}</>
+                    )}
+                  </>
+                );
+              })
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">

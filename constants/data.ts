@@ -124,7 +124,7 @@ export type Product = {
 export const navItems: NavItem[] = [
   {
     title: "Dashboard",
-    url: "/admin/overview",
+    url: "/admin",
     icon: "dashboard",
     isActive: false,
     items: [], // Empty array as there are no child items for Dashboard
@@ -138,53 +138,64 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: "유저 목록",
-        url: "/admin/user/list",
+        url: "/admin/userlist",
         icon: "userPen",
       },
       {
         title: "UID 목록",
-        url: "/admin/user/uid",
+        url: "/admin/uidlist",
+        icon: "userPen",
+      },
+    ], // No child items
+  },
+  // {
+  //   title: "User",
+  //   url: "/admin/employee",
+  //   icon: "user",
+  //   isActive: false,
+  // },
+  {
+    title: "Exchange",
+    url: "/admin/exchange",
+    icon: "product",
+    isActive: false,
+    items: [
+      {
+        title: "거래소 목록",
+        url: "/admin/exchangeList",
+        icon: "userPen",
+      },
+      {
+        title: "이벤트 목록",
+        url: "/admin/exchange/event",
         icon: "userPen",
       },
     ], // No child items
   },
   {
-    title: "User",
-    url: "/admin/employee",
-    icon: "user",
-    isActive: false,
-  },
-  {
-    title: "Product",
-    url: "/admin/product",
-    icon: "product",
-    isActive: false,
-    items: [], // No child items
-  },
-  {
-    title: "Account",
+    title: "Affiliate",
     url: "#", // Placeholder as there is no direct link for the parent
     icon: "billing",
     isActive: true,
 
     items: [
       {
-        title: "Profile",
-        url: "/admin/profile",
+        title: "출금 신청 리스트",
+        url: "/admin/affiliate/withdrawal",
         icon: "userPen",
       },
       {
-        title: "Login",
-        url: "/",
+        title: "액셀 업로드",
+        url: "/admin/affiliate/excel",
         icon: "login",
       },
     ],
   },
-  {
-    title: "Kanban",
-    url: "/admin/kanban",
-    icon: "kanban",
-    isActive: false,
-    items: [], // No child items
-  },
+  // {
+  //   title: "Kanban",
+  //   url: "/admin/kanban",
+  //   icon: "kanban",
+  //   isActive: false,
+  //   items: [], // No child items
+  // },
 ];

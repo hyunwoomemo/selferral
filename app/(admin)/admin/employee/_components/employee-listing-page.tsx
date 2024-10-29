@@ -10,6 +10,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import EmployeeTable from "./employee-tables";
 import { getAllUser, getAllUsersWithUidStatus } from "@/actions/user/action";
+import moment from "moment";
 
 type TEmployeeListingPage = {};
 
@@ -17,35 +18,41 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
   // Showcasing the use of search params cache in nested RSCs
   const page = searchParamsCache.get("page");
   const search = searchParamsCache.get("q");
-  const gender = searchParamsCache.get("gender");
+  const type = searchParamsCache.get("type");
   const pageLimit = searchParamsCache.get("limit");
 
   const filters = {
     page,
     limit: pageLimit,
     ...(search && { search }),
-    ...(gender && { genders: gender }),
+    ...(type && { genders: type }),
   };
 
   // mock api call
   const data = await fakeUsers.getUsers(filters);
-  const user = await getAllUsersWithUidStatus();
 
-  console.log("user", user);
+  console.log("searchsearchsearch", search);
+
+  const user = await getAllUsersWithUidStatus({ type: type, text: search, page: page, rownum: pageLimit });
+
+  console.log(
+    "useruser",
+    user.lists.map((v) => ({ ...v, createdAt: moment(v.createdAt).format("YYYY-MM-DD HH:mm") }))
+  );
+
+  // console.log("user", user.lists[0].exchanges);
   // const totalUsers = data.total_users;
   const totalUsers = user.total;
   const employee: Employee[] = data.users;
-  const users = user.lists;
-
+  const users = user.lists.map((v) => ({ ...v, createdAt: moment(v.createdAt).format("YYYY-MM-DD HH:mm") }));
   return (
     <PageContainer scrollable>
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <Heading title={`User (${totalUsers})`} description="Manage employees (Server side table functionalities.)" />
-
-          <Link href={"/dashboard/employee/new"} className={cn(buttonVariants({ variant: "default" }))}>
+          {/* <Link href={"/dashboard/employee/new"} className={cn(buttonVariants({ variant: "default" }))}>
             <Plus className="mr-2 h-4 w-4" /> Add New
-          </Link>
+          </Link> */}
         </div>
         <Separator />
         <EmployeeTable data={employee} ddata={users} totalData={totalUsers} />

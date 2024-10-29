@@ -25,14 +25,16 @@ export const getUser = async (id) => {
 };
 
 export const getAllUsersWithUidStatus = async (data: { type?: any; text?: any }) => {
+  console.log("dddd", data);
+
   if (data?.type && data?.text) {
-    const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus?search_type=${data.type}&search_value=${data.text}`, {
+    const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus?search_type=${data.type}&search_value=${data.text}&page=${data?.page}&rownum=${data.rownum}`, {
       next: { tags: ["userWithUid"] },
     });
 
     return res;
   } else {
-    const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus`, {
+    const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus?page=${data.page || undefined}&rownum=${data.rownum || undefined}`, {
       next: { tags: ["userWithUid"] },
     });
 
