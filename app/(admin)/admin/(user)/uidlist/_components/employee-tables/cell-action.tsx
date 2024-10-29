@@ -65,7 +65,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </DropdownMenuItem> */}
           {UPDATE_TYPES.filter((v) => v.value !== data.status).map((v) => {
             return (
-              <DropdownMenuItem onClick={() => handleUpdateUid(v.value)}>
+              <DropdownMenuItem key={v.value} onClick={() => handleUpdateUid(v.value)}>
                 <Edit className="mr-2 h-4 w-4" /> {v.label}
               </DropdownMenuItem>
             );
