@@ -1,6 +1,5 @@
 "use client";
 import { API_URL } from "@/actions";
-import Modal from "@/components/ui/modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { getCookie } from "cookies-next";
