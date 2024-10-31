@@ -6,6 +6,7 @@ import { CellAction } from "./cell-action";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import moment from "moment";
 
 export const columns: ColumnDef<Employee>[] = [
   // {
@@ -18,26 +19,17 @@ export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: "create_at",
     header: "날짜",
+    cell: ({ row }) => <div className="max-w-[200px]">{moment(row.original.create_at).format("YYYY-MM-DD HH:mm")}</div>,
   },
   {
-    accessorKey: "exchange_name",
-    header: "거래소",
+    accessorKey: "uid",
+    header: "UID",
   },
   {
-    accessorKey: "file_name",
-    header: "파일명",
+    accessorKey: "commision",
+    header: "커미션",
   },
-  {
-    header: " ",
-    cell: ({ row }) => (
-      <Link
-        href={`/admin/affiliate/excel/${row.original.id}`}
-        className="inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-bold  border border-input bg-background h-9 rounded-lg px-3 "
-      >
-        상세
-      </Link>
-    ),
-  },
+
   // {
   //   accessorKey: "total",
   //   header: "커미션",

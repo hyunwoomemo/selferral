@@ -158,7 +158,7 @@ export const navItems: NavItem[] = [
     title: "Exchange",
     url: "/admin/exchange",
     icon: "product",
-    isActive: false,
+    isActive: true,
     items: [
       {
         title: "거래소 목록",
