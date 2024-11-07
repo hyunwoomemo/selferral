@@ -1,3 +1,4 @@
+"use client";
 import { bottomSheetAtom } from "@/app/store/common";
 import { cn } from "@/lib/utils";
 import { useAtom } from "jotai";

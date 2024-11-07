@@ -31,16 +31,16 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
   // mock api call
   const data = await fakeUsers.getUsers(filters);
 
-  console.log("searchsearchsearch", search);
+  
 
   const user = await getAllUsersWithUidStatus({ type: type, text: search, page: page, rownum: pageLimit });
 
-  console.log(
+  
     "useruser",
     user.lists.map((v) => ({ ...v, createdAt: moment(v.createdAt).format("YYYY-MM-DD HH:mm") }))
   );
 
-  // console.log("user", user.lists[0].exchanges);
+  // 
   // const totalUsers = data.total_users;
   const totalUsers = user.total;
   const employee: Employee[] = data.users;

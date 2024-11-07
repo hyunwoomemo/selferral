@@ -9,9 +9,9 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Lottie from "react-lottie-player";
 import lottieJson from "@/assets/loading.json";
-import Table from "@/components/ui/table";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Table from "@/app/(admin)/admin/(exchange)/exchangeEvent/exchange-table";
 
 export default function Page() {
   const paybackTest = useAtomValue(paybackTestAtom);

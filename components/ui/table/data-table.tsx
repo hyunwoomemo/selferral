@@ -58,8 +58,6 @@ export function DataTable<TData, TValue>({ columns, data, ddata, totalItems, pag
   });
 
   const handleExpandClick = (row, cell) => {
-    console.log("cellcell", cell);
-
     if (cell.id.includes("total") || cell.id.includes("expand")) {
       if (!(row.original.total || cell.id.includes("expand"))) return;
       setRowExpand((prev) => (prev === row.id ? false : row.id));
@@ -91,12 +89,10 @@ export function DataTable<TData, TValue>({ columns, data, ddata, totalItems, pag
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
-                console.log("zxczxc", row);
                 return (
                   <>
                     <TableRow className={rowExpand ? (rowExpand === row.id ? "" : "") : "opacity-100"} key={row.id} data-state={row.getIsSelected() && "selected"}>
                       {row.getVisibleCells().map((cell) => {
-                        console.log("cell", cell, cell.id.includes("expand"));
                         return (
                           <TableCell onClick={() => handleExpandClick(row, cell)} key={cell.id}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}

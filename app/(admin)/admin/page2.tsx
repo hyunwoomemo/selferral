@@ -14,8 +14,6 @@ export default async function Page() {
 
   const user = await getInfo();
 
-  console.log("sdf", user);
-
   const isLoggedIn = user.DATA && Object.keys(user.DATA).length > 0;
 
   if (!isLoggedIn) {

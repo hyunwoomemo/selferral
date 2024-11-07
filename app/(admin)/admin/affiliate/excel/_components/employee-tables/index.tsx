@@ -34,8 +34,6 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
 
   const [rowExpand, setRowExpand] = useState(false);
 
-  console.log("typeFilter", typeFilter);
-
   return (
     <div className="space-y-4 ">
       <div className="flex flex-wrap items-center gap-4">

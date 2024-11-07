@@ -25,8 +25,6 @@ export const getUser = async (id) => {
 };
 
 export const getAllUsersWithUidStatus = async (data: { type?: any; text?: any }) => {
-  console.log("dddd", data);
-
   if (data?.type && data?.text) {
     const res = await fetchWithAuth(`${API_URL}/auth/getAllUsersWithUidStatus?search_type=${data.type}&search_value=${data.text}&page=${data?.page}&rownum=${data.rownum}`, {
       next: { tags: ["userWithUid"] },

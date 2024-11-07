@@ -34,8 +34,6 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
 
   const excels = await getExcel({ num: pageLimit, page });
 
-  console.log("excels", excels.data.list[0]);
-
   const totalUsers = excels.data.total;
 
   const data = excels.data.list.map((v) => ({

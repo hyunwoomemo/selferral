@@ -9,11 +9,10 @@ import AppSidebar from "./app-sidebar";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 import { getInfo } from "@/actions/user/action";
+import BottomSheet from "@/components/ui/bottom-sheet";
 
 export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   const user = await getInfo();
-
-  console.log("use123123r", user);
 
   return (
     <AppSidebar user={user.DATA}>
@@ -37,6 +36,8 @@ export default async function Layout({ children, modal }: { children: React.Reac
           <h2 className="text-2xl">PC에서 접속바랍니다.</h2>
         </div>
       </div> */}
+      <BottomSheet />
+
       {children}
     </AppSidebar>
   );

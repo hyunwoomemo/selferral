@@ -42,8 +42,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const handleUpdateStep = async ({ id, step }) => {
     const res = await updateStep({ withdrawlId: id, step });
 
-    console.log("res", res);
-
     if (res.data === "OK") {
       toast.success(`출금 상태가 ${stepData.find((v) => v.value === step)?.label}(으)로 변경되었습니다.`);
     } else {

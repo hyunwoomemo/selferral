@@ -10,6 +10,8 @@ export const searchParams = {
   exchange: parseAsString,
   order: parseAsString.withDefault("createtime"),
   orderBy: parseAsString.withDefault("desc"),
+  dt_start: parseAsString,
+  dt_end: parseAsString,
 };
 
 export const searchParamsCache = createSearchParamsCache(searchParams);

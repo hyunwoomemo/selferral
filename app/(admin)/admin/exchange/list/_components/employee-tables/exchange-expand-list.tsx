@@ -4,8 +4,6 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import React, { useEffect, useState } from "react";
 
 const ExchangeExpandList = ({ data, loading }) => {
-  console.log("datadatadatadatadata", data);
-
   return (
     <>
       {loading ? (

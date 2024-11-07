@@ -24,6 +24,25 @@ export const USER_TYPE = [
   },
 ];
 
+export const STATUS_TYPE = [
+  {
+    value: "0",
+    label: "신청",
+  },
+  {
+    value: "1",
+    label: "처리중",
+  },
+  {
+    value: "2",
+    label: "거절",
+  },
+  {
+    value: "4",
+    label: "완료",
+  },
+];
+
 export function useEmployeeTableFilters() {
   const [exchangeQuery, setExchangeQuery] = useQueryState("exchange", searchParams.exchange.withOptions({ shallow: false, throttleMs: 1000 }).withDefault("0"));
 
@@ -39,15 +58,21 @@ export function useEmployeeTableFilters() {
 
   const [page, setPage] = useQueryState("page", searchParams.page.withDefault(1));
 
+  const [dtStart, setDtStart] = useQueryState("dt_start", searchParams.dt_start);
+
+  const [dtEnd, setDtEnd] = useQueryState("dt_end", searchParams.dt_end);
+
   const resetFilters = useCallback(() => {
     setSearchQuery(null);
     setTypeFilter(null);
+    setDtStart(null);
+    setDtEnd(null);
 
     setPage(1);
   }, [setSearchQuery, setTypeFilter, setPage]);
 
   const isAnyFilterActive = useMemo(() => {
-    return !!searchQuery || !!typeFilter;
+    return !!searchQuery || !!typeFilter || !!dtStart || !!dtEnd;
   }, [searchQuery, typeFilter]);
 
   return {
@@ -67,5 +92,9 @@ export function useEmployeeTableFilters() {
     orderbyQuery,
     setOrderQuery,
     setOrderbyQuery,
+    dtStart,
+    dtEnd,
+    setDtStart,
+    setDtEnd,
   };
 }

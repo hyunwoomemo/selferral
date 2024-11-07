@@ -37,9 +37,7 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
 
   const user = await getAllUsersWithUidStatus({ type: type, text: search, page: page, rownum: pageLimit });
 
-  console.log("exchanges", exchanges);
-
-  // console.log("user", user.lists[0].exchanges);
+  //
   // const totalUsers = data.total_users;
   const totalUsers = exchanges.data.length;
   const employee: Employee[] = data.users;

@@ -32,8 +32,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const handleUpdateUid = async (status) => {
     const res = await updateUidStatus({ order_id: data.id, status });
 
-    console.log("res", res);
-
     if (res.data) {
       toast.success(`UID ${UPDATE_TYPES.find((v) => v.value === status).label} 상태 변경에 성공했습니다.`);
     } else {

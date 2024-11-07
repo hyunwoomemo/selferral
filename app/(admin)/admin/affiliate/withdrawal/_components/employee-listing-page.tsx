@@ -4,7 +4,7 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Employee } from "@/constants/data";
 import { fakeUsers } from "@/constants/mock-api";
-import { searchParamsCache } from "@/lib/searchparams";
+import { searchParams, searchParamsCache } from "@/lib/searchparams";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -27,10 +27,21 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
   const order = searchParamsCache.get("order");
   const orderBy = searchParamsCache.get("orderBy");
   const type = searchParamsCache.get("type");
+  const dt_start = searchParamsCache.get("dt_start");
+  const dt_end = searchParamsCache.get("dt_end");
 
-  const withdrawals = await getWithdrawals({ exchangeId: exchange, num: pageLimit, page, order: order, orderby: orderBy, search_type: type, keyword: search });
-
-  console.log("withdrawals", withdrawals.data.list[0]);
+  const withdrawals = await getWithdrawals({
+    exchangeId: exchange,
+    num: pageLimit,
+    page,
+    order: order,
+    orderby: orderBy,
+    search_type: type,
+    keyword: type === "step" ? undefined : search,
+    step: type === "step" ? Number(search) : undefined,
+    dt_start,
+    dt_end,
+  });
 
   const totalUsers = withdrawals.data.total;
 

@@ -16,8 +16,6 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
 
   const [rowExpand, setRowExpand] = useState(false);
 
-  console.log("rowExpandrowExpandrowExpand", rowExpand);
-
   return (
     <div className="space-y-4 ">
       {rowExpand ? "true" : "false"}

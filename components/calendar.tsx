@@ -6,8 +6,8 @@ import { Button } from "./ui/button";
 
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
-const Calendar = ({ dates, setDates, setIsVisibleDate, setDateSave }) => {
-  const [date, setDate] = useState(dates[0] || new Date());
+const Calendar = ({ dates, setDates, setIsVisibleDate, setDateSave, dtStart, dtEnd }) => {
+  const [date, setDate] = useState(new Date(dtStart || dates[0]) || new Date());
 
   const year = useMemo(() => {
     return date.getFullYear();

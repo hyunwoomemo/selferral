@@ -29,11 +29,7 @@ export default async function EmployeeListingPage({ id }: TEmployeeListingPage) 
 
   const data = await getExcelLog({ num: 10, page: page, excel_id: id });
 
-  console.log("dsfmksdmfk", data.data.list[0]);
-
   const excels = await getExcel({ num: pageLimit, page });
-
-  console.log("excels", excels.data.list[0]);
 
   const totalUsers = data.data.total;
 

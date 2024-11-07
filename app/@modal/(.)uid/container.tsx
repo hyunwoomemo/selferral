@@ -50,7 +50,6 @@ const Container = ({ user }) => {
             body: formData,
           });
           const data = await res.json();
-          console.log("ddddd", data);
 
           if (data.CODE === "EAG000") {
             setRes(data.DATA);
@@ -62,8 +61,6 @@ const Container = ({ user }) => {
             body: formData,
           });
           const data = await res.json();
-
-          console.log("ddddd", data);
 
           if (data.CODE === "EAG000") {
             setRes(data.DATA);
@@ -141,8 +138,6 @@ const Container = ({ user }) => {
   }, [time]);
 
   const renderItem = useCallback(() => {
-    console.log("rrrr", res);
-
     if (!res) {
       return <Lottie loop animationData={lottieJson} play />;
     }
@@ -179,7 +174,16 @@ const Container = ({ user }) => {
                 //   예상 페이백 확인하기
 
                 // </Button>
-                <div className="border border-orange-400 p-2 md:p-3 flex-1 justify-center flex text-sm md:text-[16px] rounded-lg text-orange-400 font-bold cursor-pointer max-w-64">
+                <div
+                  onClick={() => {
+                    router.back();
+
+                    setTimeout(() => {
+                      router.push("/payback/process/1");
+                    }, 300);
+                  }}
+                  className="border border-orange-400 p-2 md:p-3 flex-1 justify-center flex text-sm md:text-[16px] rounded-lg text-orange-400 font-bold cursor-pointer max-w-64"
+                >
                   예상 페이백 확인하기
                 </div>
               )}

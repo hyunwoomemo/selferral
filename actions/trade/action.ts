@@ -140,11 +140,7 @@ export const getWithdrawals = async ({
   dt_start = undefined,
   dt_end = undefined,
 }) => {
-  console.log("ssss", search_type, keyword);
-
   if ((keyword && search_type) || step > -1 || dt_start || dt_end) {
-    console.log("asmdkamsdkmaskdm");
-
     const res = await fetchWithAuth(
       `${API_URL}/affiliate/Exchange/withdrawal/${exchangeId}/${num}/${page}?order=${order}&orderby=${orderby}&search_type=${search_type}&keyword=${keyword}${step > -1 ? `&step=${step}` : ""}${
         dt_start ? `&dt_start=${dt_start}` : ""

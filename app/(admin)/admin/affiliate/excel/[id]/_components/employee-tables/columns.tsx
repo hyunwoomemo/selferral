@@ -34,7 +34,7 @@ export const columns: ColumnDef<Employee>[] = [
   //   accessorKey: "total",
   //   header: "커미션",
   //   cell: ({ row }) => {
-  //     console.log("row", row);
+  //
   //     return <div className={cn(row.original.total > 0 ? "text-orange-400 font-bold cursor-pointer" : "")}>{row.original.total}</div>;
   //   },
   // },

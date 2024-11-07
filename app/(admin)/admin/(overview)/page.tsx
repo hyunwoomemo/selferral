@@ -8,7 +8,5 @@ export const metadata = {
 export default async function page() {
   const user = await getAllUser();
 
-  console.log("useruseruseruseruser", user);
-
   return <OverViewPage user={user} />;
 }

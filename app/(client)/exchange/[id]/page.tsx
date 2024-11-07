@@ -10,11 +10,6 @@ import Contents from "./contents";
 export default async function Page({ params }) {
   const data = await getExchanges();
 
-  console.log(
-    "smdfkdmsf",
-    data.data.find((v) => v.id == Number(params.id))
-  );
-
   const exchangeData = await data.data.find((v) => v.id == Number(params.id));
 
   if (!exchangeData) return null;

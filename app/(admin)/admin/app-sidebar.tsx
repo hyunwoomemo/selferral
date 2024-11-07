@@ -73,7 +73,6 @@ export default function AppSidebar({ children, user }: { children: React.ReactNo
             <SidebarGroupLabel>Overview</SidebarGroupLabel>
             <SidebarMenu>
               {navItems.map((item) => {
-                console.log("pathnamepathname", pathname, item.url);
                 const Icon = item.icon ? Icons[item.icon] : Icons.logo;
                 return item?.items && item?.items?.length > 0 ? (
                   <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">

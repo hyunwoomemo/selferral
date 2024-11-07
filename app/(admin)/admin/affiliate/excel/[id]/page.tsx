@@ -12,8 +12,6 @@ export const metadata = {
 };
 
 export default async function Page({ params, searchParams }: pageProps) {
-  console.log("searchParams", params);
-
   // Allow nested RSCs to access the search params (in a type-safe way)
   searchParamsCache.parse(searchParams);
 
