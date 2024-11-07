@@ -8,7 +8,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { exchangesAtom } from "@/app/store/trade";
 import Dropdown from "@/components/ui/dropdown";
 import Pagination from "@/components/pagination";
-import Table from "@/components/ui/table";
+
 import moment from "moment";
 import { cn } from "@/lib/utils";
 import { ArrowDown01, ArrowUp01, ListFilter } from "lucide-react";
@@ -146,7 +146,7 @@ const Container = ({ exchanges, users }) => {
           setTotalPage(Math.ceil(res.data.total / 10));
         })
         .catch((err) => {
-          
+          console.error(err);
         });
     }
   }, [dates, dateSave]);
@@ -300,7 +300,7 @@ const Container = ({ exchanges, users }) => {
         setTotal(res.data.total);
         setTotalPage(Math.ceil(res.data.total / 10));
       })
-      .catch((err) => 
+      .catch((err) => console.error(err));
   };
 
   const tabData = exchanges.data.map((v) => ({ label: v.name, value: v.exchange_id }));
