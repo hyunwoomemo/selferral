@@ -7,11 +7,11 @@ import { DataTableSearch } from "@/components/ui/table/data-table-search";
 import { Employee } from "@/constants/data";
 import { columns } from "./columns";
 import { TYPE_OPTIONS, useEmployeeTableFilters, USER_TYPE } from "./use-employee-table-filters";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function EmployeeTable({ data, totalData, ddata, exchangeData }: { data: Employee[]; totalData: number; ddata: any }) {
-  const { searchType, setSearchType, typeFilter, setTypeFilter, isAnyFilterActive, resetFilters, searchQuery, setPage, setSearchQuery } = useEmployeeTableFilters();
+  const { searchType, setSearchType, typeFilter, setTypeFilter, isAnyFilterActive, resetFilters, searchQuery, setPage, setSearchQuery, search, setSearch } = useEmployeeTableFilters();
   const inputRef = useRef();
 
   const [rowExpand, setRowExpand] = useState(false);
@@ -25,7 +25,16 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
         ) : (
           <DataTableSearch typeFilter={typeFilter} inputRef={inputRef} searchKey="name" searchQuery={searchQuery} setSearchQuery={setSearchQuery} setPage={setPage} />
         )}
-        {/* <Button variant="outline">Search</Button> */}
+        {searchType !== "type" && (
+          <Button
+            variant="outline"
+            onClick={() => {
+              setSearch("true");
+            }}
+          >
+            Search
+          </Button>
+        )}
         <DataTableResetFilter isFilterActive={isAnyFilterActive} onReset={resetFilters} />
       </div>
       <DataTable exchangeData={exchangeData} rowExpand={rowExpand} setRowExpand={setRowExpand} columns={columns} data={data} ddata={ddata} totalItems={totalData} />

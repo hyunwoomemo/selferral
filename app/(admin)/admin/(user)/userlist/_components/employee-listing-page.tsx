@@ -20,21 +20,22 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
 
   // Showcasing the use of search params cache in nested RSCs
   const page = searchParamsCache.get("page");
-  const search = searchParamsCache.get("q");
+  const query = searchParamsCache.get("q");
   const type = searchParamsCache.get("type");
   const pageLimit = searchParamsCache.get("limit");
+  const search = searchParamsCache.get("search");
 
   const filters = {
     page,
     limit: pageLimit,
-    ...(search && { search }),
+    ...(query && { query }),
     ...(type && { genders: type }),
   };
 
   // mock api call
   const data = await fakeUsers.getUsers(filters);
 
-  const user = await getAllUsersWithUidStatus({ type: type, text: search, page: page, rownum: pageLimit });
+  const user = await getAllUsersWithUidStatus({ type: search && type, text: search && query, page: page, rownum: pageLimit });
 
   // console.log("user", user.lists[0].exchanges);
   // const totalUsers = data.total_users;
@@ -45,7 +46,7 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
     <PageContainer scrollable>
       <div className="space-y-4">
         <div className="flex items-start justify-between">
-          <Heading title={`User (${totalUsers})`} description="Manage employees (Server side table functionalities.)" />
+          <Heading title={`User (${totalUsers})`} description={search && query && `'${query}' 검색 결과`} />
           {/* <Link href={"/dashboard/employee/new"} className={cn(buttonVariants({ variant: "default" }))}>
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Link> */}

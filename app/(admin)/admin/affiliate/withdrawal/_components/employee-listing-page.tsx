@@ -21,7 +21,7 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
 
   // Showcasing the use of search params cache in nested RSCs
   const page = searchParamsCache.get("page");
-  const search = searchParamsCache.get("q");
+  const query = searchParamsCache.get("q");
   const pageLimit = searchParamsCache.get("limit");
   const exchange = searchParamsCache.get("exchange");
   const order = searchParamsCache.get("order");
@@ -29,18 +29,19 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
   const type = searchParamsCache.get("type");
   const dt_start = searchParamsCache.get("dt_start");
   const dt_end = searchParamsCache.get("dt_end");
+  const search = searchParamsCache.get("search");
 
   const withdrawals = await getWithdrawals({
-    exchangeId: exchange,
+    exchangeId: exchange || 0,
     num: pageLimit,
     page,
     order: order,
     orderby: orderBy,
-    search_type: type,
-    keyword: type === "step" ? undefined : search,
-    step: type === "step" ? Number(search) : undefined,
-    dt_start,
-    dt_end,
+    search_type: search && type,
+    keyword: search && type === "step" ? undefined : query,
+    step: search && type === "step" ? Number(query) : undefined,
+    dt_start: search && dt_start,
+    dt_end: search && dt_end,
   });
 
   const totalUsers = withdrawals.data.total;
@@ -55,7 +56,7 @@ export default async function EmployeeListingPage({}: TEmployeeListingPage) {
     <PageContainer scrollable>
       <div className="space-y-4">
         <div className="flex items-start justify-between">
-          <Heading title={`Withdrawal (${totalUsers})`} description="Manage employees (Server side table functionalities.)" />
+          <Heading title={`Withdrawal (${totalUsers})`} description={search && query && `'${query}' 검색 결과`} />
           {/* <Link href={"/dashboard/employee/new"} className={cn(buttonVariants({ variant: "default" }))}>
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Link> */}

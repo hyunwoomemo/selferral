@@ -36,6 +36,8 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
     dtEnd,
     setDtStart,
     setDtEnd,
+    search,
+    setSearch,
   } = useEmployeeTableFilters();
   const inputRef = useRef();
 
@@ -48,7 +50,7 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
 
   const [rowExpand, setRowExpand] = useState(false);
 
-  console.log("typeFilter", typeFilter);
+  console.log("zzz", dates, dtStart);
 
   useEffect(() => {
     if (searchType && searchType === "date") {
@@ -106,6 +108,16 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
           <div className="font-bold text-sm">
             {dtStart} ~ {dtEnd}
           </div>
+        )}
+        {searchType !== "step" && (
+          <Button
+            variant="outline"
+            onClick={() => {
+              setSearch("true");
+            }}
+          >
+            Search
+          </Button>
         )}
         <DataTableResetFilter isFilterActive={isAnyFilterActive} onReset={resetFilters} />
       </div>

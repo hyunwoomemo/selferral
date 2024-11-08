@@ -12,6 +12,7 @@ export const searchParams = {
   orderBy: parseAsString.withDefault("desc"),
   dt_start: parseAsString,
   dt_end: parseAsString,
+  search: parseAsString,
 };
 
 export const searchParamsCache = createSearchParamsCache(searchParams);
