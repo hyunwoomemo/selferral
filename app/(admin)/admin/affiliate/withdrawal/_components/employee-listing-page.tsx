@@ -15,10 +15,7 @@ import { getExchanges, getWithdrawals } from "@/actions/trade/action";
 
 type TEmployeeListingPage = {};
 
-export default async function EmployeeListingPage({}: TEmployeeListingPage) {
-  const exchangeData = await getExchanges();
-  const users = await getAllUser();
-
+export default async function EmployeeListingPage({ exchangeData, users }: TEmployeeListingPage) {
   // Showcasing the use of search params cache in nested RSCs
   const page = searchParamsCache.get("page");
   const query = searchParamsCache.get("q");

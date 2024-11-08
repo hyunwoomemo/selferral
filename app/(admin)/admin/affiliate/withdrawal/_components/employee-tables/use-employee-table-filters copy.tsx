@@ -1,8 +1,7 @@
 "use client";
 
 import { searchParams } from "@/lib/searchparams";
-import { useQueryState } from "nuqs";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const TYPE_OPTIONS = [
   { value: "pointeq", label: "포인트 같음" },
@@ -44,24 +43,24 @@ export const STATUS_TYPE = [
 ];
 
 export function useEmployeeTableFilters() {
-  const [exchangeQuery, setExchangeQuery] = useQueryState("exchange", searchParams.exchange.withOptions({ shallow: false, throttleMs: 1000 }).withDefault("0"));
+  const [exchangeQuery, setExchangeQuery] = useState("0");
 
-  const [orderQuery, setOrderQuery] = useQueryState("order", searchParams.order.withOptions({ shallow: false, throttleMs: 1000 }).withDefault("createtime"));
+  const [orderQuery, setOrderQuery] = useState("createtime");
 
-  const [orderbyQuery, setOrderbyQuery] = useQueryState("orderby", searchParams.orderBy.withOptions({ shallow: false, throttleMs: 1000 }).withDefault("desc"));
+  const [orderbyQuery, setOrderbyQuery] = useState("desc");
 
-  const [searchType, setSearchType] = useQueryState("type", searchParams.type.withOptions({ shallow: false, throttleMs: 1000 }).withDefault(""));
+  const [searchType, setSearchType] = useState("");
 
-  const [searchQuery, setSearchQuery] = useQueryState("q", searchParams.q.withOptions({ shallow: true, throttleMs: 1000 }).withDefault(""));
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const [typeFilter, setTypeFilter] = useQueryState("type", searchParams.type.withOptions({ shallow: false }).withDefault(""));
+  const [typeFilter, setTypeFilter] = useState("");
 
-  const [page, setPage] = useQueryState("page", searchParams.page.withDefault(1));
+  const [page, setPage] = useState(1);
 
-  const [dtStart, setDtStart] = useQueryState("dt_start", searchParams.dt_start);
+  const [dtStart, setDtStart] = useState();
 
-  const [dtEnd, setDtEnd] = useQueryState("dt_end", searchParams.dt_end);
-  const [search, setSearch] = useQueryState("search", searchParams.search.withOptions({ shallow: false }));
+  const [dtEnd, setDtEnd] = useState();
+  const [search, setSearch] = useState(false);
 
   const resetFilters = useCallback(() => {
     setSearchQuery(null);
@@ -77,7 +76,7 @@ export function useEmployeeTableFilters() {
     setSearchQuery(null);
 
     if (searchType === "step") {
-      setSearch("true");
+      setSearch(true);
       setSearchQuery("0");
     } else {
       setSearch(null);
