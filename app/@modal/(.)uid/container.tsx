@@ -79,13 +79,18 @@ const Container = ({ user }) => {
 
   const setUid = async () => {
     if (!uid) {
-      return addToast({ text: "UID 등록에 실패했습니다." });
+      // window.alert("UID 등록 신청되었습니다.");
+      // return addToast({ text: "UID 등록에 실패했습니다." });
+      return window.alert("UID 등록에 실패했습니다.");
     }
 
     const result = await registerUID({ id: exchange, uid });
 
+    console.log("setUid", result);
+
     if (result.CODE === "EAS000") {
-      addToast({ text: "UID 등록 신청되었습니다." });
+      // addToast({ text: "UID 등록 신청되었습니다." });
+      window.alert("UID 등록 신청되었습니다.");
       setTimeout(() => {
         router.back();
       }, 100);
@@ -157,7 +162,12 @@ const Container = ({ user }) => {
             </div>
 
             <div className="w-full flex justify-between gap-8">
-              <div className="border border-orange-400 p-2 md:p-3 flex-1 justify-center flex text-sm md:text-[16px] rounded-lg text-orange-400 font-bold cursor-pointer max-w-64">UID 연동하기</div>
+              <div
+                onClick={() => setUid()}
+                className="border border-orange-400 p-2 md:p-3 flex-1 justify-center flex text-sm md:text-[16px] rounded-lg text-orange-400 font-bold cursor-pointer max-w-64"
+              >
+                UID 연동하기
+              </div>
               {/* <Button onClick={() => setUid()} className={cn(buttonVariants({ variant: "outline" }), "w-full max-w-64 text-orange-400 border-orange-400  dark:text-orange-200 dark:border-orange-200")}>
                 UID 연동하기
               </Button> */}
