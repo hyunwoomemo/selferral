@@ -16,7 +16,7 @@ import { useUser } from "@/hooks/useUser";
 import { userAtom } from "@/app/store/user";
 import Link from "next/link";
 
-const Container = ({ user }) => {
+const Container = ({ user, exchangeName }) => {
   const token = getCookie("token");
   const params = useSearchParams();
   const uid = params.get("uid");
@@ -89,6 +89,12 @@ const Container = ({ user }) => {
     console.log("setUid", result);
 
     if (result.CODE === "EAS000") {
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "link_uid", exchange: exchangeName });
+
+        console.log("sign_up event pushed to dataLayer");
+      }
       // addToast({ text: "UID 등록 신청되었습니다." });
       window.alert("UID 등록 신청되었습니다.");
       setTimeout(() => {

@@ -131,6 +131,11 @@ export default function Page() {
     const data = await res.json();
 
     if (data.CODE === "AR000") {
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "sign_up" });
+        console.log("sign_up event pushed to dataLayer");
+      }
       addToast({ text: "회원가입 완료되었습니다." });
       router.push("/login");
     } else {
