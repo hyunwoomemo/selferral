@@ -89,12 +89,14 @@ const Container = ({ user, exchangeName }) => {
     console.log("setUid", result);
 
     if (result.CODE === "EAS000") {
+      console.log("uid 등록 전::window::", window.dataLayer);
       if (typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: "link_uid", exchange: exchangeName });
 
         console.log("sign_up event pushed to dataLayer");
       }
+      console.log("uid 등록 후::window2::", window.dataLayer);
       // addToast({ text: "UID 등록 신청되었습니다." });
       window.alert("UID 등록 신청되었습니다.");
       setTimeout(() => {
