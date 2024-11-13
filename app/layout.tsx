@@ -39,8 +39,6 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-pt-[3.5rem] light">
-      <link rel="preconnect" href="https://www.facebook.com" />
-      <link rel="dns-prefetch" href="https://www.facebook.com" />
       <Script id="fb-pixel" strategy="afterInteractive">
         {`
               !function(f,b,e,v,n,t,s)
@@ -60,7 +58,8 @@ export default async function RootLayout({
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-583B2CGS');`}
+})(window,document,'script','dataLayer','GTM-5XN5PS2M')
+`}
       </Script>
       <Script id="gtag" async src="https://www.googletagmanager.com/gtag/js?id=G-4HVJ5RQKJV"></Script>
       <Script id="gtag">
@@ -78,7 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </Script>
       <body className={cn("min-h-screen bg-background font-sans antialiased min-w-screen ", inter.variable)}>
         <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-583B2CGS" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5XN5PS2M" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
         </noscript>
 
         <script type="module" defer src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/spiral.js"></script>
