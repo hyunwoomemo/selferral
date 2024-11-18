@@ -94,5 +94,10 @@
     "tailwindcss": "^3.3.0",
     "typescript": "^5",
     "velite": "0.1.0-beta.11"
+  },
+  "overrides": {
+    "@toast-ui/react-editor": {
+      "react": "^18"
+    }
   }
 }
