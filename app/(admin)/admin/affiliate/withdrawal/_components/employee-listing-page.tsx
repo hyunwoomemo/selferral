@@ -29,16 +29,16 @@ export default async function EmployeeListingPage({ exchangeData, users }: TEmpl
   const search = searchParamsCache.get("search");
 
   const withdrawals = await getWithdrawals({
-    exchangeId: exchange || 0,
-    num: pageLimit,
-    page,
-    order: order,
-    orderby: orderBy,
-    search_type: search && type,
-    keyword: search && type === "step" ? undefined : query,
-    step: search && type === "step" ? Number(query) : undefined,
-    dt_start: search && dt_start,
-    dt_end: search && dt_end,
+    exchangeId: 0,
+    num: 10,
+    page: 1,
+    order: "createtime",
+    orderby: "desc",
+    // search_type: search && type,
+    // keyword: search && type === "step" ? undefined : query,
+    // step: search && type === "step" ? Number(query) : undefined,
+    // dt_start: search && dt_start,
+    // dt_end: search && dt_end,
   });
 
   const totalUsers = withdrawals.data.total;
@@ -49,6 +49,7 @@ export default async function EmployeeListingPage({ exchangeData, users }: TEmpl
     email: users.DATA.find((v1) => v1.id === v.user_id)?.email,
     createtime: moment(v.createtime).format("YYYY-MM-DD HH:mm"),
   }));
+
   return (
     <PageContainer scrollable>
       <div className="space-y-4">
@@ -59,7 +60,7 @@ export default async function EmployeeListingPage({ exchangeData, users }: TEmpl
           </Link> */}
         </div>
         <Separator />
-        <EmployeeTable exchangeData={exchangeData} data={[]} ddata={data} totalData={totalUsers} />
+        <EmployeeTable exchangeData={exchangeData} data={[]} ddata={data} totalData={totalUsers} users={users} />
       </div>
     </PageContainer>
   );

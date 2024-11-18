@@ -1,6 +1,7 @@
 "use client";
 import { setBanner } from "@/actions/site/action";
 import Calendar from "@/components/calendar";
+import { ToastEditor } from "@/components/editor";
 import Input from "@/components/input";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Dropdown from "@/components/ui/dropdown";
@@ -24,6 +25,7 @@ const Container = ({ banners, exchanges, banner, id }) => {
   const [previewUrls, setPreviewUrls] = useState({});
   const [dates, setDates] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [detail, setDetail] = useState(false);
 
   useEffect(() => {
     const arr = ["title", "memo", "order", "starttime", "endtime", "status", "path", "link", "exchange_id"];
@@ -89,6 +91,7 @@ const Container = ({ banners, exchanges, banner, id }) => {
     }
 
     const res = await setBanner({ data: formData, bannerType: "event", id });
+    console.log("newValues123123123", res);
 
     // if (res.exchange_id) {
     //   router.push("/admin/exchange/list");
@@ -96,65 +99,84 @@ const Container = ({ banners, exchanges, banner, id }) => {
     // }
   };
 
+  const submit = async (formData) => {
+    const res = await setBanner({ data: formData, bannerType: "event", id });
+    console.log("submit res", res);
+    return res;
+  };
+
   return (
     <>
-      <div className="flex gap-10 relative">
-        <div className="flex flex-col gap-2">
-          <Input type="file" onChange={(e) => handleChange("banner_image", e.target.files[0])} label={"이미지"} inputClassname={"max-w-[215px]"} />
-          <Input value={values.title} onChange={(e) => handleChange("title", e.target.value)} label={"타이틀"} />
-          <Input value={values.memo} onChange={(e) => handleChange("memo", e.target.value)} label={"내용"} />
-          <Input value={values.link} onChange={(e) => handleChange("link", e.target.value)} label={"링크"} />
-          {/* <Input onChange={(e) => handleChange('starttime', e.target.value)} label={"시작일"} />
+      <div className="flex gap-1 py-4">
+        <Button onClick={() => setDetail(false)} variant={detail ? "outline" : undefined} className="py-2 min-w-[80px]">
+          일반
+        </Button>
+        <Button onClick={() => setDetail(true)} variant={detail ? undefined : "outline"} className="py-2 min-w-[80px]">
+          상세
+        </Button>
+      </div>
+      {!detail && (
+        <>
+          <div className="flex gap-10 relative">
+            <div className="flex flex-col gap-2">
+              <Input type="file" onChange={(e) => handleChange("banner_image", e.target.files[0])} label={"이미지"} inputClassname={"max-w-[215px]"} />
+              <Input value={values.title} onChange={(e) => handleChange("title", e.target.value)} label={"타이틀"} />
+              <Input value={values.memo} onChange={(e) => handleChange("memo", e.target.value)} label={"내용"} />
+              <Input value={values.link} onChange={(e) => handleChange("link", e.target.value)} label={"링크"} />
+              {/* <Input onChange={(e) => handleChange('starttime', e.target.value)} label={"시작일"} />
         <Input onChange={(e) => handleChange('title', e.target.value)} label={"종료일"} /> */}
-          <Input value={values.order} onChange={(e) => handleChange("order", e.target.value)} label={"순서"} type="number" />
-          <div className="py-4 flex gap-4 items-center">
-            <p>거래소 선택</p>
-            <div className="flex w-60">
-              <Dropdown
-                value={exchange}
-                placeholder={"거래소를 선택해주세요."}
-                dropdownClick={handleDropdownClick}
-                data={dropdownData}
-                isVisible={isVisible}
-                setIsVisible={setIsVisible}
-                minWidth={160}
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center">
-            <p className="min-w-20">사용</p>
-            <Switch active={values.status} setActive={() => setValues((prev) => ({ ...prev, status: prev.status === 1 ? 0 : 1 }))} />
-          </div>
-          <Button className={cn(buttonVariants({ variant: "secondary" }))} onClick={() => setIsVisibleDate((prev) => !prev)}>
-            {dates.length === 2 ? `${moment(dates[0]).format("YYYY-MM-DD")} ~ ${moment(dates[1]).format("YYYY-MM-DD")}` : "날짜 선택"}
-          </Button>
-        </div>
-        <div className="flex-1 w-full">
-          <p>미리 보기</p>
-          {values && Object.keys(values).length > 0 && values.path && (
-            <div className="pt-10">
-              <div className="flex flex-col gap-2 w-[200px] cursor-pointer" onClick={() => values.link.length > 0 && window.open(values.link)}>
-                {previewUrls.banner_image ? (
-                  <Image className="rounded-2xl" src={previewUrls.banner_image} width={200} height={200} alt="preview-thumb" />
-                ) : values.path ? (
-                  <Image className="rounded-2xl" src={`http://api.xn--3l2b13oekp.com${values.path}`} width={200} height={200} alt="logo" />
-                ) : undefined}
-                <p className="text-gray-400 font-bold">{values.title}</p>
-                <p className="font-bold text-xl break-keep">{values.memo}</p>
-                <div className="flex gap-1 text-xs items-center">
-                  <CalendarDaysIcon size={16} />
-                  <p>{moment(values.starttime).format("YYYY-MM-DD")}</p>
-                  <p>~</p>
-                  <p>{moment(values.endtime).format("YYYY-MM-DD")}</p>
+              <Input value={values.order} onChange={(e) => handleChange("order", e.target.value)} label={"순서"} type="number" />
+              <div className="py-4 flex gap-4 items-center">
+                <p>거래소 선택</p>
+                <div className="flex w-60">
+                  <Dropdown
+                    value={exchange}
+                    placeholder={"거래소를 선택해주세요."}
+                    dropdownClick={handleDropdownClick}
+                    data={dropdownData}
+                    isVisible={isVisible}
+                    setIsVisible={setIsVisible}
+                    minWidth={160}
+                  />
                 </div>
               </div>
-            </div>
-          )}
-        </div>
 
-        {isVisibleDate && <Calendar dates={dates} setDates={setDates} setIsVisibleDate={setIsVisibleDate} />}
-      </div>
+              <div className="flex items-center">
+                <p className="min-w-20">사용</p>
+                <Switch active={values.status} setActive={() => setValues((prev) => ({ ...prev, status: prev.status === 1 ? 0 : 1 }))} />
+              </div>
+              <Button className={cn(buttonVariants({ variant: "secondary" }))} onClick={() => setIsVisibleDate((prev) => !prev)}>
+                {dates.length === 2 ? `${moment(dates[0]).format("YYYY-MM-DD")} ~ ${moment(dates[1]).format("YYYY-MM-DD")}` : "날짜 선택"}
+              </Button>
+            </div>
+            <div className="flex-1 w-full">
+              <p>미리 보기</p>
+              {values && Object.keys(values).length > 0 && values.path && (
+                <div className="pt-10">
+                  <div className="flex flex-col gap-2 w-[200px] cursor-pointer" onClick={() => values.link.length > 0 && window.open(values.link)}>
+                    {previewUrls.banner_image ? (
+                      <Image className="rounded-2xl" src={previewUrls.banner_image} width={200} height={200} alt="preview-thumb" />
+                    ) : values.path ? (
+                      <Image className="rounded-2xl" src={`http://api.xn--3l2b13oekp.com${values.path}`} width={200} height={200} alt="logo" />
+                    ) : undefined}
+                    <p className="text-gray-400 font-bold">{values.title}</p>
+                    <p className="font-bold text-xl break-keep">{values.memo}</p>
+                    <div className="flex gap-1 text-xs items-center">
+                      <CalendarDaysIcon size={16} />
+                      <p>{moment(values.starttime).format("YYYY-MM-DD")}</p>
+                      <p>~</p>
+                      <p>{moment(values.endtime).format("YYYY-MM-DD")}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {isVisibleDate && <Calendar dates={dates} setDates={setDates} setIsVisibleDate={setIsVisibleDate} />}
+          </div>
+        </>
+      )}
+      {detail && <ToastEditor initialValue={banner.detail || ""} submit={submit} values={values} setValues={setValues} />}
       <div style={{ marginTop: 60 }}>
         <Button onClick={handleAdd} disabled={Object.keys(values).length < 9 || dates.length !== 2}>
           수정

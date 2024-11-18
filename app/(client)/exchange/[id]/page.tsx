@@ -6,11 +6,14 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Contents from "./contents";
-
+import { ToastViewer } from "@/components/toast-viewer";
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 export default async function Page({ params }) {
   const data = await getExchanges();
 
   const exchangeData = await data.data.find((v) => v.id == Number(params.id));
+
+  console.log("exchangeData", exchangeData);
 
   if (!exchangeData) return null;
 
@@ -88,7 +91,8 @@ export default async function Page({ params }) {
           </div>
         </div>
       </div>
-      <Contents exchangeName={exchangeData?.name} />
+      <ToastViewer content={exchangeData.detail} />
+      {/* <Contents exchangeName={exchangeData?.name} /> */}
     </div>
   );
 }

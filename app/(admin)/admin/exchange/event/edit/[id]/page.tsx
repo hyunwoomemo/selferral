@@ -16,7 +16,7 @@ const page = async ({ params }) => {
   return (
     <div className="p-8 font-bold flex-auto pb-32">
       {/* 테이블 */}
-      <h1 className="text-3xl pb-10">이벤트 배너 수정</h1>
+      <h1 className="text-3xl pb-4">이벤트 배너 수정</h1>
 
       <Container banner={banner} banners={banners.data.list} exchanges={exchanges.data} id={params.id} />
     </div>

@@ -16,7 +16,7 @@ interface DataTableSearchProps {
   typeFilter: string;
 }
 
-export function DataTableSearch({ searchKey, searchQuery, setSearchQuery, setPage, inputRef, typeFilter }: DataTableSearchProps) {
+export function DataTableSearch({ searchKey, searchQuery, setSearchQuery, setPage, inputRef, typeFilter, enterPress }: DataTableSearchProps) {
   const [isLoading, startTransition] = useTransition();
 
   const handleSearch = (value: string) => {
@@ -30,6 +30,7 @@ export function DataTableSearch({ searchKey, searchQuery, setSearchQuery, setPag
 
   return (
     <Input
+      onKeyDown={enterPress}
       ref={inputRef}
       placeholder={`Search ${searchKey}...`}
       value={searchQuery ?? ""}

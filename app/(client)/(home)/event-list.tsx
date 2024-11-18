@@ -6,8 +6,10 @@ import { dummyEvent } from "@/dummy";
 import "swiper/css";
 import moment from "moment";
 import { CalendarDaysIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const EventList = ({ data }) => {
+  const router = useRouter();
   return (
     <div className="py-10 px-2 max-w-screen-xl mx-auto">
       <Swiper
@@ -22,7 +24,8 @@ const EventList = ({ data }) => {
           .sort((a, b) => new Date(a.endtime) - new Date(b.endtime))
           .map((v, index) => (
             <SwiperSlide id="event-slide" about="" key={index}>
-              <div className="w-full max-w-[155px] md:max-w-[200px] cursor-pointer" key={index} onClick={() => v.link && v.link != "null" && window.open(v.link)}>
+              <div className="w-full max-w-[155px] md:max-w-[200px] cursor-pointer" key={index} onClick={() => router.push(`/event/${v.id}`)}>
+                {/* v.link && v.link != "null" && window.open(v.link) */}
                 <Image style={{ borderRadius: 20 }} width={200} height={180} src={`http://api.xn--3l2b13oekp.com${v.path}`} className="object-cover w-full max-h-[180px]" alt="eventImage" />
                 {/* <div className="relative w-full"> */}
                 {/* <Image className="rounded-lg object-cover" src={dummy.image} fill alt="eventImage" /> */}
