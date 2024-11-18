@@ -2,9 +2,9 @@ import { getBanners } from "@/actions/common/action";
 // import { ToastViewer } from "@/components/toast-viewer";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import EventButton from "./Button";
 import { ToastViewer } from "@/components/toast-viewer";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import EventButton from "./button";
 
 const page = async ({ params }) => {
   const banners = await getBanners();
