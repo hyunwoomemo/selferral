@@ -191,6 +191,19 @@ export const navItems: NavItem[] = [
       },
     ],
   },
+  {
+    title: "Site",
+    url: "#",
+    icon: "",
+    isActive: true,
+    items: [
+      {
+        title: "서비스 소개",
+        url: "/admin/site/service",
+        icon: "userPen",
+      },
+    ],
+  },
   // {
   //   title: "Kanban",
   //   url: "/admin/kanban",

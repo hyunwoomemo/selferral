@@ -1,9 +1,14 @@
+import { getClientServiceInfo } from "@/actions/site/action";
+import { ToastViewer } from "@/components/toast-viewer";
 import { Button } from "@/components/ui/button";
 import Title from "@/components/ui/title";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Page() {
+  const data = await getClientServiceInfo();
+  console.log("data123", data);
+
   const Head = ({ children }) => {
     return <h1 className="text-lg md:text-xl font-bold py-10 text-gray-800 dark:text-gray-200">{children}</h1>;
   };
@@ -14,8 +19,8 @@ export default async function Page() {
 
   return (
     <div className="p-4 flex flex-col  flex-auto">
-      <Title text={"서비스 소개"} buttons={undefined} />
-      {/* <div className="text-3xl font-bold">서비스 소개</div> */}
+      <ToastViewer content={data.info.service_info} />
+      {/* <Title text={"서비스 소개"} buttons={undefined} />
 
       <div className="flex-auto  rounded-md p-5 bg-white dark:bg-gray-950 my-5">
         <Head>거래 수수료를 이제는 페이백으로 돌려받으세요! </Head>
@@ -68,12 +73,10 @@ export default async function Page() {
         </div>
         <Contents>2. 셀퍼럴닷컴에서 마이리워드 출금신청</Contents>
         <Contents>3. 페이백 완료!</Contents>
-        {/* <Head>셀퍼럴닷컴 추천 거래소 둘러보기 시작!</Head> */}
-        {/* <Contents className="text-orange-400 font-bold pt-10">그래서 페이백을 받으려면 어떻게 해야 하나요?</Contents> */}
         <Link href={"/exchange"} className="flex py-10 justify-center">
           <Button>추천 거래소 둘러보기</Button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

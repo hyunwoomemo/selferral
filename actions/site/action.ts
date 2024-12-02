@@ -24,3 +24,35 @@ export const setBanner = async ({ data, bannerType, id = 0 }) => {
   redirect("/admin/exchange/event");
   // return result;
 };
+
+export const getAdminServiceInfo = async () => {
+  const res = await fetchWithAuth(`${API_URL}/affiliate/siteinfo`, {
+    cache: "force-cache",
+    next: { tags: ["adminSiteinfo"] },
+  });
+  console.log("asdasd", res);
+  return res;
+};
+
+export const setSiteInfo = async (data) => {
+  console.log("zxczxcxzcxzcsad123123", data);
+
+  const res = await fetchWithAuth(`${API_URL}/affiliate/site/service_info`, {
+    method: "POST",
+    body: data,
+  });
+
+  revalidateTag("adminSiteinfo");
+  revalidateTag("siteinfo");
+
+  return res;
+};
+
+export const getClientServiceInfo = async () => {
+  const res = await fetchWithAuth(`${API_URL}/auth/site`, {
+    cache: "force-cache",
+    next: { tags: ["siteinfo"] },
+  });
+
+  return res;
+};
