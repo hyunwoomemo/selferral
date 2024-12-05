@@ -3,6 +3,7 @@ import { setBanner } from "@/actions/site/action";
 import Calendar from "@/components/calendar";
 import { ToastEditor } from "@/components/editor";
 import Input from "@/components/input";
+import { QuillEditor } from "@/components/quill-editor";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Dropdown from "@/components/ui/dropdown";
 import Switch from "@/components/ui/switch";
@@ -26,6 +27,7 @@ const Container = ({ banners, exchanges, banner, id }) => {
   const [dates, setDates] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [detail, setDetail] = useState(false);
+  const [content, setContent] = useState(banner.detail);
 
   useEffect(() => {
     const arr = ["title", "memo", "order", "starttime", "endtime", "status", "path", "link", "exchange_id"];
@@ -89,6 +91,8 @@ const Container = ({ banners, exchanges, banner, id }) => {
         formData.append(key, values[key]);
       }
     }
+
+    formData.append("detail", content);
 
     const res = await setBanner({ data: formData, bannerType: "event", id });
     console.log("newValues123123123", res);
@@ -176,7 +180,7 @@ const Container = ({ banners, exchanges, banner, id }) => {
           </div>
         </>
       )}
-      {detail && <ToastEditor initialValue={banner.detail || ""} submit={submit} values={values} setValues={setValues} />}
+      {detail && <QuillEditor content={content} setContent={setContent} />}
       <div style={{ marginTop: 60 }}>
         <Button onClick={handleAdd} disabled={Object.keys(values).length < 9 || dates.length !== 2}>
           수정
