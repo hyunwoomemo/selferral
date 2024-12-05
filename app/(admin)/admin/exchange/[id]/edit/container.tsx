@@ -19,8 +19,6 @@ const Container = ({ data, exchangeId }) => {
   const [previewUrls, setPreviewUrls] = useState({});
   const [detail, setDetail] = useState(false);
 
-  console.log("data1data", data);
-
   useEffect(() => {
     const temp = {};
 

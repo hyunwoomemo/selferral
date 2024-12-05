@@ -30,13 +30,11 @@ export const getAdminServiceInfo = async () => {
     cache: "force-cache",
     next: { tags: ["adminSiteinfo"] },
   });
-  console.log("asdasd", res);
+
   return res;
 };
 
 export const setSiteInfo = async (data) => {
-  console.log("zxczxcxzcxzcsad123123", data);
-
   const res = await fetchWithAuth(`${API_URL}/affiliate/site/service_info`, {
     method: "POST",
     body: data,

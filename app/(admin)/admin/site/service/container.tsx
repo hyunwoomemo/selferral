@@ -14,13 +14,10 @@ const Container = ({ data }) => {
   const router = useRouter();
   const [content, setContent] = useState(data);
 
-  console.log("vvv", values);
-
   const handleModify = async () => {
     const formData = new FormData();
     formData.append("data", content);
     const res = await setSiteInfo(formData);
-    console.log("handleModify", res, res.data);
 
     if (res.data === "OK") {
       toast.success("수정되었습니다.");

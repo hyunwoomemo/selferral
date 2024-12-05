@@ -95,7 +95,6 @@ const Container = ({ banners, exchanges, banner, id }) => {
     formData.append("detail", content);
 
     const res = await setBanner({ data: formData, bannerType: "event", id });
-    console.log("newValues123123123", res);
 
     // if (res.exchange_id) {
     //   router.push("/admin/exchange/list");
@@ -105,7 +104,7 @@ const Container = ({ banners, exchanges, banner, id }) => {
 
   const submit = async (formData) => {
     const res = await setBanner({ data: formData, bannerType: "event", id });
-    console.log("submit res", res);
+
     return res;
   };
 

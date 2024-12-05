@@ -12,8 +12,6 @@ const page = async ({ params }) => {
 
   const data = banners.event.find((v) => v.id == id);
 
-  console.log("data", data);
-
   return (
     <div>
       <div className="p-2">

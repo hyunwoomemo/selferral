@@ -27,7 +27,7 @@ export const ToastEditor = ({ values, setValues, handleEdit, initialValue }) => 
   //   }
 
   //   const res = await submit(formData);
-  //   console.log("cxcvxc", res);
+  //
 
   //   // if (res.exchange_id) {
   //   //   router.push("/admin/exchange/list");

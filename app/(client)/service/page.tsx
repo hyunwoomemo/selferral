@@ -7,7 +7,6 @@ import Link from "next/link";
 
 export default async function Page() {
   const data = await getClientServiceInfo();
-  console.log("data123", data);
 
   const Head = ({ children }) => {
     return <h1 className="text-lg md:text-xl font-bold py-10 text-gray-800 dark:text-gray-200">{children}</h1>;
@@ -19,7 +18,7 @@ export default async function Page() {
 
   return (
     <div className="p-4 flex flex-col  flex-auto">
-      <ToastViewer content={data.info.service_info} />
+      <ToastViewer content={data?.info?.service_info} />
       {/* <Title text={"서비스 소개"} buttons={undefined} />
 
       <div className="flex-auto  rounded-md p-5 bg-white dark:bg-gray-950 my-5">

@@ -17,8 +17,6 @@ export default async function Page({ searchParams }: pageProps) {
   // Allow nested RSCs to access the search params (in a type-safe way)
   searchParamsCache.parse(searchParams);
 
-  console.log("searchParams", searchParams);
-
   const exchangeData = await getExchanges();
   const users = await getAllUser();
 

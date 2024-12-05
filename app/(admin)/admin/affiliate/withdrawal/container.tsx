@@ -145,9 +145,7 @@ const Container = ({ exchanges, users }) => {
           setTotal(res.data.total);
           setTotalPage(Math.ceil(res.data.total / 10));
         })
-        .catch((err) => {
-          console.error(err);
-        });
+        .catch((err) => {});
     }
   }, [dates, dateSave]);
 

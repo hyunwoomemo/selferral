@@ -69,8 +69,6 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData, us
 
   const [rowExpand, setRowExpand] = useState(false);
 
-  console.log("zzz", searchType, dates, dtStart);
-
   useEffect(() => {
     if (typeFilter && typeFilter === "date") {
       setDateSave(false);
@@ -125,7 +123,6 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData, us
   }, [setSearchQuery, setTypeFilter, setPage]);
 
   const handleSearch = async () => {
-    console.log("검색!");
     const res = await getWithdrawals({
       exchangeId: exchange || 0,
       num: pageSize,
@@ -140,7 +137,6 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData, us
     });
     setSearch(true);
 
-    console.log("rrr", res);
     setTotal(res.data.total);
     setWithdrawals(res.data.list);
   };
@@ -154,10 +150,7 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData, us
     }));
   }, [withdrawals, exchangeData, users]);
 
-  console.log("with", withdrawals);
-
   useEffect(() => {
-    console.log("eeee", exchange, page, pageSize);
     handleSearch();
   }, [exchange, page, pageSize]);
 

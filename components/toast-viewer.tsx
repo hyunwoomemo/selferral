@@ -4,8 +4,6 @@ import { Viewer } from "@toast-ui/react-editor";
 export const ToastViewer = ({ content }) => {
   // const Viewer = dynamic(() => import("@toast-ui/editor"), { ssr: false });
 
-  console.log("ccc", content);
-
   // useEffect(() => {
   //   // Viewer 초기화
   //   const viewer = new Viewer({

@@ -48,11 +48,9 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
   const [rowExpand, setRowExpand] = useState(false);
 
   const handleSearch = async () => {
-    console.log("검색!");
     const res = await getAllUsersWithUidStatus({ type: type, text: keyword, page: page, rownum: pageSize });
     setSearch(true);
 
-    console.log("rrr", res);
     setTotal(res.total);
     setUsers(res.lists);
   };
@@ -62,7 +60,6 @@ export default function EmployeeTable({ data, totalData, ddata, exchangeData }: 
   }, [page, pageSize]);
 
   const enterPress = (e) => {
-    console.log("ee", e, e.keyCode);
     if (type) {
       if (e.keyCode === 13) {
         handleSearch();

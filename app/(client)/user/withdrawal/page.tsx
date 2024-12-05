@@ -31,7 +31,7 @@ const Page = async ({ searchParams }) => {
 
   const exchange_id = searchParams?.exchange_id;
 
-  const data = withdrawal.data;
+  const data = withdrawal?.data;
 
   const listData = data?.list.filter((v) => (exchange_id ? v.exchange_id == exchange_id : v));
 
@@ -51,7 +51,7 @@ const Page = async ({ searchParams }) => {
           <span className="flex justify-center text-gray-600">상태</span>
         </div>
         <div className="grid grid-cols-4 place-items-center gap-4 border-b border-gray-100 dark:border-gray-800 py-2">
-          {listData.map((v, i) => {
+          {listData?.map((v, i) => {
             return (
               <React.Fragment key={`${v.usdt_address} ${i}`}>
                 <span className="flex justify-center ">{v.exchange_name}</span>
@@ -64,7 +64,7 @@ const Page = async ({ searchParams }) => {
                     v.step < 4 ? "text-gray-600" : "text-white"
                   )}
                 >
-                  {stepData.find((v1) => v1.value === v.step).label}
+                  {stepData?.find((v1) => v1.value === v.step).label}
                 </span>
               </React.Fragment>
             );

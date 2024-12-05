@@ -81,7 +81,7 @@ const Container = ({ banners, exchanges }) => {
 
   // const submit = async (formData) => {
   //   const res = await setBanner({ data: formData, bannerType: "event", id });
-  //   console.log("submit res", res);
+  //
   //   return res;
   // };
 

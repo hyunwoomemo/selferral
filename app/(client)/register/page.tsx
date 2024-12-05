@@ -132,12 +132,8 @@ export default function Page() {
 
     if (data.CODE === "AR000") {
       if (typeof window !== "undefined") {
-        console.log("회원가입 전::window::", window.dataLayer);
-
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: "sign_up" });
-        console.log("회원가입 후::window::", window.dataLayer);
-        console.log("sign_up event pushed to dataLayer");
       }
       addToast({ text: "회원가입 완료되었습니다." });
       router.push("/login");

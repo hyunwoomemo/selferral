@@ -6,8 +6,6 @@ import { getAdminServiceInfo, getServiceInfo } from "@/actions/site/action";
 const page = async () => {
   const data = await getAdminServiceInfo();
 
-  console.log("ddd", data);
-
   // return <Container data={data.data.data.service_info} />;
 
   return (

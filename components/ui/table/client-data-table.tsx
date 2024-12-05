@@ -42,8 +42,6 @@ export function ClientDataTable<TData, TValue>({
   const [links, setLinks] = useState();
   const [loading, setLoading] = useState(true);
 
-  console.log("totalItemstotalItems", totalItems);
-
   const paginationState = {
     pageIndex: page - 1, // zero-based index for React Table
     pageSize: pageSize,
