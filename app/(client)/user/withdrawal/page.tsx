@@ -31,7 +31,7 @@ const Page = async ({ searchParams }) => {
 
   const exchange_id = searchParams?.exchange_id;
 
-  const data = withdrawal?.data;
+  const data = withdrawal && withdrawal?.data;
 
   const listData = data?.list.filter((v) => (exchange_id ? v.exchange_id == exchange_id : v));
 
@@ -76,19 +76,6 @@ const Page = async ({ searchParams }) => {
 
   return (
     <div className="p-2 flex-auto flex flex-col">
-      {/* <div className="flex justify-between items-center">
-        <div className="text-2xl font-bold">출금</div>
-        <Link
-          href={"/user/withdrawal/set"}
-          // onClick={handleSetWithdrawal}
-          className={cn(
-            buttonVariants({ size: "lg", variant: "outline" }),
-            "max-w-52   md:min-w-40  my-5 py-5 border border-orange-400 text-orange-400 text-lg dark:border-orange-200 dark:text-orange-200"
-          )}
-        >
-          {"출금 신청"}
-        </Link>
-      </div> */}
       <Title
         text={exchange_id ? `${exchange_name} 출금 내역` : "출금 내역"}
         buttons={[
