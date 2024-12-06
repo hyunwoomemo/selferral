@@ -2,6 +2,7 @@
 import { editExchangeForm } from "@/actions/trade/action";
 import { ToastEditor } from "@/components/editor";
 import Input from "@/components/input";
+import { QuillEditor } from "@/components/quill-editor";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/useToast";
 import { Delete, LucideDelete, Trash2 } from "lucide-react";
@@ -18,6 +19,7 @@ const Container = ({ data, exchangeId }) => {
   const router = useRouter();
   const [previewUrls, setPreviewUrls] = useState({});
   const [detail, setDetail] = useState(false);
+  const [content, setContent] = useState(data.detail);
 
   useEffect(() => {
     const temp = {};
@@ -53,6 +55,8 @@ const Container = ({ data, exchangeId }) => {
         formData.append(key, values[key]);
       }
     }
+
+    formData.append("detail", content);
 
     const res = await editExchangeForm({ id: Number(exchangeId), formData });
 
@@ -219,11 +223,12 @@ const Container = ({ data, exchangeId }) => {
           </div>
         </div>
       )}
-      {detail && (
+      {/* {detail && (
         <div>
           <ToastEditor exchangeId={exchangeId} setValues={setValues} values={values} handleEdit={handleEdit} initialValue={data.detail || ""} />
         </div>
-      )}
+      )} */}
+      {detail && <QuillEditor content={content} setContent={setContent} />}
       <div className="mt-4">
         <Button onClick={handleEdit}>수정</Button>
       </div>

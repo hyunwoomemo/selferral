@@ -14,11 +14,13 @@ export const QuillEditor = ({ content, setContent }) => {
           toolbar: [
             [{ header: [1, 2, false] }],
             ["bold", "italic", "underline", "strike"],
+
             [{ color: [] }, { background: [] }],
             [{ list: "ordered" }, { list: "bullet" }],
             [{ indent: "-1" }, { indent: "+1" }],
             ["link", "image", "code-block"],
             ["blockquote", "hr"],
+            [{ align: [] }], // Add alignment options here
           ],
         }}
         placeholder="내용을 입력해주세요.."
