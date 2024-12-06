@@ -2,7 +2,8 @@ import SearchUid from "./search-uid";
 import PaybackSection from "./payback-section";
 import EventList from "./event-list";
 import ExchangeWrapper from "./exchange-wrapper";
-import { getExchanges, getUidStatus } from "@/actions/trade/action";
+import { getExchanges, getUidList, getUidStatus } from "@/actions/trade/action";
+import { cookies } from "next/headers";
 import { getBanners } from "@/actions/common/action";
 import "swiper/css";
 import MyReward from "./my-reward";
@@ -11,6 +12,8 @@ import RollingBanner from "./rolling-banner";
 export default async function Home() {
   const exchanges = await getExchanges();
   const banners = await getBanners();
+
+  // const uidData = await getUidList({ token: token?.value });
 
   const uidData = await getUidStatus({});
 

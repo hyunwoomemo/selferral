@@ -131,7 +131,7 @@ const PaybackSection = ({ exchanges }) => {
           <div className="w-full max-w-[700px]  flex-1 rounded-lg px-8 md:px-2 gap-4 md:gap-10 flex md:grid md:grid-cols-4 items-center justify-center m-4">
             {exchanges.map((item, index) => (
               <div key={index} className="w-12 h-12 md:w-20 md:h-20  relative flex flex-auto md:justify-center items-center justify-self-center">
-                <Image src={item.image_thumb} width={60} height={60} objectFit="contain" className="text-center" alt="trade-logo" />
+                {item.image_thumb && <Image src={item.image_thumb} width={60} height={60} objectFit="contain" className="text-center" alt="trade-logo" />}
               </div>
             ))}
           </div>

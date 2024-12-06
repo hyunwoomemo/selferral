@@ -16,18 +16,22 @@ const RollingBanner = ({ exchanges }) => {
           <div className={"slide original".concat(animate ? "" : " stop")}>
             {exchanges.map((s, i) => (
               <li key={i} className="w-[40px] md:w-[60px] mx-7 md:mx-14">
-                <div className="item">
-                  <Image src={s.image_thumb} width={60} height={60} alt="image" />
-                </div>
+                {s.image_thumb && (
+                  <div className="item">
+                    <Image src={s.image_thumb} width={60} height={60} alt="image" />
+                  </div>
+                )}
               </li>
             ))}
           </div>
           <div className={"slide clone".concat(animate ? "" : " stop")}>
             {exchanges.map((s, i) => (
               <li key={i} className="w-[40px] md:w-[60px] mx-7 md:mx-14">
-                <div className="item">
-                  <Image src={s.image_thumb} width={60} height={60} alt="image" />
-                </div>
+                {s.image_thumb && (
+                  <div className="item">
+                    <Image src={s.image_thumb} width={60} height={60} alt="image" />
+                  </div>
+                )}
               </li>
             ))}
           </div>
