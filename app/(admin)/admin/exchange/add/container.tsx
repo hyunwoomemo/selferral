@@ -2,6 +2,7 @@
 import { editExchangeForm, editLinksForm } from "@/actions/trade/action";
 import { ToastEditor } from "@/components/editor";
 import Input from "@/components/input";
+import { QuillEditor } from "@/components/quill-editor";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/useToast";
 import Image from "next/image";
@@ -15,10 +16,9 @@ const Container = ({}) => {
   const router = useRouter();
   const [previewUrls, setPreviewUrls] = useState({});
   const [detail, setDetail] = useState(false);
+  const [content, setContent] = useState("");
 
   const handleChange = (type, value) => {
-    if (!value) return;
-
     setValues((prev) => ({ ...prev, [type]: value }));
 
     if (type.includes("image")) {
@@ -40,6 +40,8 @@ const Container = ({}) => {
         formData.append(key, values[key]);
       }
     }
+
+    formData.append("detail", content);
 
     const linkData = new FormData();
 
@@ -129,11 +131,7 @@ const Container = ({}) => {
             </div>
           </>
         )}
-        {detail && (
-          <div>
-            <ToastEditor setValues={setValues} values={values} handleEdit={handleEdit} initialValue={""} />
-          </div>
-        )}
+        {detail && <QuillEditor content={content} setContent={setContent} />}
       </div>
       <div className="mt-4">
         <Button onClick={handleEdit}>추가</Button>

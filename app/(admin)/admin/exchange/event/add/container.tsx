@@ -3,6 +3,7 @@ import { setBanner } from "@/actions/site/action";
 import Calendar from "@/components/calendar";
 import { ToastEditor } from "@/components/editor";
 import Input from "@/components/input";
+import { QuillEditor } from "@/components/quill-editor";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Dropdown from "@/components/ui/dropdown";
 import Switch from "@/components/ui/switch";
@@ -27,6 +28,7 @@ const Container = ({ banners, exchanges }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [dateSave, setDateSave] = useState(false);
   const [detail, setDetail] = useState(false);
+  const [content, setContent] = useState();
 
   const handleDropdownClick = (value) => {
     setExchange(value);
@@ -70,6 +72,8 @@ const Container = ({ banners, exchanges }) => {
         formData.append(key, values[key]);
       }
     }
+
+    formData.append("detail", content);
 
     const res = await setBanner({ data: formData, bannerType: "event", id: 0 });
 
@@ -152,7 +156,8 @@ const Container = ({ banners, exchanges }) => {
           </div>
         </>
       )}
-      {detail && <ToastEditor values={values} setValues={setValues} />}
+      {detail && <QuillEditor content={content} setContent={setContent} />}
+
       <div style={{ marginTop: 60 }}>
         <Button onClick={handleAdd} disabled={Object.keys(values).length !== 9 || dates.length !== 2}>
           추가
