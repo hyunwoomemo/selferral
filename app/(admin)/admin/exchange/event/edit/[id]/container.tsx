@@ -3,6 +3,8 @@ import { setBanner } from "@/actions/site/action";
 import Calendar from "@/components/calendar";
 import { ToastEditor } from "@/components/editor";
 import Input from "@/components/input";
+import "react-quill/dist/quill.snow.css"; // 스타일 불러오기
+
 import { QuillEditor } from "@/components/quill-editor";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Dropdown from "@/components/ui/dropdown";

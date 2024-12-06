@@ -2,8 +2,6 @@
 import { revalidateTag } from "next/cache";
 import { API_URL } from "..";
 import { fetchWithAuth } from "@/lib/fetchWithAuth";
-import { cookies } from "next/headers";
-import { toast } from "sonner";
 
 export const getExchanges = async () => {
   const res = await fetch(`${API_URL}/exchange/getExchanges`, {
