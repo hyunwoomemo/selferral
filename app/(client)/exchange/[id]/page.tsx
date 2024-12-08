@@ -6,8 +6,10 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Contents from "./contents";
-import { ToastViewer } from "@/components/toast-viewer";
-import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+
+import "react-quill/dist/quill.snow.css"; // 스타일 불러오기
+import "@/assets/css/viewer.css";
+
 export default async function Page({ params }) {
   const data = await getExchanges();
 

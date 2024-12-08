@@ -2,8 +2,10 @@ import { getBanners } from "@/actions/common/action";
 // import { ToastViewer } from "@/components/toast-viewer";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { ToastViewer } from "@/components/toast-viewer";
-import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+
+import "react-quill/dist/quill.snow.css"; // 스타일 불러오기
+import "@/assets/css/viewer.css";
+
 import EventButton from "./button";
 
 const page = async ({ params }) => {

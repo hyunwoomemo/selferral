@@ -1,0 +1,36 @@
+.ql-editor strong,
+.ql-editor strong * {
+  font-weight: bold;
+}
+
+.ql-snow .ql-editor h1 {
+  font-size: 3.5em;
+}
+.ql-snow .ql-editor h2 {
+  font-size: 3em;
+}
+.ql-snow .ql-editor h3 {
+  font-size: 2.5em;
+}
+.ql-snow .ql-editor h4 {
+  font-size: 2em;
+}
+.ql-snow .ql-editor h5 {
+  font-size: 1.5em;
+}
+
+.ql-editor h1 {
+  font-size: 3.5em;
+}
+.ql-editor h2 {
+  font-size: 3em;
+}
+.ql-editor h3 {
+  font-size: 2.5em;
+}
+.ql-editor h4 {
+  font-size: 2em;
+}
+.ql-editor h5 {
+  font-size: 1.5em;
+}
