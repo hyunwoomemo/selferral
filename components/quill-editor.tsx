@@ -1,4 +1,6 @@
 import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // 스타일 불러오기
+import "../assets/css/editor.css"; // 스타일 불러오기
 
 export const QuillEditor = ({ content, setContent }) => {
   const handleChange = (value) => {
@@ -12,7 +14,7 @@ export const QuillEditor = ({ content, setContent }) => {
         onChange={handleChange}
         modules={{
           toolbar: [
-            [{ header: [1, 2, false] }],
+            [{ header: [1, 2, 3, 4, 5, false] }],
             ["bold", "italic", "underline", "strike"],
 
             [{ color: [] }, { background: [] }],

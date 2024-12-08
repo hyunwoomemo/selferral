@@ -5,6 +5,7 @@ import Title from "@/components/ui/title";
 import Image from "next/image";
 import Link from "next/link";
 import "react-quill/dist/quill.snow.css"; // 스타일 불러오기
+import "../../../assets/css/editor.css";
 
 export default async function Page() {
   const data = await getClientServiceInfo();

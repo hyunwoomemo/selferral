@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // 스타일 불러오기
 import { QuillEditor } from "@/components/quill-editor";
 
 const Container = ({ data }) => {

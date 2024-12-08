@@ -14,7 +14,7 @@ const page = async ({ params }) => {
   const exchanges = await getExchanges();
 
   return (
-    <div className="p-8 font-bold flex-auto pb-32">
+    <div className="p-8 flex-auto pb-32">
       {/* 테이블 */}
       <h1 className="text-3xl pb-4">이벤트 배너 수정</h1>
 
