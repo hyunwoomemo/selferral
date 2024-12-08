@@ -14,11 +14,13 @@ const page = async ({ params }) => {
 
   return (
     <div>
-      <div className="p-2">
+      <div className="p-2 ql-editor">
         <div className="flex-1 flex w-full">
           <EventButton data={data} />
         </div>
-        <ToastViewer content={data.detail} />
+        {/* <ToastViewer content={data.detail} /> */}
+        <div dangerouslySetInnerHTML={{ __html: data?.detail }}></div>
+
         {/* <Viewer content={data.detail} /> */}
       </div>
     </div>

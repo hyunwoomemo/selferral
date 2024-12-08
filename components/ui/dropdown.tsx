@@ -25,7 +25,7 @@ const Dropdown = ({ data, value, setValue, isVisible, setIsVisible, placeholder,
         }}
       >
         <div className="flex gap-2 items-center flex-1">
-          {value?.icon}
+          {value?.icon && value?.icon}
           <div>{value?.label || placeholder}</div>
         </div>
         {/* {isVisible && ( */}
@@ -35,24 +35,26 @@ const Dropdown = ({ data, value, setValue, isVisible, setIsVisible, placeholder,
             isVisible ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-[-16px] opacity-0 pointer-events-none"
           )}
         >
-          {data.map((v) => {
-            return (
-              <div
-                onClick={
-                  dropdownClick
-                    ? () => {
-                        dropdownClick(v);
-                      }
-                    : () => handleClick(v)
-                }
-                key={v.value}
-                className="w-full border-b p-2 flex gap-2 items-center"
-              >
-                {v?.icon}
-                <div>{v?.label}</div>
-              </div>
-            );
-          })}
+          {data &&
+            data.map((v) => {
+              console.log("vvv", typeof v.icon);
+              return (
+                <div
+                  onClick={
+                    dropdownClick
+                      ? () => {
+                          dropdownClick(v);
+                        }
+                      : () => handleClick(v)
+                  }
+                  key={v.value}
+                  className="w-full border-b p-2 flex gap-2 items-center"
+                >
+                  {/* {v?.icon && v?.icon} */}
+                  <div>{v?.label}</div>
+                </div>
+              );
+            })}
         </div>
         {/* )} */}
         <ChevronDown size={20} />

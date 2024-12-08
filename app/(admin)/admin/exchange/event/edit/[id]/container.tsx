@@ -125,12 +125,10 @@ const Container = ({ banners, exchanges, banner, id }) => {
           <div className="flex gap-10 relative">
             <div className="flex flex-col gap-2">
               <Input type="file" onChange={(e) => handleChange("banner_image", e.target.files[0])} label={"이미지"} inputClassname={"max-w-[215px]"} />
-              <Input value={values.title} onChange={(e) => handleChange("title", e.target.value)} label={"타이틀"} />
-              <Input value={values.memo} onChange={(e) => handleChange("memo", e.target.value)} label={"내용"} />
-              <Input value={values.link} onChange={(e) => handleChange("link", e.target.value)} label={"링크"} />
-              {/* <Input onChange={(e) => handleChange('starttime', e.target.value)} label={"시작일"} />
-        <Input onChange={(e) => handleChange('title', e.target.value)} label={"종료일"} /> */}
-              <Input value={values.order} onChange={(e) => handleChange("order", e.target.value)} label={"순서"} type="number" />
+              <Input value={values?.title} onChange={(e) => handleChange("title", e.target.value)} label={"타이틀"} />
+              <Input value={values?.memo} onChange={(e) => handleChange("memo", e.target.value)} label={"내용"} />
+              <Input value={values?.link} onChange={(e) => handleChange("link", e.target.value)} label={"링크"} />
+              <Input value={values?.order} onChange={(e) => handleChange("order", e.target.value)} label={"순서"} type="number" />
               <div className="py-4 flex gap-4 items-center">
                 <p>거래소 선택</p>
                 <div className="flex w-60">

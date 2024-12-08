@@ -16,7 +16,7 @@ export default async function Page({ params }) {
   if (!exchangeData) return null;
 
   return (
-    <div className="p-5 md:px-10 overflow-x-hidden ">
+    <div className="p-5 md:px-10 overflow-x-hidden ql-editor">
       {/* <h2 className="text-3xl font-black py-10">{exchangeData.name}</h2> */}
       <Title text={exchangeData?.name} size="lg" bold />
       <div className="md:flex gap-10">
@@ -89,7 +89,9 @@ export default async function Page({ params }) {
           </div>
         </div>
       </div>
-      <ToastViewer content={exchangeData.detail} />
+      {/* <ToastViewer content={exchangeData.detail} /> */}
+      <div dangerouslySetInnerHTML={{ __html: exchangeData.detail }}></div>
+
       {/* <Contents exchangeName={exchangeData?.name} /> */}
     </div>
   );
