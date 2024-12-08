@@ -1,6 +1,6 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // 스타일 불러오기
-import "../assets/css/editor.css"; // 스타일 불러오기
+import "@/assets/css/viewer.css";
 
 export const QuillEditor = ({ content, setContent }) => {
   const handleChange = (value) => {
