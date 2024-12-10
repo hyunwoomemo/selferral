@@ -10,6 +10,8 @@ import "../../../assets/css/viewer.css";
 export default async function Page() {
   const data = await getClientServiceInfo();
 
+  console.log("data", data);
+
   if (!data) return;
 
   return (

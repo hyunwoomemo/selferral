@@ -47,10 +47,10 @@ export const setSiteInfo = async (data) => {
 };
 
 export const getClientServiceInfo = async () => {
-  const res = await fetchWithAuth(`${API_URL}/auth/site`, {
+  const res = await fetch(`${API_URL}/auth/site`, {
     cache: "force-cache",
     next: { tags: ["siteinfo"] },
   });
 
-  return res;
+  return await res.json();
 };
