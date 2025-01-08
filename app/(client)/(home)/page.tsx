@@ -40,7 +40,6 @@ export default async function Home() {
           {/* <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl">수수료 페이백 받으세요</p> */}
 
           <RollingBanner exchanges={exchanges.data.filter((v) => v.status == 1)} />
-
           {exchanges.data.length > 0 && <SearchUid exchangeData={exchanges.data} />}
           <Divider />
 

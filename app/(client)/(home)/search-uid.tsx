@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/useToast";
 import { useUser } from "@/hooks/useUser";
 import Dropdown from "@/components/exchange/dropdown";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 const tabData = [
   {
@@ -33,7 +34,10 @@ const SearchUid = ({ exchangeData }) => {
 
   return (
     <div className="py-10  md:w-[60%] mx-auto">
-      <div className="flex gap-2 w-full">
+      <div className="flex justify-center">
+        <p className="max-w-[42rem] mx-auto text-muted-foreground  text-sm md:text-[16px]">셀퍼럴 닷컴을 통해 가입 하지 않은 UID는 등록이 불가능합니다</p>
+      </div>
+      <div className="flex gap-2 w-full py-6">
         <Dropdown item={exchange} setItem={setExchange} data={exchangeData} isVisible={isVisible} setIsVisible={setIsVisible} />
         <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-sm hover:border-orange-400 hover:dark:border-orange-200 focus-within:border-orange-400 focus-within:dark:border-orange-200 w-full">
           <form
@@ -77,6 +81,14 @@ const SearchUid = ({ exchangeData }) => {
             </button>
           </form>
         </div>
+      </div>
+      <div className="flex flex-row justify-center w-full gap-4">
+        <Button className="bg-orange-400" onClick={() => window.open("http://pf.kakao.com/_xexhaEn/chat")}>
+          고객센터 문의
+        </Button>
+        <Button className="bg-orange-400" onClick={() => router.push("/exchange")}>
+          페이백 계정 만들기
+        </Button>
       </div>
     </div>
   );
