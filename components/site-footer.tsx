@@ -36,7 +36,7 @@ export function SiteFooter() {
           <div className="hidden md:block">|</div>
           <div>사업자번호 : 296-81-03378</div>
           <div className="hidden md:block">|</div>
-          <div>주소 : 서울특별시 강남구 언주로 331,6층 601호 (역삼동, 안산빌딩)</div>
+          <div>주소 : 서울특별시 강남구 언주로 331</div>
           <div className="hidden md:block">|</div>
           <Link href={"mailto:ccc_33@naver.com"}>이메일 : ccc_33@naver.com</Link>
         </div>
