@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
+  other: {
+    "naver-site-verification": "387e3ab66e47c3a36d12b03e706fac35c30b8cc4",
+  },
 };
 
 export const viewport: Viewport = {
