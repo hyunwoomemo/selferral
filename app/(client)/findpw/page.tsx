@@ -61,7 +61,7 @@ const Page = () => {
 
     formData.append("email", values.email);
 
-    const res = await fetch(`${API_URL}/auth/checkEmail`, {
+    const res = await fetch(`${API_URL}/auth/checkPwEmail`, {
       method: "POST",
       body: formData,
     });

@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "seleferral.com",
   url: "https://example.com",
-  description: "selferral 소개 문구1",
+  description: "selferral 소개 문구",
   author: "selferral",
   copyright: "copyright © 2024 selferral, All Right Reserved",
   // links: {
